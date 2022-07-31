@@ -1,0 +1,25 @@
+﻿  PrimitiveComponent.cpp
+  SceneComponent.cpp
+  SpriteComponent.cpp
+  Scene.cpp
+  SceneManager.cpp
+  코드를 생성하고 있습니다...
+  MyAR41Engine.vcxproj -> C:\Users\Hyun\source\repos\MyGameEngine\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
+  .\MyAR41Engine\Include\GameObject.h
+  .\MyAR41Engine\Include\Component\Component.h
+  .\MyAR41Engine\Include\Component\ObjectComponent.h
+  .\MyAR41Engine\Include\Component\PrimitiveComponent.h
+  .\MyAR41Engine\Include\Component\SceneComponent.h
+  .\MyAR41Engine\Include\Component\SpriteComponent.h
+  .\MyAR41Engine\Include\Component\Transform.h
+  .\MyAR41Engine\Include\Component\Transform2D.h
+  .\MyAR41Engine\Include\Scene\Scene.h
+  .\MyAR41Engine\Include\Scene\SceneInfo.h
+  .\MyAR41Engine\Include\Scene\SceneManager.h
+  11개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
+  1개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
+  1개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
+  1개 파일이 복사되었습니다.
