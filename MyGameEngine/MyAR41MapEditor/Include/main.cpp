@@ -1,10 +1,30 @@
+#include "Engine.h"
+#include "resource.h"
 
-#include <Windows.h>
+//라이브러리 임시 경로 지정
+#ifdef _DEBUG
+
+#pragma comment(lib, "MyAR41Engine_Debug.lib")
+
+#else
+
+#pragma comment(lib, "MyAR41Engine.lib")
+
+#endif // _DEBUG
+
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPWSTR    lpCmdLine,
     _In_ int       nCmdShow)
 {
-    return 0;
+    if (!CEngine::GetInst()->Init(hInstance, TEXT("Client2D"), TEXT("Client2D"), IDI_ICON1,
+        IDI_ICON1, 1280, 720, 1280, 720, true))
+    {
+        CEngine::DestroyInst();
+        return 0;
+    }
+    int Ret = CEngine::GetInst()->Run();
+    CEngine::DestroyInst();
+    return Ret;
 }

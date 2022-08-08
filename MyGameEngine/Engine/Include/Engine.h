@@ -13,7 +13,7 @@ private:
 	class CTimer* m_Timer;
 
 public:
-	Resolution GetResolution() const
+	Resolution GetWindowResolution() const
 	{
 		return m_WindowRS;
 	}
@@ -29,7 +29,8 @@ public:
 public:
 	bool Init(HINSTANCE hInst, const TCHAR* Title,
 		const TCHAR* ClassName, int IconID, int SmallIconID,
-		unsigned int WindowWidth, unsigned int WindowHeight, 
+		unsigned int WindowWidth, 
+		unsigned int WindowHeight, 
 		unsigned int DeviceWidth, unsigned int DeviceHeight, 
 		bool WindowMode = true);
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#define DIRECTINPUT_VERSION 0x0800
+
 #include <Windows.h>
 #include <vector>
 #include <list>
@@ -13,12 +15,17 @@
 #include <d3d11.h> //다렉 헤더파일
 #include <d3dcompiler.h> //쉐이더를 만들어서 코드만들어야됨 , 얘네는 빌드에 포함이 안됨.. 별도로 로딩해서 써야됨
 						//쉐이더를 컴파일하기 위해 필요하다.
+#include <dinput.h> //다렉용 input 헤더
+
 
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
 #include "Matrix.h"
 #include "SharedPtr.h"
+#include "Resource/Texture/DirectXTex.h"
+
+extern float g_DeltaTime; //전역변수 해놓은거 가져오는 extern
 
 //경로 관련 매크로
 #define ROOT_PATH		"Root"
@@ -28,7 +35,6 @@
 #define	FONT_PATH		"Font"
 
 //싱글톤 생성, 파괴 매크로
-#pragma once
 #define DECLARE_SINGLE(Type)	\
 private:\
 	static Type* m_Inst;\
@@ -60,8 +66,8 @@ private:\
 
 struct Resolution //해상도
 {
-	int Width;
-	int Height;
+	unsigned int Width;
+	unsigned int Height;
 };
 
 //위치, 색상정보를 가지고 있는 버텍스(정점)
@@ -149,3 +155,42 @@ struct MeshSlot //버텍스, 인덱스 버퍼의 포인터를 가지고?
 
 	}
 };
+
+struct TransformCBuffer
+{
+	Matrix  matWorld;
+	Matrix  matView;
+	Matrix  matProj;
+	Matrix  matWVP;
+	Vector3 Pivot;
+	Vector3 MeshSize;
+	Vector2 TransformEmpty;
+};
+
+struct VertexUV
+{
+	Vector3 Pos;
+	Vector2 UV;
+
+	VertexUV()
+	{
+
+	}
+	VertexUV(const Vector3& _Pos, const Vector2& _UV) :
+		Pos(_Pos),
+		UV(_UV)
+	{
+
+	}
+};
+
+struct MaterialCBuffer
+{
+	Vector4 BaseColor;
+	Vector4 AmbientColor;
+	Vector4 SpecularColor;
+	Vector4 EmissiveColor;
+	float Opacity;
+	Vector3 Empty;
+};
+

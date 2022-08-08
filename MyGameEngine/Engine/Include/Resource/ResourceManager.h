@@ -8,6 +8,7 @@ class CResourceManager
 private:
 	class CMeshManager* m_MeshManager; //메쉬 매니저
 	CShaderManager* m_ShaderManager;
+	class  CTextureManager* m_TextureManager;
 	//텍스처 매니저
 	//사운드 매니저
 	//폰트 매니저 등등..
@@ -45,6 +46,22 @@ public:	// ===================== Shader =========================
 
 	class CShader* FindShader(const std::string& Name);
 	void ReleaseShader(const std::string& Name);
+
+	bool CreateConstantBuffer(const std::string& Name, int Size, int Register,
+		int ShaderBufferType = (int)EShaderBufferType::All);
+	class CConstantBuffer* FindConstantBuffer(const std::string& Name);
+
+
+
+public:	// ===================== Texture =========================
+	bool LoadTexture(const std::string& Name, const TCHAR* FileName,
+		const std::string& PathName = TEXTURE_PATH);
+	bool LoadTextureFullPath(const std::string& Name, const TCHAR* FullPath);
+	bool LoadTexture(const std::string& Name, const std::vector<const TCHAR*>& vecFileName,
+		const std::string& PathName = TEXTURE_PATH);
+	bool LoadTextureFullPath(const std::string& Name, const std::vector<const TCHAR*>& vecFullPath);
+	class CTexture* FindTexture(const std::string& Name);
+	void ReleaseTexture(const std::string& Name);
 
 
 	// ==========================싱글톤==========================

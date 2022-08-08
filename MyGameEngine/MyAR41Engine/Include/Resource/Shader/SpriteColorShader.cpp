@@ -1,5 +1,5 @@
-#include "SpriteColorShader.h"
 
+#include "SpriteColorShader.h"
 
 CSpriteColorShader::CSpriteColorShader()
 {
@@ -13,6 +13,7 @@ bool CSpriteColorShader::Init()
 {
 	if (FAILED(LoadVertexShader("SpriteColorVS", TEXT("Sprite.fx"), SHADER_PATH)))
 		return false;
+
 	if (FAILED(LoadPixelShader("SpriteColorPS", TEXT("Sprite.fx"), SHADER_PATH)))
 		return false;
 

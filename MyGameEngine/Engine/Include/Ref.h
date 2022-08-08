@@ -58,9 +58,9 @@ public:
 		m_Enable = Enable;
 	}
 
-	void SetActive(bool Active)
+	virtual void Destroy()
 	{
-		m_Active = Active;
+		m_Active = false;
 	}
 
 	void SetName(const std::string& Name)

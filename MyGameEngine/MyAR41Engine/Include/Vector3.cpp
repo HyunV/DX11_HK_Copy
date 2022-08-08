@@ -351,11 +351,13 @@ Vector3 Vector3::ConvertAngle() const
 
 
 Vector3 Vector3::TransformNormal(const Matrix& m) const //w가 0일때 벡터3 x 44행렬
+//이동 적용 안받을때 0 사용
 {
     return Vector3(DirectX::XMVector3TransformNormal(Convert(), m.m));
 }
 
 Vector3 Vector3::TransformCoord(const Matrix& m) const //w가 1일때 벡터3 x 44행렬
+//이동 적용 받을 때 0 사용
 {
     return Vector3(DirectX::XMVector3TransformCoord(Convert(), m.m));
 }

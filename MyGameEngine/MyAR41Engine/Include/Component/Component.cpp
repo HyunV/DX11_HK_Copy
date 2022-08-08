@@ -1,11 +1,25 @@
+
 #include "Component.h"
 
-CComponent::CComponent()
+CComponent::CComponent()	:
+	m_Scene(nullptr),
+	m_Owner(nullptr)
+{
+	SetTypeID<CComponent>();
+}
+
+CComponent::CComponent(const CComponent& Obj)	:
+	CRef(Obj)
 {
 }
 
-CComponent::CComponent(const CComponent& Obj)
+CComponent::~CComponent()
 {
+}
+
+void CComponent::Destroy()
+{
+	CRef::Destroy();
 }
 
 void CComponent::Start()
@@ -14,7 +28,7 @@ void CComponent::Start()
 
 bool CComponent::Init()
 {
-    return false;
+	return true;
 }
 
 void CComponent::Update(float DeltaTime)
@@ -31,5 +45,5 @@ void CComponent::Render()
 
 CComponent* CComponent::Clone() const
 {
-    return nullptr;
+	return nullptr;
 }

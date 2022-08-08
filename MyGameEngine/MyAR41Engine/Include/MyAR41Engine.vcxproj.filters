@@ -73,6 +73,39 @@
     <Filter Include="05. Component\01. SceneComponent\01. Primitive">
       <UniqueIdentifier>{cae191b8-d6c9-4811-9e83-60ca4252a55a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Scene\02. Resource">
+      <UniqueIdentifier>{1a2451be-6ced-4614-968c-9c0bd9638181}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\03. Camera">
+      <UniqueIdentifier>{ab66d9b2-a45b-49e3-8ea1-3d6c859a7cf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\01. SceneComponent\02. Camera">
+      <UniqueIdentifier>{35ef7ba8-d3eb-4bab-82ed-b4befdd9fdd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Render">
+      <UniqueIdentifier>{e97a80a2-3539-47cd-ae9b-ea870e17d5ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\07. Input">
+      <UniqueIdentifier>{3983587e-2683-49e4-ac84-bce98f866576}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\02. Shader\03. ConstantBuffer">
+      <UniqueIdentifier>{a372c8e1-8582-4394-90c3-387ead9b02e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\02. Shader\03. ConstantBuffer\01. Transform">
+      <UniqueIdentifier>{00f9d59a-5d07-43c1-9f03-1f0ff2d22a75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\01. SceneComponent\03. Arm">
+      <UniqueIdentifier>{c412a3a5-6d29-4a7a-9481-d68949957f75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\03. Texture">
+      <UniqueIdentifier>{0541d60f-b1ec-47fa-be26-4e3576b0ae55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\04. Material">
+      <UniqueIdentifier>{571c5803-b716-4f10-abf4-7382b6d16834}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\02. Shader\03. ConstantBuffer\02. Material">
+      <UniqueIdentifier>{a61055f2-e1bf-48f7-a6ba-46dbba42c42a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineInfo.h">
@@ -132,9 +165,6 @@
     <ClInclude Include="Resource\Shader\GraphicShader.h">
       <Filter>02. Resource\02. Shader\02. ShaderClass</Filter>
     </ClInclude>
-    <ClInclude Include="Resource\Shader\ShaderManager.h">
-      <Filter>02. Resource\02. Shader</Filter>
-    </ClInclude>
     <ClInclude Include="PathManager.h">
       <Filter>01. Manager\06. Path</Filter>
     </ClInclude>
@@ -165,14 +195,62 @@
     <ClInclude Include="Component\PrimitiveComponent.h">
       <Filter>05. Component\01. SceneComponent\01. Primitive</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Transform.h">
-      <Filter>05. Component</Filter>
+    <ClInclude Include="Resource\Shader\ShaderManager.h">
+      <Filter>02. Resource\02. Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Transform2D.h">
-      <Filter>05. Component</Filter>
+    <ClInclude Include="Resource\Shader\ConstantBufferData.h">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\ConstantBuffer.h">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\TransformConstantBuffer.h">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\01. Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneResource.h">
+      <Filter>03. Scene\02. Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\CameraManager.h">
+      <Filter>03. Scene\03. Camera</Filter>
     </ClInclude>
     <ClInclude Include="Component\SceneComponent.h">
-      <Filter>05. Component</Filter>
+      <Filter>05. Component\01. SceneComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Transform.h">
+      <Filter>05. Component\01. SceneComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\CameraComponent.h">
+      <Filter>05. Component\01. SceneComponent\02. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\RenderManager.h">
+      <Filter>06. Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>01. Manager\07. Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\TargetArm.h">
+      <Filter>05. Component\01. SceneComponent\03. Arm</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Texture\TextureManager.h">
+      <Filter>02. Resource\03. Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Texture\DirectXTex.h">
+      <Filter>02. Resource\03. Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Texture\Texture.h">
+      <Filter>02. Resource\03. Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Material\Material.h">
+      <Filter>02. Resource\04. Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Material\MaterialManager.h">
+      <Filter>02. Resource\04. Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\MaterialConstantBuffer.h">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\02. Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\SpriteShader.h">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\01. Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -221,9 +299,6 @@
     <ClCompile Include="Resource\Shader\ComputeShader.cpp">
       <Filter>02. Resource\02. Shader\02. ShaderClass</Filter>
     </ClCompile>
-    <ClCompile Include="Resource\Shader\ShaderManager.cpp">
-      <Filter>02. Resource\02. Shader</Filter>
-    </ClCompile>
     <ClCompile Include="PathManager.cpp">
       <Filter>01. Manager\06. Path</Filter>
     </ClCompile>
@@ -254,14 +329,59 @@
     <ClCompile Include="Component\PrimitiveComponent.cpp">
       <Filter>05. Component\01. SceneComponent\01. Primitive</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Transform.cpp">
-      <Filter>05. Component</Filter>
+    <ClCompile Include="Resource\Shader\ShaderManager.cpp">
+      <Filter>02. Resource\02. Shader</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Transform2D.cpp">
-      <Filter>05. Component</Filter>
+    <ClCompile Include="Resource\Shader\ConstantBufferData.cpp">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\ConstantBuffer.cpp">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\TransformConstantBuffer.cpp">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\01. Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneResource.cpp">
+      <Filter>03. Scene\02. Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\CameraManager.cpp">
+      <Filter>03. Scene\03. Camera</Filter>
     </ClCompile>
     <ClCompile Include="Component\SceneComponent.cpp">
-      <Filter>05. Component</Filter>
+      <Filter>05. Component\01. SceneComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Transform.cpp">
+      <Filter>05. Component\01. SceneComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\CameraComponent.cpp">
+      <Filter>05. Component\01. SceneComponent\02. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\RenderManager.cpp">
+      <Filter>06. Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>01. Manager\07. Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\TargetArm.cpp">
+      <Filter>05. Component\01. SceneComponent\03. Arm</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Texture\TextureManager.cpp">
+      <Filter>02. Resource\03. Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Texture\Texture.cpp">
+      <Filter>02. Resource\03. Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Material\MaterialManager.cpp">
+      <Filter>02. Resource\04. Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Material\Material.cpp">
+      <Filter>02. Resource\04. Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\MaterialConstantBuffer.cpp">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\02. Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\SpriteShader.cpp">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\01. Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -271,5 +391,10 @@
     <FxCompile Include="..\Bin\Shader\Share.fx">
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resource\Texture\DirectXTex.inl">
+      <Filter>02. Resource\03. Texture</Filter>
+    </None>
   </ItemGroup>
 </Project>

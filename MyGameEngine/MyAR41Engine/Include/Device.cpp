@@ -45,7 +45,7 @@ bool CDevice::Init(HWND hWnd, unsigned int DeviceWidth, unsigned int DeviceHeigh
 	D3D_FEATURE_LEVEL	FLevel = D3D_FEATURE_LEVEL_11_0;
 	D3D_FEATURE_LEVEL	FLevelResult;
 
-	// Device 생성
+	// ※ Device 생성###############################################
 	//0보다 작으면 TRUE인 FAILED 매크로
 	if (FAILED(D3D11CreateDevice(nullptr, D3D_DRIVER_TYPE_HARDWARE, 0,
 		Flag, &FLevel, 1, D3D11_SDK_VERSION, &m_Device, &FLevelResult,
@@ -144,7 +144,6 @@ bool CDevice::Init(HWND hWnd, unsigned int DeviceWidth, unsigned int DeviceHeigh
 	DepthDesc.MipLevels = 1; //텍스트 만들때 다시 설명
 
 
-
 	//######깊이버퍼, 스탠실 버퍼 진짜로 생성#####
 	ID3D11Texture2D* DepthBuffer = nullptr;
 
@@ -156,12 +155,8 @@ bool CDevice::Init(HWND hWnd, unsigned int DeviceWidth, unsigned int DeviceHeigh
 
 	SAFE_RELEASE(DepthBuffer);
 
-
 	//###뷰 포트 생성
 	D3D11_VIEWPORT	VP = {};
-
-	//VP.TopLeftX = 100.f;
-	//VP.TopLeftY = 300.f;
 
 	VP.Width = (float)DeviceWidth;
 	VP.Height = (float)DeviceHeight;

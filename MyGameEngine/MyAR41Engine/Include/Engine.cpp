@@ -3,11 +3,16 @@
 #include "Resource\ResourceManager.h"
 #include "Timer.h"
 #include "PathManager.h"
+#include "Scene/SceneManager.h"
+#include "Render/RenderManager.h"
+#include "Input.h"
 
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 #pragma comment(lib, "dxguid.lib")
+
+float g_DeltaTime;
 
 DEFINITION_SINGLE(CEngine)
 
@@ -20,12 +25,19 @@ CEngine::CEngine() :
     m_ClearColor{0.7f, 0.7f, 0.7f, 0.f}
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(100);
+    //_CrtSetBreakAlloc(284);
 }
 
 CEngine::~CEngine()
 {
+    CSceneManager::DestroyInst();
+
+    CRenderManager::DestroyInst();
+
+    CInput::DestroyInst();
+
     CPathManager::DestroyInst();
+
     CResourceManager::DestroyInst();
 
     SAFE_DELETE(m_Timer);
@@ -38,13 +50,13 @@ bool CEngine::Init(HINSTANCE hInst, const TCHAR* Title,
 	unsigned int WindowWidth, unsigned int WindowHeight,
 	unsigned int DeviceWidth, unsigned int DeviceHeight, bool WindowMode)
 {
-	m_hInst = hInst;
-	m_WindowRS.Width = WindowWidth;
-	m_WindowRS.Height = WindowHeight;
+    m_hInst = hInst;
+    m_WindowRS.Width = WindowWidth;
+    m_WindowRS.Height = WindowHeight;
 
-	Register(ClassName, IconID, SmallIconID);
+    Register(ClassName, IconID, SmallIconID);
 
-	Create(Title, ClassName);
+    Create(Title, ClassName);
 
     // Device 초기화
     if (!CDevice::GetInst()->Init(m_hWnd, DeviceWidth, DeviceHeight, WindowMode))
@@ -59,10 +71,26 @@ bool CEngine::Init(HINSTANCE hInst, const TCHAR* Title,
     if (!CResourceManager::GetInst()->Init())
         return false;
 
+
+    // 입력 관리자 초기화
+    if (!CInput::GetInst()->Init(m_hInst, m_hWnd))
+        return false;
+
+
+    // 렌더링 관리자 초기화
+    if (!CRenderManager::GetInst()->Init())
+        return false;
+
+
+    // 장면관리자 초기화
+    if (!CSceneManager::GetInst()->Init())
+        return false;
+
     m_Timer = new CTimer;
+
     m_Timer->Init();
 
-	return true;
+    return true;
 }
 
 int CEngine::Run()
@@ -108,11 +136,26 @@ int CEngine::Run()
 
 void CEngine::Logic()
 {
-    Input(0.f);
-    Update(0.f);
-    PostUpdate(0.f);
-    Collision(0.f);
-    Render(0.f);
+    m_Timer->Update();
+
+    float DeltaTime = m_Timer->GetDeltaTime();
+
+    g_DeltaTime = DeltaTime;
+
+    CInput::GetInst()->Update(DeltaTime);
+
+    CResourceManager::GetInst()->Update();
+
+    Input(DeltaTime);
+
+    if (Update(DeltaTime))
+        return;
+
+    if (PostUpdate(DeltaTime))
+        return;
+
+    Collision(DeltaTime);
+    Render(DeltaTime);
 }
 
 void CEngine::Input(float DeltaTime)
@@ -121,12 +164,16 @@ void CEngine::Input(float DeltaTime)
 
 bool CEngine::Update(float DeltaTime)
 {
-	return false;
+    bool Result = CSceneManager::GetInst()->Update(DeltaTime);
+
+    return Result;
 }
 
 bool CEngine::PostUpdate(float DeltaTime)
 {
-	return false;
+    bool Result = CSceneManager::GetInst()->PostUpdate(DeltaTime);
+
+    return Result;
 }
 
 void CEngine::Collision(float DeltaTime)
@@ -141,6 +188,7 @@ void CEngine::Render(float DeltaTime)
     CDevice::GetInst()->RenderStart();
 
     // 모든 물체들을 출력한다. 이렇게 하면 백버퍼와 깊이버퍼가 채워진다.
+    CRenderManager::GetInst()->Render(DeltaTime);
 
 
     // 그려진 백버퍼를 화면에 시연한다.

@@ -38,6 +38,18 @@ struct VS_INPUT_COLOR //입력받기
 	float4 Color : COLOR; //0번째 레지스터를 지정해서 COLOR를 담아둔다.
 };
 
+struct VS_INPUT_UV
+{
+	float3 Pos : POSITION;
+	float2 UV : TEXCOORD;
+};
+
+struct VS_OUTPUT_UV
+{
+	float4 Pos : SC_POSITION;
+	float2 UV : TEXCOORD;
+};
+
 // SV : System Value로 사용되는 값으로 출력레지스터에서 사용할 수 있다.
 // 출력레지스터에 아래처럼 SV_POSITION 을 넣으면 최종 투영공간에서의 위치를
 // 지정하는것으로 이 값을 이용해서 화면의 어디에 출력할지를 결정한다.
@@ -56,7 +68,11 @@ VS_OUTPUT_COLOR SpriteColorVS(VS_INPUT_COLOR input)
 {
 	VS_OUTPUT_COLOR output = (VS_OUTPUT_COLOR) 0; //0번째거 가져온다는 뜻인가..?
 
-	output.Pos = float4(input.Pos, 1.f);
+	float3 Pos = input.Pos - g_Pivot * g_MeshSize;
+
+	// mul : 행렬 곱. g_matWVP 는 World * View * Proj 이므로 정점을 여기에 곱하게 되면
+	// 투영 공간으로 변환된 정점의 위치가 나온다.
+	output.Pos = mul(float4(Pos, 1.f), g_matWVP);
 	output.Color = input.Color;
 
 	return output;
@@ -71,6 +87,32 @@ PS_OUTPUT_SINGLE SpriteColorPS(VS_OUTPUT_COLOR input)
 
 	return output;
 }
+
+// 인자로 VS_INPUT_COLOR를 쓰면 저 구조체에 지정된 입력 레지스터에서 값을
+// 가져와서 사용하므로 인자를 따로 넣어줄 필요가 없다.
+VS_OUTPUT_UV SpriteVS(VS_INPUT_UV input)
+{
+	VS_OUTPUT_UV output = (VS_OUTPUT_UV)0;
+
+	float3 Pos = input.Pos - g_Pivot * g_MeshSize;
+
+	// mul : 행렬 곱. g_matWVP 는 World * View * Proj 이므로 정점을 여기에 곱하게 되면
+// 투영 공간으로 변환된 정점의 위치가 나온다.
+	output.Pos = mul(float4(Pos, 1.f), g_matWVP);
+	output.UV = input.UV;
+
+	return output;
+}
+
+PS_OUTPUT_SINGLE SpritePS(VS_OUTPUT_UV input)
+{
+	PS_OUTPUT_SINGLE output = (PS_OUTPUT_SINGLE)0;
+
+	output.Color = g_BaseTexture.Sample(g_PointSmp, input.UV);
+
+	return output;
+}
+
 
 //쉐이더 입력->연산->출력A
 //이 출력A를 다른 쉐이더가 입력으로 받고 또 출력 B 하는 과정이 렌파라의 기본적인 과정임.

@@ -1,11 +1,5 @@
 #include "Vector2.h"
 
-Vector2 Vector2::Axis[AXIS2D_MAX] =
-{
-    Vector2(1.f, 0.f),
-    Vector2(0.f, 1.f)
-};
-
 Vector2::Vector2() :
     x(0.f),
     y(0.f)

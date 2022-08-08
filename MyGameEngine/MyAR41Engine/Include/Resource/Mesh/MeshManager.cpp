@@ -45,6 +45,32 @@ bool CMeshManager::Init()
 		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, RectIndex,
 		4, 6, D3D11_USAGE_IMMUTABLE, DXGI_FORMAT_R32_UINT);
 
+
+	VertexUV	CenterUVMesh[4] =
+	{
+		VertexUV(Vector3(-0.5f, 0.5f, 0.f), Vector2(0.f, 0.f)),
+		VertexUV(Vector3(0.5f, 0.5f, 0.f), Vector2(1.f, 0.f)),
+		VertexUV(Vector3(-0.5f, -0.5f, 0.f), Vector2(0.f, 1.f)),
+		VertexUV(Vector3(0.5f, -0.5f, 0.f), Vector2(1.f, 1.f))
+	};
+
+	CreateMesh(nullptr, MeshType::Sprite, "CenterUVRect",
+		CenterUVMesh, sizeof(VertexUV), 4, D3D11_USAGE_IMMUTABLE,
+		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, RectIndex,
+		4, 6, D3D11_USAGE_IMMUTABLE, DXGI_FORMAT_R32_UINT);
+
+	VertexUV	LBUVMesh[4] =
+	{
+		VertexUV(Vector3(0.f, 1.f, 0.f), Vector2(0.f, 0.f)),
+		VertexUV(Vector3(1.f, 1.f, 0.f), Vector2(1.f, 0.f)),
+		VertexUV(Vector3(0.f, 0.f, 0.f), Vector2(0.f, 1.f)),
+		VertexUV(Vector3(1.f, 0.f, 0.f), Vector2(1.f, 1.f))
+	};
+
+	CreateMesh(nullptr, MeshType::Sprite, "LBUVRect",
+		LBUVMesh, sizeof(VertexUV), 4, D3D11_USAGE_IMMUTABLE,
+		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, RectIndex,
+		4, 6, D3D11_USAGE_IMMUTABLE, DXGI_FORMAT_R32_UINT);
 	return true;
 }
 

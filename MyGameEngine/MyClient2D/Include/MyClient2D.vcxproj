@@ -157,7 +157,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="ClientManager.h" />
+    <ClInclude Include="GameObject\Monster.h" />
+    <ClInclude Include="GameObject\MyBullet.h" />
+    <ClInclude Include="GameObject\Player2D.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Scene\MainSceneInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyClient2D.rc" />
@@ -166,7 +172,12 @@
     <Image Include="icon1.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ClientManager.cpp" />
+    <ClCompile Include="GameObject\Monster.cpp" />
+    <ClCompile Include="GameObject\MyBullet.cpp" />
+    <ClCompile Include="GameObject\Player2D.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scene\MainSceneInfo.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

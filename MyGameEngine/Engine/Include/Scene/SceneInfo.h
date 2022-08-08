@@ -12,10 +12,13 @@ protected:
 
 protected:
 	class CScene* m_Owner;
+	CSharedPtr<class CGameObject> m_PlayerObject;
+public:
+	void SetPlayerObject(class CGameObject* Player);
 
 public:
-	bool Init();
-	void Update(float DeltaTime);
-	void PostUpdate(float DeltaTime);
+	virtual bool Init();
+	virtual void Update(float DeltaTime);
+	virtual void PostUpdate(float DeltaTime);
 };
 

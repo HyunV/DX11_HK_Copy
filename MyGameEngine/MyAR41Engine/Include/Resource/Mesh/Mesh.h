@@ -44,6 +44,11 @@ public:
         return m_Max;
     }
 
+    Vector3 GetMeshSize()    const
+    {
+        return m_Max - m_Min;
+    }
+
 public:
     virtual bool CreateMesh(void* VtxData, int Size, int Count,
         D3D11_USAGE VtxUsage, D3D11_PRIMITIVE_TOPOLOGY Primitive,
