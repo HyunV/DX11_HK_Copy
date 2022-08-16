@@ -108,7 +108,11 @@ PS_OUTPUT_SINGLE SpritePS(VS_OUTPUT_UV input)
 {
 	PS_OUTPUT_SINGLE output = (PS_OUTPUT_SINGLE)0;
 
-	output.Color = g_BaseTexture.Sample(g_PointSmp, input.UV);
+	float4 TextureColor = g_BaseTexture.Sample(g_PointSmp, input.UV);
+
+	output.Color.rgb = TextureColor.rgb * g_MtrBaseColor.rgb;
+
+	oubput.Color.a = TextureColor.a * g_MtrlOpacity;
 
 	return output;
 }

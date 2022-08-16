@@ -12,12 +12,22 @@ protected:
 
 protected:
     CSharedPtr<class CMesh> m_Mesh;
-    CSharedPtr<class CShader> m_Shader;
+    std::vector<CSharedPtr<class CMaterial>>    m_vecMaterial;
+
+public:
+    class CMaterial* GetMaterial(int Slot)
+    {
+        return m_vecMaterial[Slot];
+    }
 
 public:
     void SetMesh(const std::string& Name);
     void SetMesh(class CMesh* Mesh);
-    void SetShader(const std::string& Name);
+    void SetMaterial(int Slot, const std::string& Name);
+    void SetMaterial(int Slot, class CMaterial* Material);
+    void AddMaterial(const std::string& Name);
+    void AddMaterial(class CMaterial* Material);
+    void ClearMaterial();
 
 public:
     virtual void Start();

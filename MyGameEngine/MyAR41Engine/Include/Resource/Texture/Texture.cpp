@@ -303,7 +303,7 @@ void CTexture::SetShader(int Register, int ShaderBufferType, int Index)
 	}
 }
 
-void CTexture::ResetShader(int Register, int ShaderBufferType, int Index)
+void CTexture::ResetShader(int Register, int ShaderBufferType)
 {
 	ID3D11ShaderResourceView* SRV = nullptr;
 

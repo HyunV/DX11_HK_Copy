@@ -3,6 +3,7 @@
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
 #include "../Render/RenderManager.h"
+#include "../Resource/Material/Material.h"
 
 CPrimitiveComponent::CPrimitiveComponent()
 {
@@ -24,6 +25,17 @@ void CPrimitiveComponent::SetMesh(const std::string& Name)
 
 	if (m_Mesh)
 		SetMeshSize(m_Mesh->GetMeshSize());
+
+	m_vecMaterial.clear();
+
+	int SlotCount = m_Mesh->GetSlotCount();
+
+	for (int i = 0; i < SlotCount; ++i)
+	{
+		CMaterial* Material = m_Mesh->GetMaterial(i);
+
+		m_vecMaterial.push_back(Material->Clone());
+	}
 }
 
 void CPrimitiveComponent::SetMesh(CMesh* Mesh)
@@ -32,11 +44,44 @@ void CPrimitiveComponent::SetMesh(CMesh* Mesh)
 
 	if (m_Mesh)
 		SetMeshSize(m_Mesh->GetMeshSize());
+
+	int SlotCount = m_Mesh->GetSlotCount();
+
+	for (int i = 0; i < SlotCount; ++i)
+	{
+		CMaterial* Material = m_Mesh->GetMaterial(i);
+
+		m_vecMaterial.push_back(Material->Clone());
+	}
 }
 
-void CPrimitiveComponent::SetShader(const std::string& Name)
+void CPrimitiveComponent::SetMaterial(int Slot, const std::string& Name)
 {
-	m_Shader = m_Scene->GetResource()->FindShader(Name);
+	CMaterial* Material = m_Scene->GetResource()->FindMaterial(Name);
+
+	m_vecMaterial[Slot] = Material;
+}
+
+void CPrimitiveComponent::SetMaterial(int Slot, CMaterial* Material)
+{
+	m_vecMaterial[Slot] = Material;
+}
+
+void CPrimitiveComponent::AddMaterial(const std::string& Name)
+{
+	CMaterial* Material = m_Scene->GetResource()->FindMaterial(Name);
+
+	m_vecMaterial.push_back(Material);
+}
+
+void CPrimitiveComponent::AddMaterial(CMaterial* Material)
+{
+	m_vecMaterial.push_back(Material);
+}
+
+void CPrimitiveComponent::ClearMaterial()
+{
+	m_vecMaterial.clear();
 }
 
 void CPrimitiveComponent::Start()
@@ -69,9 +114,16 @@ void CPrimitiveComponent::Render()
 {
 	CSceneComponent::Render();
 
-	m_Shader->SetShader();
+	int	Size = (int)m_vecMaterial.size();
 
-	m_Mesh->Render();
+	for (int i = 0; i < Size; ++i)
+	{
+		m_vecMaterial[i]->SetMaterial();
+
+		m_Mesh->Render(i);
+
+		m_vecMaterial[i]->ResetMaterial();
+	}
 }
 
 CPrimitiveComponent* CPrimitiveComponent::Clone() const

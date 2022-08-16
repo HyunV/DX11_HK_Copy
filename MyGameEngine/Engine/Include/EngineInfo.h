@@ -134,28 +134,6 @@ struct IndexBuffer
 	}
 };
 
-struct MeshContainer //버퍼로 도형의 모양을 결정하는 container
-{
-	VertexBuffer VB;
-	std::vector<IndexBuffer> vecIB; //인덱스 버퍼는 늘어날 수 있으니 vecter로 담는다.
-
-	D3D11_PRIMITIVE_TOPOLOGY	Primitive;
-};
-
-struct MeshSlot //버텍스, 인덱스 버퍼의 포인터를 가지고?
-{
-	VertexBuffer* VB;
-	IndexBuffer* IB;
-	D3D11_PRIMITIVE_TOPOLOGY	Primitive;
-
-	MeshSlot() :
-		VB(nullptr),
-		IB(nullptr)
-	{
-
-	}
-};
-
 struct TransformCBuffer
 {
 	Matrix  matWorld;

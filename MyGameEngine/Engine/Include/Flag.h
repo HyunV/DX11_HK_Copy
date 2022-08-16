@@ -72,3 +72,11 @@ enum class ESamplerType : unsigned char
 	Linear,
 	Anisotropic
 };
+
+enum class ERenderStateType : unsigned char
+{
+	Blend,
+	Rasterizer,
+	DepthStencil,
+	End
+};

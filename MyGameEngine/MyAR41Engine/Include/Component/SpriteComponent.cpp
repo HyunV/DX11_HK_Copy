@@ -26,7 +26,8 @@ bool CSpriteComponent::Init()
 		return false;
 
 	SetMesh("CenterUVRect");
-	SetShader("SpriteShader");
+
+	//m_Transform->Set2D(true);
 
 	return true;
 }

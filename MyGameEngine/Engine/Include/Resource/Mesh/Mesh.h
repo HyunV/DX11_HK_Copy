@@ -1,6 +1,37 @@
 #pragma once
 
 #include "../../Ref.h"
+#include "../Material/Material.h"
+
+struct MeshSubset
+{
+    IndexBuffer IB;
+    struct MeshSlot* Slot;
+    CSharedPtr<CMaterial> Material;
+};
+
+struct MeshContainer
+{
+    VertexBuffer	VB;
+    std::vector<MeshSubset>	vecSubset;
+
+    // 위상구조. 어떤 도형으로 그려낼지를 결정한다.
+    D3D11_PRIMITIVE_TOPOLOGY	Primitive;
+};
+
+struct MeshSlot
+{
+    VertexBuffer* VB;
+    IndexBuffer* IB;
+    CSharedPtr<class CMaterial>	Material;
+    D3D11_PRIMITIVE_TOPOLOGY	Primitive;
+
+    MeshSlot() :
+        VB(nullptr),
+        IB(nullptr)
+    {
+    }
+};
 
 class CMesh :
     public CRef
@@ -48,6 +79,20 @@ public:
     {
         return m_Max - m_Min;
     }
+
+    int GetSlotCount()  const
+    {
+        return (int)m_vecMeshSlot.size();
+    }
+
+    CMaterial* GetMaterial(int Slot)	const
+    {
+        return m_vecMeshSlot[Slot]->Material;
+    }
+public:
+    void SetMaterial(int Container, int Subset, const std::string& Name);
+    void SetMaterial(int Container, int Subset, class CMaterial* Material);
+
 
 public:
     virtual bool CreateMesh(void* VtxData, int Size, int Count,

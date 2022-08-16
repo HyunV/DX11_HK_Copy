@@ -7,21 +7,12 @@ DEFINITION_SINGLE(CResourceManager)
 
 CResourceManager::CResourceManager()
 {
-	m_MeshManager = new CMeshManager; //메쉬매니저 생성
-	
-	m_MeshManager->Init(); //초기화
 
-	m_ShaderManager = new CShaderManager;
-
-	m_ShaderManager->Init();
-
-	m_TextureManager = new CTextureManager;
-
-	m_TextureManager->Init();
 }
 
 CResourceManager::~CResourceManager()
 {
+	SAFE_DELETE(m_MaterialManager);
 	SAFE_DELETE(m_TextureManager);
 	SAFE_DELETE(m_ShaderManager);
 	SAFE_DELETE(m_MeshManager); //메쉬매니저 삭제
@@ -29,6 +20,22 @@ CResourceManager::~CResourceManager()
 
 bool CResourceManager::Init()
 {
+	m_ShaderManager = new CShaderManager;
+
+	m_ShaderManager->Init();
+
+	m_TextureManager = new CTextureManager;
+
+	m_TextureManager->Init();
+
+	m_MaterialManager = new CMaterialManager;
+
+	m_MaterialManager->Init();
+
+	m_MeshManager = new CMeshManager; //메쉬매니저 생성
+
+	m_MeshManager->Init(); //초기화
+
 	return true;
 }
 
@@ -107,4 +114,14 @@ CTexture* CResourceManager::FindTexture(const std::string& Name)
 void CResourceManager::ReleaseTexture(const std::string& Name)
 {
 	m_TextureManager->ReleaseTexture(Name);
+}
+
+CMaterial* CResourceManager::FindMaterial(const std::string& Name)
+{
+	return m_MaterialManager->FindMaterial(Name);
+}
+
+void CResourceManager::ReleaseMaterial(const std::string& Name)
+{
+	m_MaterialManager->ReleaseMaterial(Name);
 }

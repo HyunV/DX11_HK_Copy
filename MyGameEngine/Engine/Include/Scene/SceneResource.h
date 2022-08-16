@@ -4,6 +4,7 @@
 #include "../Resource/Mesh/Mesh.h"
 #include "../Resource/Shader/Shader.h"
 #include "../Resource/Texture/Texture.h"
+#include "../Resource/Material/Material.h"
 #include "../Resource/ResourceManager.h"
 
 class CSceneResource
@@ -21,6 +22,7 @@ private:
 	std::unordered_map<std::string, CSharedPtr<CMesh>>		m_mapMesh;
 	std::unordered_map<std::string, CSharedPtr<CShader>>	m_mapShader;
 	std::unordered_map<std::string, CSharedPtr<CTexture>>	m_mapTexture;
+	std::unordered_map<std::string, CSharedPtr<CMaterial>>	m_mapMaterial;
 
 public:
 	bool Init();
@@ -49,5 +51,22 @@ public:	// ===================== Texture =========================
 		const std::string& PathName = TEXTURE_PATH);
 	bool LoadTextureFullPath(const std::string& Name, const std::vector<const TCHAR*>& vecFullPath);
 	class CTexture* FindTexture(const std::string& Name);
+
+public:	// ===================== Material =========================
+	CMaterial* FindMaterial(const std::string& Name);
+
+	template <typename T>
+	T* CreateMaterial(const std::string& Name)
+	{
+		if (FindMaterial(Name))
+			return true;
+
+		if (!CResourceManager::GetInst()->CreateMaterial<T>(Name))
+			return false;
+
+		m_mapMaterial.insert(std::make_pair(Name, CResourceManager::GetInst()->FindMaterial(Name)));
+
+		return true;
+	}
 };
 

@@ -9,6 +9,7 @@
 #include "Scene/CameraManager.h"
 #include "Device.h"
 
+
 CPlayer2D::CPlayer2D()
 {
 	SetTypeID<CPlayer2D>();

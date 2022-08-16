@@ -106,6 +106,9 @@
     <Filter Include="02. Resource\02. Shader\03. ConstantBuffer\02. Material">
       <UniqueIdentifier>{a61055f2-e1bf-48f7-a6ba-46dbba42c42a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Render\01. RenderState">
+      <UniqueIdentifier>{67ec3c76-f701-47c4-b0a0-dae046a929e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineInfo.h">
@@ -252,6 +255,15 @@
     <ClInclude Include="Resource\Shader\SpriteShader.h">
       <Filter>02. Resource\02. Shader\02. ShaderClass\01. Sprite</Filter>
     </ClInclude>
+    <ClInclude Include="Render\RenderState.h">
+      <Filter>06. Render\01. RenderState</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\BlendState.h">
+      <Filter>06. Render\01. RenderState</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\RenderStateManager.h">
+      <Filter>06. Render\01. RenderState</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -382,6 +394,15 @@
     </ClCompile>
     <ClCompile Include="Resource\Shader\SpriteShader.cpp">
       <Filter>02. Resource\02. Shader\02. ShaderClass\01. Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\RenderState.cpp">
+      <Filter>06. Render\01. RenderState</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\BlendState.cpp">
+      <Filter>06. Render\01. RenderState</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\RenderStateManager.cpp">
+      <Filter>06. Render\01. RenderState</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

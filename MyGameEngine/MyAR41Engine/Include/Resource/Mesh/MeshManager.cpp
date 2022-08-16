@@ -31,6 +31,10 @@ bool CMeshManager::Init()
 		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, RectIndex,
 		4, 6, D3D11_USAGE_IMMUTABLE, DXGI_FORMAT_R32_UINT);
 
+	CMesh* Mesh = FindMesh("CenterColorRect");
+
+	Mesh->SetMaterial(0, 0, "DefaultColor");
+
 	//0,0 이 기준점인 사각형
 	VertexColor	LBColorMesh[4] =
 	{
@@ -45,6 +49,9 @@ bool CMeshManager::Init()
 		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, RectIndex,
 		4, 6, D3D11_USAGE_IMMUTABLE, DXGI_FORMAT_R32_UINT);
 
+	Mesh = FindMesh("LBColorRect");
+
+	Mesh->SetMaterial(0, 0, "DefaultColor");
 
 	VertexUV	CenterUVMesh[4] =
 	{
@@ -59,6 +66,10 @@ bool CMeshManager::Init()
 		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, RectIndex,
 		4, 6, D3D11_USAGE_IMMUTABLE, DXGI_FORMAT_R32_UINT);
 
+	Mesh = FindMesh("CenterUVRect");
+
+	Mesh->SetMaterial(0, 0, "DefaultTexture");
+
 	VertexUV	LBUVMesh[4] =
 	{
 		VertexUV(Vector3(0.f, 1.f, 0.f), Vector2(0.f, 0.f)),
@@ -71,6 +82,11 @@ bool CMeshManager::Init()
 		LBUVMesh, sizeof(VertexUV), 4, D3D11_USAGE_IMMUTABLE,
 		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST, RectIndex,
 		4, 6, D3D11_USAGE_IMMUTABLE, DXGI_FORMAT_R32_UINT);
+
+	Mesh = FindMesh("LBUVRect");
+
+	Mesh->SetMaterial(0, 0, "DefaultTexture");
+
 	return true;
 }
 

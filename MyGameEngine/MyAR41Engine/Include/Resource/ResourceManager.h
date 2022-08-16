@@ -2,6 +2,7 @@
 
 #include "../EngineInfo.h"
 #include "Shader/ShaderManager.h"
+#include "Material/MaterialManager.h"
 
 class CResourceManager
 {
@@ -9,6 +10,7 @@ private:
 	class CMeshManager* m_MeshManager; //메쉬 매니저
 	CShaderManager* m_ShaderManager;
 	class  CTextureManager* m_TextureManager;
+	class CMaterialManager* m_MaterialManager;
 	//텍스처 매니저
 	//사운드 매니저
 	//폰트 매니저 등등..
@@ -63,6 +65,15 @@ public:	// ===================== Texture =========================
 	class CTexture* FindTexture(const std::string& Name);
 	void ReleaseTexture(const std::string& Name);
 
+public:	// ===================== Material =========================
+	CMaterial* FindMaterial(const std::string& Name);
+	void ReleaseMaterial(const std::string& Name);
+
+	template <typename T>
+	T* CreateMaterial(const std::string& Name)
+	{
+		return m_MaterialManager->CreateMaterial<T>(Name);
+	}
 
 	// ==========================싱글톤==========================
 	DECLARE_SINGLE(CResourceManager)

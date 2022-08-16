@@ -1,0 +1,17 @@
+MyGameEngine/.vs/
+
+MyGameEngine/MyAR41Engine/BinObj/
+
+MyGameEngine/MyAR41Engine/BinObjDebug/
+
+MyGameEngine/MyAR41MapEditor/BinObj/
+
+MyGameEngine/MyAR41MapEditor/BinObjDebug/
+
+MyGameEngine/MyAR41MapEditor/Bin/MyAR41MapEditor_Debug.pdb
+
+MyGameEngine/MyClient2D/BinObj/
+
+MyGameEngine/MyClient2D/BinObjDebug/
+
+MyGameEngine/MyClient2D/Bin/MyClient2D_Debug.pdb

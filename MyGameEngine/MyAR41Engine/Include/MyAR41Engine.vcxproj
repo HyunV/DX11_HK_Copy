@@ -37,7 +37,10 @@
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="Ref.h" />
+    <ClInclude Include="Render\BlendState.h" />
     <ClInclude Include="Render\RenderManager.h" />
+    <ClInclude Include="Render\RenderState.h" />
+    <ClInclude Include="Render\RenderStateManager.h" />
     <ClInclude Include="Resource\Material\Material.h" />
     <ClInclude Include="Resource\Material\MaterialManager.h" />
     <ClInclude Include="Resource\Mesh\Mesh.h" />
@@ -84,7 +87,10 @@
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Ref.cpp" />
+    <ClCompile Include="Render\BlendState.cpp" />
     <ClCompile Include="Render\RenderManager.cpp" />
+    <ClCompile Include="Render\RenderState.cpp" />
+    <ClCompile Include="Render\RenderStateManager.cpp" />
     <ClCompile Include="Resource\Material\Material.cpp" />
     <ClCompile Include="Resource\Material\MaterialManager.cpp" />
     <ClCompile Include="Resource\Mesh\Mesh.cpp" />
