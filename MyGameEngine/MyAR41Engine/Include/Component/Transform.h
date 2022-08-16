@@ -21,6 +21,9 @@ private:
 	CTransform* m_Parent;
 	std::vector<CTransform*>    m_vecChild;
 	class CTransformConstantBuffer* m_CBuffer;
+	static float	m_MinY;
+	static float	m_MaxY;
+	float	m_2DZ;
 
 private:
 	bool	m_InheritScale;
@@ -36,6 +39,12 @@ private:
 	bool	m_UpdatePos;
 
 public:
+	void Set2D(bool Is2D)
+	{
+		m_Is2D = Is2D;
+	}
+	void Clear();
+
 	void SetInheritScale(bool Inherit)
 	{
 		m_InheritScale = Inherit;

@@ -17,7 +17,6 @@
 						//쉐이더를 컴파일하기 위해 필요하다.
 #include <dinput.h> //다렉용 input 헤더
 
-
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
@@ -141,8 +140,9 @@ struct TransformCBuffer
 	Matrix  matProj;
 	Matrix  matWVP;
 	Vector3 Pivot;
+	float	Empty1;
 	Vector3 MeshSize;
-	Vector2 TransformEmpty;
+	float	Empty2;
 };
 
 struct VertexUV

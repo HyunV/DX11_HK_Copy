@@ -1,6 +1,7 @@
 
 #include "Monster.h"
 #include "Component/SpriteComponent.h"
+#include "Resource/Material/Material.h"
 
 CMonster::CMonster()
 {
@@ -29,6 +30,11 @@ bool CMonster::Init()
 
 	m_Sprite->SetRelativeScale(100.f, 100.f);
 	m_Sprite->SetWorldPosition(500.f, 600.f);
+
+	//m_Sprite->SetWorldPositionZ(0.5f);
+
+//m_Sprite->GetMaterial(0)->SetOpacity(0.5f);
+//m_Sprite->GetMaterial(0)->SetRenderState("DepthDisable");
 
 	return true;
 }

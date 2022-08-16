@@ -39,6 +39,15 @@ public:
 		D3D11_BLEND_OP BlendAlphOp = D3D11_BLEND_OP_ADD,
 		UINT8 WriteMask = D3D11_COLOR_WRITE_ENABLE_ALL);
 	bool CreateBlendState(const std::string& Name, bool AlphaToCoverageEnable, bool IndependentBlendEnable);
+public:
+	bool CreateDepthStencil(const std::string& Name, bool DepthEnable = true,
+		D3D11_DEPTH_WRITE_MASK DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL,
+		D3D11_COMPARISON_FUNC DepthFunc = D3D11_COMPARISON_LESS,
+		bool StencilEnable = false,
+		UINT8 StencilReadMask = D3D11_DEFAULT_STENCIL_READ_MASK,
+		UINT8 StencilWriteMask = D3D11_DEFAULT_STENCIL_WRITE_MASK,
+		D3D11_DEPTH_STENCILOP_DESC FrontFace = { D3D11_STENCIL_OP_KEEP, D3D11_STENCIL_OP_KEEP, D3D11_STENCIL_OP_KEEP, D3D11_COMPARISON_ALWAYS },
+		D3D11_DEPTH_STENCILOP_DESC BackFace = { D3D11_STENCIL_OP_KEEP, D3D11_STENCIL_OP_KEEP, D3D11_STENCIL_OP_KEEP, D3D11_COMPARISON_ALWAYS });
 
 public:
 	template <typename T>

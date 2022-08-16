@@ -34,6 +34,9 @@ public:
 	{
 		return m_SwapChain;
 	}
+
+	Vector2 GetResolutionRatio() const;
+
 public:
 	bool Init(HWND hWnd, unsigned int DeviceWidth, unsigned int DeviceHeight,
 		bool WindowMode);

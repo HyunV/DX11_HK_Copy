@@ -171,6 +171,13 @@ bool CRenderManager::CreateBlendState(const std::string& Name, bool AlphaToCover
 	return m_RenderStateManager->CreateBlendState(Name, AlphaToCoverageEnable, IndependentBlendEnable);
 }
 
+bool CRenderManager::CreateDepthStencil(const std::string& Name, bool DepthEnable, D3D11_DEPTH_WRITE_MASK DepthWriteMask, D3D11_COMPARISON_FUNC DepthFunc, bool StencilEnable, UINT8 StencilReadMask, UINT8 StencilWriteMask, D3D11_DEPTH_STENCILOP_DESC FrontFace, D3D11_DEPTH_STENCILOP_DESC BackFace)
+{
+	return m_RenderStateManager->CreateDepthStencil(Name, DepthEnable,
+		DepthWriteMask, DepthFunc, StencilEnable, StencilReadMask, StencilWriteMask,
+		FrontFace, BackFace);
+}
+
 bool CRenderManager::SortLayer(RenderLayer* Src, RenderLayer* Dest)
 {
 	return Src->LayerPriority < Dest->LayerPriority;

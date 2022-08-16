@@ -30,8 +30,9 @@ cbuffer Transform : register(b0)
 	matrix g_matProj;
 	matrix g_matWVP;
 	float3 g_Pivot;
+	float  g_TransformEmpty1;
 	float3 g_MeshSize;
-	float2 g_TransformEmpty;
+	float g_TransformEmpty2;
 };
 
 cbuffer Material : register(b1)

@@ -5,8 +5,11 @@
 #include "../Scene/CameraManager.h"
 #include "CameraComponent.h"
 
+float CTransform::m_MinY = FLT_MAX;
+float CTransform::m_MaxY = -FLT_MAX;
+
 CTransform::CTransform() :
-	m_Is2D(true),
+	m_Is2D(false),
 	m_InheritScale(false),
 	m_InheritRotX(false),
 	m_InheritRotY(false),
@@ -24,7 +27,8 @@ CTransform::CTransform() :
 	m_Scene(nullptr),
 	m_Object(nullptr),
 	m_Owner(nullptr),
-	m_MeshSize(1.f, 1.f, 1.f)
+	m_MeshSize(1.f, 1.f, 1.f),
+	m_2DZ(0.f)
 {
 	for (int i = 0; i < AXIS_MAX; ++i)
 	{
@@ -47,6 +51,15 @@ CTransform::CTransform(const CTransform& transform)
 CTransform::~CTransform()
 {
 	SAFE_DELETE(m_CBuffer);
+}
+
+void CTransform::Clear()
+{
+	if (m_Is2D)
+	{
+		m_MinY = FLT_MAX;
+		m_MaxY = -FLT_MAX;
+	}
 }
 
 void CTransform::InheritScale()
@@ -838,10 +851,38 @@ bool CTransform::Init()
 
 void CTransform::Update(float DeltaTime)
 {
+	if (m_Is2D)
+	{
+		float	y = m_WorldPos.y - m_Pivot.y * m_WorldScale.y;
+
+		if (m_MinY > y)
+			m_MinY = y;
+
+		if (m_MaxY < y)
+			m_MaxY = y;
+	}
 }
 
 void CTransform::PostUpdate(float DeltaTime)
 {
+	Vector3	WorldPos = m_WorldPos;
+
+	if (m_Is2D)
+	{
+		float	SizeY = (m_MaxY + 1.f) - (m_MinY - 1.f);
+
+		float	y = WorldPos.y - m_Pivot.y * m_WorldScale.y;
+
+		float	z = (y - (m_MinY - 1.f)) / (SizeY / 1000.f);
+
+		if (z != m_2DZ)
+		{
+			WorldPos.z = z;
+			m_2DZ = z;
+			m_UpdatePos = true;
+		}
+	}
+
 	if (m_UpdateScale)
 		m_matScale.Scaling(m_WorldScale);
 
@@ -851,7 +892,7 @@ void CTransform::PostUpdate(float DeltaTime)
 		m_matRot.Rotation(m_WorldRot);
 
 	if (m_UpdatePos)
-		m_matPos.Translation(m_WorldPos);
+		m_matPos.Translation(WorldPos);
 
 	// 월드 행렬은 위치, 크기, 회전중 하나라도 변화가 있어야 갱신한다.
 	// 변화가 없을 경우 계산을 안한다.
@@ -885,6 +926,8 @@ void CTransform::SetTransform()
 	m_CBuffer->SetMeshSize(m_MeshSize);
 
 	m_CBuffer->UpdateBuffer();
+
+	Clear();
 }
 
 void CTransform::ComputeWorld()

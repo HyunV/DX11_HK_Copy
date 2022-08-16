@@ -25,9 +25,9 @@ bool CSpriteComponent::Init()
 	if (!CPrimitiveComponent::Init())
 		return false;
 
-	SetMesh("CenterUVRect");
+	SetMesh("LBUVRect");
 
-	//m_Transform->Set2D(true);
+	m_Transform->Set2D(true);
 
 	return true;
 }

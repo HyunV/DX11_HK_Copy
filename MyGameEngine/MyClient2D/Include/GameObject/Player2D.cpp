@@ -4,10 +4,11 @@
 #include "Component/CameraComponent.h"
 #include "Component/TargetArm.h"
 #include "Input.h"
-#include "MyBullet.h"
 #include "Scene/Scene.h"
 #include "Scene/CameraManager.h"
 #include "Device.h"
+#include "MyBullet.h"
+#include "Resource/Material/Material.h"
 
 
 CPlayer2D::CPlayer2D()
@@ -35,13 +36,13 @@ bool CPlayer2D::Init()
 
 	m_Sprite = CreateComponent<CSpriteComponent>("sprite");
 	m_RightChild = CreateComponent<CSceneComponent>("RightChild");
-	//m_SpriteChild = CreateComponent<CSpriteComponent>("spriteChild");
-
+	m_SpriteChild = CreateComponent<CSpriteComponent>("spriteChild");
 	m_Camera = CreateComponent<CCameraComponent>("Camera");
 	m_Arm = CreateComponent<CTargetArm>("Arm");
 
 	m_Sprite->AddChild(m_RightChild);
-	//m_RightChild->AddChild(m_SpriteChild);
+
+	m_Sprite->GetMaterial(0)->SetBaseColorUnsignedChar(255, 255, 0, 255);
 
 	m_Sprite->AddChild(m_Arm);
 	m_Arm->AddChild(m_Camera);
@@ -55,15 +56,23 @@ bool CPlayer2D::Init()
 
 	m_Scene->GetCameraManager()->SetCurrentCamera(m_Camera);
 
+	m_RightChild->AddChild(m_SpriteChild);
+
 	m_Sprite->SetRelativeScale(100.f, 100.f);
 	m_Sprite->SetWorldPosition(500.f, 500.f);
+	m_Sprite->SetPivot(0.5f, 0.5f);
+
+	CMaterial* Material = m_Sprite->GetMaterial(0);
+
+	Material->SetOpacity(0.5f);
+	//Material->SetRenderState("DepthDisable");
 
 	m_RightChild->SetRelativePosition(150.f, 0.f);
 	m_RightChild->SetInheritRotZ(true);
 
-	//m_SpriteChild->SetRelativeScale(50.f, 50.f);
-	//m_SpriteChild->SetRelativePosition(100.f, 0.f);
-	//m_SpriteChild->SetInheritRotZ(true);
+	m_SpriteChild->SetRelativeScale(50.f, 50.f);
+	m_SpriteChild->SetRelativePosition(100.f, 0.f);
+	m_SpriteChild->SetInheritRotZ(true);
 
 	CInput::GetInst()->AddBindFunction<CPlayer2D>("Rotation", Input_Type::Push,
 		this, &CPlayer2D::RotationInv, m_Scene);
