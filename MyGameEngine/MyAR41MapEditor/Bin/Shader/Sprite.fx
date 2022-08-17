@@ -56,7 +56,7 @@ struct VS_INPUT_UV
 
 struct VS_OUTPUT_UV
 {
-	float4 Pos : SC_POSITION;
+	float4 Pos : SV_POSITION;
 	float2 UV : TEXCOORD;
 };
 
@@ -109,9 +109,9 @@ PS_OUTPUT_SINGLE SpritePS(VS_OUTPUT_UV input)
 
 	float4 TextureColor = g_BaseTexture.Sample(g_PointSmp, input.UV);
 
-	output.Color.rgb = TextureColor.rgb * g_MtrBaseColor.rgb;
+	output.Color.rgb = TextureColor.rgb * g_MtrlBaseColor.rgb;
 
-	oubput.Color.a = TextureColor.a * g_MtrlOpacity;
+	output.Color.a = TextureColor.a * g_MtrlOpacity;
 
 	return output;
 }

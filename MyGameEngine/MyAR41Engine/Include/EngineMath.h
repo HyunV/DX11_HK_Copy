@@ -14,7 +14,7 @@ static float DegreeToRadian(float Degree)
 	return Degree * PI / 180.f;
 }
 
-static float RadianToDegred(float Radian)
+static float RadianToDegree(float Radian)
 {
 	return Radian * 180.f / PI;
 }

@@ -40,7 +40,7 @@ cbuffer Material : register(b1)
 	float4 g_MtrlBaseColor;
 	float4 g_MtrlAmbientColor;
 	float4 g_MtrlSpecularColor;
-	float4 g_MtrEmissiveColor;
+	float4 g_MtrlEmissiveColor;
 	float g_MtrlOpacity;
 	float3 g_MtrlEmpty;
 };
