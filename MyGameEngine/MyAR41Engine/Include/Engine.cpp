@@ -6,7 +6,7 @@
 #include "Scene/SceneManager.h"
 #include "Render/RenderManager.h"
 #include "Input.h"
-
+#include "Editor/EditorGUIManager.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -17,6 +17,7 @@ float g_DeltaTime;
 DEFINITION_SINGLE(CEngine)
 
 bool CEngine::m_Loop = true;
+bool CEngine::m_EditorMode = false;
 
 CEngine::CEngine() :
 	m_hInst(0),
@@ -31,6 +32,8 @@ CEngine::CEngine() :
 CEngine::~CEngine()
 {
     CSceneManager::DestroyInst();
+
+    CEditorGUIManager::DestroyInst();
 
     CRenderManager::DestroyInst();
 
@@ -70,6 +73,12 @@ bool CEngine::Init(HINSTANCE hInst, const TCHAR* Title,
     // Resource 관리자 초기화
     if (!CResourceManager::GetInst()->Init())
         return false;
+
+    if (m_EditorMode)
+    {
+        if (!CEditorGUIManager::GetInst()->Init(m_hWnd))
+            return false;
+    }
 
 
     // 입력 관리자 초기화
@@ -144,9 +153,13 @@ void CEngine::Logic()
 
     CInput::GetInst()->Update(DeltaTime);
 
+    if (m_EditorMode)
+        CEditorGUIManager::GetInst()->Update(DeltaTime);
+
     CResourceManager::GetInst()->Update();
 
     Input(DeltaTime);
+
 
     if (Update(DeltaTime))
         return;
@@ -190,6 +203,8 @@ void CEngine::Render(float DeltaTime)
     // 모든 물체들을 출력한다. 이렇게 하면 백버퍼와 깊이버퍼가 채워진다.
     CRenderManager::GetInst()->Render(DeltaTime);
 
+    if (m_EditorMode)
+        CEditorGUIManager::GetInst()->Render();
 
     // 그려진 백버퍼를 화면에 시연한다.
     CDevice::GetInst()->Flip();
@@ -288,8 +303,17 @@ bool CEngine::Create(const TCHAR* Title, const TCHAR* ClassName)
     return true;
 }
 
+// 이거 안하면 IMGUI 버튼 클릭 안됨.
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 LRESULT CEngine::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    if (m_EditorMode)
+    {
+        if (ImGui_ImplWin32_WndProcHandler(hWnd, message, wParam, lParam))
+            return 1;
+    }
+
     switch (message)
     {
     case WM_DESTROY:

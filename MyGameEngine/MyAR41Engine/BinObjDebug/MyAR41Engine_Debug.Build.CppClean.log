@@ -47,6 +47,17 @@ c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\timer.obj
 c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\sceneresource.obj
 c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\scenemanager.obj
 c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\sceneinfo.obj
+c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\editorwindow.obj
+c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\editorwidget.obj
+c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\editorguimanager.obj
+c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\editorbutton.obj
+c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\imgui_widgets.obj
+c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\imgui_tables.obj
+c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\imgui_impl_win32.obj
+c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\imgui_impl_dx11.obj
+c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\imgui_draw.obj
+c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\imgui_demo.obj
+c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\imgui.obj
 c:\users\hyun\desktop\dx11\mygameengine\myar41engine\bin\sprite.cso
 c:\users\hyun\desktop\dx11\mygameengine\myar41engine\bin\myar41engine_debug.lib
 c:\users\hyun\desktop\dx11\mygameengine\myar41engine\binobjdebug\../bin/myar41engine_debug.pdb

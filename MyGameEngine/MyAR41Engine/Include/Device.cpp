@@ -26,12 +26,29 @@ CDevice::~CDevice()
 	SAFE_RELEASE(m_Device);
 }
 
+Vector2 CDevice::GetResolutionRatio() const
+{
+	//윈도우 클라이언트 창 크기를 구하고 우리의 해상도와 비교한 뒤 크기를 처리하게 만듬
+	//만약 디바이스 해상도가 1920인데 윈도우 사이즈가 1280이라면 1920이 나와야 한다.
+	RECT	WindowRC;
+
+	GetClientRect(m_hWnd, &WindowRC); 
+
+	float Width = (float)(WindowRC.right - WindowRC.left);
+	float Height = (float)(WindowRC.bottom - WindowRC.top);
+
+	//둘을 나누면 비율이 나온다. (1920 / 1280 = 1.5) 
+	return Vector2(m_RS.Width / Width, m_RS.Height / Height);
+}
+
 bool CDevice::Init(HWND hWnd, unsigned int DeviceWidth, unsigned int DeviceHeight,
 	bool WindowMode)
 {
 	m_hWnd = hWnd;
 	m_RS.Width = DeviceWidth;
 	m_RS.Height = DeviceHeight;
+	
+	GetResolutionRatio();
 
 	unsigned int	Flag = D3D11_CREATE_DEVICE_BGRA_SUPPORT;
 

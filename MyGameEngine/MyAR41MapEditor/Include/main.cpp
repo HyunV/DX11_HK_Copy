@@ -1,5 +1,4 @@
-#include "Engine.h"
-#include "resource.h"
+#include "EditorManager.h"
 
 //라이브러리 임시 경로 지정
 #ifdef _DEBUG
@@ -18,13 +17,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_ LPWSTR    lpCmdLine,
     _In_ int       nCmdShow)
 {
-    if (!CEngine::GetInst()->Init(hInstance, TEXT("Client2D"), TEXT("Client2D"), IDI_ICON1,
-        IDI_ICON1, 1280, 720, 1280, 720, true))
-    {
-        CEngine::DestroyInst();
+    CEditorManager  mgr;
+
+    if (!mgr.Init(hInstance))
         return 0;
-    }
-    int Ret = CEngine::GetInst()->Run();
-    CEngine::DestroyInst();
+
+    int Ret = mgr.Run();
+
     return Ret;
 }

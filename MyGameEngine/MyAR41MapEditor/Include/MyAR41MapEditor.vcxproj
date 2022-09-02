@@ -157,10 +157,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EditorManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Scene\EditorDefaultScene.cpp" />
+    <ClCompile Include="Window\TestWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Editor.h" />
+    <ClInclude Include="EditorManager.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Scene\EditorDefaultScene.h" />
+    <ClInclude Include="Window\TestWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyAR41MapEditor.rc" />

@@ -35,6 +35,7 @@ public:
 		return m_SwapChain;
 	}
 
+	//해상도 비율 관리(이후 3d에서도 사용하기 위한 용도)
 	Vector2 GetResolutionRatio() const;
 
 public:

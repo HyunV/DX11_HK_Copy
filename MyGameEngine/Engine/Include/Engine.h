@@ -11,8 +11,19 @@ private:
 	float		m_ClearColor[4];
 	static bool m_Loop;
 	class CTimer* m_Timer;
+	static bool		m_EditorMode;
 
 public:
+	bool GetEditorMode()	const
+	{
+		return m_EditorMode;
+	}
+
+	void EnableEditor()
+	{
+		m_EditorMode = true;
+	}
+
 	Resolution GetWindowResolution() const
 	{
 		return m_WindowRS;

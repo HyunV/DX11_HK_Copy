@@ -1,5 +1,6 @@
 #include "Input.h"
 #include "Resource/ResourceManager.h"
+#include "Device.h"
 
 #pragma comment(lib, "dinput8.lib")
 
@@ -155,12 +156,21 @@ void CInput::UpdateMouse(float DeltaTime)
 	// 스크린 좌표를 윈도우 좌표로 변경한다.
 	ScreenToClient(m_hWnd, &ptMouse);
 
-	m_MouseMove.x = (float)ptMouse.x - m_MousePos.x;
-	m_MouseMove.y = (float)ptMouse.y - m_MousePos.y;
+	RECT	WindowRC;
 
+	GetClientRect(m_hWnd, &WindowRC);
 
-	m_MousePos.x = (float)ptMouse.x;
-	m_MousePos.y = (float)ptMouse.y;
+	Vector2 ResolutionRatio = CDevice::GetInst()->GetResolutionRatio();
+
+	Vector2 MousePos;
+
+	//스크린 좌표를 resolutionratio(비율)을 곱해줌으로서 윈도우 좌표로 바꿔준다.
+	MousePos.x = (float)ptMouse.x * ResolutionRatio.x;
+	MousePos.y = (float)(WindowRC.bottom - WindowRC.top - ptMouse.y)* ResolutionRatio.y;
+
+	m_MouseMove = MousePos - m_MousePos;
+
+	m_MousePos = MousePos;
 
 	/*RECT	rc = {};
 	GetClientRect(m_hWnd, &rc);

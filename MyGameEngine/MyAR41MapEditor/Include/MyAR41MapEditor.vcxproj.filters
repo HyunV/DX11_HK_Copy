@@ -13,15 +13,45 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="01. Manager">
+      <UniqueIdentifier>{99d0c2df-8e24-478e-a275-cb2313d7e269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Scene">
+      <UniqueIdentifier>{8dc9b61c-4a9e-477c-81b8-f428e907fc16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Window">
+      <UniqueIdentifier>{7042553d-0249-4df8-bab2-04e8636ad694}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="EditorManager.cpp">
+      <Filter>01. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\EditorDefaultScene.cpp">
+      <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\TestWindow.cpp">
+      <Filter>03. Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorManager.h">
+      <Filter>01. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\EditorDefaultScene.h">
+      <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\TestWindow.h">
+      <Filter>03. Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
