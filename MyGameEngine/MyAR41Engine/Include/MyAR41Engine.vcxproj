@@ -19,14 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\새 폴더\imconfig.h" />
-    <ClInclude Include="..\..\..\..\새 폴더\imgui.h" />
-    <ClInclude Include="..\..\..\..\새 폴더\imgui_impl_dx11.h" />
-    <ClInclude Include="..\..\..\..\새 폴더\imgui_impl_win32.h" />
-    <ClInclude Include="..\..\..\..\새 폴더\imgui_internal.h" />
-    <ClInclude Include="..\..\..\..\새 폴더\imstb_rectpack.h" />
-    <ClInclude Include="..\..\..\..\새 폴더\imstb_textedit.h" />
-    <ClInclude Include="..\..\..\..\새 폴더\imstb_truetype.h" />
     <ClInclude Include="Component\CameraComponent.h" />
     <ClInclude Include="Component\Component.h" />
     <ClInclude Include="Component\ObjectComponent.h" />
@@ -37,11 +29,17 @@
     <ClInclude Include="Component\Transform.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="Editor\EditorButton.h" />
+    <ClInclude Include="Editor\EditorComboBox.h" />
     <ClInclude Include="Editor\EditorGUIManager.h" />
     <ClInclude Include="Editor\EditorImage.h" />
     <ClInclude Include="Editor\EditorInfo.h" />
+    <ClInclude Include="Editor\EditorInput.h" />
     <ClInclude Include="Editor\EditorLabel.h" />
+    <ClInclude Include="Editor\EditorListBox.h" />
     <ClInclude Include="Editor\EditorSameLine.h" />
+    <ClInclude Include="Editor\EditorText.h" />
+    <ClInclude Include="Editor\EditorTree.h" />
+    <ClInclude Include="Editor\EditorTreeItem.h" />
     <ClInclude Include="Editor\EditorWidget.h" />
     <ClInclude Include="Editor\EditorWindow.h" />
     <ClInclude Include="Engine.h" />
@@ -49,6 +47,14 @@
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="Flag.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="imconfig.h" />
+    <ClInclude Include="imgui.h" />
+    <ClInclude Include="imgui_impl_dx11.h" />
+    <ClInclude Include="imgui_impl_win32.h" />
+    <ClInclude Include="imgui_internal.h" />
+    <ClInclude Include="imstb_rectpack.h" />
+    <ClInclude Include="imstb_textedit.h" />
+    <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Matrix.h" />
     <ClInclude Include="PathManager.h" />
@@ -89,13 +95,6 @@
     <ClInclude Include="Vector4.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\새 폴더\imgui.cpp" />
-    <ClCompile Include="..\..\..\..\새 폴더\imgui_demo.cpp" />
-    <ClCompile Include="..\..\..\..\새 폴더\imgui_draw.cpp" />
-    <ClCompile Include="..\..\..\..\새 폴더\imgui_impl_dx11.cpp" />
-    <ClCompile Include="..\..\..\..\새 폴더\imgui_impl_win32.cpp" />
-    <ClCompile Include="..\..\..\..\새 폴더\imgui_tables.cpp" />
-    <ClCompile Include="..\..\..\..\새 폴더\imgui_widgets.cpp" />
     <ClCompile Include="Component\CameraComponent.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\ObjectComponent.cpp" />
@@ -106,14 +105,27 @@
     <ClCompile Include="Component\Transform.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="Editor\EditorButton.cpp" />
+    <ClCompile Include="Editor\EditorComboBox.cpp" />
     <ClCompile Include="Editor\EditorGUIManager.cpp" />
     <ClCompile Include="Editor\EditorImage.cpp" />
+    <ClCompile Include="Editor\EditorInput.cpp" />
     <ClCompile Include="Editor\EditorLabel.cpp" />
+    <ClCompile Include="Editor\EditorListBox.cpp" />
     <ClCompile Include="Editor\EditorSameLine.cpp" />
+    <ClCompile Include="Editor\EditorText.cpp" />
+    <ClCompile Include="Editor\EditorTree.cpp" />
+    <ClCompile Include="Editor\EditorTreeItem.cpp" />
     <ClCompile Include="Editor\EditorWidget.cpp" />
     <ClCompile Include="Editor\EditorWindow.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_dx11.cpp" />
+    <ClCompile Include="imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui_tables.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Matrix.cpp" />
     <ClCompile Include="PathManager.cpp" />
@@ -223,6 +235,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
@@ -310,6 +323,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>

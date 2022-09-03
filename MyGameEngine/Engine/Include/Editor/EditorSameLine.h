@@ -1,5 +1,7 @@
 #pragma once
 #include "EditorWidget.h"
+
+//위젯을 바로 옆에 배치할 수 있게 도와주는 클래스
 class CEditorSameLine :
     public CEditorWidget
 {

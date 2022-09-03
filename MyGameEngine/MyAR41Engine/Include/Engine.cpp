@@ -74,16 +74,16 @@ bool CEngine::Init(HINSTANCE hInst, const TCHAR* Title,
     if (!CResourceManager::GetInst()->Init())
         return false;
 
+
+    // 입력 관리자 초기화
+    if (!CInput::GetInst()->Init(m_hInst, m_hWnd))
+        return false;
+
     if (m_EditorMode)
     {
         if (!CEditorGUIManager::GetInst()->Init(m_hWnd))
             return false;
     }
-
-
-    // 입력 관리자 초기화
-    if (!CInput::GetInst()->Init(m_hInst, m_hWnd))
-        return false;
 
 
     // 렌더링 관리자 초기화

@@ -1,5 +1,7 @@
 #pragma once
 #include "EditorWidget.h"
+
+//이미지 위젯
 class CEditorImage :
     public CEditorWidget
 {

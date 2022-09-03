@@ -112,14 +112,14 @@
     <Filter Include="07. Editor">
       <UniqueIdentifier>{85eecd8c-c64e-4231-ae51-facb9e8cc8b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07. Editor\01. IMGUI">
-      <UniqueIdentifier>{8fb1c8c1-630e-4fde-a596-6e1d44365489}</UniqueIdentifier>
-    </Filter>
     <Filter Include="07. Editor\02. Window">
       <UniqueIdentifier>{f3434313-a013-4d30-a7a0-9f3af05d7fbb}</UniqueIdentifier>
     </Filter>
     <Filter Include="07. Editor\03. Widget">
       <UniqueIdentifier>{4be8578b-fc73-4fb0-8afa-1bb87b25ae6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Editor\01. IMGUI">
+      <UniqueIdentifier>{6baad374-84fe-4a84-9770-69a71c2a1765}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -279,30 +279,6 @@
     <ClInclude Include="Render\DepthStencilState.h">
       <Filter>06. Render\01. RenderState</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\새 폴더\imconfig.h">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\새 폴더\imgui.h">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\새 폴더\imgui_internal.h">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\새 폴더\imstb_rectpack.h">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\새 폴더\imstb_textedit.h">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\새 폴더\imstb_truetype.h">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\새 폴더\imgui_impl_win32.h">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\새 폴더\imgui_impl_dx11.h">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClInclude>
     <ClInclude Include="Editor\EditorWindow.h">
       <Filter>07. Editor\02. Window</Filter>
     </ClInclude>
@@ -325,6 +301,48 @@
       <Filter>07. Editor\03. Widget</Filter>
     </ClInclude>
     <ClInclude Include="Editor\EditorSameLine.h">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="imconfig.h">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui.h">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_dx11.h">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_impl_win32.h">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_internal.h">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_rectpack.h">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_textedit.h">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="imstb_truetype.h">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\EditorInput.h">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\EditorListBox.h">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\EditorText.h">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\EditorComboBox.h">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\EditorTree.h">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\EditorTreeItem.h">
       <Filter>07. Editor\03. Widget</Filter>
     </ClInclude>
   </ItemGroup>
@@ -470,27 +488,6 @@
     <ClCompile Include="Render\DepthStencilState.cpp">
       <Filter>06. Render\01. RenderState</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\새 폴더\imgui.cpp">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\새 폴더\imgui_demo.cpp">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\새 폴더\imgui_draw.cpp">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\새 폴더\imgui_tables.cpp">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\새 폴더\imgui_widgets.cpp">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\새 폴더\imgui_impl_dx11.cpp">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\새 폴더\imgui_impl_win32.cpp">
-      <Filter>07. Editor\01. IMGUI</Filter>
-    </ClCompile>
     <ClCompile Include="Editor\EditorWindow.cpp">
       <Filter>07. Editor\02. Window</Filter>
     </ClCompile>
@@ -510,6 +507,45 @@
       <Filter>07. Editor\03. Widget</Filter>
     </ClCompile>
     <ClCompile Include="Editor\EditorSameLine.cpp">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_dx11.cpp">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>07. Editor\01. IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\EditorInput.cpp">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\EditorListBox.cpp">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\EditorText.cpp">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\EditorComboBox.cpp">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\EditorTree.cpp">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\EditorTreeItem.cpp">
       <Filter>07. Editor\03. Widget</Filter>
     </ClCompile>
   </ItemGroup>
