@@ -12,6 +12,7 @@ protected:
 	CGameObject();
 	CGameObject(const CGameObject& Obj);
 	virtual ~CGameObject();
+	std::string		m_ObjectTypeName;
 
 protected:
 	class CScene* m_Scene;
@@ -25,6 +26,10 @@ public:
 	void SetScene(class CScene* Scene)
 	{
 		m_Scene = Scene;
+	}
+	const std::string& GetObjectTypeName()	const
+	{
+		return m_ObjectTypeName;
 	}
 
 public:

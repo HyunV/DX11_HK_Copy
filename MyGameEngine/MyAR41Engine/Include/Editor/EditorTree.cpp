@@ -1,18 +1,19 @@
+
 #include "EditorTree.h"
 
-CEditorTree::CEditorTree()  :
-    m_Root(nullptr)
+CEditorTree::CEditorTree()	:
+	m_Root(nullptr)
 {
 }
 
 CEditorTree::~CEditorTree()
 {
-    SAFE_DELETE(m_Root);
+	SAFE_DELETE(m_Root);
 }
 
 void CEditorTree::AddItem(const std::string& Item, const std::string& ParentItem)
 {
-	if (!m_Root) //루트노드가 없을 시(처음 생성 시)
+	if (!m_Root)
 	{
 		m_Root = new CEditorTreeItem;
 
@@ -144,7 +145,7 @@ void CEditorTree::Clear()
 
 bool CEditorTree::Init()
 {
-    return true;
+	return true;
 }
 
 void CEditorTree::Render()

@@ -6,6 +6,8 @@ CComponent::CComponent()	:
 	m_Owner(nullptr)
 {
 	SetTypeID<CComponent>();
+
+	m_ComponentTypeName = "Component";
 }
 
 CComponent::CComponent(const CComponent& Obj)	:

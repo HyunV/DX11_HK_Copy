@@ -7,7 +7,6 @@
 #include "Editor/EditorInput.h"
 #include "Editor/EditorListBox.h"
 #include "Editor/EditorComboBox.h"
-#include "Editor/EditorTree.h"
 
 CTestWindow::CTestWindow()	:
 	m_AddText{},
@@ -55,7 +54,7 @@ bool CTestWindow::Init()
 	m_Text->SetText("작심하루");
 	m_Text->SetColor(255, 0, 0, 255);
 
-	strcpy_s(m_AddText, " 실패애애애애");
+	strcpy_s(m_AddText, "F는 Fire 마을을 불태우지");
 
 	m_AddCount = (int)strlen(m_AddText);
 
@@ -98,15 +97,15 @@ bool CTestWindow::Init()
 	m_Combo->SetSelectCallback<CTestWindow>(this, &CTestWindow::ListCallback);
 
 	//트리
-	m_Tree = CreateWidget<CEditorTree>("Tree");
+	m_Tree = CreateWidget<CEditorTree<int>>("Tree");
 
 	m_Tree->SetHideName("Tree");
 
-	m_Tree->AddItem("Root");
-	m_Tree->AddItem("진짜 최상위 부모");
-	m_Tree->AddItem("자식1", "진짜 최상위 부모");
-	m_Tree->AddItem("자식2", "Root");
-	m_Tree->AddItem("자식3", "자식2");
+	m_Tree->AddItem(0, "Root");
+	m_Tree->AddItem(0, "진짜 최상위 부모");
+	m_Tree->AddItem(0, "자식1", "진짜 최상위 부모");
+	m_Tree->AddItem(0, "자식2", "Root");
+	m_Tree->AddItem(0, "자식3", "자식2");
 
 	m_Tree->SetSelectCallback<CTestWindow>(this, &CTestWindow::TreeCallback);
 
@@ -158,7 +157,7 @@ void CTestWindow::ListCallback(int SelectIndex, const std::string& Item)
 	OutputDebugStringA(Text);
 }
 
-void CTestWindow::TreeCallback(const std::string& Item)
+void CTestWindow::TreeCallback(CEditorTreeItem<int>* Node, const std::string& Item)
 {
 	char	Text[256] = {};
 

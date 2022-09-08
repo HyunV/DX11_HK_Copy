@@ -1,5 +1,7 @@
 #pragma once
 #include "Editor\EditorWindow.h"
+#include "Editor/EditorTree.h"
+#include "GameObject/GameObject.h"
 
 //오브젝트 생성 클래스?
 class CObjectWindow :
@@ -12,16 +14,16 @@ protected:
     virtual ~CObjectWindow();
 
 private:
-    class CEditorTree* m_Tree;
+    CEditorTree<CGameObject*>* m_Tree;
 
 public:
-    void AddItem(const std::string& Name, const std::string& ParentName = "Root");
+    void AddItem(class CGameObject* Object, const std::string& Name, const std::string& ParentName = "Root");
 
 public:
     virtual bool Init();
     virtual void Update(float DeltaTime);
 
 private:
-    void TreeCallback(const std::string& Item);
+    void TreeCallback(CEditorTreeItem<CGameObject*>* Node, const std::string& Item);
 };
 

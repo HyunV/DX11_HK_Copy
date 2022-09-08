@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-CGameObject::CGameObject() :
+CGameObject::CGameObject()  :
 	m_Parent(nullptr),
 	m_Scene(nullptr),
 	m_LifeTime(-1.f)
@@ -8,7 +8,7 @@ CGameObject::CGameObject() :
 	SetTypeID<CGameObject>();
 }
 
-CGameObject::CGameObject(const CGameObject& Obj) :
+CGameObject::CGameObject(const CGameObject& Obj)    :
 	CRef(Obj)
 {
 }
@@ -36,7 +36,7 @@ CComponent* CGameObject::FindComponent(const std::string& Name)
 {
 	auto    iter = m_SceneComponentList.begin();
 	auto    iterEnd = m_SceneComponentList.end();
-
+	
 	for (; iter != iterEnd; ++iter)
 	{
 		if ((*iter)->GetName() == Name)
@@ -93,7 +93,7 @@ void CGameObject::Update(float DeltaTime)
 		m_vecObjectComponent[i]->Update(DeltaTime);
 	}
 
-	if(m_RootComponent)
+	if (m_RootComponent)
 		m_RootComponent->Update(DeltaTime);
 }
 

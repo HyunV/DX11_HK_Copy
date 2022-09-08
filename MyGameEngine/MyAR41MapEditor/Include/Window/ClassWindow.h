@@ -14,6 +14,19 @@ protected:
 private:
     class CEditorListBox* m_ObjectList;
     class CEditorListBox* m_ComponentList;
+    std::string         m_SelectObjectItem;
+    std::string         m_SelectComponentItem;
+
+public:
+    const std::string& GetSelectObjectItem() const
+    {
+        return m_SelectObjectItem;
+    }
+    
+    const std::string& GetSelectComponentItem() const
+    {
+        return m_SelectComponentItem;
+    }
 
 public:
     virtual bool Init();
@@ -22,5 +35,9 @@ public:
 private:
     void ObjectClickCallback(int Index, const std::string& Item);
     void ComponentClickCallback(int Index, const std::string& Item);
+
+private:
+    void LoadGameObjectName();
+    void LoadComponentName();
 };
 

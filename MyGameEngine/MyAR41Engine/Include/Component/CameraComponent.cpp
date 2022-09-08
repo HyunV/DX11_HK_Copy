@@ -7,6 +7,8 @@ CCameraComponent::CCameraComponent()	:
 	m_CameraType(ECameraType::Camera2D)
 {
 	SetTypeID<CCameraComponent>();
+
+	m_ComponentTypeName = "CameraComponent";
 }
 
 CCameraComponent::CCameraComponent(const CCameraComponent& component)	:

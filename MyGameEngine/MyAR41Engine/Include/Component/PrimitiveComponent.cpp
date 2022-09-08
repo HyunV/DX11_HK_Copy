@@ -8,6 +8,8 @@
 CPrimitiveComponent::CPrimitiveComponent()
 {
 	SetTypeID<CPrimitiveComponent>();
+
+	m_ComponentTypeName = "PrimitiveComponent";
 }
 
 CPrimitiveComponent::CPrimitiveComponent(const CPrimitiveComponent& component) :

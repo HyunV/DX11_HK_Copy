@@ -16,8 +16,13 @@ protected:
     ComponentType   m_ComponentType;
     class CScene* m_Scene;
     class CGameObject* m_Owner;
+    std::string m_ComponentTypeName;
 
 public:
+    const std::string& GetComponentTypeName() const
+    {
+        return m_ComponentTypeName;
+    }
     class CScene* GetScene()    const
     {
         return m_Scene;

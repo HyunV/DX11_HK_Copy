@@ -10,6 +10,7 @@
 #include "Window\TestWindow.h"
 #include "Window\ObjectWindow.h"
 #include "Window\ClassWindow.h"
+#include "Window\ComponentWindow.h"
 #include "Editor/EditorGUIManager.h"
 
 CEditorManager::CEditorManager()
@@ -37,15 +38,17 @@ bool CEditorManager::Init(HINSTANCE hInst)
     //테스트 윈도우 클래스로 창을 띄움
     CEngine::SetWndProcCallback<CEditorManager>(this, &CEditorManager::WndProc);
 
-    //테스트 윈도우 생성 (티모?)
+    //#예제 출력# 테스트 윈도우 생성 (티모?)
     //CEditorGUIManager::GetInst()->CreateEditorWindow<CTestWindow>("TestWindow");
     
-    //오브젝트 윈도우 생성
+    //#예제 출력# 오브젝트 윈도우 생성
     CEditorGUIManager::GetInst()->CreateEditorWindow<CObjectWindow>("ObjectWindow"); 
 
-    //클래스 윈도우 생성
+    //#예제 출력#  클래스 윈도우 생성
     CEditorGUIManager::GetInst()->CreateEditorWindow<CClassWindow>("ClassWindow");
     
+    //#예제 출력#  컴포넌트 윈도우
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CComponentWindow>("ComponentWindow");
 
     // 키 등록
 /*CInput::GetInst()->AddBindKey("Rotation", 'D');
@@ -135,10 +138,40 @@ void CEditorManager::CreateEmptyObject()
 
     if (Window)
     {
-        Window->AddItem("GameObjectEmpty");
+        Window->AddItem(EmptyObj, "GameObjectEmpty");
     }
 }
 
 void CEditorManager::CreateObject()
 {
+    CScene* Scene = CSceneManager::GetInst()->GetScene();
+
+    CGameObject* Obj = nullptr;
+
+    CClassWindow* ClassWindow = CEditorGUIManager::GetInst()->FindEditorWindow<CClassWindow>("ClassWindow");
+    std::string SelectObjectItem = ClassWindow->GetSelectObjectItem();
+
+    if (SelectObjectItem == "") //선택한 오브젝트가 비어있으면
+        return;
+
+    CObjectWindow* Window = CEditorGUIManager::GetInst()->FindEditorWindow<CObjectWindow>("ObjectWindow");
+
+    //※ 오브젝트 자주 만드는것들은 여기다 등록을 하는건가 
+    if (SelectObjectItem == "GameObject")
+        Obj = Scene->CreateObject<CGameObject>(SelectObjectItem); //클래스 윈도우에서 선택한 오브젝트를 해당 씬에다 생성?
+
+    else if(SelectObjectItem == "Player2D")
+        Obj = Scene->CreateObject<CPlayer2D>(SelectObjectItem);
+
+    else if (SelectObjectItem == "MyBullet")
+        Obj = Scene->CreateObject<CMyBullet>(SelectObjectItem);
+
+    else if (SelectObjectItem == "Monster")
+        Obj = Scene->CreateObject<CMonster>(SelectObjectItem);
+
+    if (Window)
+    {
+        Window->AddItem(Obj, SelectObjectItem); //오브젝트 윈도우에 목록을 추가함
+    }
+
 }

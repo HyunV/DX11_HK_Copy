@@ -1,6 +1,6 @@
 
 #include "SceneComponent.h"
-#include "../GameObject.h"
+#include "../GameObject/GameObject.h"
 
 CSceneComponent::CSceneComponent() :
 	m_Parent(nullptr),
@@ -13,6 +13,8 @@ CSceneComponent::CSceneComponent() :
 	m_Transform->Init();
 
 	m_ComponentType = ComponentType::Scene;
+
+	m_ComponentTypeName = "SceneComponent";
 }
 
 CSceneComponent::CSceneComponent(const CSceneComponent& component) :

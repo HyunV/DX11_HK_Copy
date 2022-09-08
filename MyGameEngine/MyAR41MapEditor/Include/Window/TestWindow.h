@@ -2,6 +2,7 @@
 
 //하나의 팝업인가?
 #include "Editor/EditorWindow.h"
+#include "Editor/EditorTree.h"
 
 class CTestWindow :
     public CEditorWindow
@@ -23,7 +24,7 @@ private:
 	class CEditorInput* m_Input;
 	class CEditorListBox* m_List;
 	class CEditorComboBox* m_Combo;
-	class CEditorTree* m_Tree;
+	CEditorTree<int>* m_Tree;
 
 public:
 	virtual bool Init();
@@ -33,6 +34,6 @@ private:
 	void TestButtonCallback();
 	void InputCallback();
 	void ListCallback(int SelectIndex, const std::string& Item);
-	void TreeCallback(const std::string& Item);
+	void TreeCallback(CEditorTreeItem<int>* Node, const std::string& Item);
 };
 

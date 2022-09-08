@@ -24,7 +24,10 @@ public:
 	{
 		return m_Transform;
 	}
-
+	CSceneComponent* GetParent() const
+	{
+		return m_Parent;
+	}
 public:
 	const std::string& GetRenderLayerName() const
 	{

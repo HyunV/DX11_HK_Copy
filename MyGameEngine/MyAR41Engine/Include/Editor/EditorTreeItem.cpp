@@ -1,7 +1,8 @@
+
 #include "EditorTreeItem.h"
 
-CEditorTreeItem::CEditorTreeItem()  :
-    m_Parent(nullptr),
+CEditorTreeItem::CEditorTreeItem()	:
+	m_Parent(nullptr),
 	m_Flag(ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow)
 {
 }
@@ -35,7 +36,6 @@ ImGuiTreeNodeFlags_NavLeftJumpsBackHere = 1 << 13,  // (WIP) Nav: left direction
 //ImGuiTreeNodeFlags_NoScrollOnOpen     = 1 << 14,  // FIXME: TODO: Disable automatic scroll on TreePop() if node got just open and contents is not visible
 ImGuiTreeNodeFlags_CollapsingHeader     = ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_NoAutoOpenOnLog,
 */
-
 void CEditorTreeItem::AddFlag(ImGuiTreeNodeFlags_ Flag)
 {
 	m_Flag |= Flag;
@@ -81,7 +81,7 @@ CEditorTreeItem* CEditorTreeItem::FindItem(const std::string& Item)
 
 	size_t	Size = m_vecChild.size();
 
-	for (size_t i = 0; i < Size; ++i)
+	for(size_t i = 0; i < Size; ++i)	
 	{
 		CEditorTreeItem* Find = m_vecChild[i]->FindItem(Item);
 
@@ -107,7 +107,7 @@ void CEditorTreeItem::Clear()
 
 void CEditorTreeItem::Render()
 {
-	ImGuiTreeNodeFlags Flag = m_Flag;
+	ImGuiTreeNodeFlags	Flag = m_Flag;
 
 	if (m_vecChild.empty())
 		Flag |= ImGuiTreeNodeFlags_Leaf;
@@ -115,15 +115,17 @@ void CEditorTreeItem::Render()
 	bool	ItemOpen = ImGui::TreeNodeEx(m_ItemUTF8.c_str(), Flag);
 
 	if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen())
-		{
-			if (m_SelectCallback)
-				m_SelectCallback(this, m_Item);
-		}
+	{
+		if (m_SelectCallback)
+			m_SelectCallback(this, m_Item);
+	}
+
 	/*if (ImGui::BeginDragDropSource())
 	{
-	ImGui::EndDragDropSource();
+		ImGui::EndDragDropSource();
 	}*/
-	if(ItemOpen)
+
+	if (ItemOpen)
 	{
 		size_t	Size = m_vecChild.size();
 

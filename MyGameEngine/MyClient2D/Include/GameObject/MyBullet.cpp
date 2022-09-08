@@ -6,6 +6,8 @@
 CMyBullet::CMyBullet()
 {
 	SetTypeID<CMyBullet>();
+
+	m_ObjectTypeName = "MyBullet";
 }
 
 CMyBullet::CMyBullet(const CMyBullet& Obj)	:

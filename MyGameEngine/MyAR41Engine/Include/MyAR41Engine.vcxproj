@@ -46,7 +46,7 @@
     <ClInclude Include="EngineInfo.h" />
     <ClInclude Include="EngineMath.h" />
     <ClInclude Include="Flag.h" />
-    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
     <ClInclude Include="imgui_impl_dx11.h" />
@@ -113,12 +113,10 @@
     <ClCompile Include="Editor\EditorListBox.cpp" />
     <ClCompile Include="Editor\EditorSameLine.cpp" />
     <ClCompile Include="Editor\EditorText.cpp" />
-    <ClCompile Include="Editor\EditorTree.cpp" />
-    <ClCompile Include="Editor\EditorTreeItem.cpp" />
     <ClCompile Include="Editor\EditorWidget.cpp" />
     <ClCompile Include="Editor\EditorWindow.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
     <ClCompile Include="imgui_draw.cpp" />
@@ -291,6 +289,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -309,6 +308,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -328,6 +328,7 @@
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -346,6 +347,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>

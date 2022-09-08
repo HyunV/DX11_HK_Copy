@@ -5,6 +5,8 @@ CObjectComponent::CObjectComponent()
 	m_ComponentType = ComponentType::Object;
 
 	SetTypeID<CObjectComponent>();
+
+	m_ComponentTypeName = "ObjectComponent";
 }
 
 CObjectComponent::CObjectComponent(const CObjectComponent& Obj) :

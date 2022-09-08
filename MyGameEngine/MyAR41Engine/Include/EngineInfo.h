@@ -16,6 +16,7 @@
 #include <d3dcompiler.h> //쉐이더를 만들어서 코드만들어야됨 , 얘네는 빌드에 포함이 안됨.. 별도로 로딩해서 써야됨
 						//쉐이더를 컴파일하기 위해 필요하다.
 #include <dinput.h> //다렉용 input 헤더
+#include <filesystem>
 
 #include "Vector2.h"
 #include "Vector3.h"
@@ -170,5 +171,15 @@ struct MaterialCBuffer
 	Vector4 EmissiveColor;
 	float Opacity;
 	Vector3 Empty;
+};
+
+struct HierarchyName
+{
+	std::string Name;
+	std::string ParentName;
+	std::string	ClassName;
+	std::string	ParentClassName;
+	class CComponent* Component;
+	class CComponent* Parent;
 };
 

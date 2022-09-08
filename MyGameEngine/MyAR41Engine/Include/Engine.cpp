@@ -27,8 +27,13 @@ CEngine::CEngine() :
     m_WindowRS{},
     m_ClearColor{0.7f, 0.7f, 0.7f, 0.f}
 {
+    /*
+    _CrtSetDbgFlag : 디버그 모드로 실행 시 릭 발생시 번호를 남겨준다.
+
+    _CrtSetBreakAlloc : 번호를 인자로 전달하고 실행하면 릭이 발생한 코드를 알려준다.
+    */
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(284);
+    //_CrtSetBreakAlloc(825);
 }
 
 CEngine::~CEngine()

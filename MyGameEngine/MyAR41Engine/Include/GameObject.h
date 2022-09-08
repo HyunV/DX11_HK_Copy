@@ -127,7 +127,7 @@ public:
 		Component->SetScene(m_Scene);
 		Component->SetOwner(this);
 
-		if (!Component->Init())
+		if(!Component->Init())
 		{
 			SAFE_RELEASE(Component);
 			return nullptr;

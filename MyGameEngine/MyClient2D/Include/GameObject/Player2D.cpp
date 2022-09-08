@@ -14,6 +14,8 @@
 CPlayer2D::CPlayer2D()
 {
 	SetTypeID<CPlayer2D>();
+
+	m_ObjectTypeName = "Player2D";
 }
 
 CPlayer2D::CPlayer2D(const CPlayer2D& Obj) :

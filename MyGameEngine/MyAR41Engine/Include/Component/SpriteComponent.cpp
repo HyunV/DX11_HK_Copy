@@ -4,6 +4,8 @@
 CSpriteComponent::CSpriteComponent()
 {
 	SetTypeID<CSpriteComponent>();
+
+	m_ComponentTypeName = "SpriteComponent";
 }
 
 CSpriteComponent::CSpriteComponent(const CSpriteComponent& component) :

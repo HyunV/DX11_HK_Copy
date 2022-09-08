@@ -182,6 +182,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene\EditorDefaultScene.cpp" />
     <ClCompile Include="Window\ClassWindow.cpp" />
+    <ClCompile Include="Window\ComponentWindow.cpp" />
     <ClCompile Include="Window\ObjectWindow.cpp" />
     <ClCompile Include="Window\TestWindow.cpp" />
   </ItemGroup>
@@ -194,6 +195,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene\EditorDefaultScene.h" />
     <ClInclude Include="Window\ClassWindow.h" />
+    <ClInclude Include="Window\ComponentWindow.h" />
     <ClInclude Include="Window\ObjectWindow.h" />
     <ClInclude Include="Window\TestWindow.h" />
   </ItemGroup>

@@ -4,6 +4,8 @@ CTargetArm::CTargetArm()	:
 	m_TargetDistance(0.f)
 {
 	SetTypeID<CTargetArm>();
+
+	m_ComponentTypeName = "TargetArm";
 }
 
 CTargetArm::CTargetArm(const CTargetArm& component) :

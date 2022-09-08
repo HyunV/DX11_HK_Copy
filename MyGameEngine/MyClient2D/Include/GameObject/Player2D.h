@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GameObject.h"
+#include "GameObject/GameObject.h"
 
 class CPlayer2D :
 	public CGameObject

@@ -1,5 +1,5 @@
 #include "SceneInfo.h"
-#include "../GameObject.h"
+#include "../GameObject/GameObject.h"
 
 CSceneInfo::CSceneInfo()
 {

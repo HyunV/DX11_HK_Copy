@@ -195,9 +195,6 @@
     <ClInclude Include="Scene\SceneInfo.h">
       <Filter>03. Scene\01. SceneInfo</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>04. GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Component\Component.h">
       <Filter>05. Component</Filter>
     </ClInclude>
@@ -345,6 +342,9 @@
     <ClInclude Include="Editor\EditorTreeItem.h">
       <Filter>07. Editor\03. Widget</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject\GameObject.h">
+      <Filter>04. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -406,9 +406,6 @@
     </ClCompile>
     <ClCompile Include="Scene\SceneInfo.cpp">
       <Filter>03. Scene\01. SceneInfo</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>04. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Component\Component.cpp">
       <Filter>05. Component</Filter>
@@ -542,11 +539,8 @@
     <ClCompile Include="Editor\EditorComboBox.cpp">
       <Filter>07. Editor\03. Widget</Filter>
     </ClCompile>
-    <ClCompile Include="Editor\EditorTree.cpp">
-      <Filter>07. Editor\03. Widget</Filter>
-    </ClCompile>
-    <ClCompile Include="Editor\EditorTreeItem.cpp">
-      <Filter>07. Editor\03. Widget</Filter>
+    <ClCompile Include="GameObject\GameObject.cpp">
+      <Filter>04. GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

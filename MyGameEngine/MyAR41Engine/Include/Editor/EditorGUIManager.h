@@ -49,7 +49,7 @@ public:
 
 		if (!Window->Init())
 		{
-			SAFE_DELETE(Window);;
+			SAFE_DELETE(Window);
 			return nullptr;
 		}
 

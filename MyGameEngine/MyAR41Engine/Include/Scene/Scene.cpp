@@ -1,6 +1,6 @@
 
 #include "Scene.h"
-#include "../GameObject.h"
+#include "../GameObject/GameObject.h"
 #include "../Input.h"
 
 CScene::CScene() :
