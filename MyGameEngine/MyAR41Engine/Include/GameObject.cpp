@@ -21,7 +21,8 @@ void CGameObject::Destroy()
 {
 	CRef::Destroy();
 
-	m_RootComponent->Destroy();
+	if (m_RootComponent)
+		m_RootComponent->Destroy();
 
 	size_t	Size = m_vecObjectComponent.size();
 
@@ -56,7 +57,8 @@ CComponent* CGameObject::FindComponent(const std::string& Name)
 
 void CGameObject::Start()
 {
-	m_RootComponent->Start();
+	if (m_RootComponent)
+		m_RootComponent->Start();
 
 	size_t	Size = m_vecObjectComponent.size();
 
@@ -91,7 +93,8 @@ void CGameObject::Update(float DeltaTime)
 		m_vecObjectComponent[i]->Update(DeltaTime);
 	}
 
-	m_RootComponent->Update(DeltaTime);
+	if(m_RootComponent)
+		m_RootComponent->Update(DeltaTime);
 }
 
 void CGameObject::PostUpdate(float DeltaTime)
@@ -103,7 +106,8 @@ void CGameObject::PostUpdate(float DeltaTime)
 		m_vecObjectComponent[i]->PostUpdate(DeltaTime);
 	}
 
-	m_RootComponent->PostUpdate(DeltaTime);
+	if (m_RootComponent)
+		m_RootComponent->PostUpdate(DeltaTime);
 }
 
 CGameObject* CGameObject::Clone() const
@@ -113,57 +117,68 @@ CGameObject* CGameObject::Clone() const
 
 void CGameObject::SetInheritScale(bool Inherit)
 {
-	m_RootComponent->SetInheritScale(Inherit);
+	if (m_RootComponent)
+		m_RootComponent->SetInheritScale(Inherit);
 }
 
 void CGameObject::SetInheritRotX(bool Inherit)
 {
-	m_RootComponent->SetInheritRotX(Inherit);
+	if (m_RootComponent)
+		m_RootComponent->SetInheritRotX(Inherit);
 }
 
 void CGameObject::SetInheritRotY(bool Inherit)
 {
-	m_RootComponent->SetInheritRotY(Inherit);
+	if (m_RootComponent)
+		m_RootComponent->SetInheritRotY(Inherit);
 }
 
 void CGameObject::SetInheritRotZ(bool Inherit)
 {
-	m_RootComponent->SetInheritRotZ(Inherit);
+	if (m_RootComponent)
+		m_RootComponent->SetInheritRotZ(Inherit);
 }
 
 void CGameObject::SetInheritParentRotationPosX(bool Inherit)
 {
-	m_RootComponent->SetInheritParentRotationPosX(Inherit);
+	if (m_RootComponent)
+		m_RootComponent->SetInheritParentRotationPosX(Inherit);
 }
 
 void CGameObject::SetInheritParentRotationPosY(bool Inherit)
 {
-	m_RootComponent->SetInheritParentRotationPosY(Inherit);
+	if (m_RootComponent)
+		m_RootComponent->SetInheritParentRotationPosY(Inherit);
 }
 
 void CGameObject::SetInheritParentRotationPosZ(bool Inherit)
 {
-	m_RootComponent->SetInheritParentRotationPosZ(Inherit);
+	if (m_RootComponent)
+		m_RootComponent->SetInheritParentRotationPosZ(Inherit);
 }
 
 void CGameObject::InheritScale()
 {
-	m_RootComponent->InheritScale();
+	if (m_RootComponent)
+		m_RootComponent->InheritScale();
 }
 
 void CGameObject::InheritRotation(bool Current)
 {
-	m_RootComponent->InheritRotation(Current);
+	if (m_RootComponent)
+		m_RootComponent->InheritRotation(Current);
 }
 
 void CGameObject::InheritParentRotationPos()
 {
-	m_RootComponent->InheritParentRotationPos();
+	if (m_RootComponent)
+		m_RootComponent->InheritParentRotationPos();
 }
 
 void CGameObject::InheritWorldScale()
 {
-	m_RootComponent->InheritWorldScale();
+	if (m_RootComponent)
+		m_RootComponent->InheritWorldScale();
 }
 
 void CGameObject::InheritWorldRotation(bool Current)

@@ -66,7 +66,7 @@ bool CTestWindow::Init()
 	//m_Input->ReadOnly(true); //수정 가능 여부
 	//m_Input->PasswordMode(true); //*로 뜨게
 	//m_Input->SetInputType(EImGuiInputType::Int); //숫자만 가능?
-	//m_Input->SetInputType(EImGuiInputType::Float);
+	m_Input->SetInputType(EImGuiInputType::Float);
 
 	m_Input->SetInputCallback<CTestWindow>(this, &CTestWindow::InputCallback);
 	

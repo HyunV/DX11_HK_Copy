@@ -2,7 +2,7 @@
 
 CEditorTreeItem::CEditorTreeItem()  :
     m_Parent(nullptr),
-    m_Flag(ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_NoTreePushOnOpen)
+	m_Flag(ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_OpenOnArrow)
 {
 }
 
@@ -92,21 +92,39 @@ CEditorTreeItem* CEditorTreeItem::FindItem(const std::string& Item)
 	return nullptr;
 }
 
+void CEditorTreeItem::Clear()
+{
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->Clear();
+		SAFE_DELETE(m_vecChild[i]);
+	}
+
+	m_vecChild.clear();
+}
+
 void CEditorTreeItem::Render()
 {
-	if (ImGui::TreeNodeEx(m_ItemUTF8.c_str(), m_Flag))
-	{
-		if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen())
+	ImGuiTreeNodeFlags Flag = m_Flag;
+
+	if (m_vecChild.empty())
+		Flag |= ImGuiTreeNodeFlags_Leaf;
+
+	bool	ItemOpen = ImGui::TreeNodeEx(m_ItemUTF8.c_str(), Flag);
+
+	if (ImGui::IsItemClicked() && !ImGui::IsItemToggledOpen())
 		{
 			if (m_SelectCallback)
-				m_SelectCallback(m_Item);
+				m_SelectCallback(this, m_Item);
 		}
-
-		/*if (ImGui::BeginDragDropSource())
-		{
-			ImGui::EndDragDropSource();
-		}*/
-
+	/*if (ImGui::BeginDragDropSource())
+	{
+	ImGui::EndDragDropSource();
+	}*/
+	if(ItemOpen)
+	{
 		size_t	Size = m_vecChild.size();
 
 		for (size_t i = 0; i < Size; ++i)

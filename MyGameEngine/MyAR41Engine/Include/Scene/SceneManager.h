@@ -7,6 +7,16 @@ class CSceneManager
 private:
 	CScene* m_Scene;
 	CScene* m_NextScene;
+public:
+	CScene* GetScene() const
+	{
+		return m_Scene;
+	}
+
+	CScene* GetNextScene() const
+	{
+		return m_NextScene;
+	}
 
 public:
 	bool Init();

@@ -17,13 +17,14 @@ private:
 public:
     void AddItem(const std::string& Item, const std::string& ParentItem = "");
     void DeleteItem(const std::string& Item);
+    void Clear();
 
 public:
     virtual bool Init();
     virtual void Render();
 
 private:
-    void NodeSelect(const std::string& Item);
+    void NodeSelect(CEditorTreeItem* Node, const std::string& Item);
 
 public:
     template <typename T>

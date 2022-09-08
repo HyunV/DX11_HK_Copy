@@ -22,6 +22,9 @@
     <Filter Include="03. Window">
       <UniqueIdentifier>{7042553d-0249-4df8-bab2-04e8636ad694}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObject">
+      <UniqueIdentifier>{5b1bf3ed-04be-4f9c-8a2e-2316711cb742}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -34,6 +37,21 @@
       <Filter>02. Scene</Filter>
     </ClCompile>
     <ClCompile Include="Window\TestWindow.cpp">
+      <Filter>03. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Monster.cpp">
+      <Filter>04. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\MyBullet.cpp">
+      <Filter>04. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Player2D.cpp">
+      <Filter>04. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\ClassWindow.cpp">
+      <Filter>03. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\ObjectWindow.cpp">
       <Filter>03. Window</Filter>
     </ClCompile>
   </ItemGroup>
@@ -51,6 +69,21 @@
       <Filter>02. Scene</Filter>
     </ClInclude>
     <ClInclude Include="Window\TestWindow.h">
+      <Filter>03. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Monster.h">
+      <Filter>04. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\MyBullet.h">
+      <Filter>04. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Player2D.h">
+      <Filter>04. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\ClassWindow.h">
+      <Filter>03. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\ObjectWindow.h">
       <Filter>03. Window</Filter>
     </ClInclude>
   </ItemGroup>

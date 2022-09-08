@@ -11,5 +11,14 @@ public:
 public:
 	bool Init(HINSTANCE hInst);
 	int Run();
+
+private:
+	bool WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+
+private:
+	void SaveScene();
+	void OpenScene();
+	void CreateEmptyObject();
+	void CreateObject();
 };
 

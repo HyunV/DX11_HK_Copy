@@ -57,6 +57,8 @@ void CEditorTree::AddItem(const std::string& Item, const std::string& ParentItem
 
 			NewItem->m_ItemUTF8 = TextUTF8;
 
+			NewItem->SetSelectCallback<CEditorTree>(this, &CEditorTree::NodeSelect);
+
 			NewItem->AddItem(m_Root);
 
 			m_Root = NewItem;
@@ -131,6 +133,15 @@ void CEditorTree::DeleteItem(const std::string& Item)
 	}
 }
 
+void CEditorTree::Clear()
+{
+	if (m_Root)
+	{
+		m_Root->Clear();
+		SAFE_DELETE(m_Root);
+	}
+}
+
 bool CEditorTree::Init()
 {
     return true;
@@ -144,7 +155,7 @@ void CEditorTree::Render()
 	m_Root->Render();
 }
 
-void CEditorTree::NodeSelect(const std::string& Item)
+void CEditorTree::NodeSelect(CEditorTreeItem* Node, const std::string& Item)
 {
 	if (m_SelectCallback)
 		m_SelectCallback(Item);

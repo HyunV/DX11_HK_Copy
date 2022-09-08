@@ -9,6 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02. Engine", "02. Engine", 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03. Editor", "03. Editor", "{9FC85CF5-835D-4BF3-9927-832BBBE19587}"
+	ProjectSection(SolutionItems) = preProject
+		EditorCopy.bat = EditorCopy.bat
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MyAR41Engine", "MyAR41Engine\Include\MyAR41Engine.vcxproj", "{927B201E-4584-4B31-AF16-7311C11B9D14}"
 EndProject

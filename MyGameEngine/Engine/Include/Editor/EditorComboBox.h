@@ -12,7 +12,7 @@ protected:
 private:
 	std::vector<std::string>	m_vecItem;
 	std::vector<std::string>	m_vecItemUTF8;
-	std::string					m_PrevViewName;
+	std::string					m_PrevViewName; //보여지는 이름
 	std::string					m_PrevViewNameUTF8;
 	bool						m_Select;
 	bool						m_SelectPrevViewName;

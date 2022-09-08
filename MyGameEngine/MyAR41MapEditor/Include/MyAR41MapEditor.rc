@@ -54,6 +54,32 @@ END
 // remains consistent on all systems.
 IDI_ICON1               ICON                    "icon1.ico"
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU1 MENU
+BEGIN
+    POPUP "파일(&F)"
+    BEGIN
+        MENUITEM "Scene 저장(&S)",                ID_FILE_SCENE_SAVE
+        MENUITEM "Scene 불러오기(&O)",              ID_FILE_SCENE_OPEN
+        MENUITEM "Exit(&Q)",                    ID_FILE_EXIT
+    END
+    POPUP "창"
+    BEGIN
+        MENUITEM "TestWindow",                  ID_WINDOW_TEST
+        MENUITEM "ObjectWindow",                ID_WINDOW_OBJECT
+    END
+    POPUP "오브젝트"
+    BEGIN
+        MENUITEM "GameObject Empty(&G)",        ID_OBJECT_EMPTY
+        MENUITEM "GameObject",                  ID_OBJECT
+    END
+END
+
 #endif    // 한국어(대한민국) resources
 /////////////////////////////////////////////////////////////////////////////
 
