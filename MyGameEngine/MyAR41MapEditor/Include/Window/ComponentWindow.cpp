@@ -18,6 +18,7 @@ CComponentWindow::~CComponentWindow()
 {
 }
 
+//어떤형태의 컴포넌트인지 동반되어야 한다.(CComponent* Component)
 void CComponentWindow::AddItem(CComponent* Component, const std::string& Name, const std::string& ParentName)
 {
 	m_Tree->AddItem(Component, Name, ParentName);

@@ -43,20 +43,21 @@ void CGameObject::GetAllComponentHierarchyName(std::vector<HierarchyName>& vecNa
 	{
 		HierarchyName Names;
 
-		CSceneComponent* Parent = (*iter)->GetParent();
+		//씬 컴포넌트의 Parent를 데려와서
+		CSceneComponent* Parent = (*iter)->GetParent(); 
 
-		Names.Name = (*iter)->GetName();
-		Names.ClassName = (*iter)->GetComponentTypeName();
-		Names.Component = *iter;
-		Names.Parent = Parent;
+		Names.Name = (*iter)->GetName(); //해당 씬의 이름
+		Names.ClassName = (*iter)->GetComponentTypeName(); //이 씬 컴포넌트의 타입 이름(처음에 반드시 지어줬던 이름)
+		Names.Component = *iter; //해당 씬 컴포넌트 그 자체 클래스
+		Names.Parent = Parent; //Parent 저장
 
 		if (Parent)
 		{
-			Names.ParentName = Parent->GetName();
-			Names.ParentClassName = Parent->GetComponentTypeName();
+			Names.ParentName = Parent->GetName(); //부모 있으면 부모이름 얻어오고
+			Names.ParentClassName = Parent->GetComponentTypeName(); //그 부모의 컴포넌트 타입 이름도 불러옴
 		}
 
-		vecName.push_back(Names);
+		vecName.push_back(Names); //정보가 기록된 구조체를 배열에 저장
 	}
 }
 

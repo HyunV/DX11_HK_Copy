@@ -50,7 +50,7 @@ private:
 	std::vector<CEditorTreeItem<T>*>	m_vecChild;
 	std::string		m_Item;
 	std::string		m_ItemUTF8;
-	T				m_CustomData;
+	T				m_CustomData; //트리 아이템 추가할때 넣어주는 데이터
 	//선택 시 
 	std::function<void(CEditorTreeItem<T>*, const std::string&)> m_SelectCallback;
 

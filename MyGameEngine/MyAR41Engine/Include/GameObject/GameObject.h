@@ -15,7 +15,7 @@ protected:
 
 protected:
 	class CScene* m_Scene;
-	std::string		m_ObjectTypeName;
+	std::string		m_ObjectTypeName; //모든 게임오브젝트들은 이 타입네임을 가져야 한다. 이는 컴포넌트도 마찬가지.
 
 public:
 	class CScene* GetScene()    const

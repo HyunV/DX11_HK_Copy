@@ -149,14 +149,17 @@ void CEditorManager::CreateObject()
     CGameObject* Obj = nullptr;
 
     CClassWindow* ClassWindow = CEditorGUIManager::GetInst()->FindEditorWindow<CClassWindow>("ClassWindow");
+    
+    //클래스 윈도우에서 선택한 오브젝트의 이름을 받아온다.
     std::string SelectObjectItem = ClassWindow->GetSelectObjectItem();
-
-    if (SelectObjectItem == "") //선택한 오브젝트가 비어있으면
+    
+    if (SelectObjectItem == "") //오브젝트 선택을 안했으면
         return;
 
+    //오브젝트 선택 되었을 시 오브젝트 윈도우를 만든다.
     CObjectWindow* Window = CEditorGUIManager::GetInst()->FindEditorWindow<CObjectWindow>("ObjectWindow");
 
-    //※ 오브젝트 자주 만드는것들은 여기다 등록을 하는건가 
+    //※ 오브젝트 자주 만드는것들은 여기다 등록을 하는건가 많아지면 힘드니까 CDO같은걸 만들어서 사용한다.
     if (SelectObjectItem == "GameObject")
         Obj = Scene->CreateObject<CGameObject>(SelectObjectItem); //클래스 윈도우에서 선택한 오브젝트를 해당 씬에다 생성?
 
@@ -172,6 +175,7 @@ void CEditorManager::CreateObject()
     if (Window)
     {
         Window->AddItem(Obj, SelectObjectItem); //오브젝트 윈도우에 목록을 추가함
+        //트리가 해당 오브젝트를 들고있게 된다.
     }
 
 }
