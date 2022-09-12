@@ -12,13 +12,17 @@
 #define ID_WINDOW_OBJECT                40011
 #define ID_OBJECT_EMPTY                 40012
 #define ID_OBJECT                       40013
+#define ID_40014                        40014
+#define ID_40015                        40015
+#define ID_WINDOW_CLASS                 40016
+#define ID_WINDOW_COMPONENT             40017
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        103
-#define _APS_NEXT_COMMAND_VALUE         40014
+#define _APS_NEXT_COMMAND_VALUE         40018
 #define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           101
 #endif

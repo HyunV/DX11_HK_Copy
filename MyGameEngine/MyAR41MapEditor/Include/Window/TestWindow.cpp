@@ -7,6 +7,7 @@
 #include "Editor/EditorInput.h"
 #include "Editor/EditorListBox.h"
 #include "Editor/EditorComboBox.h"
+#include "Editor/EditorSliderBar.h"
 
 CTestWindow::CTestWindow()	:
 	m_AddText{},
@@ -109,6 +110,10 @@ bool CTestWindow::Init()
 
 	m_Tree->SetSelectCallback<CTestWindow>(this, &CTestWindow::TreeCallback);
 
+	//슬라이더 바
+	CEditorSliderBar* Slide = CreateWidget<CEditorSliderBar>("슬라이드");
+	Slide->SetClickCallback<CTestWindow>(this, &CTestWindow::SliderCallback);
+
 	return true;
 }
 
@@ -164,4 +169,9 @@ void CTestWindow::TreeCallback(CEditorTreeItem<int>* Node, const std::string& It
 	sprintf_s(Text, "%s\n", Item.c_str());
 
 	OutputDebugStringA(Text);
+}
+
+void CTestWindow::SliderCallback()
+{	
+	OutputDebugStringA("Test");
 }

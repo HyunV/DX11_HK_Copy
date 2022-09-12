@@ -37,6 +37,7 @@
     <ClInclude Include="Editor\EditorLabel.h" />
     <ClInclude Include="Editor\EditorListBox.h" />
     <ClInclude Include="Editor\EditorSameLine.h" />
+    <ClInclude Include="Editor\EditorSliderBar.h" />
     <ClInclude Include="Editor\EditorText.h" />
     <ClInclude Include="Editor\EditorTree.h" />
     <ClInclude Include="Editor\EditorTreeItem.h" />
@@ -112,6 +113,7 @@
     <ClCompile Include="Editor\EditorLabel.cpp" />
     <ClCompile Include="Editor\EditorListBox.cpp" />
     <ClCompile Include="Editor\EditorSameLine.cpp" />
+    <ClCompile Include="Editor\EditorSliderBar.cpp" />
     <ClCompile Include="Editor\EditorText.cpp" />
     <ClCompile Include="Editor\EditorWidget.cpp" />
     <ClCompile Include="Editor\EditorWindow.cpp" />

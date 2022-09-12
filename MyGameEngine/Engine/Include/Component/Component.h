@@ -16,7 +16,7 @@ protected:
     ComponentType   m_ComponentType;
     class CScene* m_Scene;
     class CGameObject* m_Owner;
-    std::string m_ComponentTypeName;
+    std::string m_ComponentTypeName; //모든 컴포넌트들은 타입네임을 가져야 한다.
 
 public:
     const std::string& GetComponentTypeName() const

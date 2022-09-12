@@ -345,6 +345,9 @@
     <ClInclude Include="GameObject\GameObject.h">
       <Filter>04. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Editor\EditorSliderBar.h">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -541,6 +544,9 @@
     </ClCompile>
     <ClCompile Include="GameObject\GameObject.cpp">
       <Filter>04. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\EditorSliderBar.cpp">
+      <Filter>07. Editor\03. Widget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

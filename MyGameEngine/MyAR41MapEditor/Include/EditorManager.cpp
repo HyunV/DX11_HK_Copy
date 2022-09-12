@@ -39,7 +39,7 @@ bool CEditorManager::Init(HINSTANCE hInst)
     CEngine::SetWndProcCallback<CEditorManager>(this, &CEditorManager::WndProc);
 
     //#예제 출력# 테스트 윈도우 생성 (티모?)
-    //CEditorGUIManager::GetInst()->CreateEditorWindow<CTestWindow>("TestWindow");
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CTestWindow>("TestWindow");
     
     //#예제 출력# 오브젝트 윈도우 생성
     CEditorGUIManager::GetInst()->CreateEditorWindow<CObjectWindow>("ObjectWindow"); 
@@ -96,10 +96,10 @@ bool CEditorManager::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
             return true;
         case ID_WINDOW_TEST:
         {
-            //CEditorWindow* Window = CEditorGUIManager::GetInst()->FindEditorWindow<CEditorWindow>("TestWindow");
+            CEditorWindow* Window = CEditorGUIManager::GetInst()->FindEditorWindow<CEditorWindow>("TestWindow");
 
-            //if (Window)
-            //    Window->Open();
+            if (Window)
+                Window->Open();
         }
         return true;
         case ID_WINDOW_OBJECT:
@@ -110,8 +110,29 @@ bool CEditorManager::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
                 Window->Open();
         }
         return true;
+
+        case ID_WINDOW_CLASS:
+        {
+            //MessageBox(hWnd, TEXT("클래스"), TEXT("Empty"), MB_OK);
+            CEditorWindow* Window = CEditorGUIManager::GetInst()->FindEditorWindow<CEditorWindow>("ClassWindow");
+
+            if (Window)
+                Window->Open();            
+        }
+        return true;
+        case ID_WINDOW_COMPONENT:
+        {
+            //MessageBox(hWnd, TEXT("컴포넌트"), TEXT("Empty"), MB_OK);
+            CEditorWindow* Window = CEditorGUIManager::GetInst()->FindEditorWindow<CEditorWindow>("ComponentWindow");
+
+            if (Window)
+                Window->Open();            
+        }
+        return true;
+        //케이스문 끝
         }
         break;
+    
     }
 
     return false;

@@ -35,5 +35,6 @@ private:
 	void InputCallback();
 	void ListCallback(int SelectIndex, const std::string& Item);
 	void TreeCallback(CEditorTreeItem<int>* Node, const std::string& Item);
+	void SliderCallback();
 };
 
