@@ -186,6 +186,7 @@
     <ClCompile Include="Window\ComponentWindow.cpp" />
     <ClCompile Include="Window\ObjectWindow.cpp" />
     <ClCompile Include="Window\TestWindow.cpp" />
+    <ClCompile Include="Window\TransformWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Editor.h" />
@@ -199,6 +200,7 @@
     <ClInclude Include="Window\ComponentWindow.h" />
     <ClInclude Include="Window\ObjectWindow.h" />
     <ClInclude Include="Window\TestWindow.h" />
+    <ClInclude Include="Window\TransformWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyAR41MapEditor.rc" />

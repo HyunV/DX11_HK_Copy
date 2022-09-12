@@ -11,6 +11,7 @@
 #include "Window\ObjectWindow.h"
 #include "Window\ClassWindow.h"
 #include "Window\ComponentWindow.h"
+#include "Window\TransformWindow.h"
 #include "Editor/EditorGUIManager.h"
 
 CEditorManager::CEditorManager()
@@ -49,6 +50,9 @@ bool CEditorManager::Init(HINSTANCE hInst)
     
     //#예제 출력#  컴포넌트 윈도우
     CEditorGUIManager::GetInst()->CreateEditorWindow<CComponentWindow>("ComponentWindow");
+
+    //#예제 출력# 트랜스폼 윈도우
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CTransformWindow>("TransformWindow");
 
     // 키 등록
 /*CInput::GetInst()->AddBindKey("Rotation", 'D');

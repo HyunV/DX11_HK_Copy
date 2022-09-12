@@ -8,6 +8,9 @@
 #include "Editor/EditorListBox.h"
 #include "Editor/EditorComboBox.h"
 #include "Component/Component.h"
+#include "TransformWindow.h"
+#include "Editor/EditorGUIManager.h"
+#include "Component/SceneComponent.h"
 
 
 CComponentWindow::CComponentWindow()
@@ -19,14 +22,19 @@ CComponentWindow::~CComponentWindow()
 }
 
 //어떤형태의 컴포넌트인지 동반되어야 한다.(CComponent* Component)
-void CComponentWindow::AddItem(CComponent* Component, const std::string& Name, const std::string& ParentName)
+bool CComponentWindow::AddItem(CComponent* Component, const std::string& Name, const std::string& ParentName)
 {
-	m_Tree->AddItem(Component, Name, ParentName);
+	return m_Tree->AddItem(Component, Name, ParentName);
 }
 
 void CComponentWindow::Clear()
 {
 	m_Tree->Clear();
+}
+
+void CComponentWindow::ClearSelect()
+{
+	m_SelectComponent = nullptr;
 }
 
 bool CComponentWindow::Init()
@@ -45,6 +53,12 @@ bool CComponentWindow::Init()
 void CComponentWindow::Update(float DeltaTime)
 {
 	CEditorWindow::Update(DeltaTime);
+
+	if (m_SelectComponent)
+	{
+		if (!m_SelectComponent->GetActive())
+			m_SelectComponent = nullptr;
+	}
 }
 
 void CComponentWindow::TreeCallback(CEditorTreeItem<class CComponent*>* Node, const std::string& Item)
@@ -52,4 +66,31 @@ void CComponentWindow::TreeCallback(CEditorTreeItem<class CComponent*>* Node, co
 	char Text[256] = {};
 	sprintf_s(Text, "%s\n", Item.c_str());
 	OutputDebugStringA(Text);
+
+	m_SelectComponent = Node->GetCustomData();
+
+	CTransformWindow* TransformWindow = CEditorGUIManager::GetInst()->FindEditorWindow<CTransformWindow>("TransformWindow");
+
+	if (m_SelectComponent)
+	{
+		CSceneComponent* Component = (CSceneComponent*)m_SelectComponent.Get();
+
+		TransformWindow->SetSelectComponent(Component);
+
+		if (Component->GetParent())
+		{
+			//부모에 세팅된 값을 띄워줌
+			TransformWindow->SetPos(Component->GetRelativePos());
+			TransformWindow->SetScale(Component->GetRelativeScale());
+			TransformWindow->SetRotation(Component->GetRelativeRot());
+		}
+
+		else
+		{
+			//자식의 세팅된 값?
+			TransformWindow->SetPos(Component->GetWorldPos());
+			TransformWindow->SetScale(Component->GetWorldScale());
+			TransformWindow->SetRotation(Component->GetWorldRot());
+		}
+	}
 }

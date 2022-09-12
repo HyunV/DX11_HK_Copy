@@ -15,9 +15,16 @@ protected:
 
 private:
     CEditorTree<CGameObject*>* m_Tree;
+    CSharedPtr<CGameObject> m_SelectObject;
 
 public:
-    void AddItem(class CGameObject* Object, const std::string& Name, const std::string& ParentName = "Root");
+    class CGameObject* GetSelectObject() const
+    {
+        return m_SelectObject;
+    }
+
+public:
+    bool AddItem(class CGameObject* Object, const std::string& Name, const std::string& ParentName = "Root");
 
 public:
     virtual bool Init();

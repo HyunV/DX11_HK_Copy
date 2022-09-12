@@ -17,6 +17,10 @@ private:
     std::string         m_SelectObjectItem;
     std::string         m_SelectComponentItem;
 
+    class CEditorInput* m_ObjectSelectName;
+    class CEditorInput* m_ComponentSelectName;
+
+
 public:
     const std::string& GetSelectObjectItem() const
     {
@@ -35,6 +39,8 @@ public:
 private:
     void ObjectClickCallback(int Index, const std::string& Item);
     void ComponentClickCallback(int Index, const std::string& Item);
+    void ObjectCreateCallback();
+    void ComponentCreateCallback();
 
 private:
     void LoadGameObjectName();

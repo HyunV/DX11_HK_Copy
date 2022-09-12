@@ -13,10 +13,18 @@ protected:
 
 private:
     CEditorTree<class CComponent*>* m_Tree;
+    CSharedPtr<class CComponent>    m_SelectComponent;
 
 public:
-    void AddItem(class CComponent* Component, const std::string& Name, const std::string& ParentName = "Root");
+    class CComponent* GetSelectComponent() const
+    {
+        return m_SelectComponent;
+    }
+
+public:
+    bool AddItem(class CComponent* Component, const std::string& Name, const std::string& ParentName = "Root");
     void Clear();
+    void ClearSelect();
 
 public:
     virtual bool Init();
