@@ -12,7 +12,8 @@
 #include "Window\ClassWindow.h"
 #include "Window\ComponentWindow.h"
 #include "Window\TransformWindow.h"
-#include "Window/SceneWindow.h"
+#include "Window\SceneWindow.h"
+#include "Window\MyImageWindow.h"
 #include "Editor/EditorGUIManager.h"
 
 CEditorManager::CEditorManager()
@@ -57,6 +58,9 @@ bool CEditorManager::Init(HINSTANCE hInst)
 
     //#예제 출력# 씬 윈도우
     CEditorGUIManager::GetInst()->CreateEditorWindow<CSceneWindow>("SceneWindow");
+
+    //#과제# 이미지 윈도우
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CMyImageWindow>("MyImageWindow");
 
     // 키 등록
     /*CInput::GetInst()->AddBindKey("Rotation", 'D');

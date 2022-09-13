@@ -1,29 +1,27 @@
-﻿  unity_56K086ZLF2W7SXVM.cpp
-  unity_5WJ352REEMPNUY6K.cpp
-  unity_A4KP9K1CCTWL2T5I.cpp
-  unity_EE2I0DHPS3X2AP9U.cpp
-  unity_FBUDUBET20U952ND.cpp
-  unity_Y9AS505ME65WQV9U.cpp
+﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\Sprite.cso
+  unity_SEL2UDOGOB71WYJJ.cpp
+  unity_9XRIBEBU5GSDK9DR.cpp
+  unity_S7GG4AKEMVGRJJBK.cpp
+  unity_V8UEU5549YCMGIFH.cpp
+  unity_YOOM3B39F76L6COG.cpp
+  unity_INTEQFV11QI5ABLY.cpp
+  unity_97BZFPQZIL8RJBUT.cpp
+  unity_B7D6OJ3L8OIK3UI0.cpp
+  unity_8BGWRIRJ7Q9VEB3N.cpp
+  unity_MJJ01JGC8N0RVB2N.cpp
+  unity_6XY1ZMJHOQ68L61Y.cpp
   MyAR41Engine.vcxproj -> C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  .\MyAR41Engine\Include\Component\CameraComponent.h
-  .\MyAR41Engine\Include\Component\Component.h
-  .\MyAR41Engine\Include\Component\ObjectComponent.h
-  .\MyAR41Engine\Include\Component\PrimitiveComponent.h
-  .\MyAR41Engine\Include\Component\SceneComponent.h
-  .\MyAR41Engine\Include\Component\SpriteComponent.h
-  .\MyAR41Engine\Include\Component\TargetArm.h
-  .\MyAR41Engine\Include\Component\Transform.h
-  .\MyAR41Engine\Include\GameObject\GameObject.h
-  .\MyAR41Engine\Include\Resource\Material\Material.h
-  .\MyAR41Engine\Include\Resource\Texture\Texture.h
-  .\MyAR41Engine\Include\Scene\Scene.h
-  .\MyAR41Engine\Include\Scene\SceneInfo.h
-  13개 파일이 복사되었습니다.
+  0개 파일이 복사되었습니다.
   파일을 찾을 수 없습니다-*.inl
   0개 파일이 복사되었습니다.
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  1개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\Sprite.cso
+  2개 파일이 복사되었습니다.
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  1개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\Sprite.cso
+  2개 파일이 복사되었습니다.
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  1개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\Sprite.cso
+  2개 파일이 복사되었습니다.
