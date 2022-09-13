@@ -185,6 +185,7 @@
     <ClCompile Include="Window\ClassWindow.cpp" />
     <ClCompile Include="Window\ComponentWindow.cpp" />
     <ClCompile Include="Window\ObjectWindow.cpp" />
+    <ClCompile Include="Window\SceneWindow.cpp" />
     <ClCompile Include="Window\TestWindow.cpp" />
     <ClCompile Include="Window\TransformWindow.cpp" />
   </ItemGroup>
@@ -199,6 +200,7 @@
     <ClInclude Include="Window\ClassWindow.h" />
     <ClInclude Include="Window\ComponentWindow.h" />
     <ClInclude Include="Window\ObjectWindow.h" />
+    <ClInclude Include="Window\SceneWindow.h" />
     <ClInclude Include="Window\TestWindow.h" />
     <ClInclude Include="Window\TransformWindow.h" />
   </ItemGroup>

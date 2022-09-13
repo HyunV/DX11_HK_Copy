@@ -510,3 +510,63 @@ CMaterial* CMaterial::Clone() const
 {
 	return new CMaterial(*this);
 }
+
+void CMaterial::Save(FILE* File)
+{
+	CRef::Save(File);
+
+	int Length = (int)m_Shader->GetName().length();
+
+	fwrite(&Length, 4, 1, File);
+	fwrite(m_Shader->GetName().c_str(), 1, Length, File); // 쉐이더 이름 저장
+
+	fwrite(&m_BaseColor, sizeof(Vector4), 1, File); //베이스 컬러 저장
+	fwrite(&m_AmbientColor, sizeof(Vector4), 1, File);
+	fwrite(&m_SpecularColor, sizeof(Vector4), 1, File);
+	fwrite(&m_EmissiveColor, sizeof(Vector4), 1, File);
+	fwrite(&m_Opacity, 4, 1, File);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		bool RenderStateEnable = false;
+
+		if (m_RenderState[i])
+			RenderStateEnable = true;
+
+		fwrite(&RenderStateEnable, 1, 1, File);
+
+		if (RenderStateEnable)
+		{
+			Length = (int)m_RenderState[i]->GetName().length();
+
+			fwrite(&Length, 4, 1, File);
+			fwrite(m_RenderState[i]->GetName().c_str(), 1, Length, File);
+		}
+	}
+
+	int TextureCount = (int)m_vecTextureInfo.size();
+	fwrite(&TextureCount, 4, 1, File);
+
+	for (int i = 0; i < TextureCount; ++i)
+	{
+		Length = (int)m_vecTextureInfo[i]->Name.length();
+
+		fwrite(&Length, 4, 1, File);
+		fwrite(m_vecTextureInfo[i]->Name.c_str(), 1, Length, File);
+
+		fwrite(&m_vecTextureInfo[i]->SamplerType, sizeof(ESamplerType), 1, File);
+		fwrite(&m_vecTextureInfo[i]->Register, sizeof(int), 1, File);
+		fwrite(&m_vecTextureInfo[i]->ShaderBufferType, sizeof(int), 1, File);
+
+		m_vecTextureInfo[i]->Texture->Save(File);
+	}
+
+	/*
+	CSharedPtr<CTexture>  Texture;
+	*/
+}
+
+void CMaterial::Load(FILE* File)
+{
+	CRef::Load(File);
+}

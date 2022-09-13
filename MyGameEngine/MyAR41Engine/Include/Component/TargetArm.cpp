@@ -64,3 +64,11 @@ CTargetArm* CTargetArm::Clone() const
 {
 	return new CTargetArm(*this);
 }
+
+void CTargetArm::Save(FILE* File)
+{
+}
+
+void CTargetArm::Load(FILE* File)
+{
+}

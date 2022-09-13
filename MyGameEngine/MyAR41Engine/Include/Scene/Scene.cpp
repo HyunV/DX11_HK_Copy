@@ -115,6 +115,35 @@ void CScene::PostUpdate(float DeltaTime)
 	m_CameraManager->PostUpdate(DeltaTime);
 }
 
+void CScene::Save(const char* FullPath)
+{
+	FILE* File = nullptr;
+
+	//FullPath이름을 쓰기 형식으로 연다.
+	fopen_s(&File, FullPath, "wb"); 
+
+	if (!File)
+		return;
+
+	//SceneInfo 저장
+	m_SceneInfo->Save(File);
+
+	//씬에 들어있는 오브젝트들 저장
+	auto iter = m_ObjList.begin();
+	auto iterEnd = m_ObjList.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		(*iter)->Save(File);
+	}
+
+	fclose(File);
+}
+
+void CScene::Load(const char* FullPath)
+{
+}
+
 CGameObject* CScene::FindObject(const std::string& Name)
 {
 	auto	iter = m_ObjList.begin();

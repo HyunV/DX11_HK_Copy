@@ -132,3 +132,27 @@ CPrimitiveComponent* CPrimitiveComponent::Clone() const
 {
 	return new CPrimitiveComponent(*this);
 }
+
+void CPrimitiveComponent::Save(FILE* File)
+{
+	CSceneComponent::Save(File);
+
+	int	Length = (int)m_Mesh->GetName().length();
+
+	fwrite(&Length, 4, 1, File);
+	fwrite(m_Mesh->GetName().c_str(), 1, Length, File);
+
+	int	MaterialCount = (int)m_vecMaterial.size();
+
+	fwrite(&MaterialCount, 4, 1, File);
+
+	for (int i = 0; i < MaterialCount; ++i)
+	{
+		m_vecMaterial[i]->Save(File);
+	}
+}
+
+void CPrimitiveComponent::Load(FILE* File)
+{
+	CSceneComponent::Load(File);
+}

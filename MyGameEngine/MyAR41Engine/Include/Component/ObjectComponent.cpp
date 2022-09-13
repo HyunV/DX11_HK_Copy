@@ -47,3 +47,13 @@ CObjectComponent* CObjectComponent::Clone() const
 {
 	return nullptr;
 }
+
+void CObjectComponent::Save(FILE* File)
+{
+	CComponent::Save(File);
+}
+
+void CObjectComponent::Load(FILE* File)
+{
+	CComponent::Load(File);
+}

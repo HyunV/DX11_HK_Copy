@@ -122,6 +122,10 @@ public:
 	virtual void Update(float DeltaTime);
 	virtual void PostUpdate(float DeltaTime);
 	virtual CGameObject* Clone()    const;
+	virtual void Save(FILE* File);
+	virtual void Load(FILE* File);
+	virtual void SaveChild(FILE* File);
+	virtual void LoadChild(FILE* File);
 
 
 public:

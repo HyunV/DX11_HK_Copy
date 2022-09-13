@@ -12,6 +12,7 @@
 #include "Window\ClassWindow.h"
 #include "Window\ComponentWindow.h"
 #include "Window\TransformWindow.h"
+#include "Window/SceneWindow.h"
 #include "Editor/EditorGUIManager.h"
 
 CEditorManager::CEditorManager()
@@ -54,14 +55,17 @@ bool CEditorManager::Init(HINSTANCE hInst)
     //#예제 출력# 트랜스폼 윈도우
     CEditorGUIManager::GetInst()->CreateEditorWindow<CTransformWindow>("TransformWindow");
 
+    //#예제 출력# 씬 윈도우
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CSceneWindow>("SceneWindow");
+
     // 키 등록
-/*CInput::GetInst()->AddBindKey("Rotation", 'D');
-CInput::GetInst()->AddBindKey("RotationInv", 'A');
+    /*CInput::GetInst()->AddBindKey("Rotation", 'D');
+    CInput::GetInst()->AddBindKey("RotationInv", 'A');
 
-CInput::GetInst()->AddBindKey("MoveUp", 'W');
-CInput::GetInst()->AddBindKey("MoveDown", 'S');
+    CInput::GetInst()->AddBindKey("MoveUp", 'W');
+    CInput::GetInst()->AddBindKey("MoveDown", 'S');
 
-CInput::GetInst()->AddBindKey("Fire", VK_SPACE);*/
+    CInput::GetInst()->AddBindKey("Fire", VK_SPACE);*/
 
 
     // SceneInfo 생성 기본적으로 사용할 씬 등록

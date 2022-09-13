@@ -312,5 +312,7 @@ public:
 	CTransform* Clone()    const;
 	void SetTransform();	// 트랜스폼 정보를 Shader로 보내준다.
 	void ComputeWorld();	// World정보를 계산한다.
+	void Save(FILE* File);
+	void Load(FILE* File);
 };
 

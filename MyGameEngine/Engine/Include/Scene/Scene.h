@@ -42,6 +42,8 @@ public:
 	bool Init();
 	void Update(float DeltaTime);
 	void PostUpdate(float DeltaTime);
+	void Save(const char* FullPath);
+	void Load(const char* FullPath);
 
 public:
 	class CGameObject* FindObject(const std::string& Name);

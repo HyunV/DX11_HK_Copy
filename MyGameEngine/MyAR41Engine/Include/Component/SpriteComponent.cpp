@@ -53,3 +53,13 @@ CSpriteComponent* CSpriteComponent::Clone() const
 {
 	return new CSpriteComponent(*this);
 }
+
+void CSpriteComponent::Save(FILE* File)
+{
+	CPrimitiveComponent::Save(File);
+}
+
+void CSpriteComponent::Load(FILE* File)
+{
+	CPrimitiveComponent::Load(File);
+}

@@ -325,3 +325,28 @@ void CTexture::ResetShader(int Register, int ShaderBufferType)
 	if (ShaderBufferType & (int)EShaderBufferType::Compute)
 		CDevice::GetInst()->GetContext()->CSSetShaderResources(Register, 1, &SRV);
 }
+
+void CTexture::Save(FILE* File)
+{
+	fwrite(&m_ImageType, sizeof(EImageType), 1, File);
+
+	int Count = (int)m_vecTextureInfo.size();
+
+	//count 주소를 4바이트*1만큼 File에 쓴다.
+	fwrite(&Count, sizeof(int), 1, File);
+
+	TCHAR	FolderName[8] = {};
+	lstrcpy(FolderName, TEXT("Texture"));
+
+	for (int i = 0; i < Count; ++i)
+	{
+		//vectexture의 파일 이름을 TCHAR*MAX_PATH 만큼 File에 쓴다.
+		fwrite(&m_vecTextureInfo[i]->FileName, sizeof(TCHAR), MAX_PATH, File);
+		fwrite(m_vecTextureInfo[i]->PathName, sizeof(char), MAX_PATH, File);
+	}
+
+}
+
+void CTexture::Load(FILE* File)
+{
+}

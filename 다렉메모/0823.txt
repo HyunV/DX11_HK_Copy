@@ -4,3 +4,24 @@
 
 씬 세이브 로드 시스템
 
+//
+저장이 필요한 애들에게 헤더에다
+SAVE, LOAD 함수를 만들었음.
+
+*세이브로드 추가한 부분
+Scene
+	씬인포, 오브젝트들,
+Texture
+	텍스처 이미지 타입, 텍스처 정보(파일, 경로)
+Material
+	쉐이더 이름, 컬러(베이스, 엠비언트 스페큘러 이미시브) opacity
+	renderstate 있을 시 그 이름들 저장, 텍스처 정보(샘플러 타입, 레지스터, 쉐이더 버퍼 타입)
+GameObject
+Transform
+TargetArm
+SpriteComponent
+SceneComponent
+PrimitiveComponent
+ObjectComponent
+Component
+CameraComponent

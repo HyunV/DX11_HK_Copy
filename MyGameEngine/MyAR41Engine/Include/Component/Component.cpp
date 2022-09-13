@@ -49,3 +49,20 @@ CComponent* CComponent::Clone() const
 {
 	return nullptr;
 }
+
+void CComponent::Save(FILE* File)
+{
+	CRef::Save(File);
+
+	fwrite(&m_ComponentType, sizeof(ComponentType), 1, File);
+
+	int Length = (int)m_ComponentTypeName.length();
+
+	fwrite(&Length, 4, 1, File);
+	fwrite(m_ComponentTypeName.c_str(), 1, Length, File);
+}
+
+void CComponent::Load(FILE* File)
+{
+	CRef::Load(File);
+}

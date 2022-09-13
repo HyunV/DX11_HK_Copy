@@ -17,4 +17,6 @@ public:
     virtual void PostUpdate(float DeltaTime);
     virtual void Render();
     virtual CSpriteComponent* Clone()    const;
+    virtual void Save(FILE* File);
+    virtual void Load(FILE* File);
 };

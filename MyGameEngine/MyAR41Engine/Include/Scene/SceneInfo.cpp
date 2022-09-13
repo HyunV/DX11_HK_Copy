@@ -26,3 +26,11 @@ void CSceneInfo::Update(float DeltaTime)
 void CSceneInfo::PostUpdate(float DeltaTime)
 {
 }
+
+void CSceneInfo::Save(FILE* File)
+{
+}
+
+void CSceneInfo::Load(FILE* File)
+{
+}

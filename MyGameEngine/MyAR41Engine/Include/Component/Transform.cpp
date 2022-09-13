@@ -934,3 +934,72 @@ void CTransform::ComputeWorld()
 {
 	m_matWorld = m_matScale * m_matRot * m_matPos;
 }
+
+void CTransform::Save(FILE* File)
+{
+	fwrite(&m_Is2D, 1, 1, File);
+
+	fwrite(&m_2DZ, sizeof(float), 1, File);
+
+	fwrite(&m_InheritScale, 1, 1, File);
+	fwrite(&m_InheritRotX, 1, 1, File);
+	fwrite(&m_InheritRotY, 1, 1, File);
+	fwrite(&m_InheritRotZ, 1, 1, File);
+	fwrite(&m_InheritParentRotationPosX, 1, 1, File);
+	fwrite(&m_InheritParentRotationPosY, 1, 1, File);
+	fwrite(&m_InheritParentRotationPosZ, 1, 1, File);
+
+	fwrite(&m_RelativeScale, sizeof(Vector3), 1, File);
+	fwrite(&m_RelativeRot, sizeof(Vector3), 1, File);
+	fwrite(&m_RelativePos, sizeof(Vector3), 1, File);
+	fwrite(m_RelativeAxis, sizeof(Vector3), AXIS_MAX, File);
+
+	fwrite(&m_WorldScale, sizeof(Vector3), 1, File);
+	fwrite(&m_WorldRot, sizeof(Vector3), 1, File);
+	fwrite(&m_WorldPos, sizeof(Vector3), 1, File);
+	fwrite(m_WorldAxis, sizeof(Vector3), AXIS_MAX, File);
+
+	fwrite(&m_OriginWorldScale, sizeof(Vector3), 1, File);
+	fwrite(&m_OriginWorldRot, sizeof(Vector3), 1, File);
+	fwrite(&m_OriginWorldPos, sizeof(Vector3), 1, File);
+
+	fwrite(&m_Pivot, sizeof(Vector3), 1, File);
+	fwrite(&m_MeshSize, sizeof(Vector3), 1, File);
+}
+
+void CTransform::Load(FILE* File)
+{
+	fread(&m_Is2D, 1, 1, File);
+
+	fread(&m_2DZ, sizeof(float), 1, File);
+
+	fread(&m_InheritScale, 1, 1, File);
+	fread(&m_InheritRotX, 1, 1, File);
+	fread(&m_InheritRotY, 1, 1, File);
+	fread(&m_InheritRotZ, 1, 1, File);
+	fread(&m_InheritParentRotationPosX, 1, 1, File);
+	fread(&m_InheritParentRotationPosY, 1, 1, File);
+	fread(&m_InheritParentRotationPosZ, 1, 1, File);
+
+	fread(&m_RelativeScale, sizeof(Vector3), 1, File);
+	fread(&m_RelativeRot, sizeof(Vector3), 1, File);
+	fread(&m_RelativePos, sizeof(Vector3), 1, File);
+	fread(m_RelativeAxis, sizeof(Vector3), AXIS_MAX, File);
+
+	fread(&m_WorldScale, sizeof(Vector3), 1, File);
+	fread(&m_WorldRot, sizeof(Vector3), 1, File);
+	fread(&m_WorldPos, sizeof(Vector3), 1, File);
+	fread(m_WorldAxis, sizeof(Vector3), AXIS_MAX, File);
+
+	fread(&m_OriginWorldScale, sizeof(Vector3), 1, File);
+	fread(&m_OriginWorldRot, sizeof(Vector3), 1, File);
+	fread(&m_OriginWorldPos, sizeof(Vector3), 1, File);
+
+	fread(&m_Pivot, sizeof(Vector3), 1, File);
+	fread(&m_MeshSize, sizeof(Vector3), 1, File);
+
+	m_UpdateScale = true;
+	m_UpdateRot = true;
+	m_UpdateRotAxis = true;
+	m_UpdatePos = true;
+}

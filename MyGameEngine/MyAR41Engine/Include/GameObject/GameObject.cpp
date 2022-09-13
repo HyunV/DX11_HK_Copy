@@ -144,6 +144,100 @@ CGameObject* CGameObject::Clone() const
 	return new CGameObject(*this);
 }
 
+void CGameObject::Save(FILE* File)
+{
+	CRef::Save(File);
+
+	//클래스 타입 저장
+	int Length = (int)m_ObjectTypeName.length();
+
+	fwrite(&Length, 4, 1, File);
+	fwrite(m_ObjectTypeName.c_str(), 1, Length, File);
+
+	fwrite(&m_LifeTime, 4, 1, File);
+
+	{
+		//씬컴포 저장
+		auto	iter = m_SceneComponentList.begin();
+		auto	iterEnd = m_SceneComponentList.end();
+		
+		for (; iter != iterEnd; ++iter)
+		{
+			(*iter)->Save(File);
+		}
+	}
+
+	{
+		//오브젝트 컴포 저장
+		auto	iter = m_vecObjectComponent.begin();
+		auto	iterEnd = m_vecObjectComponent.end();
+
+		for (; iter != iterEnd; ++iter)
+		{
+			(*iter)->Save(File);
+		}
+	}
+
+	bool	Parent = false;
+
+	if (m_Parent)
+		Parent = true;
+
+	fwrite(&Parent, 1, 1, File);
+
+	if (Parent)
+	{
+		Length = (int)m_Parent->GetName().length();
+
+		fwrite(&Length, 4, 1, File);
+		fwrite(m_Parent->GetName().c_str(), 1, Length, File);
+	}
+
+	int ChildCount = (int)m_vecChildObject.size();
+
+	fwrite(&ChildCount, 4, 1, File);
+	
+	{
+		auto	iter = m_vecChildObject.begin();
+		auto	iterEnd = m_vecChildObject.end();
+
+		for (; iter != iterEnd; ++iter)
+		{
+			(*iter)->SaveChild(File);
+		}
+	}
+}
+
+void CGameObject::Load(FILE* File)
+{
+	CRef::Load(File);
+}
+
+void CGameObject::SaveChild(FILE* File)
+{
+	int Length = (int)m_Name.length();
+	
+	fwrite(&Length, 4, 1, File);
+	fwrite(m_Name.c_str(), 1, Length, File);
+
+	int ChildCount = (int)m_vecChildObject.size();
+
+	fwrite(&ChildCount, 4, 1, File);
+	{
+		auto	iter = m_vecChildObject.begin();
+		auto	iterEnd = m_vecChildObject.end();
+
+		for (; iter != iterEnd; ++iter)
+		{
+			(*iter)->SaveChild(File);
+		}
+	}
+}
+
+void CGameObject::LoadChild(FILE* File)
+{
+}
+
 void CGameObject::SetInheritScale(bool Inherit)
 {
 	if (m_RootComponent)

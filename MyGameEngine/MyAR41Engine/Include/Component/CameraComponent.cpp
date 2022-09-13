@@ -168,3 +168,11 @@ CCameraComponent* CCameraComponent::Clone() const
 {
 	return new CCameraComponent(*this);
 }
+
+void CCameraComponent::Save(FILE* File)
+{
+}
+
+void CCameraComponent::Load(FILE* File)
+{
+}

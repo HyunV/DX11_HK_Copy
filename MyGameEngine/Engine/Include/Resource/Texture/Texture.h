@@ -92,5 +92,9 @@ private:
 public:
     void SetShader(int Register, int ShaderBufferType, int Index);
     void ResetShader(int Register, int ShaderBufferType);
+
+public:
+    void Save(FILE* File);
+    void Load(FILE* File);
 };
 

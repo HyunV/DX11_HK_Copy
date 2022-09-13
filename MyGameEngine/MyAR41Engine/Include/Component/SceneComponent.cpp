@@ -244,6 +244,49 @@ CSceneComponent* CSceneComponent::Clone() const
 	return new CSceneComponent(*this);
 }
 
+void CSceneComponent::Save(FILE* File)
+{
+	CComponent::Save(File);
+
+	int	Length = (int)m_LayerName.length();
+
+	fwrite(&Length, 4, 1, File);
+	fwrite(m_LayerName.c_str(), 1, Length, File);
+
+	bool	Parent = false;
+
+	if (m_Parent)
+		Parent = true;
+
+	fwrite(&Parent, 1, 1, File);
+
+	if (m_Parent)
+	{
+		Length = (int)m_Parent->GetName().length();
+
+		fwrite(&Length, 4, 1, File);
+		fwrite(m_Parent->GetName().c_str(), 1, Length, File);
+	}
+
+	int	ChildCount = (int)m_vecChild.size();
+	fwrite(&ChildCount, 4, 1, File);
+
+	for (int i = 0; i < ChildCount; ++i)
+	{
+		Length = (int)m_vecChild[i]->GetName().length();
+
+		fwrite(&Length, 4, 1, File);
+		fwrite(m_vecChild[i]->GetName().c_str(), 1, Length, File);
+	}
+
+	m_Transform->Save(File);
+}
+
+void CSceneComponent::Load(FILE* File)
+{
+	CComponent::Load(File);
+}
+
 void CSceneComponent::SetInheritScale(bool Inherit)
 {
 	m_Transform->SetInheritScale(Inherit);
