@@ -39,6 +39,8 @@ public:
 		m_LayerName = Name;
 	}
 
+	void AddOwner();
+
 public:
 	virtual void SetScene(class CScene* Scene);
 	virtual void SetOwner(class CGameObject* Owner);

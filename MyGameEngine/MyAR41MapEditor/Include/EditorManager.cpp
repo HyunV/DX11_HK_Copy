@@ -14,10 +14,19 @@
 #include "Window\TransformWindow.h"
 #include "Window\SceneWindow.h"
 #include "Window\MyImageWindow.h"
+#include "Window\DetailWindow.h"
 #include "Editor/EditorGUIManager.h"
 
 CEditorManager::CEditorManager()
 {
+    CSceneInfo* Info = new CEditorDefaultScene;
+
+    CScene::AddSceneInfoCDO("EditorDefaultScene", Info);
+
+    CScene::CreateObjectCDO<CPlayer2D>("Player2D");
+    CScene::CreateObjectCDO<CMonster>("Monster");
+    CScene::CreateObjectCDO<CMyBullet>("MyBullet");
+
 }
 
 CEditorManager::~CEditorManager()
@@ -59,9 +68,13 @@ bool CEditorManager::Init(HINSTANCE hInst)
     //#예제 출력# 씬 윈도우
     CEditorGUIManager::GetInst()->CreateEditorWindow<CSceneWindow>("SceneWindow");
 
+    //#예제 출력# 디테일 윈도우
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CDetailWindow>("DetailWindow");
+
     //#과제# 이미지 윈도우
     CEditorGUIManager::GetInst()->CreateEditorWindow<CMyImageWindow>("MyImageWindow");
 
+    
     // 키 등록
     /*CInput::GetInst()->AddBindKey("Rotation", 'D');
     CInput::GetInst()->AddBindKey("RotationInv", 'A');

@@ -13,6 +13,8 @@ CComponent::CComponent()	:
 CComponent::CComponent(const CComponent& Obj)	:
 	CRef(Obj)
 {
+	m_ComponentType = Obj.m_ComponentType;
+	m_ComponentTypeName = Obj.m_ComponentTypeName;
 }
 
 CComponent::~CComponent()

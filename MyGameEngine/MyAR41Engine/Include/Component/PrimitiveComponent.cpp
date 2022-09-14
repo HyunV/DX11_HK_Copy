@@ -15,6 +15,17 @@ CPrimitiveComponent::CPrimitiveComponent()
 CPrimitiveComponent::CPrimitiveComponent(const CPrimitiveComponent& component) :
 	CSceneComponent(component)
 {
+	m_Mesh = component.m_Mesh;
+
+	size_t	Size = m_vecMaterial.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		CMaterial* Material = component.m_vecMaterial[i]->Clone();
+
+		m_vecMaterial.push_back(Material);
+	}
+
 }
 
 CPrimitiveComponent::~CPrimitiveComponent()

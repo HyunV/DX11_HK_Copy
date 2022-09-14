@@ -11,6 +11,7 @@
 #include "TransformWindow.h"
 #include "Editor/EditorGUIManager.h"
 #include "Component/SceneComponent.h"
+#include "DetailWindow.h"
 
 
 CComponentWindow::CComponentWindow()
@@ -70,6 +71,9 @@ void CComponentWindow::TreeCallback(CEditorTreeItem<class CComponent*>* Node, co
 	m_SelectComponent = Node->GetCustomData();
 
 	CTransformWindow* TransformWindow = CEditorGUIManager::GetInst()->FindEditorWindow<CTransformWindow>("TransformWindow");
+	CDetailWindow* DetailWindow = CEditorGUIManager::GetInst()->FindEditorWindow<CDetailWindow>("DetailWindow");
+
+	DetailWindow->SetSelectComponent((CSceneComponent*)m_SelectComponent.Get());
 
 	if (m_SelectComponent)
 	{

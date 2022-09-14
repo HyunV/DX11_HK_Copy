@@ -93,21 +93,12 @@ void CMyImageWindow::SelectImageCallback(int Index, const std::string& Item)
     char Text[256] = {};
     sprintf_s(Text, "%s", Item.c_str());
 
-
     TCHAR Unicode[256] = {};
     MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, Text, strlen(Text), Unicode, 256);
 
-    const PathInfo* Info = CPathManager::GetInst()->FindPath(ROOT_PATH);
+    m_SelectImageView->SetTexture(Item, Unicode);
 
-    char Path[MAX_PATH] = {};
-
-    strcpy_s(Path, Info->PathMultibyte);
-    strcat_s(Path, "Texture/");
-
-    CTexture* texture = m_SelectImageView->GetTexture();
-    texture->LoadTexture("DefaultUI", Unicode);
-
-    // m_SelectImageView->SetTexture("DefaultUI", Unicode);
+    //보여줬던 리스트 삭제할 필요가 있음
 }
 
 void CMyImageWindow::ImageSetButtonCallback()

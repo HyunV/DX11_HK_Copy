@@ -337,7 +337,7 @@ void CMaterial::SetTexture(int Index, int Register, int ShaderBufferType,
 		Info->Texture = CResourceManager::GetInst()->FindTexture(Name);
 	}
 
-	m_vecTextureInfo.push_back(Info);
+	
 }
 
 void CMaterial::SetTextureFullPath(int Index, int Register, int ShaderBufferType, const std::string& Name, const TCHAR* FullPath)
@@ -367,7 +367,7 @@ void CMaterial::SetTextureFullPath(int Index, int Register, int ShaderBufferType
 		Info->Texture = CResourceManager::GetInst()->FindTexture(Name);
 	}
 
-	m_vecTextureInfo.push_back(Info);
+
 }
 
 void CMaterial::SetTexture(int Index, int Register, int ShaderBufferType,
@@ -399,7 +399,7 @@ void CMaterial::SetTexture(int Index, int Register, int ShaderBufferType,
 		Info->Texture = CResourceManager::GetInst()->FindTexture(Name);
 	}
 
-	m_vecTextureInfo.push_back(Info);
+	
 }
 
 void CMaterial::SetTextureFullPath(int Index, int Register,
@@ -431,7 +431,7 @@ void CMaterial::SetTextureFullPath(int Index, int Register,
 		Info->Texture = CResourceManager::GetInst()->FindTexture(Name);
 	}
 
-	m_vecTextureInfo.push_back(Info);
+	
 }
 
 void CMaterial::SetTextureSamplerType(int Index, ESamplerType Type)
