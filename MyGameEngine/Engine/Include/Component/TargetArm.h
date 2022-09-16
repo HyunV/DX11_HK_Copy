@@ -2,9 +2,10 @@
 
 #include "SceneComponent.h"
 class CTargetArm :
-	public CSceneComponent
+    public CSceneComponent
 {
 	friend class CGameObject;
+	friend class CScene;
 
 protected:
 	CTargetArm();
@@ -12,15 +13,16 @@ protected:
 	virtual ~CTargetArm();
 
 protected:
-	Vector3 m_TargetOffset;
-	float m_TargetDistance;
-	AXIS m_TargetDistanceAxis;
+	Vector3		m_TargetOffset;
+	float		m_TargetDistance;
+	AXIS		m_TargetDistanceAxis;
 
 public:
 	void SetTargetDistanceAxis(AXIS Axis)
 	{
 		m_TargetDistanceAxis = Axis;
 	}
+	
 	void SetTargetDistance(float Distance)
 	{
 		m_TargetDistance = Distance;

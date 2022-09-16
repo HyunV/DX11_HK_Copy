@@ -3,16 +3,15 @@
 class CDepthStencilState :
     public CRenderState
 {
-    friend class CRenderStateManager;
+	friend class CRenderStateManager;
 
 protected:
-    CDepthStencilState();
-    virtual ~CDepthStencilState();
+	CDepthStencilState();
+	virtual ~CDepthStencilState();
 
 protected:
-    unsigned int    m_StencilRef;
-    unsigned int    m_PrevStencilRef;
-
+	unsigned int	m_StencilRef;
+	unsigned int	m_PrevStencilRef;
 public:
 	bool CreateDepthStencil(bool DepthEnable = true,
 		D3D11_DEPTH_WRITE_MASK DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL,

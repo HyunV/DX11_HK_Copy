@@ -1,7 +1,7 @@
 #pragma once
-//레퍼런스 카운터
 #include "EngineInfo.h"
 
+//레퍼런스 카운터
 class CRef
 {
 public:
@@ -12,14 +12,14 @@ public:
 protected:
 	int		m_RefCount;
 	std::string	m_Name;
-	std::string	m_TypeName; 
+	std::string	m_TypeName;
 	size_t	m_TypeID;	//타입의 고유값을 해시코드로 받아옴
 	bool	m_Enable;	// 활성, 비활성
 	bool	m_Active;	// 살아 있는지 죽었는지
 
 public:
 	void AddRef();
-	int Release(); //레퍼런스 카운터 감소시킴, 0되면 제거시킴
+	int Release();	//레퍼런스 카운터 감소시킴, 0되면 제거시킴
 
 
 public:

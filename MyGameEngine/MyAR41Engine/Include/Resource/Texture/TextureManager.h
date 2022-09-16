@@ -11,8 +11,8 @@ private:
 	~CTextureManager();
 
 private:
-	std::unordered_map<std::string, CSharedPtr<class CTexture>> m_mapTexture;
-	std::unordered_map<std::string, ID3D11SamplerState*> m_mapSampler;
+	std::unordered_map<std::string, CSharedPtr<class CTexture>>	m_mapTexture;
+	std::unordered_map<std::string, ID3D11SamplerState*>	m_mapSampler;
 
 public:
 	bool Init();
@@ -27,7 +27,7 @@ public:
 
 private:
 	/*
-		D3D11_FILTER Filter;
+	D3D11_FILTER Filter;
     D3D11_TEXTURE_ADDRESS_MODE AddressU;
     D3D11_TEXTURE_ADDRESS_MODE AddressV;
     D3D11_TEXTURE_ADDRESS_MODE AddressW;

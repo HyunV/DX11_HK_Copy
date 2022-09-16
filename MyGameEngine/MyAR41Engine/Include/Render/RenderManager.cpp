@@ -157,7 +157,7 @@ void CRenderManager::SetBlendFactor(const std::string& Name, float r, float g, f
 	m_RenderStateManager->SetBlendFactor(Name, r, g, b, a);
 }
 
-void CRenderManager::AddBlendInfo(const std::string& Name, bool BlendEnable,
+void CRenderManager::AddBlendInfo(const std::string& Name, bool BlendEnable, 
 	D3D11_BLEND SrcBlend, D3D11_BLEND DestBlend, D3D11_BLEND_OP BlendOp,
 	D3D11_BLEND SrcAlphBlend, D3D11_BLEND DestAlphBlend, D3D11_BLEND_OP BlendAlphOp,
 	UINT8 WriteMask)
@@ -166,12 +166,17 @@ void CRenderManager::AddBlendInfo(const std::string& Name, bool BlendEnable,
 		SrcAlphBlend, DestAlphBlend, BlendAlphOp, WriteMask);
 }
 
-bool CRenderManager::CreateBlendState(const std::string& Name, bool AlphaToCoverageEnable, bool IndependentBlendEnable)
+bool CRenderManager::CreateBlendState(const std::string& Name,
+	bool AlphaToCoverageEnable, bool IndependentBlendEnable)
 {
 	return m_RenderStateManager->CreateBlendState(Name, AlphaToCoverageEnable, IndependentBlendEnable);
 }
 
-bool CRenderManager::CreateDepthStencil(const std::string& Name, bool DepthEnable, D3D11_DEPTH_WRITE_MASK DepthWriteMask, D3D11_COMPARISON_FUNC DepthFunc, bool StencilEnable, UINT8 StencilReadMask, UINT8 StencilWriteMask, D3D11_DEPTH_STENCILOP_DESC FrontFace, D3D11_DEPTH_STENCILOP_DESC BackFace)
+bool CRenderManager::CreateDepthStencil(const std::string& Name, 
+	bool DepthEnable, D3D11_DEPTH_WRITE_MASK DepthWriteMask, 
+	D3D11_COMPARISON_FUNC DepthFunc, bool StencilEnable, 
+	UINT8 StencilReadMask, UINT8 StencilWriteMask, 
+	D3D11_DEPTH_STENCILOP_DESC FrontFace, D3D11_DEPTH_STENCILOP_DESC BackFace)
 {
 	return m_RenderStateManager->CreateDepthStencil(Name, DepthEnable,
 		DepthWriteMask, DepthFunc, StencilEnable, StencilReadMask, StencilWriteMask,

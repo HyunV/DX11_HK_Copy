@@ -9,7 +9,7 @@ class CResourceManager
 private:
 	class CMeshManager* m_MeshManager; //메쉬 매니저
 	CShaderManager* m_ShaderManager;
-	class  CTextureManager* m_TextureManager;
+	class CTextureManager* m_TextureManager;
 	class CMaterialManager* m_MaterialManager;
 	//텍스처 매니저
 	//사운드 매니저

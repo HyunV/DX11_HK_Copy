@@ -4,9 +4,10 @@
 #include "Transform.h"
 
 class CSceneComponent :
-	public CComponent
+    public CComponent
 {
 	friend class CGameObject;
+	friend class CScene;
 
 protected:
 	CSceneComponent();
@@ -15,16 +16,19 @@ protected:
 
 protected:
 	CTransform* m_Transform;
-	CSceneComponent* m_Parent;
-	std::vector<CSharedPtr<CSceneComponent>>    m_vecChild;
+    CSceneComponent* m_Parent;
+    std::vector<CSharedPtr<CSceneComponent>>    m_vecChild;
 	std::string     m_LayerName;
+	std::string		m_ParentName;
+	std::vector<std::string>	m_vecChildName;
 
 public:
-	CTransform* GetTransform()    const
-	{
-		return m_Transform;
-	}
-	CSceneComponent* GetParent() const
+    CTransform* GetTransform()    const
+    {
+        return m_Transform;
+    }
+    
+	CSceneComponent* GetParent()	const
 	{
 		return m_Parent;
 	}
@@ -42,8 +46,8 @@ public:
 	void AddOwner();
 
 public:
-	virtual void SetScene(class CScene* Scene);
-	virtual void SetOwner(class CGameObject* Owner);
+    virtual void SetScene(class CScene* Scene);
+    virtual void SetOwner(class CGameObject* Owner);
 
 public:
 	// SocketName은 나중에 3D에서 사용 예정.
@@ -54,13 +58,13 @@ public:
 	CSceneComponent* FindComponent(const std::string& Name);
 
 public:
-	virtual void Destroy();
-	virtual void Start();
-	virtual bool Init();
-	virtual void Update(float DeltaTime);
-	virtual void PostUpdate(float DeltaTime);
-	virtual void Render();
-	virtual CSceneComponent* Clone()    const;
+    virtual void Destroy();
+    virtual void Start();
+    virtual bool Init();
+    virtual void Update(float DeltaTime);
+    virtual void PostUpdate(float DeltaTime);
+    virtual void Render();
+    virtual CSceneComponent* Clone()    const;
 	virtual void Save(FILE* File);
 	virtual void Load(FILE* File);
 

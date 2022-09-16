@@ -4,6 +4,7 @@ class CSpriteComponent :
     public CPrimitiveComponent
 {
     friend class CGameObject;
+    friend class CScene;
 
 protected:
     CSpriteComponent();
@@ -20,3 +21,4 @@ public:
     virtual void Save(FILE* File);
     virtual void Load(FILE* File);
 };
+

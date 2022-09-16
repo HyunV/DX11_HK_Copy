@@ -3,7 +3,7 @@
 #include "ConstantBufferData.h"
 
 class CMaterialConstantBuffer :
-	public CConstantBufferData
+    public CConstantBufferData
 {
 public:
 	CMaterialConstantBuffer();

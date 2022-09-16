@@ -45,10 +45,6 @@ public:
         m_BorderColor.w = a / 255.f;
     }
 
-    CTexture* GetTexture()
-    {
-        return m_Texture;
-    }
 
     void SetTexture(const std::string& Name, const TCHAR* FileName,
         const std::string& PathName = TEXTURE_PATH);

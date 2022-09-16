@@ -56,7 +56,7 @@ bool CSceneResource::Init()
 	return true;
 }
 
-bool CSceneResource::CreateMesh(MeshType Type, const std::string& Name, void* VtxData,
+bool CSceneResource::CreateMesh(MeshType Type, const std::string& Name, void* VtxData, 
 	int Size, int Count, D3D11_USAGE VtxUsage, D3D11_PRIMITIVE_TOPOLOGY Primitive,
 	void* IdxData, int IdxSize, int IdxCount, D3D11_USAGE IdxUsage, DXGI_FORMAT Fmt)
 {
@@ -138,7 +138,7 @@ bool CSceneResource::LoadTextureFullPath(const std::string& Name, const TCHAR* F
 	return true;
 }
 
-bool CSceneResource::LoadTexture(const std::string& Name,
+bool CSceneResource::LoadTexture(const std::string& Name, 
 	const std::vector<const TCHAR*>& vecFileName, const std::string& PathName)
 {
 	if (FindTexture(Name))

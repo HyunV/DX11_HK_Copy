@@ -4,7 +4,7 @@
 
 struct Vector2
 {
-	float x, y;
+	float	x, y;
 
 	Vector2();
 	Vector2(float _x, float _y);

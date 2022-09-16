@@ -51,6 +51,26 @@ CSceneInfo* CSceneInfo::Clone()
 
 void CSceneInfo::Save(FILE* File)
 {
+	// 클래스 타입 저장
+	int	Length = (int)m_ClassTypeName.length();
+
+	fwrite(&Length, 4, 1, File);
+	fwrite(m_ClassTypeName.c_str(), 1, Length, File);
+
+	bool	PlayerEnable = false;
+
+	if (m_PlayerObject)
+		PlayerEnable = true;
+
+	fwrite(&PlayerEnable, 1, 1, File);
+
+	if (PlayerEnable)
+	{
+		Length = (int)m_PlayerObject->GetName().length();
+
+		fwrite(&Length, 4, 1, File);
+		fwrite(m_PlayerObject->GetName().c_str(), 1, Length, File);
+	}
 }
 
 void CSceneInfo::Load(FILE* File)
@@ -62,8 +82,8 @@ void CSceneInfo::Load(FILE* File)
 	if (PlayerEnable)
 	{
 		int Length = 0;
-
-		char Name[256] = {};
+		
+		char	Name[256] = {};
 
 		fread(&Length, 4, 1, File);
 		fread(Name, 1, Length, File);

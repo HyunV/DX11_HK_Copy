@@ -2,10 +2,14 @@
 #include "Scene.h"
 #include "../GameObject/GameObject.h"
 #include "../Input.h"
+#include "../Component/SpriteComponent.h"
+#include "../Component/CameraComponent.h"
+#include "../Component/TargetArm.h"
+#include "../Component/SceneComponent.h"
 
 std::unordered_map<std::string, CSceneInfo*> CScene::m_mapSceneInfoCDO;
 
-CScene::CScene() :
+CScene::CScene()	:
 	m_Change(false),
 	m_Start(false)
 {
@@ -52,6 +56,30 @@ void CScene::CreateCDO()
 	ObjCDO->Init();
 
 	CGameObject::AddObjectCDO("GameObject", ObjCDO);
+
+	CComponent* ComCDO = new CSceneComponent;
+
+	ComCDO->Init();
+
+	CComponent::AddComponentCDO("SceneComponent", ComCDO);
+
+	ComCDO = new CSpriteComponent;
+
+	ComCDO->Init();
+
+	CComponent::AddComponentCDO("SpriteComponent", ComCDO);
+
+	ComCDO = new CCameraComponent;
+
+	ComCDO->Init();
+
+	CComponent::AddComponentCDO("CameraComponent", ComCDO);
+
+	ComCDO = new CTargetArm;
+
+	ComCDO->Init();
+
+	CComponent::AddComponentCDO("TargetArm", ComCDO);
 }
 
 void CScene::Start()
@@ -138,32 +166,33 @@ void CScene::Save(const char* FullPath)
 {
 	FILE* File = nullptr;
 
-	//FullPath이름을 쓰기 형식으로 연다.
-	fopen_s(&File, FullPath, "wb"); 
+	fopen_s(&File, FullPath, "wb");
+	// FullPath이름을 쓰기 형식으로 연다.
+	 
 
 	if (!File)
 		return;
 
-	//이름 저장
-	int Length = (int)m_Name.length();
+	// 이름 저장
+	int	Length = (int)m_Name.length();
 
 	fwrite(&Length, 4, 1, File);
 	fwrite(m_Name.c_str(), 1, Length, File);
 
-	//SceneInfo 저장
+	// SceneInfo 저장
 	m_SceneInfo->Save(File);
 
-	int ObjCount = (int)m_ObjList.size();
+	int	ObjCount = (int)m_ObjList.size();
 
 	fwrite(&ObjCount, 4, 1, File);
 
 	//씬에 들어있는 오브젝트들 저장
-	auto iter = m_ObjList.begin();
-	auto iterEnd = m_ObjList.end();
+	auto	iter = m_ObjList.begin();
+	auto	iterEnd = m_ObjList.end();
 
 	for (; iter != iterEnd; ++iter)
 	{
-		std::string ClassTypeName = (*iter)->GetObjectTypeName();
+		std::string	ClassTypeName = (*iter)->GetObjectTypeName();
 
 		Length = (int)ClassTypeName.length();
 
@@ -186,8 +215,8 @@ void CScene::Load(const char* FullPath)
 		return;
 
 	//이름 저장
-	int Length = 0;
-	char Name[256] = {};
+	int	Length = 0;
+	char	Name[256] = {};
 
 	fread(&Length, 4, 1, File);
 	fread(Name, 1, Length, File);
@@ -207,7 +236,7 @@ void CScene::Load(const char* FullPath)
 
 	m_SceneInfo->Load(File);
 
-	int ObjCount = 0;
+	int	ObjCount = 0;
 
 	fread(&ObjCount, 4, 1, File);
 
@@ -223,7 +252,9 @@ void CScene::Load(const char* FullPath)
 		CGameObject* ObjCDO = CGameObject::FindCDO(ObjClassTypeName);
 		
 		CGameObject* NewObj = ObjCDO->Clone();
+		
 		NewObj->Load(File);
+		
 		m_ObjList.push_back(NewObj);
 	}
 

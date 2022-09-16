@@ -8,29 +8,29 @@ CTextureManager::CTextureManager()
 
 CTextureManager::~CTextureManager()
 {
-    auto	iter = m_mapSampler.begin();
-    auto	iterEnd = m_mapSampler.end();
+	auto	iter = m_mapSampler.begin();
+	auto	iterEnd = m_mapSampler.end();
 
-    for (; iter != iterEnd; ++iter)
-    {
-        SAFE_RELEASE(iter->second);
-    }
+	for (; iter != iterEnd; ++iter)
+	{
+		SAFE_RELEASE(iter->second);
+	}
 }
 
 bool CTextureManager::Init()
 {
-    /*
-Sampler는 3가지의 필터방식을 가진다.
-축소필터, 확대필터, Mip필터
+    /*	
+	Sampler는 3가지의 필터방식을 가진다.
+	축소필터, 확대필터, Mip필터
 
-필터종류 : 점필터링, 선형필터링, 비등방성 필터링
-점필터링 : 속도가 제일 빠르다. 단, 품질은 떨어진다. 하지만 크기가 딱 맞아서
-확대나 축소가 안일어난다면 가장 좋은 선택지이다.
+	필터종류 : 점필터링, 선형필터링, 비등방성 필터링
+	점필터링 : 속도가 제일 빠르다. 단, 품질은 떨어진다. 하지만 크기가 딱 맞아서
+	확대나 축소가 안일어난다면 가장 좋은 선택지이다.
 
-선형필터링 : 속도 중간. 품질도 중간이다.
+	선형필터링 : 속도 중간. 품질도 중간이다.
 
-비등방성 필터링 : 속도가 가장 느리다. 품질은 가장 좋다.
-*/
+	비등방성 필터링 : 속도가 가장 느리다. 품질은 가장 좋다.
+	*/
 
 	float BorderColor[4] = { 1.f, 1.f,1.f, 1.f };
 
@@ -56,7 +56,8 @@ Sampler는 3가지의 필터방식을 가진다.
 	return true;
 }
 
-bool CTextureManager::LoadTexture(const std::string& Name, const TCHAR* FileName, const std::string& PathName)
+bool CTextureManager::LoadTexture(const std::string& Name, const TCHAR* FileName, 
+	const std::string& PathName)
 {
 	CTexture* Texture = FindTexture(Name);
 
@@ -96,7 +97,8 @@ bool CTextureManager::LoadTextureFullPath(const std::string& Name, const TCHAR* 
 	return true;
 }
 
-bool CTextureManager::LoadTexture(const std::string& Name, const std::vector<const TCHAR*>& vecFileName, const std::string& PathName)
+bool CTextureManager::LoadTexture(const std::string& Name, 
+	const std::vector<const TCHAR*>& vecFileName, const std::string& PathName)
 {
 	CTexture* Texture = FindTexture(Name);
 
@@ -116,7 +118,8 @@ bool CTextureManager::LoadTexture(const std::string& Name, const std::vector<con
 	return true;
 }
 
-bool CTextureManager::LoadTextureFullPath(const std::string& Name, const std::vector<const TCHAR*>& vecFullPath)
+bool CTextureManager::LoadTextureFullPath(const std::string& Name, 
+	const std::vector<const TCHAR*>& vecFullPath)
 {
 	CTexture* Texture = FindTexture(Name);
 
@@ -159,7 +162,7 @@ void CTextureManager::ReleaseTexture(const std::string& Name)
 
 bool CTextureManager::CreateSampler(const std::string& Name, 
 	D3D11_FILTER Filter, D3D11_TEXTURE_ADDRESS_MODE AddressU, 
-	D3D11_TEXTURE_ADDRESS_MODE AddressV, D3D11_TEXTURE_ADDRESS_MODE AddressW, 
+	D3D11_TEXTURE_ADDRESS_MODE AddressV, D3D11_TEXTURE_ADDRESS_MODE AddressW,
 	float BorderColor[4])
 {
 	ID3D11SamplerState* Sampler = FindSampler(Name);
@@ -199,7 +202,8 @@ ID3D11SamplerState* CTextureManager::FindSampler(const std::string& Name)
 	return iter->second;
 }
 
-void CTextureManager::SetSampler(const std::string& Name, int Register, int ShaderBufferType)
+void CTextureManager::SetSampler(const std::string& Name, int Register,
+	int ShaderBufferType)
 {
 	ID3D11SamplerState* Sampler = FindSampler(Name);
 

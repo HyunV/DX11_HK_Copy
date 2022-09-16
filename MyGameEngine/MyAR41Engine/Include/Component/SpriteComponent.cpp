@@ -8,7 +8,7 @@ CSpriteComponent::CSpriteComponent()
 	m_ComponentTypeName = "SpriteComponent";
 }
 
-CSpriteComponent::CSpriteComponent(const CSpriteComponent& component) :
+CSpriteComponent::CSpriteComponent(const CSpriteComponent& component)	:
 	CPrimitiveComponent(component)
 {
 }

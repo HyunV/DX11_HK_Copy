@@ -12,7 +12,7 @@ CPrimitiveComponent::CPrimitiveComponent()
 	m_ComponentTypeName = "PrimitiveComponent";
 }
 
-CPrimitiveComponent::CPrimitiveComponent(const CPrimitiveComponent& component) :
+CPrimitiveComponent::CPrimitiveComponent(const CPrimitiveComponent& component)	:
 	CSceneComponent(component)
 {
 	m_Mesh = component.m_Mesh;
@@ -34,7 +34,11 @@ CPrimitiveComponent::~CPrimitiveComponent()
 
 void CPrimitiveComponent::SetMesh(const std::string& Name)
 {
-	m_Mesh = m_Scene->GetResource()->FindMesh(Name);
+	if (m_Scene)
+		m_Mesh = m_Scene->GetResource()->FindMesh(Name);
+
+	else
+		m_Mesh = CResourceManager::GetInst()->FindMesh(Name);
 
 	if (m_Mesh)
 		SetMeshSize(m_Mesh->GetMeshSize());
@@ -70,7 +74,13 @@ void CPrimitiveComponent::SetMesh(CMesh* Mesh)
 
 void CPrimitiveComponent::SetMaterial(int Slot, const std::string& Name)
 {
-	CMaterial* Material = m_Scene->GetResource()->FindMaterial(Name);
+	CMaterial* Material = nullptr;
+
+	if (m_Scene)
+		Material = m_Scene->GetResource()->FindMaterial(Name);
+
+	else
+		Material = CResourceManager::GetInst()->FindMaterial(Name);
 
 	m_vecMaterial[Slot] = Material;
 }
@@ -166,4 +176,27 @@ void CPrimitiveComponent::Save(FILE* File)
 void CPrimitiveComponent::Load(FILE* File)
 {
 	CSceneComponent::Load(File);
+
+	int	Length = 0;
+	char	MeshName[256] = {};
+
+	fread(&Length, 4, 1, File);
+	fread(MeshName, 1, Length, File);
+
+	SetMesh(MeshName);
+
+	int	MaterialCount = 0;
+
+	fread(&MaterialCount, 4, 1, File);
+
+	for (int i = 0; i < MaterialCount; ++i)
+	{
+		CMaterial* Material = m_Mesh->GetMaterial(i);
+
+		Material = Material->Clone();
+
+		Material->Load(File);
+
+		m_vecMaterial.push_back(Material);
+	}
 }

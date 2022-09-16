@@ -13,7 +13,7 @@ private:
 	~CScene();
 
 private:
-	static std::unordered_map<std::string, CSceneInfo*> m_mapSceneInfoCDO;
+	static std::unordered_map<std::string, CSceneInfo*>	m_mapSceneInfoCDO;
 
 private:
 	static void CreateCDO();
@@ -53,7 +53,7 @@ private:
 	CSceneResource* m_Resource;
 	CCameraManager* m_CameraManager;
 	std::list<CSharedPtr<class CGameObject>>	m_ObjList;
-	std::string m_Name;
+	std::string	m_Name;
 
 public:
 	void SetName(const std::string& Name)
@@ -61,7 +61,7 @@ public:
 		m_Name = Name;
 	}
 
-	const std::string& GetName() const
+	const std::string& GetName()	const
 	{
 		return m_Name;
 	}

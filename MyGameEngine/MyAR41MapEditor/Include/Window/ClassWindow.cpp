@@ -375,7 +375,7 @@ void CClassWindow::LoadComponentName()
         else if (strcmp(Name, "Transform") == 0 ||
             strcmp(Name, "Transform2D") == 0 ||
             strcmp(Name, "Component") == 0 ||
-            strcmp(Name, "PrimitiveComponent") == 0||
+            strcmp(Name, "PrimitiveComponent") == 0 ||
             strcmp(Name, "ObjectComponent") == 0)
             continue;
 

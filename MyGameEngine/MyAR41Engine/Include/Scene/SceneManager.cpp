@@ -1,10 +1,12 @@
 
 #include "SceneManager.h"
 #include "SceneInfo.h"
+#include "../GameObject/GameObject.h"
+#include "../Component/SceneComponent.h"
 
 DEFINITION_SINGLE(CSceneManager)
 
-CSceneManager::CSceneManager() :
+CSceneManager::CSceneManager()	:
 	m_Scene(nullptr),
 	m_NextScene(nullptr)
 {
@@ -16,12 +18,34 @@ CSceneManager::~CSceneManager()
 	SAFE_DELETE(m_NextScene);
 	SAFE_DELETE(m_Scene);
 
-	auto	iter = CScene::m_mapSceneInfoCDO.begin();
-	auto	iterEnd = CScene::m_mapSceneInfoCDO.end();
-
-	for (; iter != iterEnd; ++iter)
 	{
-		SAFE_DELETE(iter->second);
+		auto	iter = CScene::m_mapSceneInfoCDO.begin();
+		auto	iterEnd = CScene::m_mapSceneInfoCDO.end();
+
+		for (; iter != iterEnd; ++iter)
+		{
+			SAFE_DELETE(iter->second);
+		}
+	}
+
+	{
+		auto	iter = CGameObject::m_mapObjectCDO.begin();
+		auto	iterEnd = CGameObject::m_mapObjectCDO.end();
+
+		for (; iter != iterEnd; ++iter)
+		{
+			SAFE_DELETE(iter->second);
+		}
+	}
+
+	{
+		auto	iter = CComponent::m_mapComponent.begin();
+		auto	iterEnd = CComponent::m_mapComponent.end();
+
+		for (; iter != iterEnd; ++iter)
+		{
+			SAFE_DELETE(iter->second);
+		}
 	}
 }
 

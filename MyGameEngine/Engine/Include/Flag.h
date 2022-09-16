@@ -25,7 +25,7 @@ enum class BufferType : unsigned char
 //쉐이더는 크게 그래픽, 컴퓨트로 나뉜다.
 enum class ShaderType : unsigned char
 {
-	Graphic, 
+	Graphic,
 	Compute
 };
 

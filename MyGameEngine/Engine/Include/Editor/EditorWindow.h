@@ -16,7 +16,7 @@ protected:
 	std::string		m_Name;
 	bool			m_Open;
 	int				m_WindowFlag; //이걸 이용해서 위젯 생성
-	std::vector<class CEditorWidget*> m_vecWidget; //창에 여러개의 위젯을 가질 수 있게
+	std::vector<class CEditorWidget*>	m_vecWidget; //창에 여러개의 위젯을 가질 수 있게
 
 public:
 	void SetName(const std::string& Name)

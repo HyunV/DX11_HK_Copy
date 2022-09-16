@@ -28,7 +28,7 @@ CCameraComponent::~CCameraComponent()
 
 void CCameraComponent::ComputeProjectionMatrix()
 {
-	Resolution RS = CDevice::GetInst()->GetResolution();
+	Resolution	RS = CDevice::GetInst()->GetResolution();
 
 	switch (m_CameraType)
 	{
@@ -171,8 +171,22 @@ CCameraComponent* CCameraComponent::Clone() const
 
 void CCameraComponent::Save(FILE* File)
 {
+	CSceneComponent::Save(File);
+
+	fwrite(&m_CameraType, sizeof(ECameraType), 1, File);
+	fwrite(&m_CameraViewDistance, sizeof(float), 1, File);
+
+	fwrite(&m_matView, sizeof(Matrix), 1, File);
+	fwrite(&m_matProj, sizeof(Matrix), 1, File);
 }
 
 void CCameraComponent::Load(FILE* File)
 {
+	CSceneComponent::Load(File);
+
+	fread(&m_CameraType, sizeof(ECameraType), 1, File);
+	fread(&m_CameraViewDistance, sizeof(float), 1, File);
+
+	fread(&m_matView, sizeof(Matrix), 1, File);
+	fread(&m_matProj, sizeof(Matrix), 1, File);
 }

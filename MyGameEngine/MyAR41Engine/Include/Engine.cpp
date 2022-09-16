@@ -33,7 +33,8 @@ CEngine::CEngine() :
     _CrtSetBreakAlloc : 번호를 인자로 전달하고 실행하면 릭이 발생한 코드를 알려준다.
     */
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(825);
+    _CrtSetBreakAlloc(1774);
+    _CrtSetBreakAlloc(1770);
 }
 
 CEngine::~CEngine()

@@ -7,5 +7,4 @@ CShader::CShader()
 
 CShader::~CShader()
 {
-
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "Editor\EditorWindow.h"
+
 class CSceneWindow :
     public CEditorWindow
 {

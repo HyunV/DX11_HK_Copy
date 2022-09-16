@@ -3,10 +3,11 @@
 #include "SceneComponent.h"
 
 class CCameraComponent :
-	public CSceneComponent
+    public CSceneComponent
 {
-	friend class CCameraManager;
+    friend class CCameraManager;
 	friend class CGameObject;
+	friend class CScene;
 
 protected:
 	CCameraComponent();
@@ -14,32 +15,36 @@ protected:
 	virtual ~CCameraComponent();
 
 protected:
-	ECameraType m_CameraType;
+	ECameraType	m_CameraType;
 	Matrix		m_matView;
 	Matrix		m_matProj;
 
-	float m_CameraViewDistance;
+	float		m_CameraViewDistance;
 
 public:
-	const Matrix& GetViewMatrix() const
+	const Matrix& GetViewMatrix()	const
 	{
 		return m_matView;
 	}
 
-	const Matrix& GetProjMatrix() const
+	const Matrix& GetProjMatrix()	const
 	{
 		return m_matProj;
 	}
+
+
 public:
 	void SetCameraType(ECameraType Type)
 	{
 		m_CameraType = Type;
+
 		ComputeProjectionMatrix();
 	}
 
 	void SetCameraViewDistance(float Distance)
 	{
 		m_CameraViewDistance = Distance;
+
 		ComputeProjectionMatrix();
 	}
 

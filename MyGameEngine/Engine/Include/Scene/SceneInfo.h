@@ -15,8 +15,8 @@ protected:
 protected:
 	class CScene* m_Owner;
 	CSharedPtr<class CGameObject> m_PlayerObject;
-	std::string m_ClassTypeName;
-	std::string m_PlayerObjectName;
+	std::string	m_ClassTypeName;
+	std::string	m_PlayerObjectName;
 
 protected:
 	void SetClassTypeName(const std::string& Name)

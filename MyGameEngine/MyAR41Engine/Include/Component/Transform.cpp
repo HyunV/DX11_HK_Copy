@@ -8,7 +8,7 @@
 float CTransform::m_MinY = FLT_MAX;
 float CTransform::m_MaxY = -FLT_MAX;
 
-CTransform::CTransform() :
+CTransform::CTransform()	:
 	m_Is2D(false),
 	m_InheritScale(false),
 	m_InheritRotX(false),
@@ -915,9 +915,8 @@ void CTransform::SetTransform()
 {
 	m_CBuffer->SetWorldMatrix(m_matWorld);
 
-	Matrix matView = m_Scene->GetCameraManager()->GetCurrentCamera()->GetViewMatrix();
-	Matrix matProj = m_Scene->GetCameraManager()->GetCurrentCamera()->GetProjMatrix();
-
+	Matrix	matView = m_Scene->GetCameraManager()->GetCurrentCamera()->GetViewMatrix();
+	Matrix	matProj = m_Scene->GetCameraManager()->GetCurrentCamera()->GetProjMatrix();
 
 	m_CBuffer->SetViewMatrix(matView);
 	m_CBuffer->SetProjMatrix(matProj);
@@ -1000,6 +999,6 @@ void CTransform::Load(FILE* File)
 
 	m_UpdateScale = true;
 	m_UpdateRot = true;
-	m_UpdateRotAxis = true;
+	m_UpdateRotAxis	 = true;
 	m_UpdatePos = true;
 }

@@ -80,7 +80,7 @@ void CSceneWindow::SceneChange()
 	if (Scene->GetName() == m_SelectSceneItem && !m_SelectSceneItem.empty())
 		return;
 
-	CSceneManager::GetInst()->CreateNextScene(false);
+	CSceneManager::GetInst()->CreateNextScene();
 	CScene* NextScene = CSceneManager::GetInst()->GetNextScene();
 
 	const PathInfo* Info = CPathManager::GetInst()->FindPath(ROOT_PATH);
@@ -121,34 +121,36 @@ void CSceneWindow::SceneSave()
 
 	Scene->Save(FullPath);
 
-	m_SceneList->AddItem(Name);
+	if (!m_SceneList->CheckItem(Name))
+		m_SceneList->AddItem(Name);
 }
 
 void CSceneWindow::SceneClickCallback(int Index, const std::string& Item)
 {
 	m_SelectSceneItem = Item;
+
 	m_SceneSelectName->SetText(Item.c_str());
 }
 
 void CSceneWindow::LoadSceneDirectory()
 {
-	const PathInfo* Info = CPathManager::GetInst()->FindPath(ROOT_PATH);
+	//const PathInfo* Info = CPathManager::GetInst()->FindPath(ROOT_PATH);
 
-	char	Path[MAX_PATH] = {};
+	//char	Path[MAX_PATH] = {};
 
-	strcpy_s(Path, Info->PathMultibyte);
-	strcat_s(Path, "Scene/");
+	//strcpy_s(Path, Info->PathMultibyte);
+	//strcat_s(Path, "Scene/");
 
-	for (const auto& file : std::filesystem::directory_iterator(Path))
-	{
-		char	Name[64] = {};
-		char	FullPath[MAX_PATH] = {};
-		char	Ext[_MAX_EXT] = {};
+	//for (const auto& file : std::filesystem::directory_iterator(Path))
+	//{
+	//	char	Name[64] = {};
+	//	char	FullPath[MAX_PATH] = {};
+	//	char	Ext[_MAX_EXT] = {};
 
-		strcpy_s(FullPath, file.path().generic_string().c_str());
+	//	strcpy_s(FullPath, file.path().generic_string().c_str());
 
-		_splitpath_s(FullPath, nullptr, 0, nullptr, 0, Name, 64, Ext, _MAX_EXT);
+	//	_splitpath_s(FullPath, nullptr, 0, nullptr, 0, Name, 64, Ext, _MAX_EXT);
 
-		m_SceneList->AddItem(Name);
-	}
+	//	m_SceneList->AddItem(Name);
+	//}
 }

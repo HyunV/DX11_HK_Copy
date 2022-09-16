@@ -8,12 +8,12 @@ private:
 	CScene* m_Scene;
 	CScene* m_NextScene;
 public:
-	CScene* GetScene() const
+	CScene* GetScene()	const
 	{
 		return m_Scene;
 	}
 
-	CScene* GetNextScene() const
+	CScene* GetNextScene()	const
 	{
 		return m_NextScene;
 	}
@@ -21,7 +21,7 @@ public:
 public:
 	bool Init();
 	bool Update(float DeltaTime);
-	bool PostUpdate(float DeltaTime);
+    bool PostUpdate(float DeltaTime);
 
 private:
 	bool ChangeScene();
