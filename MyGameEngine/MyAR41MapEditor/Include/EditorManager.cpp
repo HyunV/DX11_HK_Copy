@@ -49,22 +49,22 @@ bool CEditorManager::Init(HINSTANCE hInst)
     CEditorGUIManager::GetInst()->CreateEditorWindow<CTestWindow>("TestWindow");
     
     //#예제 출력# 오브젝트 윈도우 생성
-    //CEditorGUIManager::GetInst()->CreateEditorWindow<CObjectWindow>("ObjectWindow"); 
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CObjectWindow>("ObjectWindow"); 
 
     //#예제 출력#  클래스 윈도우 생성
-    //CEditorGUIManager::GetInst()->CreateEditorWindow<CClassWindow>("ClassWindow");
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CClassWindow>("ClassWindow");
     
     //#예제 출력#  컴포넌트 윈도우
-    //CEditorGUIManager::GetInst()->CreateEditorWindow<CComponentWindow>("ComponentWindow");
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CComponentWindow>("ComponentWindow");
 
     //#예제 출력# 트랜스폼 윈도우
-    //CEditorGUIManager::GetInst()->CreateEditorWindow<CTransformWindow>("TransformWindow");
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CTransformWindow>("TransformWindow");
 
     //#예제 출력# 씬 윈도우
-    //CEditorGUIManager::GetInst()->CreateEditorWindow<CSceneWindow>("SceneWindow");
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CSceneWindow>("SceneWindow");
 
     //#예제 출력# 디테일 윈도우
-    //CEditorGUIManager::GetInst()->CreateEditorWindow<CDetailWindow>("DetailWindow");
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CDetailWindow>("DetailWindow");
 
     //#과제# 이미지 윈도우
     //CEditorGUIManager::GetInst()->CreateEditorWindow<CMyImageWindow>("MyImageWindow");

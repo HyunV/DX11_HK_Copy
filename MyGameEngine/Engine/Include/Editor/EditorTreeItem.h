@@ -117,22 +117,22 @@ public:
 	}
 
 	//##과제## 커스텀 데이터로 트리 아이템 탐색
-	//CEditorTreeItem<T>* FindItem(T CustomData)
-	//{
-	//	if (m_CustomData == CustomData)
-	//		return this;
+	CEditorTreeItem<T>* FindItem(T CustomData)
+	{
+		if (m_CustomData == CustomData)
+			return this;
 
-	//	size_t Size = m_vecChild.size();
+		size_t Size = m_vecChild.size();
 
-	//	for (size_t i = 0; i < Size; ++i)
-	//	{
-	//		CEditorTreeItem<T>* Find = m_vecChild[i]->FindItem(CustomData);
+		for (size_t i = 0; i < Size; ++i)
+		{
+			CEditorTreeItem<T>* Find = m_vecChild[i]->FindItem(CustomData);
 
-	//		if (Find)
-	//			return Find;
-	//	}
-	//	return nullptr;
-	//}
+			if (Find)
+				return Find;
+		}
+		return nullptr;
+	}
 
 	void Clear()
 	{
