@@ -1,6 +1,5 @@
 
 #include "SceneManager.h"
-#include "SceneInfo.h"
 
 DEFINITION_SINGLE(CSceneManager)
 
@@ -8,21 +7,12 @@ CSceneManager::CSceneManager() :
 	m_Scene(nullptr),
 	m_NextScene(nullptr)
 {
-	CScene::CreateCDO();
 }
 
 CSceneManager::~CSceneManager()
 {
 	SAFE_DELETE(m_NextScene);
 	SAFE_DELETE(m_Scene);
-
-	auto	iter = CScene::m_mapSceneInfoCDO.begin();
-	auto	iterEnd = CScene::m_mapSceneInfoCDO.end();
-
-	for (; iter != iterEnd; ++iter)
-	{
-		SAFE_DELETE(iter->second);
-	}
 }
 
 bool CSceneManager::Init()

@@ -20,7 +20,7 @@ CSceneComponent::CSceneComponent() :
 CSceneComponent::CSceneComponent(const CSceneComponent& component) :
 	CComponent(component)
 {
-	m_LayerName = component.m_LayerName;
+	*this = component;
 
 	m_Transform = component.m_Transform->Clone();
 
@@ -31,32 +31,11 @@ CSceneComponent::CSceneComponent(const CSceneComponent& component) :
 
 	m_Parent = nullptr;
 	m_vecChild.clear();
-
-	size_t Size = component.m_vecChild.size();
-
-	for (size_t i = 0; i < Size; ++i)
-	{
-		CSceneComponent* ChildCom = component.m_vecChild[i]->Clone();
-
-		AddChild(ChildCom);
-	}
 }
 
 CSceneComponent::~CSceneComponent()
 {
 	SAFE_DELETE(m_Transform);
-}
-
-void CSceneComponent::AddOwner()
-{
-	m_Owner->AddSceneComponent(this);
-
-	size_t Size = m_vecChild.size();
-
-	for (size_t i = 0; i < Size; ++i)
-	{
-		m_vecChild[i]->AddOwner();
-	}
 }
 
 void CSceneComponent::SetScene(CScene* Scene)
