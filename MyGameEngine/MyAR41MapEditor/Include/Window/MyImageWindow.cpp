@@ -97,17 +97,7 @@ void CMyImageWindow::SelectImageCallback(int Index, const std::string& Item)
     TCHAR Unicode[256] = {};
     MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, Text, strlen(Text), Unicode, 256);
 
-    const PathInfo* Info = CPathManager::GetInst()->FindPath(ROOT_PATH);
-
-    char Path[MAX_PATH] = {};
-
-    strcpy_s(Path, Info->PathMultibyte);
-    strcat_s(Path, "Texture/");
-
-    CTexture* texture = m_SelectImageView->GetTexture();
-    texture->LoadTexture("DefaultUI", Unicode);
-
-    // m_SelectImageView->SetTexture("DefaultUI", Unicode);
+    m_SelectImageView->SetTexture(Item, Unicode);
 }
 
 void CMyImageWindow::ImageSetButtonCallback()
