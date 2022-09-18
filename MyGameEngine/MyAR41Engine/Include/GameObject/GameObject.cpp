@@ -192,7 +192,7 @@ void CGameObject::Save(FILE* File)
 	}
 
 	{
-		int	Count = (int)m_vecObjectComponent.size();
+		int	Count = m_vecObjectComponent.size();
 
 		fwrite(&Count, 4, 1, File);
 
