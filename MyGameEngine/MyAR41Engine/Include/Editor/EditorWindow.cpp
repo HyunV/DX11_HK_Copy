@@ -56,6 +56,23 @@ CEditorWindow::~CEditorWindow()
     }
 }
 
+void CEditorWindow::DeleteAllWidget()
+{
+    size_t	Size = m_vecWidget.size();
+
+    for (size_t i = 0; i < Size; ++i)
+    {
+        SAFE_DELETE(m_vecWidget[i]);
+    }
+
+    m_vecWidget.clear();
+}
+
+void CEditorWindow::ClearWidget()
+{
+    m_vecWidget.clear();
+}
+
 void CEditorWindow::Open()
 {
     m_Open = true;

@@ -56,7 +56,7 @@ public:	// ===================== Material =========================
 	CMaterial* FindMaterial(const std::string& Name);
 
 	template <typename T>
-	T* CreateMaterial(const std::string& Name)
+	bool CreateMaterial(const std::string& Name)
 	{
 		if (FindMaterial(Name))
 			return true;

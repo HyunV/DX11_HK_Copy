@@ -170,10 +170,18 @@ void CEngine::Logic()
 
 
     if (Update(DeltaTime))
+    {
+        if (m_EditorMode)
+            CEditorGUIManager::GetInst()->Render();
         return;
+    }     
 
     if (PostUpdate(DeltaTime))
+    {
+        if (m_EditorMode)
+            CEditorGUIManager::GetInst()->Render();
         return;
+    }
 
     Collision(DeltaTime);
     Render(DeltaTime);

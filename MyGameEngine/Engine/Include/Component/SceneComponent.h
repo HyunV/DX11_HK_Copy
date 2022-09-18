@@ -7,6 +7,7 @@ class CSceneComponent :
 	public CComponent
 {
 	friend class CGameObject;
+	friend class CScene;
 
 protected:
 	CSceneComponent();
@@ -18,6 +19,8 @@ protected:
 	CSceneComponent* m_Parent;
 	std::vector<CSharedPtr<CSceneComponent>>    m_vecChild;
 	std::string     m_LayerName;
+	std::string		m_ParentName;
+	std::vector<std::string>	m_vecChildName;
 
 public:
 	CTransform* GetTransform()    const
@@ -38,6 +41,8 @@ public:
 	{
 		m_LayerName = Name;
 	}
+
+	void AddOwner();
 
 public:
 	virtual void SetScene(class CScene* Scene);

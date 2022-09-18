@@ -10,6 +10,7 @@ CRef::CRef() :
 
 CRef::CRef(const CRef& ref) :
 	m_RefCount(0),
+	m_Name(ref.m_Name),
 	m_TypeName(ref.m_TypeName),
 	m_TypeID(ref.m_TypeID),
 	m_Enable(ref.m_Enable),

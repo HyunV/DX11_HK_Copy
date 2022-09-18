@@ -7,6 +7,7 @@ class CCameraComponent :
 {
 	friend class CCameraManager;
 	friend class CGameObject;
+	friend class CScene;
 
 protected:
 	CCameraComponent();

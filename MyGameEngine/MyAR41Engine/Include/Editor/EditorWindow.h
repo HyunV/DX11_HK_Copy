@@ -30,6 +30,12 @@ public:
 	}
 
 public:
+	void DeleteAllWidget();
+	void ClearWidget();
+	void AddWidget(CEditorWidget* Widget)
+	{
+		m_vecWidget.push_back(Widget);
+	}
 	void Open();
 	void Close();
 	class CEditorWidget* FindWidget(const std::string& Name);

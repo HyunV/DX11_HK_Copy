@@ -341,7 +341,7 @@ void CTexture::Save(FILE* File)
 	for (int i = 0; i < Count; ++i)
 	{
 		//vectexture의 파일 이름을 TCHAR*MAX_PATH 만큼 File에 쓴다.
-		fwrite(&m_vecTextureInfo[i]->FileName, sizeof(TCHAR), MAX_PATH, File);
+		fwrite(m_vecTextureInfo[i]->FileName, sizeof(TCHAR), MAX_PATH, File);
 		fwrite(m_vecTextureInfo[i]->PathName, sizeof(char), MAX_PATH, File);
 	}
 

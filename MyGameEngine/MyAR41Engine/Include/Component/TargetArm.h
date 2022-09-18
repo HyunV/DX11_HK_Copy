@@ -5,6 +5,7 @@ class CTargetArm :
 	public CSceneComponent
 {
 	friend class CGameObject;
+	friend class CScene;
 
 protected:
 	CTargetArm();

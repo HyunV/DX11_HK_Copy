@@ -1,6 +1,4 @@
-﻿  unity_43E282PAP34BDARV.cpp
-C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41MapEditor\Include\Window\MyImageWindow.cpp(98,81): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-DirectXTex_Debug.lib(DirectXTexImage.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_Debug.lib(DirectXTexImage.obj)' 또는 'C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41MapEditor\Bin\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
+﻿DirectXTex_Debug.lib(DirectXTexImage.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_Debug.lib(DirectXTexImage.obj)' 또는 'C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41MapEditor\Bin\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
 DirectXTex_Debug.lib(DirectXTexDDS.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_Debug.lib(DirectXTexDDS.obj)' 또는 'C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41MapEditor\Bin\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
 DirectXTex_Debug.lib(DirectXTexTGA.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_Debug.lib(DirectXTexTGA.obj)' 또는 'C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41MapEditor\Bin\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
 DirectXTex_Debug.lib(DirectXTexWIC.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_Debug.lib(DirectXTexWIC.obj)' 또는 'C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41MapEditor\Bin\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
@@ -16,4 +14,6 @@ DirectXTex_Debug.lib(BC6HBC7.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'Di
   0개 파일이 복사되었습니다.
   0개 파일이 복사되었습니다.
   .\MyAR41MapEditor\Bin\MyAR41MapEditor_Debug.exe
-  1개 파일이 복사되었습니다.
+  .\MyAR41MapEditor\Bin\Scene\mont.scn
+  .\MyAR41MapEditor\Bin\Scene\null.scn
+  3개 파일이 복사되었습니다.

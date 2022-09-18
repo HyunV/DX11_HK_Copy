@@ -21,6 +21,11 @@ CPlayer2D::CPlayer2D()
 CPlayer2D::CPlayer2D(const CPlayer2D& Obj) :
 	CGameObject(Obj)
 {
+	m_Sprite = (CSpriteComponent*)FindComponent("sprite");
+	m_RightChild = (CSceneComponent*)FindComponent("RightChild");
+	m_SpriteChild = (CSpriteComponent*)FindComponent("spriteChild");
+	m_Camera = (CCameraComponent*)FindComponent("Camera");
+	m_Arm = (CTargetArm*)FindComponent("Arm");
 }
 
 CPlayer2D::~CPlayer2D()
@@ -30,6 +35,9 @@ CPlayer2D::~CPlayer2D()
 void CPlayer2D::Start()
 {
 	CGameObject::Start();
+
+	if (m_Scene)
+		m_Scene->GetCameraManager()->SetCurrentCamera(m_Camera);
 }
 
 bool CPlayer2D::Init()
@@ -55,8 +63,6 @@ bool CPlayer2D::Init()
 	float Height = (float)RS.Height / 2.f;
 
 	m_Arm->SetTargetOffset(Vector3(-Width, -Height, 0.f));
-
-	m_Scene->GetCameraManager()->SetCurrentCamera(m_Camera);
 
 	m_RightChild->AddChild(m_SpriteChild);
 

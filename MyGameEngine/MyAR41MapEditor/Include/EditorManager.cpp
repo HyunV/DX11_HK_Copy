@@ -13,6 +13,7 @@
 #include "Window\ComponentWindow.h"
 #include "Window\TransformWindow.h"
 #include "Window\SceneWindow.h"
+#include "Window\DetailWindow.h"
 #include "Window\MyImageWindow.h"
 #include "Editor/EditorGUIManager.h"
 
@@ -38,6 +39,8 @@ bool CEditorManager::Init(HINSTANCE hInst)
         return false;
     }
 
+    CreateCDO();
+
     //테스트 윈도우 클래스로 창을 띄움
     CEngine::SetWndProcCallback<CEditorManager>(this, &CEditorManager::WndProc);
 
@@ -58,6 +61,9 @@ bool CEditorManager::Init(HINSTANCE hInst)
 
     //#예제 출력# 씬 윈도우
     CEditorGUIManager::GetInst()->CreateEditorWindow<CSceneWindow>("SceneWindow");
+
+    //#예제 출력# 디테일 윈도우
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CDetailWindow>("DetailWindow");
 
     //#과제# 이미지 윈도우
     CEditorGUIManager::GetInst()->CreateEditorWindow<CMyImageWindow>("MyImageWindow");
@@ -211,4 +217,15 @@ void CEditorManager::CreateObject()
         //트리가 해당 오브젝트를 들고있게 된다.
     }
 
+}
+
+void CEditorManager::CreateCDO()
+{
+    CSceneInfo* Info = new CEditorDefaultScene;
+
+    CScene::AddSceneInfoCDO("EditorDefaultScene", Info);
+
+    CScene::CreateObjectCDO<CPlayer2D>("Player2D");
+    CScene::CreateObjectCDO<CMonster>("Monster");
+    CScene::CreateObjectCDO<CMyBullet>("MyBullet");
 }

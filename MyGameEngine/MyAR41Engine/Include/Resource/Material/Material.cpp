@@ -336,8 +336,6 @@ void CMaterial::SetTexture(int Index, int Register, int ShaderBufferType,
 
 		Info->Texture = CResourceManager::GetInst()->FindTexture(Name);
 	}
-
-	m_vecTextureInfo.push_back(Info);
 }
 
 void CMaterial::SetTextureFullPath(int Index, int Register, int ShaderBufferType, const std::string& Name, const TCHAR* FullPath)
@@ -366,8 +364,6 @@ void CMaterial::SetTextureFullPath(int Index, int Register, int ShaderBufferType
 
 		Info->Texture = CResourceManager::GetInst()->FindTexture(Name);
 	}
-
-	m_vecTextureInfo.push_back(Info);
 }
 
 void CMaterial::SetTexture(int Index, int Register, int ShaderBufferType,
@@ -398,8 +394,6 @@ void CMaterial::SetTexture(int Index, int Register, int ShaderBufferType,
 
 		Info->Texture = CResourceManager::GetInst()->FindTexture(Name);
 	}
-
-	m_vecTextureInfo.push_back(Info);
 }
 
 void CMaterial::SetTextureFullPath(int Index, int Register,
@@ -430,8 +424,6 @@ void CMaterial::SetTextureFullPath(int Index, int Register,
 
 		Info->Texture = CResourceManager::GetInst()->FindTexture(Name);
 	}
-
-	m_vecTextureInfo.push_back(Info);
 }
 
 void CMaterial::SetTextureSamplerType(int Index, ESamplerType Type)
@@ -518,9 +510,9 @@ void CMaterial::Save(FILE* File)
 	int Length = (int)m_Shader->GetName().length();
 
 	fwrite(&Length, 4, 1, File);
-	fwrite(m_Shader->GetName().c_str(), 1, Length, File); // 쉐이더 이름 저장
+	fwrite(m_Shader->GetName().c_str(), 1, Length, File);
 
-	fwrite(&m_BaseColor, sizeof(Vector4), 1, File); //베이스 컬러 저장
+	fwrite(&m_BaseColor, sizeof(Vector4), 1, File);
 	fwrite(&m_AmbientColor, sizeof(Vector4), 1, File);
 	fwrite(&m_SpecularColor, sizeof(Vector4), 1, File);
 	fwrite(&m_EmissiveColor, sizeof(Vector4), 1, File);
@@ -528,7 +520,7 @@ void CMaterial::Save(FILE* File)
 
 	for (int i = 0; i < 3; ++i)
 	{
-		bool RenderStateEnable = false;
+		bool	RenderStateEnable = false;
 
 		if (m_RenderState[i])
 			RenderStateEnable = true;
@@ -544,7 +536,7 @@ void CMaterial::Save(FILE* File)
 		}
 	}
 
-	int TextureCount = (int)m_vecTextureInfo.size();
+	int	TextureCount = (int)m_vecTextureInfo.size();
 	fwrite(&TextureCount, 4, 1, File);
 
 	for (int i = 0; i < TextureCount; ++i)
@@ -560,13 +552,141 @@ void CMaterial::Save(FILE* File)
 
 		m_vecTextureInfo[i]->Texture->Save(File);
 	}
-
-	/*
-	CSharedPtr<CTexture>  Texture;
-	*/
 }
 
 void CMaterial::Load(FILE* File)
 {
 	CRef::Load(File);
+
+	int Length = 0;
+	char	ShaderName[256] = {};
+
+	fread(&Length, 4, 1, File);
+	fread(ShaderName, 1, Length, File);
+
+	SetShader(ShaderName);
+
+	fread(&m_BaseColor, sizeof(Vector4), 1, File);
+	fread(&m_AmbientColor, sizeof(Vector4), 1, File);
+	fread(&m_SpecularColor, sizeof(Vector4), 1, File);
+	fread(&m_EmissiveColor, sizeof(Vector4), 1, File);
+	fread(&m_Opacity, 4, 1, File);
+
+	for (int i = 0; i < 3; ++i)
+	{
+		bool	RenderStateEnable = false;
+
+		fread(&RenderStateEnable, 1, 1, File);
+
+		if (RenderStateEnable)
+		{
+			Length = 0;
+			char	RenderStateName[256] = {};
+
+			fread(&Length, 4, 1, File);
+			fread(RenderStateName, 1, Length, File);
+
+			SetRenderState(RenderStateName);
+		}
+	}
+
+	int	TextureCount = 0;
+	fread(&TextureCount, 4, 1, File);
+
+	for (size_t i = 0; i < m_vecTextureInfo.size(); ++i)
+	{
+		SAFE_DELETE(m_vecTextureInfo[i]);
+	}
+
+	m_vecTextureInfo.clear();
+
+	for (int i = 0; i < TextureCount; ++i)
+	{
+		MaterialTextureInfo* Info = new MaterialTextureInfo;
+
+		m_vecTextureInfo.push_back(Info);
+
+		Length = 0;
+		char	TextureName[256] = {};
+
+		fread(&Length, 4, 1, File);
+		fread(TextureName, 1, Length, File);
+
+		Info->Name = TextureName;
+
+		fread(&Info->SamplerType, sizeof(ESamplerType), 1, File);
+		fread(&Info->Register, sizeof(int), 1, File);
+		fread(&Info->ShaderBufferType, sizeof(int), 1, File);
+
+		EImageType	ImageType;
+		fread(&ImageType, sizeof(EImageType), 1, File);
+
+		int	TextureSRVCount = 0;
+
+		fread(&TextureSRVCount, sizeof(int), 1, File);
+
+		TCHAR	FolderName[8] = {};
+		lstrcpy(FolderName, TEXT("Texture"));
+
+		if (TextureSRVCount == 1)
+		{
+			TCHAR	FileName[MAX_PATH] = {};
+			char	PathName[MAX_PATH] = {};
+
+			fread(FileName, sizeof(TCHAR), MAX_PATH, File);
+			fread(PathName, sizeof(char), MAX_PATH, File);
+
+			if (m_Scene)
+			{
+				m_Scene->GetResource()->LoadTexture(Info->Name, FileName, PathName);
+
+				Info->Texture = m_Scene->GetResource()->FindTexture(Info->Name);
+			}
+
+			else
+			{
+				CResourceManager::GetInst()->LoadTexture(Info->Name, FileName, PathName);
+
+				Info->Texture = CResourceManager::GetInst()->FindTexture(Info->Name);
+			}
+		}
+
+		else
+		{
+			std::vector<const TCHAR*>	vecFileName;
+			std::string	ResultPathName;
+
+			for (int i = 0; i < TextureSRVCount; ++i)
+			{
+				TCHAR* FileName = new TCHAR[MAX_PATH];
+				char	PathName[MAX_PATH] = {};
+
+				fread(FileName, sizeof(TCHAR), MAX_PATH, File);
+				fread(PathName, sizeof(char), MAX_PATH, File);
+
+				ResultPathName = PathName;
+
+				vecFileName.push_back(FileName);
+			}
+
+			if (m_Scene)
+			{
+				m_Scene->GetResource()->LoadTexture(Info->Name, vecFileName, ResultPathName);
+
+				Info->Texture = m_Scene->GetResource()->FindTexture(Info->Name);
+			}
+
+			else
+			{
+				CResourceManager::GetInst()->LoadTexture(Info->Name, vecFileName, ResultPathName);
+
+				Info->Texture = CResourceManager::GetInst()->FindTexture(Info->Name);
+			}
+
+			for (int i = 0; i < TextureSRVCount; ++i)
+			{
+				SAFE_DELETE_ARRAY(vecFileName[i]);
+			}
+		}
+	}
 }
