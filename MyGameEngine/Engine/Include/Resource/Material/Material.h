@@ -5,20 +5,19 @@
 
 struct MaterialTextureInfo
 {
-    std::string     Name;
-    ESamplerType    SamplerType;
+    std::string Name;
+    ESamplerType SamplerType;
     CSharedPtr<CTexture>  Texture;
-    int             Register;
-    int             ShaderBufferType;
+    int     Register;
+    int     ShaderBufferType;
 
-    MaterialTextureInfo() :
+    MaterialTextureInfo()   :
         SamplerType(ESamplerType::Linear),
         Register(0),
         ShaderBufferType((int)EShaderBufferType::Pixel)
     {
     }
 };
-
 class CMaterial :
     public CRef
 {

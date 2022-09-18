@@ -37,7 +37,7 @@ extern float g_DeltaTime; //전역변수 해놓은거 가져오는 extern
 //싱글톤 생성, 파괴 매크로
 #define DECLARE_SINGLE(Type)	\
 private:\
-	static Type*	m_Inst;\
+	static Type* m_Inst;\
 public:\
 	static Type* GetInst()\
 	{\

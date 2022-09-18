@@ -1,7 +1,7 @@
 #include "ConstantBuffer.h"
 #include "../../Device.h"
 
-CConstantBuffer::CConstantBuffer()	:
+CConstantBuffer::CConstantBuffer() :
 	m_Buffer(nullptr),
 	m_Size(0),
 	m_Register(0),
@@ -20,7 +20,7 @@ bool CConstantBuffer::Init(int Size, int Register, int ShaderBufferType)
 	m_Register = Register;
 	m_ShaderBufferType = ShaderBufferType;
 
-	D3D11_BUFFER_DESC	Desc = {};
+	D3D11_BUFFER_DESC Desc = {};
 
 	Desc.Usage = D3D11_USAGE_DYNAMIC;
 	Desc.ByteWidth = Size;

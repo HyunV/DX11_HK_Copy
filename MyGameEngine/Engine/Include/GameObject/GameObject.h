@@ -7,7 +7,6 @@ class CGameObject :
 	public CRef
 {
 	friend class CScene;
-	friend class CSceneManager;
 
 protected:
 	CGameObject();
@@ -34,7 +33,6 @@ public:
 protected:
 	class CScene* m_Scene;
 	std::string		m_ObjectTypeName; //모든 게임오브젝트들은 이 타입네임을 가져야 한다. 이는 컴포넌트도 마찬가지.
-	int		m_ComponentSerialNumber;
 
 public:
 	class CScene* GetScene()    const
@@ -42,7 +40,7 @@ public:
 		return m_Scene;
 	}
 
-	void SetScene(class CScene* Scene);
+	void SetScene(CScene* Scene);
 
 	const std::string& GetObjectTypeName()	const
 	{
@@ -59,6 +57,8 @@ protected:
 	std::list<CSceneComponent*> m_SceneComponentList;
 	std::vector<CSharedPtr<CObjectComponent>>   m_vecObjectComponent;
 
+	CGameObject* m_Parent;
+	std::vector<CSharedPtr<CGameObject>>    m_vecChildObject;
 	float       m_LifeTime;
 
 public:
@@ -139,6 +139,9 @@ public:
 	virtual CGameObject* Clone()    const;
 	virtual void Save(FILE* File);
 	virtual void Load(FILE* File);
+	virtual void SaveChild(FILE* File);
+	virtual void LoadChild(FILE* File);
+
 
 public:
 	template <typename T>
@@ -150,7 +153,7 @@ public:
 		Component->SetScene(m_Scene);
 		Component->SetOwner(this);
 
-		if(!Component->Init())
+		if (!Component->Init())
 		{
 			SAFE_RELEASE(Component);
 			return nullptr;
@@ -170,10 +173,6 @@ public:
 
 			m_SceneComponentList.push_back((CSceneComponent*)Component);
 		}
-
-		Component->SetSerialNumber(m_ComponentSerialNumber);
-
-		++m_ComponentSerialNumber;
 
 		return Component;
 	}

@@ -2,7 +2,7 @@
 
 DEFINITION_SINGLE(CDevice)
 
-CDevice::CDevice()	:
+CDevice::CDevice() :
 	m_Device(nullptr),
 	m_Context(nullptr),
 	m_SwapChain(nullptr),
@@ -32,7 +32,7 @@ Vector2 CDevice::GetResolutionRatio() const
 	//만약 디바이스 해상도가 1920인데 윈도우 사이즈가 1280이라면 1920이 나와야 한다.
 	RECT	WindowRC;
 
-	GetClientRect(m_hWnd, &WindowRC);
+	GetClientRect(m_hWnd, &WindowRC); 
 
 	float Width = (float)(WindowRC.right - WindowRC.left);
 	float Height = (float)(WindowRC.bottom - WindowRC.top);

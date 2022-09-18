@@ -116,7 +116,7 @@ public:
 		return nullptr;
 	}
 
-	//##과제## 커스텀 데이터로 트리 아이템 탐색
+	//##커스텀 데이터로 트리 아이템 탐색
 	CEditorTreeItem<T>* FindItem(T CustomData)
 	{
 		if (m_CustomData == CustomData)

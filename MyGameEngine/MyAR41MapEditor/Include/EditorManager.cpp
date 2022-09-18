@@ -19,7 +19,14 @@
 
 CEditorManager::CEditorManager()
 {
-    //객체들삭제
+    CSceneInfo* Info = new CEditorDefaultScene;
+
+    CScene::AddSceneInfoCDO("EditorDefaultScene", Info);
+
+    CScene::CreateObjectCDO<CPlayer2D>("Player2D");
+    CScene::CreateObjectCDO<CMonster>("Monster");
+    CScene::CreateObjectCDO<CMyBullet>("MyBullet");
+
 }
 
 CEditorManager::~CEditorManager()
@@ -39,8 +46,6 @@ bool CEditorManager::Init(HINSTANCE hInst)
     {
         return false;
     }
-
-    CreateCDO();
 
     //테스트 윈도우 클래스로 창을 띄움
     CEngine::SetWndProcCallback<CEditorManager>(this, &CEditorManager::WndProc);
@@ -67,7 +72,7 @@ bool CEditorManager::Init(HINSTANCE hInst)
     CEditorGUIManager::GetInst()->CreateEditorWindow<CDetailWindow>("DetailWindow");
 
     //#과제# 이미지 윈도우
-    //CEditorGUIManager::GetInst()->CreateEditorWindow<CMyImageWindow>("MyImageWindow");
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CMyImageWindow>("MyImageWindow");
 
     
     // 키 등록
@@ -219,16 +224,4 @@ void CEditorManager::CreateObject()
         //트리가 해당 오브젝트를 들고있게 된다.
     }
 
-}
-
-void CEditorManager::CreateCDO()
-{
-    //CDO만들어주는곳?
-    CSceneInfo* Info = new CEditorDefaultScene;
-
-    CScene::AddSceneInfoCDO("EditorDefaultScene", Info);
-
-    CScene::CreateObjectCDO<CPlayer2D>("Player2D");
-    CScene::CreateObjectCDO<CMonster>("Monster");
-    CScene::CreateObjectCDO<CMyBullet>("MyBullet");
 }

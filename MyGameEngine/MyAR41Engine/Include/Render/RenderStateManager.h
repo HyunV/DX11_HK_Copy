@@ -18,7 +18,7 @@ public:
 
 public:
 	void SetBlendFactor(const std::string& Name, float r, float g, float b, float a);
-	void AddBlendInfo(const std::string& Name, bool BlendEnable = true, 
+	void AddBlendInfo(const std::string& Name, bool BlendEnable = true,
 		D3D11_BLEND SrcBlend = D3D11_BLEND_SRC_ALPHA,
 		D3D11_BLEND DestBlend = D3D11_BLEND_INV_SRC_ALPHA,
 		D3D11_BLEND_OP BlendOp = D3D11_BLEND_OP_ADD,

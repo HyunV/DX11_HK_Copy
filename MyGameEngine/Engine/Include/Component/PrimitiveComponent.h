@@ -4,7 +4,6 @@ class CPrimitiveComponent :
     public CSceneComponent
 {
     friend class CGameObject;
-    friend class CScene;
 
 protected:
     CPrimitiveComponent();

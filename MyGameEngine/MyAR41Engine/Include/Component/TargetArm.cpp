@@ -1,6 +1,6 @@
 #include "TargetArm.h"
 
-CTargetArm::CTargetArm() :
+CTargetArm::CTargetArm()	:
 	m_TargetDistance(0.f)
 {
 	SetTypeID<CTargetArm>();
@@ -43,7 +43,7 @@ void CTargetArm::Update(float DeltaTime)
 
 	if (m_Parent)
 	{
-		Vector3	ParentPos = m_Parent->GetWorldPos();
+		Vector3 ParentPos = m_Parent->GetWorldPos();
 
 		Vector3 Pos = ParentPos - GetWorldAxis(m_TargetDistanceAxis) * m_TargetDistance;
 
@@ -68,18 +68,8 @@ CTargetArm* CTargetArm::Clone() const
 
 void CTargetArm::Save(FILE* File)
 {
-	CSceneComponent::Save(File);
-
-	fwrite(&m_TargetOffset, sizeof(Vector3), 1, File);
-	fwrite(&m_TargetDistance, sizeof(float), 1, File);
-	fwrite(&m_TargetDistanceAxis, sizeof(AXIS), 1, File);
 }
 
 void CTargetArm::Load(FILE* File)
 {
-	CSceneComponent::Load(File);
-
-	fread(&m_TargetOffset, sizeof(Vector3), 1, File);
-	fread(&m_TargetDistance, sizeof(float), 1, File);
-	fread(&m_TargetDistanceAxis, sizeof(AXIS), 1, File);
 }

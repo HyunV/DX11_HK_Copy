@@ -56,8 +56,7 @@ bool CPlayer2D::Init()
 
 	m_Arm->SetTargetOffset(Vector3(-Width, -Height, 0.f));
 
-	if (m_Scene)
-		m_Scene->GetCameraManager()->SetCurrentCamera(m_Camera);
+	m_Scene->GetCameraManager()->SetCurrentCamera(m_Camera);
 
 	m_RightChild->AddChild(m_SpriteChild);
 

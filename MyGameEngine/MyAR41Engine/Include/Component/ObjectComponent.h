@@ -4,7 +4,6 @@ class CObjectComponent :
     public CComponent
 {
     friend class CGameObject;
-    friend class CScene;
 
 protected:
     CObjectComponent();

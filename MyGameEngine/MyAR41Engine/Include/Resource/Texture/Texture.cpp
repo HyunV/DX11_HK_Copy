@@ -12,7 +12,8 @@
 
 #endif // _DEBUG
 
-CTexture::CTexture()	:
+
+CTexture::CTexture() :
 	m_Scene(nullptr),
 	m_ImageType(EImageType::Atlas)
 {
@@ -29,8 +30,7 @@ CTexture::~CTexture()
 	}
 }
 
-bool CTexture::LoadTexture(const std::string& Name, const TCHAR* FileName, 
-	const std::string& PathName)
+bool CTexture::LoadTexture(const std::string& Name, const TCHAR* FileName, const std::string& PathName)
 {
 	TCHAR	FullPath[MAX_PATH] = {};
 
@@ -132,8 +132,7 @@ bool CTexture::LoadTextureFullPath(const std::string& Name, const TCHAR* FullPat
 	return CreateResource(0);
 }
 
-bool CTexture::LoadTexture(const std::string& Name, 
-	const std::vector<const TCHAR*>& vecFileName, const std::string& PathName)
+bool CTexture::LoadTexture(const std::string& Name, const std::vector<const TCHAR*>& vecFileName, const std::string& PathName)
 {
 	std::vector<const TCHAR*>	vecFullPath;
 
@@ -165,8 +164,7 @@ bool CTexture::LoadTexture(const std::string& Name,
 	return Result;
 }
 
-bool CTexture::LoadTextureFullPath(const std::string& Name, 
-	const std::vector<const TCHAR*>& vecFullPath)
+bool CTexture::LoadTextureFullPath(const std::string& Name, const std::vector<const TCHAR*>& vecFullPath)
 {
 	SetName(Name);
 
@@ -332,7 +330,7 @@ void CTexture::Save(FILE* File)
 {
 	fwrite(&m_ImageType, sizeof(EImageType), 1, File);
 
-	int	Count = (int)m_vecTextureInfo.size();
+	int Count = (int)m_vecTextureInfo.size();
 
 	//count 주소를 4바이트*1만큼 File에 쓴다.
 	fwrite(&Count, sizeof(int), 1, File);

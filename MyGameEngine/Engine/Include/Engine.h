@@ -28,15 +28,15 @@ public:
 		m_EditorMode = true;
 	}
 
-	Resolution GetWindowResolution()	const
+	Resolution GetWindowResolution() const
 	{
 		return m_WindowRS;
 	}
-	HWND GetWindowHandle()	const
+	HWND GetWindowHandle() const 
 	{
 		return m_hWnd;
 	}
-	HINSTANCE GetWindowInstance()	const
+	HINSTANCE GetWindowInstance() const
 	{
 		return m_hInst;
 	}
@@ -45,7 +45,7 @@ public:
 	bool Init(HINSTANCE hInst, const TCHAR* Title,
 		const TCHAR* ClassName, int IconID, int SmallIconID,
 		unsigned int WindowWidth,
-		unsigned int WindowHeight, 
+		unsigned int WindowHeight,
 		unsigned int DeviceWidth, unsigned int DeviceHeight,
 		bool WindowMode = true, int MenuID = 0);
 

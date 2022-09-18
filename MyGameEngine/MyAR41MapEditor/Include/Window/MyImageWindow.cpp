@@ -94,7 +94,7 @@ void CMyImageWindow::SelectImageCallback(int Index, const std::string& Item)
     sprintf_s(Text, "%s", Item.c_str());
 
     TCHAR Unicode[256] = {};
-    MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, Text, (int)(strlen(Text)), Unicode, 256);
+    MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, Text, strlen(Text), Unicode, 256);
 
     m_SelectImageView->SetTexture(Item, Unicode);
 

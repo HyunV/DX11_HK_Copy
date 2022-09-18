@@ -22,10 +22,7 @@ public:
 		return m_Scene;
 	}
 
-	void SetScene(class CScene* Scene)
-	{
-		m_Scene = Scene;
-	}
+	void SetScene(CScene* Scene)
 
 public:
 	// 여기에 재정의하는 이유는 이 오브젝트가 제거될때 가지고 있는 모든 컴포넌트들도 제거를 해주기

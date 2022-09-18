@@ -7,7 +7,7 @@
 
 #include "Flag.h"
 
-#define PI	3.14159f
+#define PI 3.14159f
 
 static float DegreeToRadian(float Degree)
 {

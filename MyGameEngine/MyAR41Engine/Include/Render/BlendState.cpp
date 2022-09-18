@@ -1,13 +1,13 @@
 #include "BlendState.h"
 #include "../Device.h"
 
-CBlendState::CBlendState()	:
-	m_SampleMask(0xffffffff),
-	m_PrevSampleMask(0),
-	m_BlendFactor{},
-	m_PrevBlendFactor{}
+CBlendState::CBlendState()  :
+    m_SampleMask(0xffffffff),
+    m_PrevSampleMask(0),
+    m_BlendFactor{},
+    m_PrevBlendFactor{}
 {
-	m_Type = ERenderStateType::Blend;
+    m_Type = ERenderStateType::Blend;
 	SetTypeID<CBlendState>();
 }
 
@@ -16,9 +16,7 @@ CBlendState::~CBlendState()
 }
 
 void CBlendState::AddBlendInfo(bool BlendEnable, D3D11_BLEND SrcBlend, 
-	D3D11_BLEND DestBlend, D3D11_BLEND_OP BlendOp,
-	D3D11_BLEND SrcAlphBlend, D3D11_BLEND DestAlphBlend,
-	D3D11_BLEND_OP BlendAlphOp, UINT8 WriteMask)
+    D3D11_BLEND DestBlend, D3D11_BLEND_OP BlendOp, D3D11_BLEND SrcAlphBlend, D3D11_BLEND DestAlphBlend, D3D11_BLEND_OP BlendAlphOp, UINT8 WriteMask)
 {
 	D3D11_RENDER_TARGET_BLEND_DESC	Desc = {};
 
