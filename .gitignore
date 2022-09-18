@@ -8,10 +8,22 @@ MyGameEngine/MyAR41MapEditor/BinObj/
 
 MyGameEngine/MyAR41MapEditor/BinObjDebug/
 
-MyGameEngine/MyAR41MapEditor/Bin/MyAR41MapEditor_Debug.pdb
-
 MyGameEngine/MyClient2D/BinObj/
 
 MyGameEngine/MyClient2D/BinObjDebug/
 
 MyGameEngine/MyClient2D/Bin/MyClient2D_Debug.pdb
+
+MyGameEngine/MyClient2D/Bin/MyClient2D_Debug.lib
+
+MyGameEngine/Engine/Bin/MyAR41Engine_Debug.lib
+
+MyGameEngine/MyAR41Engine/Bin/MyAR41Engine_Debug.pdb
+
+MyGameEngine/MyAR41Engine/Bin/MyAR41Engine_Debug.idb
+
+MyGameEngine/MyAR41Engine/Bin/MyAR41Engine_Debug.lib
+
+MyGameEngine/MyAR41MapEditor/Bin/MyAR41MapEditor_Debug.pdb
+
+MyGameEngine/MyAR41MapEditor/Bin/MyAR41MapEditor_Debug.lib
