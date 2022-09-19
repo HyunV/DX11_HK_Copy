@@ -98,6 +98,8 @@ public:
 
     void SetTextureSamplerType(int Index, ESamplerType Type);
 
+    class CTexture* GetTexture(int Index = 0) const;
+
 public:
     void SetRenderState(const std::string& Name);
 

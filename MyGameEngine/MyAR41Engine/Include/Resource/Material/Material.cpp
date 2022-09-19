@@ -436,6 +436,14 @@ void CMaterial::SetTextureSamplerType(int Index, ESamplerType Type)
 	Info->SamplerType = Type;
 }
 
+CTexture* CMaterial::GetTexture(int Index) const
+{
+	if ((int)m_vecTextureInfo.size() <= Index)
+		return nullptr;
+
+	return m_vecTextureInfo[Index]->Texture;
+}
+
 void CMaterial::SetRenderState(const std::string& Name)
 {
 	CRenderState* RenderState = CRenderManager::GetInst()->FindRenderState<CRenderState>(Name);

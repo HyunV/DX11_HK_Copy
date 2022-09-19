@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EditorInfo.h"
+#include "EditorWidget.h"
 
 /*
 ImGuiTreeNodeFlags_None                 = 0,
@@ -42,12 +42,20 @@ private:
 		{
 			SAFE_DELETE(m_vecChild[i]);
 		}
+
+		Size = m_vecWidget.size();
+
+		for (size_t i = 0; i < Size; ++i)
+		{
+			SAFE_DELETE(m_vecWidget[i]);
+		}
 	}
 
 private:
 	ImGuiTreeNodeFlags m_Flag;
 	CEditorTreeItem<T>* m_Parent; //부모
 	std::vector<CEditorTreeItem<T>*>	m_vecChild;
+	std::vector<CEditorWidget*> m_vecWidget;
 	std::string		m_Item;
 	std::string		m_ItemUTF8;
 	T				m_CustomData; //트리 아이템 추가할때 넣어주는 데이터
@@ -162,6 +170,13 @@ public:
 				m_SelectCallback(this, m_Item);
 		}
 
+		size_t	WidgetCount = m_vecWidget.size();
+
+		for (size_t i = 0; i < WidgetCount; ++i)
+		{
+			m_vecWidget[i]->Render();
+		}
+
 		/*if (ImGui::BeginDragDropSource())
 		{
 			ImGui::EndDragDropSource();
@@ -187,6 +202,61 @@ public:
 	{
 		//선택한 트리 아이템과 받아온 문자열 가지고 바인드함수
 		m_SelectCallback = std::bind(Func, Obj, std::placeholders::_1, std::placeholders::_2);
+	}
+public:
+	template <typename WidgetType>
+	WidgetType* CreateWidget(const std::string& Name, float Width = 100.f, float Height = 100.f)
+	{
+		WidgetType* Widget = new WidgetType;
+
+		Widget->SetName(Name);
+		Widget->SetSize(Width, Height);
+
+		if (!Widget->Init())
+		{
+			SAFE_DELETE(Widget);
+			return nullptr;
+		}
+
+
+		m_vecWidget.push_back(Widget);
+
+		return Widget;
+	}
+
+	template<typename WidgetType>
+	WidgetType* FindWidget(const std::string& Name)
+	{
+		size_t	Size = m_vecWidget.size();
+
+		for (size_t i = 0; i < Size; ++i)
+		{
+			if (m_vecWidget[i]->GetName() == Name)
+				return (WidgetType*)m_vecWidget[i];
+		}
+
+		return nullptr;
+	}
+
+	template <typename WidgetType>
+	WidgetType* FindWidgetHirearchy(const std::string& Name)
+	{
+		WidgetType* Widget = FindWidget<WidgetType>(Name);
+
+		if (Widget)
+			return Widget;
+
+		size_t	Size = m_vecChild.size();
+
+		for (size_t i = 0; i < Size; ++i)
+		{
+			Widget = m_vecChild[i]->FindWidgetHirearchy<WidgetType>(Name);
+
+			if (Widget)
+				return Widget;
+		}
+
+		return nullptr;
 	}
 };
 

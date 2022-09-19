@@ -31,5 +31,8 @@ private:
 	void CreateCameraComponentWidget();
 	void CreateTargetArmComponentWidget();
 	void ChangeWidget(class CSceneComponent* Component);
+
+private:
+	void LoadButtonClick();
 };
 

@@ -266,6 +266,31 @@ void CScene::Load(const char* FullPath)
 	fclose(File);
 }
 
+void CScene::GetAllGameObjectHierarchyName(std::vector<HierarchyObjectName>& vecName)
+{
+	auto	iter = m_ObjList.begin();
+	auto	iterEnd = m_ObjList.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		HierarchyObjectName Names;
+
+		//CGameObject* Parent = (*iter)->GetParent();
+
+		Names.Name = (*iter)->GetName();
+		Names.ClassName = (*iter)->GetObjectTypeName();
+		Names.Obj = *iter;
+		//Names.Parent = Parent;
+
+		/*if (Parent)
+		{
+			Names.ParentName = Parent->GetName();
+			Names.ParentClassName = Parent->GetComponentTypeName();
+		}*/
+		vecName.push_back(Names);
+	}
+}
+
 CGameObject* CScene::FindObject(const std::string& Name)
 {
 	auto	iter = m_ObjList.begin();

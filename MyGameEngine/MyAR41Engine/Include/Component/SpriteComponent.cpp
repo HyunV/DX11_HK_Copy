@@ -1,5 +1,6 @@
 
 #include "SpriteComponent.h"
+#include "../Resource/Material/Material.h"
 
 CSpriteComponent::CSpriteComponent()
 {
@@ -15,6 +16,59 @@ CSpriteComponent::CSpriteComponent(const CSpriteComponent& component) :
 
 CSpriteComponent::~CSpriteComponent()
 {
+}
+
+bool CSpriteComponent::SetTexture(const std::string& Name, const TCHAR* FileName, const std::string& PathName)
+{
+	if (m_vecMaterial.empty())
+		return false;
+
+	m_vecMaterial[0]->SetTexture(0, 0, (int)EShaderBufferType::Pixel, Name, FileName, PathName);
+
+	return true;
+}
+
+bool CSpriteComponent::SetTextureFullPath(const std::string& Name, const TCHAR* FullPath)
+{
+	if (m_vecMaterial.empty())
+		return false;
+
+	m_vecMaterial[0]->SetTextureFullPath(0, 0, (int)EShaderBufferType::Pixel, Name, FullPath);
+
+	return true;
+}
+
+bool CSpriteComponent::SetTexture(const std::string& Name, const std::vector<const TCHAR*>& vecFileName, const std::string& PathName)
+{
+	if (m_vecMaterial.empty())
+		return false;
+
+	m_vecMaterial[0]->SetTexture(0, 0, (int)EShaderBufferType::Pixel, Name, vecFileName, PathName);
+
+	return true;
+}
+
+bool CSpriteComponent::SetTexture(const std::string& Name)
+{
+	return false;
+}
+
+bool CSpriteComponent::SetTextureFullPath(const std::string& Name, const std::vector<const TCHAR*>& vecFullPath)
+{
+	if (m_vecMaterial.empty())
+		return false;
+
+	m_vecMaterial[0]->SetTextureFullPath(0, 0, (int)EShaderBufferType::Pixel, Name, vecFullPath);
+
+	return true;
+}
+
+CTexture* CSpriteComponent::GetTexture(int Index) const
+{
+	if (m_vecMaterial.empty())
+		return nullptr;
+
+	return m_vecMaterial[0]->GetTexture(Index);
 }
 
 void CSpriteComponent::Start()

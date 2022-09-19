@@ -7,6 +7,9 @@ class CEditorButton :
 {
     friend class CEditorWindow;
 
+    template <typename T>
+    friend class CEditorTreeItem;
+
 protected:
     CEditorButton();
     virtual ~CEditorButton();

@@ -6,6 +6,9 @@ class CEditorWidget
 {
 	friend class CEditorWindow;
 
+	template <typename T>
+	friend class CEditorTreeItem;
+
 protected:
 	CEditorWidget();
 	virtual ~CEditorWidget();

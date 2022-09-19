@@ -7,6 +7,9 @@ class CEditorSameLine :
 {
     friend class CEditorWindow;
 
+    template <typename T>
+    friend class CEditorTreeItem;
+
 protected:
     CEditorSameLine();
     virtual ~CEditorSameLine();

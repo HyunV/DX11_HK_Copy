@@ -1,22 +1,35 @@
-﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
-  
-  compilation object save succeeded; see C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\Sprite.cso
-  unity_EE2I0DHPS3X2AP9U.cpp
-  unity_FBUDUBET20U952ND.cpp
-  unity_56K086ZLF2W7SXVM.cpp
-  unity_A4KP9K1CCTWL2T5I.cpp
-  unity_5WJ352REEMPNUY6K.cpp
-  unity_Y9AS505ME65WQV9U.cpp
+﻿  unity_6XY1ZMJHOQ68L61Y.cpp
+  unity_8BGWRIRJ7Q9VEB3N.cpp
+  unity_97BZFPQZIL8RJBUT.cpp
+  unity_9XRIBEBU5GSDK9DR.cpp
+  unity_B7D6OJ3L8OIK3UI0.cpp
+  unity_INTEQFV11QI5ABLY.cpp
+  unity_MJJ01JGC8N0RVB2N.cpp
+  unity_S7GG4AKEMVGRJJBK.cpp
+  unity_SEL2UDOGOB71WYJJ.cpp
+  unity_V8UEU5549YCMGIFH.cpp
   MyAR41Engine.vcxproj -> C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  0개 파일이 복사되었습니다.
+  .\MyAR41Engine\Include\EngineInfo.h
+  .\MyAR41Engine\Include\Component\SpriteComponent.h
+  .\MyAR41Engine\Include\Editor\EditorButton.h
+  .\MyAR41Engine\Include\Editor\EditorComboBox.h
+  .\MyAR41Engine\Include\Editor\EditorImage.h
+  .\MyAR41Engine\Include\Editor\EditorInput.h
+  .\MyAR41Engine\Include\Editor\EditorLabel.h
+  .\MyAR41Engine\Include\Editor\EditorListBox.h
+  .\MyAR41Engine\Include\Editor\EditorSameLine.h
+  .\MyAR41Engine\Include\Editor\EditorText.h
+  .\MyAR41Engine\Include\Editor\EditorTree.h
+  .\MyAR41Engine\Include\Editor\EditorTreeItem.h
+  .\MyAR41Engine\Include\Editor\EditorWidget.h
+  .\MyAR41Engine\Include\Resource\Material\Material.h
+  .\MyAR41Engine\Include\Scene\Scene.h
+  15개 파일이 복사되었습니다.
   파일을 찾을 수 없습니다-*.inl
   0개 파일이 복사되었습니다.
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  .\MyAR41Engine\Bin\Sprite.cso
-  2개 파일이 복사되었습니다.
+  1개 파일이 복사되었습니다.
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  .\MyAR41Engine\Bin\Sprite.cso
-  2개 파일이 복사되었습니다.
+  1개 파일이 복사되었습니다.
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  .\MyAR41Engine\Bin\Sprite.cso
-  2개 파일이 복사되었습니다.
+  1개 파일이 복사되었습니다.

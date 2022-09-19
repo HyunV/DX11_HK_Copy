@@ -7,6 +7,8 @@
 #include "PathManager.h"
 #include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
+#include "Editor/EditorGUIManager.h"
+#include "ObjectWindow.h"
 
 CSceneWindow::CSceneWindow()
 {
@@ -95,6 +97,20 @@ void CSceneWindow::SceneChange()
 	strcat_s(FullPath, ".scn");
 
 	NextScene->Load(FullPath);
+
+	//완료된 GameObject 목록을 ObjectWindow에 추가한다.
+	CObjectWindow* ObjectWindow = CEditorGUIManager::GetInst()->FindEditorWindow<CObjectWindow>("ObjectWindow");
+
+	std::vector<HierarchyObjectName> vecName;
+
+	NextScene->GetAllGameObjectHierarchyName(vecName);
+
+	size_t Size = vecName.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		ObjectWindow->AddItem(vecName[i].Obj, vecName[i].Name);
+	}
 }
 
 void CSceneWindow::SceneSave()

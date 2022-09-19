@@ -5,6 +5,9 @@ class CEditorComboBox :
 {
     friend class CEditorWindow;
 
+	template <typename T>
+	friend class CEditorTreeItem;
+
 protected:
     CEditorComboBox();
     virtual ~CEditorComboBox();

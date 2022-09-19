@@ -5,6 +5,9 @@ class CEditorListBox :
 {
     friend class CEditorWindow;
 
+	template <typename T>
+	friend class CEditorTreeItem;
+
 protected:
     CEditorListBox();
     virtual ~CEditorListBox();

@@ -8,6 +8,9 @@ class CEditorTree :
 {
     friend class CEditorWindow;
 
+    template <typename T>
+    friend class CEditorTreeItem;
+
 protected:
     CEditorTree() :
         m_Root(nullptr)
@@ -192,5 +195,42 @@ public:
     {
         m_SelectCallback = std::bind(Func, Obj, std::placeholders::_1, std::placeholders::_2);
     }
+
+    public:
+        template <typename WidgetType>
+        WidgetType* CreateWidget(const std::string& ItemName,
+            const std::string& Name, float Width = 100.f, float Height = 100.f)
+        {
+            if (!m_Root)
+                return nullptr;
+
+            CEditorTreeItem<T>* Item = m_Root->FindItem(ItemName);
+
+            return Item->CreateWidget<WidgetType>(Name, Width, Height);
+        }
+
+        template <typename WidgetType>
+        WidgetType* FindWidget(const std::string& ItemName,
+            const std::string& Name)
+        {
+            if (!m_Root)
+                return nullptr;
+
+            CEditorTreeItem<T>* Item = m_Root->FindItem(ItemName);
+
+            if (!Item)
+                return nullptr;
+
+            return Item->FindWidget<WidgetType>(Name);
+        }
+
+        template <typename WidgetType>
+        WidgetType* FindWidget(const std::string& Name)
+        {
+            if (!m_Root)
+                return nullptr;
+
+            return m_Root->FindWidgetHirearchy<WidgetType>(Name);
+        }
 };
 

@@ -89,6 +89,7 @@ public:
 	void PostUpdate(float DeltaTime);
 	void Save(const char* FullPath);
 	void Load(const char* FullPath);
+	void GetAllGameObjectHierarchyName(std::vector<HierarchyObjectName>& vecName);
 
 public:
 	class CGameObject* FindObject(const std::string& Name);

@@ -11,6 +11,7 @@
 #include "PathManager.h"
 #include "Resource/Texture/Texture.h"
 #include "Resource/Texture/TextureManager.h"
+#include "Component/SpriteComponent.h"
 
 
 CMyImageWindow::CMyImageWindow()
@@ -19,6 +20,24 @@ CMyImageWindow::CMyImageWindow()
 
 CMyImageWindow::~CMyImageWindow()
 {
+}
+
+void CMyImageWindow::SetSelectComponent(const std::string& Item, CSceneComponent* Component)
+{
+    m_SelectComponent = Component;
+
+    char Text[256] = {};
+    sprintf_s(Text, "%s\n", Item.c_str());
+
+    m_SelectComponentName->SetText(Item.c_str());
+
+    if (Component && Component->GetComponentTypeName() == "SpriteComponent")
+    {
+        CTexture* Texture = ((CSpriteComponent*)Component)->GetTexture();
+
+        if(Texture)
+            m_LoadSpriteImageView->SetTexture(Texture);
+    }
 }
 
 bool CMyImageWindow::Init()
@@ -44,7 +63,7 @@ bool CMyImageWindow::Init()
     CEditorButton* Button = CreateWidget<CEditorButton>("이미지 적용", 150.f, 30.f);
 
     Button->SetColor(29, 47, 73, 255);
-    //Button->SetClickCallback<CClassWindow>(this, &CClassWindow::ObjectCreateCallback);
+    Button->SetClickCallback<CMyImageWindow>(this, &CMyImageWindow::ImageSetButtonCallback);
 
     CEditorLabel* Label2 = CreateWidget<CEditorLabel>("선택한 컴포넌트");
 
@@ -56,7 +75,7 @@ bool CMyImageWindow::Init()
 
     m_SelectComponentName = CreateWidget<CEditorInput>("SelectedComponent");
     m_SelectComponentName->SetHideName("SelectedComponent");
-    m_SelectComponentName->SetSize(150.f, 30.f);
+    m_SelectComponentName->SetSize(350.f, 30.f);
     m_SelectComponentName->AddFlag(ImGuiInputTextFlags_ReadOnly);
 
     //이미지 리스트
@@ -72,6 +91,74 @@ bool CMyImageWindow::Init()
     //우측에 선택한 이미지를 보여준다.
     m_SelectImageView = CreateWidget<CEditorImage>("Image");
     m_SelectImageView->SetSize(200.f, 200.f);
+
+    Line = CreateWidget<CEditorSameLine>("Line");
+
+    m_LoadSpriteImageView = CreateWidget<CEditorImage>("SeeSpriteImage");
+    m_LoadSpriteImageView->SetSize(150.f, 150.f);
+
+    CEditorLabel* Label3 = CreateWidget<CEditorLabel>("Material 적용");
+    Label3->SetColor(50, 50, 50, 255);
+    Label3->SetAlign(0.5f, 0.5f);
+    Label3->SetSize(120.f, 30.f);
+
+    Line = CreateWidget<CEditorSameLine>("Line");
+
+    CEditorLabel* LabelR = CreateWidget<CEditorLabel>("R");
+    LabelR->SetColor(255, 0, 0, 255);
+    LabelR->SetAlign(0.5f, 0.5f);
+    LabelR->SetSize(70.f, 30.f);
+
+    Line = CreateWidget<CEditorSameLine>("Line");
+
+    CEditorLabel* LabelG = CreateWidget<CEditorLabel>("G");
+    LabelG->SetColor(0, 255, 0, 255);
+    LabelG->SetAlign(0.5f, 0.5f);
+    LabelG->SetSize(70.f, 30.f);
+
+    Line = CreateWidget<CEditorSameLine>("Line");
+
+    CEditorLabel* LabelB = CreateWidget<CEditorLabel>("B");
+    LabelB->SetColor(0, 0, 255, 255);
+    LabelB->SetAlign(0.5f, 0.5f);
+    LabelB->SetSize(70.f, 30.f);
+
+    Line = CreateWidget<CEditorSameLine>("Line");
+
+    CEditorLabel* LabelA = CreateWidget<CEditorLabel>("A");
+    LabelA->SetColor(50, 50, 50, 255);
+    LabelA->SetAlign(0.5f, 0.5f);
+    LabelA->SetSize(70.f, 30.f);
+
+    CEditorLabel* Label4 = CreateWidget<CEditorLabel>("확인버튼");
+    Label4->SetColor(50, 50, 50, 255);
+    Label4->SetAlign(0.5f, 0.5f);
+    Label4->SetSize(120.f, 30.f);
+
+    Line = CreateWidget<CEditorSameLine>("Line");
+
+    m_RGBA[0] = CreateWidget<CEditorInput>("MtR", 70.f, 30.f);
+    m_RGBA[0]->SetHideName("MtR");
+    m_RGBA[0]->SetInputType(EImGuiInputType::Float);
+
+    Line = CreateWidget<CEditorSameLine>("Line");
+
+    m_RGBA[1] = CreateWidget<CEditorInput>("MtG", 70.f, 30.f);
+    m_RGBA[1]->SetHideName("MtG");
+    m_RGBA[1]->SetInputType(EImGuiInputType::Float);
+
+    Line = CreateWidget<CEditorSameLine>("Line");
+
+    m_RGBA[2] = CreateWidget<CEditorInput>("MtB", 70.f, 30.f);
+    m_RGBA[2]->SetHideName("MtB");
+    m_RGBA[2]->SetInputType(EImGuiInputType::Float);
+
+    Line = CreateWidget<CEditorSameLine>("Line");
+
+    m_RGBA[3] = CreateWidget<CEditorInput>("MtA", 70.f, 30.f);
+    m_RGBA[3]->SetHideName("MtA");
+    m_RGBA[3]->SetInputType(EImGuiInputType::Float);
+
 
     LoadImageName();
 
@@ -95,13 +182,25 @@ void CMyImageWindow::SelectImageCallback(int Index, const std::string& Item)
 
 
     TCHAR Unicode[256] = {};
-    MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, Text, strlen(Text), Unicode, 256);
+    MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, Text, (int)strlen(Text), Unicode, 256);
 
     m_SelectImageView->SetTexture(Item, Unicode);
 }
 
 void CMyImageWindow::ImageSetButtonCallback()
 {
+    //선택한 파일 이름 저장
+    char Text[256] = {};
+    sprintf_s(Text, "%s", m_SelectImageItem.c_str());
+
+    TCHAR Unicode[256] = {};
+    MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, Text, (int)strlen(Text), Unicode, 256);
+
+
+    //이미지 적용 버튼
+    ((CSpriteComponent*)m_SelectComponent.Get())->SetTexture(m_SelectImageItem, Unicode);
+
+    m_LoadSpriteImageView->SetTexture(m_SelectImageItem, Unicode);
 }
 
 void CMyImageWindow::LoadImageName()

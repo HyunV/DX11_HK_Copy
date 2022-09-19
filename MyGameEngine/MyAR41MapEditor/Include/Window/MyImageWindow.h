@@ -22,8 +22,14 @@ private:
     class CEditorInput* m_SelectImageName;
     class CEditorInput* m_SelectComponentName;
     class CEditorImage* m_SelectImageView;
+    class CEditorImage* m_LoadSpriteImageView;
+    class CEditorInput* m_RGBA[4];
+
+    CSharedPtr<class CSceneComponent> m_SelectComponent;
 
 public:
+    void SetSelectComponent(const std::string& Item, CSceneComponent* Component);
+
     const std::string& GetSelectImageItem() const
     {
         return m_SelectImageItem;

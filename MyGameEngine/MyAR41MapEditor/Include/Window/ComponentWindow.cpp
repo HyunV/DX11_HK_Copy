@@ -13,6 +13,8 @@
 #include "Component/SceneComponent.h"
 #include "DetailWindow.h"
 
+#include "MyImageWindow.h"
+
 
 CComponentWindow::CComponentWindow()
 {
@@ -74,6 +76,13 @@ void CComponentWindow::TreeCallback(CEditorTreeItem<class CComponent*>* Node, co
 	CDetailWindow* DetailWindow = CEditorGUIManager::GetInst()->FindEditorWindow<CDetailWindow>("DetailWindow");
 
 	DetailWindow->SetSelectComponent((CSceneComponent*)m_SelectComponent.Get());
+
+	//##과제 내 윈도우에 추가
+	CMyImageWindow* MyImageWindow = CEditorGUIManager::GetInst()->FindEditorWindow<CMyImageWindow>("MyImageWindow");
+
+	MyImageWindow->SetSelectComponent(Item, (CSceneComponent*)m_SelectComponent.Get());
+
+	
 
 	if (m_SelectComponent)
 	{
