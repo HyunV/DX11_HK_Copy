@@ -12,6 +12,7 @@
 #include "Resource/Texture/Texture.h"
 #include "Resource/Texture/TextureManager.h"
 #include "Component/SpriteComponent.h"
+#include "Resource/Material/Material.h"
 
 
 CMyImageWindow::CMyImageWindow()
@@ -130,10 +131,10 @@ bool CMyImageWindow::Init()
     LabelA->SetAlign(0.5f, 0.5f);
     LabelA->SetSize(70.f, 30.f);
 
-    CEditorLabel* Label4 = CreateWidget<CEditorLabel>("확인버튼");
-    Label4->SetColor(50, 50, 50, 255);
-    Label4->SetAlign(0.5f, 0.5f);
-    Label4->SetSize(120.f, 30.f);
+    CEditorButton* Button2 = CreateWidget<CEditorButton>("색 적용", 120.f, 30.f);
+
+    Button2->SetColor(50, 50, 50, 255);
+    Button2->SetClickCallback<CMyImageWindow>(this, &CMyImageWindow::MaterialSetButtonCallback);
 
     Line = CreateWidget<CEditorSameLine>("Line");
 
@@ -197,10 +198,25 @@ void CMyImageWindow::ImageSetButtonCallback()
     MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, Text, (int)strlen(Text), Unicode, 256);
 
 
-    //이미지 적용 버튼
+    //선택한 컴포넌트에 이미지 적용
     ((CSpriteComponent*)m_SelectComponent.Get())->SetTexture(m_SelectImageItem, Unicode);
 
+    //로딩이미지에도 적용
     m_LoadSpriteImageView->SetTexture(m_SelectImageItem, Unicode);
+}
+
+void CMyImageWindow::MaterialSetButtonCallback()
+{
+    int arr[4] = {};
+
+    arr[0] = (int)m_RGBA[0]->GetFloat();
+    arr[1] = (int)m_RGBA[1]->GetFloat();
+    arr[2] = (int)m_RGBA[2]->GetFloat();
+    arr[3] = (int)m_RGBA[3]->GetFloat();
+
+    if((CSpriteComponent*)m_SelectComponent.Get())
+        ((CSpriteComponent*)m_SelectComponent.Get())->GetMaterial(0)->SetBaseColorUnsignedChar(arr[0], arr[1], arr[2], arr[3]);
+    
 }
 
 void CMyImageWindow::LoadImageName()
