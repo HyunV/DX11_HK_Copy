@@ -1,26 +1,13 @@
-﻿  unity_EE2I0DHPS3X2AP9U.cpp
-  unity_FBUDUBET20U952ND.cpp
-  unity_56K086ZLF2W7SXVM.cpp
-  unity_A4KP9K1CCTWL2T5I.cpp
-  unity_5WJ352REEMPNUY6K.cpp
-  unity_Y9AS505ME65WQV9U.cpp
+﻿  unity_6ZCFECXHS18187WX.cpp
   MyAR41Engine.vcxproj -> C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
   .\MyAR41Engine\Include\EngineInfo.h
-  .\MyAR41Engine\Include\Component\SpriteComponent.h
-  .\MyAR41Engine\Include\Editor\EditorButton.h
-  .\MyAR41Engine\Include\Editor\EditorComboBox.h
-  .\MyAR41Engine\Include\Editor\EditorImage.h
-  .\MyAR41Engine\Include\Editor\EditorInput.h
-  .\MyAR41Engine\Include\Editor\EditorLabel.h
-  .\MyAR41Engine\Include\Editor\EditorListBox.h
-  .\MyAR41Engine\Include\Editor\EditorSameLine.h
-  .\MyAR41Engine\Include\Editor\EditorText.h
-  .\MyAR41Engine\Include\Editor\EditorTree.h
-  .\MyAR41Engine\Include\Editor\EditorTreeItem.h
-  .\MyAR41Engine\Include\Editor\EditorWidget.h
-  .\MyAR41Engine\Include\Resource\Material\Material.h
-  .\MyAR41Engine\Include\Scene\Scene.h
-  15개 파일이 복사되었습니다.
+  .\MyAR41Engine\Include\Animation\Animation2D.h
+  .\MyAR41Engine\Include\Animation\Animation2DData.h
+  .\MyAR41Engine\Include\Resource\ResourceManager.h
+  .\MyAR41Engine\Include\Resource\Animation\AnimationManager.h
+  .\MyAR41Engine\Include\Resource\Animation\AnimationSequence2D.h
+  .\MyAR41Engine\Include\Scene\SceneResource.h
+  7개 파일이 복사되었습니다.
   파일을 찾을 수 없습니다-*.inl
   0개 파일이 복사되었습니다.
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib

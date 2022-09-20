@@ -5,6 +5,7 @@
 #include "../Resource/Shader/Shader.h"
 #include "../Resource/Texture/Texture.h"
 #include "../Resource/Material/Material.h"
+#include "../Resource/Animation/AnimationSequence2D.h"
 #include "../Resource/ResourceManager.h"
 
 class CSceneResource
@@ -23,6 +24,7 @@ private:
 	std::unordered_map<std::string, CSharedPtr<CShader>>	m_mapShader;
 	std::unordered_map<std::string, CSharedPtr<CTexture>>	m_mapTexture;
 	std::unordered_map<std::string, CSharedPtr<CMaterial>>	m_mapMaterial;
+	std::unordered_map<std::string, CSharedPtr<CAnimationSequence2D>>	m_mapAnimationSequence2D;
 
 public:
 	bool Init();
@@ -68,5 +70,19 @@ public:	// ===================== Material =========================
 
 		return true;
 	}
+
+public:	// ===================== Animation =========================
+	bool CreateAnimationSequence2D(const std::string& Name, const std::string& TextureName,
+		const TCHAR* FileName, const std::string& PathName = TEXTURE_PATH);
+	bool CreateAnimationSequence2D(const std::string& Name, class CTexture* Texture);
+	bool AddAnimationSequence2DFrame(const std::string& Name, const Vector2& Start, const Vector2& End);
+	bool AddAnimationSequence2DFrame(const std::string& Name, float StartX, float StartY, float EndX,
+		float EndY);
+	bool SaveSequence2D(const std::string& Name, const char* FullPath);
+	bool LoadSequence2D(const std::string& Name, const char* FullPath);
+	bool SaveSequence2D(const std::string& Name, const char* FileName, const std::string& PathName);
+	bool LoadSequence2D(const std::string& Name, const char* FileName, const std::string& PathName);
+
+	CAnimationSequence2D* FindAnimationSequence2D(const std::string& Name);
 };
 

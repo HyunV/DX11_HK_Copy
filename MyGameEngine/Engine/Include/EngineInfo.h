@@ -192,3 +192,9 @@ struct HierarchyObjectName
 	class CGameObject* Obj;
 	class CGameObject* Parent;
 };
+
+struct Animation2DFrameData
+{
+	Vector2 Start;
+	Vector2 End;
+};

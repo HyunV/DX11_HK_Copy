@@ -121,6 +121,24 @@
     <Filter Include="07. Editor\01. IMGUI">
       <UniqueIdentifier>{6baad374-84fe-4a84-9770-69a71c2a1765}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08. Animation">
+      <UniqueIdentifier>{b01a819b-0b46-45c9-9e2c-ad936e930d2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\05. Animation">
+      <UniqueIdentifier>{b25d6063-e758-475b-a9de-dab8c8f0f6dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\05. Animation\01. 2D">
+      <UniqueIdentifier>{02359f9e-d91f-4ec0-a6c8-faf6f76a5dfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\05. Animation\02. 3D">
+      <UniqueIdentifier>{fa339014-5c5d-4203-b22f-3c5dcf602e1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Animation\01. 2D">
+      <UniqueIdentifier>{7c6e858d-e678-493f-ae25-6fe6affa5c90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Animation\02. 3D">
+      <UniqueIdentifier>{2008cc1d-5bd1-416e-81b2-2a3d81a6b8da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineInfo.h">
@@ -348,6 +366,18 @@
     <ClInclude Include="Editor\EditorSliderBar.h">
       <Filter>07. Editor\03. Widget</Filter>
     </ClInclude>
+    <ClInclude Include="Resource\Animation\AnimationManager.h">
+      <Filter>02. Resource\05. Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Animation\AnimationSequence2D.h">
+      <Filter>02. Resource\05. Animation\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\Animation2DData.h">
+      <Filter>08. Animation\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation\Animation2D.h">
+      <Filter>08. Animation\01. 2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -547,6 +577,18 @@
     </ClCompile>
     <ClCompile Include="Editor\EditorSliderBar.cpp">
       <Filter>07. Editor\03. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Animation\AnimationManager.cpp">
+      <Filter>02. Resource\05. Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Animation\AnimationSequence2D.cpp">
+      <Filter>02. Resource\05. Animation\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\Animation2DData.cpp">
+      <Filter>08. Animation\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation\Animation2D.cpp">
+      <Filter>08. Animation\01. 2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

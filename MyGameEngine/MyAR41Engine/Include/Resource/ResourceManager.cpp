@@ -12,6 +12,7 @@ CResourceManager::CResourceManager()
 
 CResourceManager::~CResourceManager()
 {
+	SAFE_DELETE(m_AnimationManager);
 	SAFE_DELETE(m_MaterialManager);
 	SAFE_DELETE(m_TextureManager);
 	SAFE_DELETE(m_ShaderManager);
@@ -35,6 +36,10 @@ bool CResourceManager::Init()
 	m_MeshManager = new CMeshManager; //메쉬매니저 생성
 
 	m_MeshManager->Init(); //초기화
+
+	m_AnimationManager = new CAnimationManager;
+
+	m_AnimationManager->Init();
 
 	return true;
 }
@@ -124,4 +129,54 @@ CMaterial* CResourceManager::FindMaterial(const std::string& Name)
 void CResourceManager::ReleaseMaterial(const std::string& Name)
 {
 	m_MaterialManager->ReleaseMaterial(Name);
+}
+
+bool CResourceManager::CreateAnimationSequence2D(const std::string& Name, const std::string& TextureName, const TCHAR* FileName, const std::string& PathName)
+{
+	return m_AnimationManager->CreateAnimationSequence2D(Name, TextureName, FileName, PathName);
+}
+
+bool CResourceManager::CreateAnimationSequence2D(const std::string& Name, CTexture* Texture)
+{
+	return m_AnimationManager->CreateAnimationSequence2D(Name, Texture);
+}
+
+bool CResourceManager::AddAnimationSequence2DFrame(const std::string& Name, const Vector2& Start, const Vector2& End)
+{
+	return m_AnimationManager->AddSequence2DFrame(Name, Start, End);
+}
+
+bool CResourceManager::AddAnimationSequence2DFrame(const std::string& Name, float StartX, float StartY, float EndX, float EndY)
+{
+	return m_AnimationManager->AddSequence2DFrame(Name, StartX, StartY, EndX, EndY);
+}
+
+bool CResourceManager::SaveSequence2D(const std::string& Name, const char* FullPath)
+{
+	return m_AnimationManager->SaveSequence2D(Name, FullPath);
+}
+
+bool CResourceManager::LoadSequence2D(const std::string& Name, const char* FullPath)
+{
+	return m_AnimationManager->LoadSequence2D(Name, FullPath);
+}
+
+bool CResourceManager::SaveSequence2D(const std::string& Name, const char* FileName, const std::string& PathName)
+{
+	return m_AnimationManager->SaveSequence2D(Name, FileName, PathName);
+}
+
+bool CResourceManager::LoadSequence2D(const std::string& Name, const char* FileName, const std::string& PathName)
+{
+	return m_AnimationManager->LoadSequence2D(Name, FileName, PathName);
+}
+
+CAnimationSequence2D* CResourceManager::FindAnimationSequence2D(const std::string& Name)
+{
+	return m_AnimationManager->FindAnimationSequence2D(Name);
+}
+
+void CResourceManager::ReleaseAnimationSequence2D(const std::string& Name)
+{
+	m_AnimationManager->ReleaseAnimationSequence2D(Name);
 }

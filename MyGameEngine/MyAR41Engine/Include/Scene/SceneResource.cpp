@@ -203,3 +203,80 @@ CMaterial* CSceneResource::FindMaterial(const std::string& Name)
 
 	return iter->second;
 }
+
+bool CSceneResource::CreateAnimationSequence2D(const std::string& Name, 
+	const std::string& TextureName, const TCHAR* FileName, const std::string& PathName)
+{
+	if(FindAnimationSequence2D(Name))
+		return true;
+
+	if (!CResourceManager::GetInst()->CreateAnimationSequence2D(Name, TextureName,
+		FileName, PathName))
+		return false;
+
+	m_mapAnimationSequence2D.insert(std::make_pair(Name, CResourceManager::GetInst()->FindAnimationSequence2D(Name)));
+
+	return true;
+}
+
+bool CSceneResource::CreateAnimationSequence2D(const std::string& Name, CTexture* Texture)
+{
+	if (FindAnimationSequence2D(Name))
+		return true;
+
+	if (!CResourceManager::GetInst()->CreateAnimationSequence2D(Name, Texture))
+		return false;
+
+	m_mapAnimationSequence2D.insert(std::make_pair(Name, CResourceManager::GetInst()->FindAnimationSequence2D(Name)));
+
+	return true;
+}
+
+bool CSceneResource::AddAnimationSequence2DFrame(const std::string& Name, const Vector2& Start, const Vector2& End)
+{
+	return CResourceManager::GetInst()->AddAnimationSequence2DFrame(Name, Start, End);
+}
+
+bool CSceneResource::AddAnimationSequence2DFrame(const std::string& Name, float StartX, float StartY, float EndX, float EndY)
+{
+	return CResourceManager::GetInst()->AddAnimationSequence2DFrame(Name, StartX, StartY, EndX, EndY);
+}
+
+bool CSceneResource::SaveSequence2D(const std::string& Name, const char* FullPath)
+{
+	return CResourceManager::GetInst()->SaveSequence2D(Name, FullPath);
+}
+
+bool CSceneResource::LoadSequence2D(const std::string& Name, const char* FullPath)
+{
+	return CResourceManager::GetInst()->LoadSequence2D(Name, FullPath);
+}
+
+bool CSceneResource::SaveSequence2D(const std::string& Name, const char* FileName, const std::string& PathName)
+{
+	return CResourceManager::GetInst()->SaveSequence2D(Name, FileName, PathName);
+}
+
+bool CSceneResource::LoadSequence2D(const std::string& Name, const char* FileName, const std::string& PathName)
+{
+	return CResourceManager::GetInst()->LoadSequence2D(Name, FileName, PathName);
+}
+
+CAnimationSequence2D* CSceneResource::FindAnimationSequence2D(const std::string& Name)
+{
+	auto	iter = m_mapAnimationSequence2D.find(Name);
+
+	if (iter == m_mapAnimationSequence2D.end())
+	{
+		CAnimationSequence2D* Sequence = CResourceManager::GetInst()->FindAnimationSequence2D(Name);
+
+		if (!Sequence)
+			return nullptr;
+
+		m_mapAnimationSequence2D.insert(std::make_pair(Name, Sequence));
+
+		return Sequence;
+	}
+
+	return iter->second;
+}
