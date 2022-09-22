@@ -21,5 +21,8 @@ private:
 	void CreateEmptyObject();
 	void CreateObject();
 	void CreateCDO();
+
+private:
+	void LoadResource();
 };
 

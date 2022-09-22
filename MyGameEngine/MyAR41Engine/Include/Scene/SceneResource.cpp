@@ -232,6 +232,55 @@ bool CSceneResource::CreateAnimationSequence2D(const std::string& Name, CTexture
 	return true;
 }
 
+bool CSceneResource::CreateAnimationSequence2DFullPath(
+	const std::string& Name, const std::string& TextureName,
+	const TCHAR* FullPath)
+{
+	if (FindAnimationSequence2D(Name))
+		return true;
+
+	if (!CResourceManager::GetInst()->CreateAnimationSequence2DFullPath(Name, TextureName,
+		FullPath))
+		return false;
+
+	m_mapAnimationSequence2D.insert(std::make_pair(Name, CResourceManager::GetInst()->FindAnimationSequence2D(Name)));
+
+	return true;
+}
+
+bool CSceneResource::CreateAnimationSequence2D(const std::string& Name,
+	const std::string& TextureName,
+	const std::vector<const TCHAR*>& vecFileName, 
+	const std::string& PathName)
+{
+	if (FindAnimationSequence2D(Name))
+		return true;
+
+	if (!CResourceManager::GetInst()->CreateAnimationSequence2D(Name, TextureName,
+		vecFileName, PathName))
+		return false;
+
+	m_mapAnimationSequence2D.insert(std::make_pair(Name, CResourceManager::GetInst()->FindAnimationSequence2D(Name)));
+
+	return true;
+}
+
+bool CSceneResource::CreateAnimationSequence2DFullPath(
+	const std::string& Name, const std::string& TextureName,
+	const std::vector<const TCHAR*>& vecFullPath)
+{
+	if (FindAnimationSequence2D(Name))
+		return true;
+
+	if (!CResourceManager::GetInst()->CreateAnimationSequence2DFullPath(Name, TextureName,
+		vecFullPath))
+		return false;
+
+	m_mapAnimationSequence2D.insert(std::make_pair(Name, CResourceManager::GetInst()->FindAnimationSequence2D(Name)));
+
+	return true;
+}
+
 bool CSceneResource::AddAnimationSequence2DFrame(const std::string& Name, const Vector2& Start, const Vector2& End)
 {
 	return CResourceManager::GetInst()->AddAnimationSequence2DFrame(Name, Start, End);
@@ -240,6 +289,16 @@ bool CSceneResource::AddAnimationSequence2DFrame(const std::string& Name, const 
 bool CSceneResource::AddAnimationSequence2DFrame(const std::string& Name, float StartX, float StartY, float EndX, float EndY)
 {
 	return CResourceManager::GetInst()->AddAnimationSequence2DFrame(Name, StartX, StartY, EndX, EndY);
+}
+
+bool CSceneResource::AddAnimationSequence2DFrameAll(const std::string& Name, int Count, const Vector2& Start, const Vector2& End)
+{
+	return CResourceManager::GetInst()->AddAnimationSequence2DFrameAll(Name, Count, Start, End);
+}
+
+bool CSceneResource::AddAnimationSequence2DFrameAll(const std::string& Name, int Count, float StartX, float StartY, float EndX, float EndY)
+{
+	return CResourceManager::GetInst()->AddAnimationSequence2DFrameAll(Name, Count, StartX, StartY, EndX, EndY);
 }
 
 bool CSceneResource::SaveSequence2D(const std::string& Name, const char* FullPath)

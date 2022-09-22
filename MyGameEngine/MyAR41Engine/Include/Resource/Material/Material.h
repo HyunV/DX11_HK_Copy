@@ -10,11 +10,13 @@ struct MaterialTextureInfo
     CSharedPtr<CTexture>  Texture;
     int     Register;
     int     ShaderBufferType;
+    int     Index;
 
     MaterialTextureInfo()   :
         SamplerType(ESamplerType::Linear),
         Register(0),
-        ShaderBufferType((int)EShaderBufferType::Pixel)
+        ShaderBufferType((int)EShaderBufferType::Pixel),
+        Index(0)
     {
     }
 };
@@ -97,6 +99,8 @@ public:
         const std::string& Name, const std::vector<const TCHAR*>& vecFullPath);
 
     void SetTextureSamplerType(int Index, ESamplerType Type);
+
+    void SetTextureFrameIndex(int TexIndex, int FrameIndex);
 
     class CTexture* GetTexture(int Index = 0) const;
 

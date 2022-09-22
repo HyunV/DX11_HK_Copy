@@ -98,7 +98,7 @@ VS_OUTPUT_UV SpriteVS(VS_INPUT_UV input)
 	// mul : 행렬 곱. g_matWVP 는 World * View * Proj 이므로 정점을 여기에 곱하게 되면
 	// 투영 공간으로 변환된 정점의 위치가 나온다.
 	output.Pos = mul(float4(Pos, 1.f), g_matWVP);
-	output.UV = input.UV;
+	output.UV = UpdateAnimation2D(input.UV);
 
 	return output;
 }

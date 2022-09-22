@@ -1,7 +1,29 @@
 #include "Animation2DData.h"
 
-CAnimation2DData::CAnimation2DData()
+CAnimation2DData::CAnimation2DData()	:
+	m_Frame(0),
+	m_Time(0.f),
+	m_FrameTime(0.f),
+	m_PlayTime(0.f),
+	m_PlayScale(0.f),
+	m_Loop(false),
+	m_Reverse(false)
 {
+}
+
+CAnimation2DData::CAnimation2DData(const CAnimation2DData& Anim)
+{
+	m_Name = Anim.m_Name;
+	m_SequenceName = Anim.m_SequenceName;
+	m_Sequence = Anim.m_Sequence;
+
+	m_Frame = Anim.m_Frame;
+	m_Time = Anim.m_Time;
+	m_FrameTime = Anim.m_FrameTime;
+	m_PlayTime = Anim.m_PlayTime;
+	m_PlayScale = Anim.m_PlayScale;
+	m_Loop = Anim.m_Loop;
+	m_Reverse = Anim.m_Reverse;
 }
 
 CAnimation2DData::~CAnimation2DData()
@@ -66,4 +88,9 @@ void CAnimation2DData::Load(FILE* File)
 
 	fread(&m_Loop, 1, 1, File);
 	fread(&m_Reverse, 1, 1, File);
+}
+
+CAnimation2DData* CAnimation2DData::Clone()
+{
+	return new CAnimation2DData(*this);
 }

@@ -50,3 +50,45 @@ SamplerState g_LinearSmp : register(s1);
 SamplerState g_AnisotropicSmp : register(s2);
 
 Texture2D g_BaseTexture : register(t0);
+
+cbuffer Animation2D : register(b2)
+{
+    float g_Anim2DImageWidth;
+    float g_Anim2DImageHeight;
+    float2 g_Anim2DFrameStart;
+    float2 g_Anim2DFrameEnd;
+    int g_Anim2DType;
+    int g_Anim2DEnable;
+    int g_Anim2DFrame;
+    float3 g_Anim2DEmpty;
+};
+
+#define Anim2D_Atlas 0
+#define Anim2D_Frame 1
+#define Anim2D_Array 2
+
+float2 UpdateAnimation2D(float2 UV)
+{
+    if (g_Anim2DEnable == 0)
+        return UV;
+
+    float2 Result = (float2) 0;
+
+    if (g_Anim2DType == Anim2D_Atlas)
+    {
+        if (UV.x == 0.f)
+            Result.x = g_Anim2DFrameStart.x / g_Anim2DImageWidth;
+        else
+            Result.x = g_Anim2DFrameEnd.x / g_Anim2DImageWidth;
+
+        if (UV.y == 0.f)
+            Result.y = g_Anim2DFrameStart.y / g_Anim2DImageHeight;
+        else
+            Result.y = g_Anim2DFrameEnd.y / g_Anim2DImageHeight;
+    }
+
+    else
+        Result = UV;
+
+    return Result;
+}

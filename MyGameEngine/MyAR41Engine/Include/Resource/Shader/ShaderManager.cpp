@@ -20,6 +20,7 @@ bool CShaderManager::Init()
 
 	CreateConstantBuffer("Transform", sizeof(TransformCBuffer), 0);
 	CreateConstantBuffer("Material", sizeof(MaterialCBuffer), 1);
+	CreateConstantBuffer("Animation2D", sizeof(Animation2DCBuffer), 2);
 
 	return true;
 }

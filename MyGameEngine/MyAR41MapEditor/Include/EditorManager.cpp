@@ -16,6 +16,7 @@
 #include "Window\DetailWindow.h"
 #include "Window\MyImageWindow.h"
 #include "Editor/EditorGUIManager.h"
+#include "Resource/Animation/AnimationSequence2D.h"
 
 CEditorManager::CEditorManager()
 {
@@ -38,6 +39,8 @@ bool CEditorManager::Init(HINSTANCE hInst)
     {
         return false;
     }
+
+    LoadResource();
 
     CreateCDO();
 
@@ -228,4 +231,44 @@ void CEditorManager::CreateCDO()
     CScene::CreateObjectCDO<CPlayer2D>("Player2D");
     CScene::CreateObjectCDO<CMonster>("Monster");
     CScene::CreateObjectCDO<CMyBullet>("MyBullet");
+}
+
+void CEditorManager::LoadResource()
+{
+    //128 128
+    CResourceManager::GetInst()->CreateAnimationSequence2D(
+        "PlayerIdle", "PlayerSprite", TEXT("Player.png"));
+
+    for (int i = 0; i < 14; ++i)
+    {
+        CResourceManager::GetInst()->AddAnimationSequence2DFrame("PlayerIdle",
+            Vector2(i * 45.f, 60.f), Vector2((i + 1) * 45.f, 120.f));
+    }
+
+    std::vector<const TCHAR*>   vecFileName;
+
+    for (int i = 1; i <= 89; ++i)
+    {
+        TCHAR* FileName = new TCHAR[MAX_PATH];
+
+        memset(FileName, 0, sizeof(TCHAR) * MAX_PATH);
+
+        wsprintf(FileName, TEXT("Explosion/Explosion%d.png"), i);
+
+        vecFileName.push_back(FileName);
+    }
+
+
+    CResourceManager::GetInst()->CreateAnimationSequence2D(
+        "PlayerRun", "Explosion", vecFileName);
+
+    CResourceManager::GetInst()->AddAnimationSequence2DFrameAll("PlayerRun",
+        89, Vector2(0.f, 0.f), Vector2(320.f, 240.f));
+
+    for (int i = 0; i <= 88; ++i)
+    {
+        SAFE_DELETE_ARRAY(vecFileName[i]);
+    }
+
+    vecFileName.clear();
 }

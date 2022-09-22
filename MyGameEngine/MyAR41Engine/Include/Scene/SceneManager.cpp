@@ -3,6 +3,7 @@
 #include "SceneInfo.h"
 #include "../GameObject/GameObject.h"
 #include "../Component/SceneComponent.h"
+#include "../Animation/Animation2D.h"
 
 DEFINITION_SINGLE(CSceneManager)
 
@@ -41,6 +42,16 @@ CSceneManager::~CSceneManager()
 	{
 		auto	iter = CComponent::m_mapComponent.begin();
 		auto	iterEnd = CComponent::m_mapComponent.end();
+
+		for (; iter != iterEnd; ++iter)
+		{
+			SAFE_DELETE(iter->second);
+		}
+	}
+
+	{
+		auto	iter = CAnimation2D::m_mapAnimationCDO.begin();
+		auto	iterEnd = CAnimation2D::m_mapAnimationCDO.end();
 
 		for (; iter != iterEnd; ++iter)
 		{

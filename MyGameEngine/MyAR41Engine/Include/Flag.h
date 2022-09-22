@@ -80,3 +80,10 @@ enum class ERenderStateType : unsigned char
 	DepthStencil,
 	End
 };
+
+enum class EAnimation2DType : unsigned int
+{
+	Atlas,
+	Frame,
+	Array
+};

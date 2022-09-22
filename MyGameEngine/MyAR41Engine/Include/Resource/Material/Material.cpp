@@ -436,6 +436,11 @@ void CMaterial::SetTextureSamplerType(int Index, ESamplerType Type)
 	Info->SamplerType = Type;
 }
 
+void CMaterial::SetTextureFrameIndex(int TexIndex, int FrameIndex)
+{
+	m_vecTextureInfo[TexIndex]->Index = FrameIndex;
+}
+
 CTexture* CMaterial::GetTexture(int Index) const
 {
 	if ((int)m_vecTextureInfo.size() <= Index)
@@ -485,7 +490,8 @@ void CMaterial::SetMaterial()
 	for (size_t i = 0; i < Size; ++i)
 	{
 		m_vecTextureInfo[i]->Texture->SetShader(m_vecTextureInfo[i]->Register,
-			m_vecTextureInfo[i]->ShaderBufferType, 0);
+			m_vecTextureInfo[i]->ShaderBufferType,
+			m_vecTextureInfo[i]->Index);
 	}
 }
 

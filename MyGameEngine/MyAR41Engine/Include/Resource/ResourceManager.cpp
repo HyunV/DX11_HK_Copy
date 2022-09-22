@@ -141,6 +141,30 @@ bool CResourceManager::CreateAnimationSequence2D(const std::string& Name, CTextu
 	return m_AnimationManager->CreateAnimationSequence2D(Name, Texture);
 }
 
+bool CResourceManager::CreateAnimationSequence2DFullPath(
+	const std::string& Name, const std::string& TextureName,
+	const TCHAR* FullPath)
+{
+	return m_AnimationManager->CreateAnimationSequence2DFullPath(Name, TextureName, FullPath);
+}
+
+bool CResourceManager::CreateAnimationSequence2D(const std::string& Name, 
+	const std::string& TextureName, 
+	const std::vector<const TCHAR*>& vecFileName, 
+	const std::string& PathName)
+{
+	return m_AnimationManager->CreateAnimationSequence2D(Name, TextureName,
+		vecFileName, PathName);
+}
+
+bool CResourceManager::CreateAnimationSequence2DFullPath(
+	const std::string& Name, const std::string& TextureName, 
+	const std::vector<const TCHAR*>& vecFullPath)
+{
+	return m_AnimationManager->CreateAnimationSequence2DFullPath(Name, TextureName,
+		vecFullPath);
+}
+
 bool CResourceManager::AddAnimationSequence2DFrame(const std::string& Name, const Vector2& Start, const Vector2& End)
 {
 	return m_AnimationManager->AddSequence2DFrame(Name, Start, End);
@@ -149,6 +173,16 @@ bool CResourceManager::AddAnimationSequence2DFrame(const std::string& Name, cons
 bool CResourceManager::AddAnimationSequence2DFrame(const std::string& Name, float StartX, float StartY, float EndX, float EndY)
 {
 	return m_AnimationManager->AddSequence2DFrame(Name, StartX, StartY, EndX, EndY);
+}
+
+bool CResourceManager::AddAnimationSequence2DFrameAll(const std::string& Name, int Count, const Vector2& Start, const Vector2& End)
+{
+	return m_AnimationManager->AddSequence2DFrameAll(Name, Count, Start, End);
+}
+
+bool CResourceManager::AddAnimationSequence2DFrameAll(const std::string& Name, int Count, float StartX, float StartY, float EndX, float EndY)
+{
+	return m_AnimationManager->AddSequence2DFrameAll(Name, Count, StartX, StartY, EndX, EndY);
 }
 
 bool CResourceManager::SaveSequence2D(const std::string& Name, const char* FullPath)
@@ -179,4 +213,9 @@ CAnimationSequence2D* CResourceManager::FindAnimationSequence2D(const std::strin
 void CResourceManager::ReleaseAnimationSequence2D(const std::string& Name)
 {
 	m_AnimationManager->ReleaseAnimationSequence2D(Name);
+}
+
+CAnimation2DConstantBuffer* CResourceManager::GetAnim2DConstantBuffer() const
+{
+	return m_AnimationManager->GetAnim2DConstantBuffer();
 }

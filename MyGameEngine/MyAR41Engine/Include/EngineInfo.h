@@ -198,3 +198,15 @@ struct Animation2DFrameData
 	Vector2 Start;
 	Vector2 End;
 };
+
+struct Animation2DCBuffer
+{
+	float Anim2DImageWidth;
+	float Anim2DImageHeight;
+	Vector2 Anim2DFrameStart;
+	Vector2 Anim2DFrameEnd;
+	int Anim2DType;
+	int Anim2DEnable;
+	int Anim2DFrame;
+	Vector3 Anim2DEmpty;
+};

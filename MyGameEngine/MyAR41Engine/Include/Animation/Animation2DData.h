@@ -25,26 +25,28 @@ class CAnimation2DData
 
 private:
 	CAnimation2DData();
+	CAnimation2DData(const CAnimation2DData& Anim);
 	~CAnimation2DData();
 
 private:
 	std::string m_Name;
 	std::string m_SequenceName;
 	CSharedPtr<CAnimationSequence2D>	m_Sequence;
-	int		m_Frame;
-	float	m_Time;
-	float	m_FrameTime;
-	float	m_PlayTime;
-	float	m_PlayScale;
-	bool	m_Loop;
-	bool	m_Reverse;
-	std::function<void()>	m_EndFunction;
-	std::vector<Animation2DNotify*> m_vecNotify;
+	int		m_Frame;		//현재 애니메이션이 동작되는 프레임
+	float	m_Time;			//애니메이션 프레임을 증가시켜주기 위한 시간값
+	float	m_FrameTime;	//한 프레임이 증가하기 위한 시간
+	float	m_PlayTime;		//모션 한번이 동작되기 위한 시간.
+	float	m_PlayScale;	//재생속도 배율
+	bool	m_Loop;			//반복 여부
+	bool	m_Reverse;		//역재생 여부
+	std::function<void()>	m_EndFunction; //애니메이션이 끝날때마다 호출될 함수
+	std::vector<Animation2DNotify*> m_vecNotify; //특정 프레임에 호출될 정보들
 
 public:
 	void SetSequence(CAnimationSequence2D* Sequence);
 	void Save(FILE* File);
 	void Load(FILE* File);
+	CAnimation2DData* Clone();
 
 public:
 	const std::string& GetName()	const
@@ -74,7 +76,7 @@ public:
 		m_EndFunction = std::bind(Func, Obj);
 	}
 
-	template <typename T>
+	template <typename T> //Notify, 프레임단위
 	void AddNotify(const std::string& Name, int Frame, T* Obj, void(T::* Func)())
 	{
 		Animation2DNotify* Notify = new Animation2DNotify;
@@ -87,7 +89,7 @@ public:
 		m_vecNotify.push_back(Notify);
 	}
 
-	template <typename T>
+	template <typename T> //Notify, 초단위
 	void AddNotify(const std::string& Name, float Time, T* Obj, void(T::* Func)())
 	{
 		Animation2DNotify* Notify = new Animation2DNotify;

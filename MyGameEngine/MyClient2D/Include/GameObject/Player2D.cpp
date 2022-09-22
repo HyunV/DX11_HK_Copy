@@ -9,6 +9,7 @@
 #include "Device.h"
 #include "MyBullet.h"
 #include "Resource/Material/Material.h"
+#include "Animation/Animation2D.h"
 
 
 CPlayer2D::CPlayer2D()
@@ -95,6 +96,16 @@ bool CPlayer2D::Init()
 	//Ãß°¡
 	CInput::GetInst()->AddBindFunction<CPlayer2D>("Fire", Input_Type::Down, this,
 		&CPlayer2D::Fire, m_Scene);
+
+	CAnimation2D* Anim = m_Sprite->SetAnimation<CAnimation2D>("PlayerAnim");
+
+	Anim->AddAnimation("Run", "PlayerRun");
+	Anim->SetLoop("Run", true);
+
+	Anim->AddAnimation("Idle", "PlayerIdle");
+	Anim->SetLoop("Idle", true);
+
+	Anim->SetCurrentAnimation("Idle");
 
 	return true;
 }

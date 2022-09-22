@@ -6,6 +6,7 @@
 #include "../Component/CameraComponent.h"
 #include "../Component/TargetArm.h"
 #include "../Component/SceneComponent.h"
+#include "../Animation/Animation2D.h"
 
 std::unordered_map<std::string, CSceneInfo*> CScene::m_mapSceneInfoCDO;
 
@@ -80,6 +81,12 @@ void CScene::CreateCDO()
 	ComCDO->Init();
 
 	CComponent::AddComponentCDO("TargetArm", ComCDO);
+
+	CAnimation2D* AnimCDO = new CAnimation2D;
+
+	AnimCDO->Init();
+
+	CAnimation2D::AddAnimationCDO("Animation2D", AnimCDO);
 }
 
 void CScene::Start()
