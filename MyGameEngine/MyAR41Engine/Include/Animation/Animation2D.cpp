@@ -76,6 +76,7 @@ void CAnimation2D::Update(float DeltaTime)
 	{
 		m_CurAnimation->m_Time -= m_CurAnimation->m_FrameTime;
 
+		//역재생일시
 		if (m_CurAnimation->m_Reverse)
 		{
 			--m_CurAnimation->m_Frame;

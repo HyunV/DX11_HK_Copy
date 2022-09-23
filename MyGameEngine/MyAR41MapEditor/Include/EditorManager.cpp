@@ -15,6 +15,7 @@
 #include "Window\SceneWindow.h"
 #include "Window\DetailWindow.h"
 #include "Window\MyImageWindow.h"
+#include "Window\MyAnimationWindow.h"
 #include "Editor/EditorGUIManager.h"
 #include "Resource/Animation/AnimationSequence2D.h"
 
@@ -70,6 +71,9 @@ bool CEditorManager::Init(HINSTANCE hInst)
 
     //#과제# 이미지 윈도우
     CEditorGUIManager::GetInst()->CreateEditorWindow<CMyImageWindow>("MyImageWindow");
+
+    //#과제# 애니메이션 윈도우
+    //CEditorGUIManager::GetInst()->CreateEditorWindow<CMyAnimationWindow>("MyAnimationWindow");
 
     // 키 등록
     /*CInput::GetInst()->AddBindKey("Rotation", 'D');
@@ -239,12 +243,14 @@ void CEditorManager::LoadResource()
     CResourceManager::GetInst()->CreateAnimationSequence2D(
         "PlayerIdle", "PlayerSprite", TEXT("Player.png"));
 
+    //플레이어 대기모션 사진 구간을 나눠서 애니메이션 처리
     for (int i = 0; i < 14; ++i)
     {
         CResourceManager::GetInst()->AddAnimationSequence2DFrame("PlayerIdle",
             Vector2(i * 45.f, 60.f), Vector2((i + 1) * 45.f, 120.f));
     }
 
+    //낱장단위 이미지를 처리
     std::vector<const TCHAR*>   vecFileName;
 
     for (int i = 1; i <= 89; ++i)
