@@ -6,7 +6,8 @@
 
 CAnimationSequence2D::CAnimationSequence2D()	:
 	m_Scene(nullptr),
-	m_Anim2DType(EAnimation2DType::Atlas)
+	m_Anim2DType(EAnimation2DType::Atlas),
+	m_FrameCount(0)
 {
 	SetTypeID<CAnimationSequence2D>();
 }
@@ -204,6 +205,7 @@ bool CAnimationSequence2D::Save(const char* FullPath)
 		return false;
 
 	int	Length = (int)m_Name.length();
+
 	fwrite(&Length, 4, 1, File);
 	fwrite(m_Name.c_str(), 1, Length, File);
 

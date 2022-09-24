@@ -73,7 +73,7 @@ bool CEditorManager::Init(HINSTANCE hInst)
     CEditorGUIManager::GetInst()->CreateEditorWindow<CMyImageWindow>("MyImageWindow");
 
     //#과제# 애니메이션 윈도우
-    //CEditorGUIManager::GetInst()->CreateEditorWindow<CMyAnimationWindow>("MyAnimationWindow");
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CMyAnimationWindow>("MyAnimationWindow");
 
     // 키 등록
     /*CInput::GetInst()->AddBindKey("Rotation", 'D');
@@ -264,6 +264,7 @@ void CEditorManager::LoadResource()
         vecFileName.push_back(FileName);
     }
 
+    vecFileName;
 
     CResourceManager::GetInst()->CreateAnimationSequence2D(
         "PlayerRun", "Explosion", vecFileName);

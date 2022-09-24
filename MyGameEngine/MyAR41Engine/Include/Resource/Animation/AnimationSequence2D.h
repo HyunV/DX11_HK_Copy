@@ -17,6 +17,10 @@ private:
     std::vector<Animation2DFrameData>   m_vecFrameData;//start, end로 나눔
     EAnimation2DType    m_Anim2DType;
 
+    //내 변수
+    Animation2DFrameData m_StartEndPoint;
+    int m_FrameCount;
+
 public:
     EAnimation2DType GetAnim2DType()    const
     {

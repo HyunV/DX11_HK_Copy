@@ -36,6 +36,10 @@ public:
 	{
 		return m_SelectIndex;
 	}
+	int GetListSize() const
+	{
+		return (int)m_vecItem.size();
+	}
 
 public:
 	bool CheckItem(const std::string& Item) const
