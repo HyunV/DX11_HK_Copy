@@ -13,6 +13,8 @@
 #include "Resource/ResourceManager.h"
 #include "Resource/Animation/AnimationManager.h"
 
+bool check = false;
+
 CMyAnimationWindow::CMyAnimationWindow()    :
     m_ImageType(EImageType::Atlas)
 {
@@ -198,7 +200,6 @@ void CMyAnimationWindow::SelectLoadImageButtonCallback()
     ofn.lpstrInitialDir = CPathManager::GetInst()->FindPath(TEXTURE_PATH)->Path;
     ofn.Flags = OFN_EXPLORER|OFN_ALLOWMULTISELECT;
     
-    bool check = false;
     //파일 열기
     if (0 != GetOpenFileName(&ofn))
     {
@@ -207,12 +208,12 @@ void CMyAnimationWindow::SelectLoadImageButtonCallback()
         {
             for (int i = 0; i < m_List->GetListSize(); ++i)
             {
-                SAFE_DELETE_ARRAY(vecFileName[i]);
+                SAFE_DELETE_ARRAY(m_vecFullPathFileName[i]);
             }
             check = false;
         }
         
-        vecFileName.clear();
+        m_vecFullPathFileName.clear();
 
         m_List->Clear();
 
@@ -232,29 +233,34 @@ void CMyAnimationWindow::SelectLoadImageButtonCallback()
             _wsplitpath_s(FullPath, 0, 0, 0, 0, str, 512, Ext, _MAX_EXT);
             wcscat_s(str, Ext);          
             m_List->AddItem(TCHARToString(str));
-            vecFileName.push_back(str);
+            m_vecFullPathFileName.push_back(str);
         }
 
         else //여러개 열 때
         {
             m_ImageType = EImageType::Frame;
             HideEditorText(true);       
-            memset(m_ImageFullPath, 0, sizeof(TCHAR) * 512);
+            memset(m_ImageFullPath, 0, sizeof(TCHAR) * 512);         
             wsprintf(m_ImageFullPath, ofn.lpstrFile);
+            wcscat_s(m_ImageFullPath, L"\\");
 
             for (i; NULL != ofn.lpstrFile[i]; i += (int)(wcslen(ofn.lpstrFile + i) + 1))
             {
                 wcscpy_s(str, ofn.lpstrFile + i);
                 m_List->AddItem(TCHARToString(str));
 
+                //문자열 절대경로로 합쳐놓기
+                TCHAR FilePath[512] = {};
+                memset(FilePath, 0, sizeof(TCHAR) * 256);
+                wcscpy_s(FilePath, m_ImageFullPath);
+                wcscat_s(FilePath, str);
+                
                 //동적할당, 그냥 TCHAR로 하면 배열 기존 목록들이 지금 TCHAR이름으로 바뀜
-                TCHAR* FileName = new TCHAR[512];
-
+                TCHAR* FileName = new TCHAR[512];       
                 memset(FileName, 0, sizeof(TCHAR) * 512);
-
-                wsprintf(FileName, str);
-
-                vecFileName.push_back(FileName);
+                wsprintf(FileName, FilePath);
+                
+                m_vecFullPathFileName.push_back(FileName);
 
                 check = true;
             }
@@ -317,6 +323,17 @@ void CMyAnimationWindow::CreateSequence(EImageType type)
         }
         break;
     case EImageType::Frame:
+        CResourceManager::GetInst()->
+            CreateAnimationSequence2DFullPath(FileName, TexFileName, m_vecFullPathFileName);
+        CResourceManager::GetInst()->
+            AddAnimationSequence2DFrameAll(FileName, count, Vector2(0.f, 0.f), 
+                Vector2(m_InputRB[0]->GetFloat(), m_InputRB[1]->GetFloat()));
+        for (int i = 0; i <= count - 1; ++i)
+        {
+            SAFE_DELETE_ARRAY(m_vecFullPathFileName[i]);
+        }
+        check = false;
+        m_vecFullPathFileName.clear();
         break;
     case EImageType::Array:
         break;
@@ -328,43 +345,37 @@ void CMyAnimationWindow::CreateSequence(EImageType type)
 void CMyAnimationWindow::SaveSequence()
 {
     //시퀀스 저장
-    //std::string FileName = m_SequenceName->GetText();
+    std::string FileName = m_SequenceName->GetText();
 
-    //if (FileName.empty())
-    //    return;
+    if (FileName.empty())
+        return;
 
-    ////시퀀스 만들어놓음
-    //CreateSequence(m_ImageType);
+    //시퀀스 만들어놓음
+    CreateSequence(m_ImageType);
 
-    //CAnimationSequence2D* Seq = CResourceManager::GetInst()->
-    //    FindAnimationSequence2D(FileName);
+    CAnimationSequence2D* Seq = CResourceManager::GetInst()->
+        FindAnimationSequence2D(FileName);
 
-    //std::string s = Seq->GetName();
+    std::string s = Seq->GetName();
 
-    //const PathInfo* Info = CPathManager::GetInst()->FindPath(ROOT_PATH);
+    const PathInfo* Info = CPathManager::GetInst()->FindPath(ROOT_PATH);
 
-    //char FullPath[MAX_PATH] = {};
+    char FullPath[MAX_PATH] = {};
 
-    //if (Info)
-    //    strcpy_s(FullPath, Info->PathMultibyte);
+    if (Info)
+        strcpy_s(FullPath, Info->PathMultibyte);
 
-    //strcat_s(FullPath, "Sequence/");
-    //strcat_s(FullPath, FileName.c_str());
-    //strcat_s(FullPath, ".sqc");
+    strcat_s(FullPath, "Sequence/");
+    strcat_s(FullPath, FileName.c_str());
+    strcat_s(FullPath, ".sqc");
 
-    ////TCHAR(WCHAR) To CHAR
-    //int len = 512;
-    //char temp[512];
-
-    //WideCharToMultiByte(CP_ACP, 0, m_ImageFullPath, len, temp, len, 0, 0);
-    //printf("%s", temp);
-    //if(!Seq->Save(temp))
-    //{
-    //    m_SaveMessege->SetText("저장 실패..");
-    //    return;
-    //}
-    //else{
-    //    m_SaveMessege->SetText("저장 완료!");
-    //}
+    if(!Seq->Save(FullPath))
+    {
+        m_SaveMessege->SetText("저장 실패..");
+        return;
+    }
+    else{
+        m_SaveMessege->SetText("저장 완료!");
+    }
 }
 

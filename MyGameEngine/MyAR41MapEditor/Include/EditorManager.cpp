@@ -18,6 +18,7 @@
 #include "Window\MyAnimationWindow.h"
 #include "Editor/EditorGUIManager.h"
 #include "Resource/Animation/AnimationSequence2D.h"
+#include "PathManager.h"
 
 CEditorManager::CEditorManager()
 {
@@ -249,6 +250,32 @@ void CEditorManager::LoadResource()
         CResourceManager::GetInst()->AddAnimationSequence2DFrame("PlayerIdle",
             Vector2(i * 45.f, 60.f), Vector2((i + 1) * 45.f, 120.f));
     }
+
+ 
+    const PathInfo* Info = CPathManager::GetInst()->FindPath(ROOT_PATH);
+
+    char FullPath[MAX_PATH] = {};
+
+    if (Info)
+        strcpy_s(FullPath, Info->PathMultibyte);
+
+    strcat_s(FullPath, "Sequence/");
+
+    //시퀀스 폴더 내 있는 모든 파일 로드
+    for (const auto& file : std::filesystem::directory_iterator(FullPath))
+    {
+        char FileName[64] = {};
+        char MaxPath[MAX_PATH] = {};
+        char Ext[_MAX_EXT] = {};
+
+        strcpy_s(MaxPath, file.path().generic_string().c_str());
+        _splitpath_s(MaxPath, nullptr, 0, nullptr, 0, FileName, 64, Ext, _MAX_EXT);
+
+        CResourceManager::GetInst()->CreateAnimationSequence2D(FileName, nullptr);
+        CResourceManager::GetInst()->FindAnimationSequence2D(FileName)->Load(MaxPath);
+    }
+
+
 
     //낱장단위 이미지를 처리
     std::vector<const TCHAR*>   vecFileName;

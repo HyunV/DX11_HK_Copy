@@ -15,7 +15,7 @@ private:
     class CEditorComboBox* m_Combo;
     class CEditorText* m_HintText;
     class CEditorListBox* m_List;
-    std::vector<const TCHAR*> vecFileName;
+    std::vector<const TCHAR*> m_vecFullPathFileName;
     
     class CEditorInput* m_SequenceName;
     class CEditorInput* m_SequenceTextureName;
