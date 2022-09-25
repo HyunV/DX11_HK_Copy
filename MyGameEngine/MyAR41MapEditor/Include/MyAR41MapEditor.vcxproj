@@ -187,6 +187,7 @@
     <ClCompile Include="Window\DetailWindow.cpp" />
     <ClCompile Include="Window\MyAnimationWindow.cpp" />
     <ClCompile Include="Window\MyImageWindow.cpp" />
+    <ClCompile Include="Window\NMyAnimationWindow2.cpp" />
     <ClCompile Include="Window\ObjectWindow.cpp" />
     <ClCompile Include="Window\SceneWindow.cpp" />
     <ClCompile Include="Window\TestWindow.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Window\DetailWindow.h" />
     <ClInclude Include="Window\MyAnimationWindow.h" />
     <ClInclude Include="Window\MyImageWindow.h" />
+    <ClInclude Include="Window\NMyAnimationWindow2.h" />
     <ClInclude Include="Window\ObjectWindow.h" />
     <ClInclude Include="Window\SceneWindow.h" />
     <ClInclude Include="Window\TestWindow.h" />

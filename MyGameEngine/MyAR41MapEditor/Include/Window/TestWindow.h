@@ -26,6 +26,8 @@ private:
 	class CEditorComboBox* m_Combo;
 	CEditorTree<int>* m_Tree;
 
+	class CEditorCheckBox* m_Check;
+
 public:
 	virtual bool Init();
 	virtual void Update(float DeltaTime);

@@ -16,6 +16,7 @@ private:
     std::string     m_Text;
     std::wstring    m_wText;
     std::string     m_TextUTF8;
+	ImVec2 m_Align;
 
 public:
 	const std::string& GetText()	const
@@ -31,6 +32,11 @@ public:
 	const std::string& GetTextUTF8()	const
 	{
 		return m_TextUTF8;
+	}
+	void SetAlign(float x, float y)
+	{
+		m_Align.x = x;
+		m_Align.y = y;
 	}
 
 public:

@@ -8,6 +8,7 @@
 #include "Editor/EditorListBox.h"
 #include "Editor/EditorComboBox.h"
 #include "Editor/EditorSliderBar.h"
+#include "Editor/EditorCheckBox.h"
 
 CTestWindow::CTestWindow()	:
 	m_AddText{},
@@ -79,6 +80,7 @@ bool CTestWindow::Init()
 	m_List->AddItem("List2");
 	m_List->AddItem("List3");
 	m_List->AddItem("List4");
+	m_List->SetSize(120.f, 150.f);
 
 	m_List->SetSelectCallback<CTestWindow>(this, &CTestWindow::ListCallback);
 
@@ -113,6 +115,11 @@ bool CTestWindow::Init()
 	//슬라이더 바
 	CEditorSliderBar* Slide = CreateWidget<CEditorSliderBar>("슬라이드");
 	Slide->SetClickCallback<CTestWindow>(this, &CTestWindow::SliderCallback);
+
+	//체크박스
+	m_Check = CreateWidget<CEditorCheckBox>("쳌박");
+	m_Check->SetHideName("쳌박");
+	//m_Check->SetClickCallback<CTestWindow>(this, &CTestWindow::CheckCallback);
 
 	return true;
 }
@@ -175,3 +182,5 @@ void CTestWindow::SliderCallback()
 {	
 	OutputDebugStringA("Test");
 }
+
+

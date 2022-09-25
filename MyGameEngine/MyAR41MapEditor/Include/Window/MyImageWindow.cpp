@@ -33,7 +33,7 @@ void CMyImageWindow::SetSelectComponent(const std::string& Item, CSceneComponent
     m_SelectComponentName->SetText(Item.c_str());
 
     if (Component && Component->GetComponentTypeName() == "SpriteComponent")
-    {
+    {                   
         CTexture* Texture = ((CSpriteComponent*)Component)->GetTexture();
 
         if(Texture)

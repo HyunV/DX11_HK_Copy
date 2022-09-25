@@ -7,7 +7,6 @@
 #include "Editor/EditorInput.h"
 #include "Editor/EditorComboBox.h"
 #include "Editor/EditorListBox.h"
-#include "Editor/EditorTree.h"
 #include "PathManager.h"
 #include "Engine.h"
 #include "Resource/ResourceManager.h"
@@ -22,17 +21,15 @@ CMyAnimationWindow::CMyAnimationWindow()    :
 
 CMyAnimationWindow::~CMyAnimationWindow()
 {
-    //if (!vecFileName[0] == '\t')
-    //{
-    //    if (!vecFileName.size() == 0)
-    //    {
-    //        for (int i = 0; i < m_List->GetListSize(); ++i)
-    //        {
-    //            SAFE_DELETE_ARRAY(vecFileName[i]);
-    //        }
-    //    }        
-    //}
-    //vecFileName.clear();
+        //1개면 아틀라스 담았던거였으므로 동적할당을 안해줬으니 패스
+        if (!(m_vecFullPathFileName.size() == 0 || m_vecFullPathFileName.size() == 1))
+        {
+            for (int i = 0; i <= m_List->GetListSize()-1; ++i)
+            {
+                SAFE_DELETE_ARRAY(m_vecFullPathFileName[i]);
+            }
+        }        
+        m_vecFullPathFileName.clear();
 }
 
 bool CMyAnimationWindow::Init()
@@ -89,8 +86,8 @@ bool CMyAnimationWindow::Init()
     //LoadSqcButton->SetClickCallback<CMyAnimationWindow>
         //(this, &CMyAnimationWindow::SelectLoadImageButtonCallback);
 
-    m_List = CreateWidget<CEditorListBox>("ListBox");
-    m_List-> SetHideName("ListBox");
+    m_List = CreateWidget<CEditorListBox>("ListBoxAni");
+    m_List-> SetHideName("ListBoxAni");
     m_List-> SetPageItemCount(6);
     m_List-> SetSize(120.f, 150.f);
 
@@ -151,7 +148,6 @@ bool CMyAnimationWindow::Init()
 
     m_SaveMessege = CreateWidget<CEditorText>("Message");
     m_SaveMessege->SetColor(0, 255, 0, 255);
-    //m_SaveMessege->SetText("저장완료!");
 
     return true;
 }

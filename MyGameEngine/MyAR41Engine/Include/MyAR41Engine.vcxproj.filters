@@ -384,6 +384,9 @@
     <ClInclude Include="Resource\Shader\Animation2DConstantBuffer.h">
       <Filter>02. Resource\02. Shader\03. ConstantBuffer\03. Animation2D</Filter>
     </ClInclude>
+    <ClInclude Include="Editor\EditorCheckBox.h">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -598,6 +601,9 @@
     </ClCompile>
     <ClCompile Include="Resource\Shader\Animation2DConstantBuffer.cpp">
       <Filter>02. Resource\02. Shader\03. ConstantBuffer\03. Animation2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\EditorCheckBox.cpp">
+      <Filter>07. Editor\03. Widget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

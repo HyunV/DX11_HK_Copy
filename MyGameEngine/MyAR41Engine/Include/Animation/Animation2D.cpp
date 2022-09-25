@@ -146,11 +146,33 @@ bool CAnimation2D::AddAnimation(const std::string& Name,
 {
 	CAnimation2DData* Anim = FindAnimation(Name);
 
-	if (Anim)
-		return false;
-
 	CAnimationSequence2D* Sequence = nullptr;
 
+	if (Anim)//애니메이션이 중복이면 인자들 수정 처리
+	{
+		if (m_Owner->GetScene())
+		{
+			Sequence = m_Owner->GetScene()->GetResource()->FindAnimationSequence2D(SequenceName);
+			//Sequence->ClearFrame();
+		}			
+		else
+			Sequence = CResourceManager::GetInst()->FindAnimationSequence2D(SequenceName);
+
+		Anim->m_Frame = 0;
+		Anim->m_Time = 0.f;
+		Anim->m_Sequence = Sequence;
+		Anim->m_SequenceName = SequenceName;
+		Anim->m_Name = Name;
+		Anim->m_PlayTime = PlayTime;
+		Anim->m_PlayScale = PlayScale;
+		Anim->m_Loop = Loop;
+		Anim->m_Reverse = Reverse;
+		Anim->m_FrameTime = PlayTime / Sequence->GetFrameCount();
+		
+
+		return true;
+	}
+		
 	//스프라이트 컴포에 씬 얻고 애니메이션 시퀀스 불러옴
 	if (m_Owner->GetScene())
 		Sequence = m_Owner->GetScene()->GetResource()->FindAnimationSequence2D(SequenceName);
@@ -159,7 +181,7 @@ bool CAnimation2D::AddAnimation(const std::string& Name,
 		Sequence = CResourceManager::GetInst()->FindAnimationSequence2D(SequenceName);
 
 	Anim = new CAnimation2DData;
-
+	
 	Anim->m_Sequence = Sequence;
 	Anim->m_SequenceName = SequenceName;
 	Anim->m_Name = Name;
@@ -423,6 +445,21 @@ void CAnimation2D::SetShader()
 	Buffer->SetAnim2DEnable(true);
 
 	Buffer->UpdateBuffer();
+}
+
+std::vector<std::string> CAnimation2D::GetAnimationList()
+{
+	auto iter = m_mapAnimation.begin();
+	auto iterEnd = m_mapAnimation.end();
+	std::vector<std::string> v;
+	
+	for (; iter != iterEnd; ++iter)
+	{
+		std::string s = (*iter).first;
+		v.push_back(s);
+	}
+	
+	return v;
 }
 
 CAnimation2DData* CAnimation2D::FindAnimation(const std::string& Name)

@@ -59,6 +59,8 @@ public:
     virtual void Load(FILE* File);
     virtual CAnimation2D* Clone();
     void SetShader();
+    //³»ÇÔ¼ö
+    std::vector<std::string>GetAnimationList();
 
 protected:
     CAnimation2DData* FindAnimation(const std::string& Name);

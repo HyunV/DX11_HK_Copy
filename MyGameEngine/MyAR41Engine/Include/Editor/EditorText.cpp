@@ -1,6 +1,7 @@
 #include "EditorText.h"
 
-CEditorText::CEditorText()
+CEditorText::CEditorText()	:
+	m_Align{}
 {
 }
 
@@ -39,5 +40,6 @@ bool CEditorText::Init()
 
 void CEditorText::Render()
 {
+	//ImGui::PushStyleVar(ImGuiStyleVar_ButtonTextAlign, m_Align);
 	ImGui::TextColored(m_Color, m_TextUTF8.c_str());
 }

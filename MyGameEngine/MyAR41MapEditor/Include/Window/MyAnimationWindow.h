@@ -24,7 +24,7 @@ private:
     class CEditorInput* m_InputRB[2];
 
     class CEditorText* m_SaveMessege;
-    
+
     TCHAR m_ImageFullPath[512];
     
 public:

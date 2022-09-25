@@ -46,7 +46,7 @@ public:
 
 public:
 	template <typename T>
-	T* CreateWidget(const std::string& Name, float Width = 100.f, float Height = 100.f)
+	T* CreateWidget(const std::string& Name, float Width = 120.f, float Height = 30.f)
 	{
 		T* Widget = new T;
 
