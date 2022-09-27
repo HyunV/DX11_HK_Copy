@@ -33,6 +33,12 @@ CScene::CScene() :
 	m_CameraManager->m_Owner = this;
 
 	m_CameraManager->Init();
+
+	m_CollisionManager = new CSceneCollision;
+
+	m_CollisionManager->m_Owner = this;
+
+	m_CollisionManager->Init();
 }
 
 CScene::~CScene()

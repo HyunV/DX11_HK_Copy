@@ -210,3 +210,23 @@ struct Animation2DCBuffer
 	int Anim2DFrame;
 	Vector3 Anim2DEmpty;
 };
+
+struct CollisionChannel
+{
+	std::string			Name;
+	ECollision_Channel	Channel;
+	ECollision_Interaction	Interaction;
+};
+
+struct CollisionProfile
+{
+	std::string			Name;
+	CollisionChannel* Channel;
+	bool				Enable;
+	std::vector<ECollision_Interaction>	vecCollisionInteraction;
+
+	CollisionProfile() :
+		Enable(true)
+	{
+	}
+};

@@ -142,6 +142,21 @@
     <Filter Include="02. Resource\02. Shader\03. ConstantBuffer\03. Animation2D">
       <UniqueIdentifier>{37c30734-36d4-411f-900f-19223840f1eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Scene\04. Collision">
+      <UniqueIdentifier>{3bc7d654-d7f6-4170-a832-9bf35916c5cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\08. Collision">
+      <UniqueIdentifier>{7f3875a0-717b-4449-ab13-f0028e2cd2b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\01. SceneComponent\04. Collider">
+      <UniqueIdentifier>{b818cc20-c04a-44ef-be54-f73fddc5cea5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\01. SceneComponent\04. Collider\01. 2D">
+      <UniqueIdentifier>{776d0bae-5343-4231-9013-111da3eca49c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Component\01. SceneComponent\04. Collider\02. 3D">
+      <UniqueIdentifier>{f3cec2d2-8265-4f6e-ada1-67b2f1c38089}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineInfo.h">
@@ -387,6 +402,36 @@
     <ClInclude Include="Editor\EditorCheckBox.h">
       <Filter>07. Editor\03. Widget</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\SceneCollision.h">
+      <Filter>03. Scene\04. Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>01. Manager\08. Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Collider.h">
+      <Filter>05. Component\01. SceneComponent\04. Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Collider3D.h">
+      <Filter>05. Component\01. SceneComponent\04. Collider\02. 3D</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Collider2D.h">
+      <Filter>05. Component\01. SceneComponent\04. Collider\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\ColliderSphere2D.h">
+      <Filter>05. Component\01. SceneComponent\04. Collider\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\ColliderPixel.h">
+      <Filter>05. Component\01. SceneComponent\04. Collider\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\ColliderObb2D.h">
+      <Filter>05. Component\01. SceneComponent\04. Collider\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\ColliderBox2D.h">
+      <Filter>05. Component\01. SceneComponent\04. Collider\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\CollisionSection.h">
+      <Filter>01. Manager\08. Collision</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -604,6 +649,36 @@
     </ClCompile>
     <ClCompile Include="Editor\EditorCheckBox.cpp">
       <Filter>07. Editor\03. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneCollision.cpp">
+      <Filter>03. Scene\04. Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>01. Manager\08. Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Collider.cpp">
+      <Filter>05. Component\01. SceneComponent\04. Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Collider3D.cpp">
+      <Filter>05. Component\01. SceneComponent\04. Collider\02. 3D</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Collider2D.cpp">
+      <Filter>05. Component\01. SceneComponent\04. Collider\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\ColliderSphere2D.cpp">
+      <Filter>05. Component\01. SceneComponent\04. Collider\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\ColliderPixel.cpp">
+      <Filter>05. Component\01. SceneComponent\04. Collider\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\ColliderObb2D.cpp">
+      <Filter>05. Component\01. SceneComponent\04. Collider\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\ColliderBox2D.cpp">
+      <Filter>05. Component\01. SceneComponent\04. Collider\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\CollisionSection.cpp">
+      <Filter>01. Manager\08. Collision</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

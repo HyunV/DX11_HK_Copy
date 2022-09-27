@@ -3,6 +3,7 @@
 #include "SceneInfo.h"
 #include "SceneResource.h"
 #include "CameraManager.h"
+#include "SceneCollision.h"
 
 class CScene
 {
@@ -52,6 +53,7 @@ private:
 	CSceneInfo* m_SceneInfo;
 	CSceneResource* m_Resource;
 	CCameraManager* m_CameraManager;
+	CSceneCollision* m_CollisionManager;
 	std::list<CSharedPtr<class CGameObject>>	m_ObjList;
 	std::string	m_Name;
 

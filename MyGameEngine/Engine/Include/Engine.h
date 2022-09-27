@@ -18,12 +18,12 @@ private:
 	static std::function<bool(HWND, UINT, WPARAM, LPARAM)> m_WndProcFunc;
 
 public:
-	bool GetEditorMode()	const
+	static bool GetEditorMode()
 	{
 		return m_EditorMode;
 	}
 
-	void EnableEditor()
+	static void EnableEditor()
 	{
 		m_EditorMode = true;
 	}

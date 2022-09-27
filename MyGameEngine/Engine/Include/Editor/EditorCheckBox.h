@@ -20,12 +20,11 @@ public:
 public:
     void SetCheck(bool Enable)
     {
-         m_checked = Enable;
+        m_checked = Enable;
     }
-
     bool GetCheck()
     {
-     return m_checked;
+        return m_checked;
     }
 
 //public:

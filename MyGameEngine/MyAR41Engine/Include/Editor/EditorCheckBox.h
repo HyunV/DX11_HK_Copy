@@ -18,7 +18,7 @@ public:
     virtual void Render();
 
 public:
-    bool SetCheck(bool Enable)
+    void SetCheck(bool Enable)
     {
         m_checked = Enable;
     }

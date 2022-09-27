@@ -87,3 +87,54 @@ enum class EAnimation2DType : unsigned int
 	Frame,
 	Array
 };
+
+enum class ECollision_Channel
+{
+	Default,
+	Mouse,
+	Custom0,
+	Custom1,
+	Custom2,
+	Custom3,
+	Custom4,
+	Custom5,
+	Custom6,
+	Custom7,
+	Custom8,
+	Custom9,
+	Custom10,
+	Custom11,
+	Custom12,
+	Custom13,
+	Custom14,
+	Custom15,
+	Custom16,
+	Max
+};
+
+enum class ECollision_Interaction
+{
+	Ignore,
+	Collision
+};
+
+enum class ECollider_Type
+{
+	Collider2D,
+	Collider3D
+};
+
+enum class ECollider2D_Type
+{
+	Box2D,	// 회전없는 상자
+	OBB2D,	// 회전되는 상자
+	Sphere2D,	// 원
+	Pixel	// 픽셀충돌용
+};
+
+enum class ECollider3D_Type
+{
+	Box,	// 회전없는 상자
+	OBB,	// 회전되는 상자
+	Sphere	// 원
+};

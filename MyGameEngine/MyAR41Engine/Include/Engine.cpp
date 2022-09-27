@@ -7,6 +7,7 @@
 #include "Render/RenderManager.h"
 #include "Input.h"
 #include "Editor/EditorGUIManager.h"
+#include "Collisionmanager.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -33,7 +34,8 @@ CEngine::CEngine() :
     _CrtSetBreakAlloc : 번호를 인자로 전달하고 실행하면 릭이 발생한 코드를 알려준다.
     */
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(825);
+    //_CrtSetBreakAlloc(813);
+    //_CrtSetBreakAlloc(817);
 }
 
 CEngine::~CEngine()
@@ -41,6 +43,8 @@ CEngine::~CEngine()
     CSceneManager::DestroyInst();
 
     CEditorGUIManager::DestroyInst();
+
+    CCollisionManager::DestroyInst();
 
     CRenderManager::DestroyInst();
 
@@ -82,6 +86,9 @@ bool CEngine::Init(HINSTANCE hInst, const TCHAR* Title,
     if (!CResourceManager::GetInst()->Init())
         return false;
 
+    // 충돌 관리자 초기화
+    if (!CCollisionManager::GetInst()->Init())
+        return false;
 
     // 입력 관리자 초기화
     if (!CInput::GetInst()->Init(m_hInst, m_hWnd))
