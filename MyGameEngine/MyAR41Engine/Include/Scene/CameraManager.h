@@ -37,5 +37,7 @@ public:
 	bool Init();
 	void Update(float DeltaTime);
 	void PostUpdate(float DeltaTime);
+	void Save(FILE* File);
+	void Load(FILE* File);
 };
 

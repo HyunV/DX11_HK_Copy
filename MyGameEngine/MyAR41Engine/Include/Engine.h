@@ -56,7 +56,7 @@ private:
 	void Input(float DeltaTime);
 	bool Update(float DeltaTime);
 	bool PostUpdate(float DeltaTime);
-	void Collision(float DeltaTime);
+	bool Collision(float DeltaTime);
 	void Render(float DeltaTime);
 
 private:

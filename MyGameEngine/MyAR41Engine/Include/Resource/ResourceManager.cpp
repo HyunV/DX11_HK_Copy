@@ -70,6 +70,11 @@ void CResourceManager::ReleaseMesh(const std::string& Name)
 	m_MeshManager->ReleaseMesh(Name);
 }
 
+CColliderConstantBuffer* CResourceManager::GetColliderCBuffer() const
+{
+	return m_ShaderManager->GetColliderCBuffer();
+}
+
 CShader* CResourceManager::FindShader(const std::string& Name)
 {
 	return m_ShaderManager->FindShader(Name);

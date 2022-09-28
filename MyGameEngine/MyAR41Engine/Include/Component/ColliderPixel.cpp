@@ -64,3 +64,8 @@ void CColliderPixel::Load(FILE* File)
 {
 	CCollider2D::Load(File);
 }
+
+bool CColliderPixel::Collision(CCollider* Dest)
+{
+	return false;
+}

@@ -1,28 +1,32 @@
-﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
-  
-  compilation object save succeeded; see C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\Sprite.cso
-  unity_EX3R2NYWZ4X38IKP.cpp
-  unity_N45P7DZ5RB7M9FJ2.cpp
-  unity_ZXA3L1BTQ742OU00.cpp
-  unity_AP22JENGGIE9IIYA.cpp
-  unity_5CO425A10FK1NL1T.cpp
-  unity_2H2W3CRZTGDW9H29.cpp
-  unity_HLX623VFDECDF6KG.cpp
-  unity_DD4EIOJBW57RGERO.cpp
-  unity_RYDM5SSNKY01SNMA.cpp
-  unity_0MILYUER3FD6RSZU.cpp
-  unity_UXVJZE3W44PX4NL4.cpp
-  unity_0A5F04BI4MZ9D53H.cpp
+﻿  unity_EX3R2NYWZ4X38IKP.cpp
   MyAR41Engine.vcxproj -> C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  0개 파일이 복사되었습니다.
+  .\MyAR41Engine\Include\EngineInfo.h
+  .\MyAR41Engine\Include\Flag.h
+  .\MyAR41Engine\Include\Component\Collider.h
+  .\MyAR41Engine\Include\Component\Collider2D.h
+  .\MyAR41Engine\Include\Component\Collider3D.h
+  .\MyAR41Engine\Include\Component\ColliderBox2D.h
+  .\MyAR41Engine\Include\Component\ColliderObb2D.h
+  .\MyAR41Engine\Include\Component\ColliderPixel.h
+  .\MyAR41Engine\Include\Component\ColliderSphere2D.h
+  .\MyAR41Engine\Include\Resource\ResourceManager.h
+  .\MyAR41Engine\Include\Resource\Shader\ColliderConstantBuffer.h
+  .\MyAR41Engine\Include\Resource\Shader\ColliderShader.h
+  .\MyAR41Engine\Include\Resource\Shader\ShaderManager.h
+  .\MyAR41Engine\Include\Scene\CollisionSection2D.h
+  .\MyAR41Engine\Include\Scene\CollisionSection3D.h
+  15개 파일이 복사되었습니다.
   파일을 찾을 수 없습니다-*.inl
   0개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\Collider.cso
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  .\MyAR41Engine\Bin\Sprite.cso
-  2개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\Shader\Collider.fx
+  3개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\Collider.cso
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  .\MyAR41Engine\Bin\Sprite.cso
-  2개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\Shader\Collider.fx
+  3개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\Collider.cso
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  .\MyAR41Engine\Bin\Sprite.cso
-  2개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\Shader\Collider.fx
+  3개 파일이 복사되었습니다.

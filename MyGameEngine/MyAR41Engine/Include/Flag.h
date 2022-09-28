@@ -138,3 +138,10 @@ enum class ECollider3D_Type
 	OBB,	// 회전되는 상자
 	Sphere	// 원
 };
+
+enum class ECollision_Result
+{
+	Collision,
+	Release,
+	Max
+};

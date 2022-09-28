@@ -85,6 +85,8 @@
     <ClInclude Include="Resource\Mesh\SpriteMesh.h" />
     <ClInclude Include="Resource\ResourceManager.h" />
     <ClInclude Include="Resource\Shader\Animation2DConstantBuffer.h" />
+    <ClInclude Include="Resource\Shader\ColliderConstantBuffer.h" />
+    <ClInclude Include="Resource\Shader\ColliderShader.h" />
     <ClInclude Include="Resource\Shader\ComputeShader.h" />
     <ClInclude Include="Resource\Shader\ConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\ConstantBufferData.h" />
@@ -99,7 +101,8 @@
     <ClInclude Include="Resource\Texture\Texture.h" />
     <ClInclude Include="Resource\Texture\TextureManager.h" />
     <ClInclude Include="Scene\CameraManager.h" />
-    <ClInclude Include="Scene\CollisionSection.h" />
+    <ClInclude Include="Scene\CollisionSection2D.h" />
+    <ClInclude Include="Scene\CollisionSection3D.h" />
     <ClInclude Include="Scene\Scene.h" />
     <ClInclude Include="Scene\SceneCollision.h" />
     <ClInclude Include="Scene\SceneInfo.h" />
@@ -171,6 +174,8 @@
     <ClCompile Include="Resource\Mesh\SpriteMesh.cpp" />
     <ClCompile Include="Resource\ResourceManager.cpp" />
     <ClCompile Include="Resource\Shader\Animation2DConstantBuffer.cpp" />
+    <ClCompile Include="Resource\Shader\ColliderConstantBuffer.cpp" />
+    <ClCompile Include="Resource\Shader\ColliderShader.cpp" />
     <ClCompile Include="Resource\Shader\ComputeShader.cpp" />
     <ClCompile Include="Resource\Shader\ConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\ConstantBufferData.cpp" />
@@ -184,7 +189,8 @@
     <ClCompile Include="Resource\Texture\Texture.cpp" />
     <ClCompile Include="Resource\Texture\TextureManager.cpp" />
     <ClCompile Include="Scene\CameraManager.cpp" />
-    <ClCompile Include="Scene\CollisionSection.cpp" />
+    <ClCompile Include="Scene\CollisionSection2D.cpp" />
+    <ClCompile Include="Scene\CollisionSection3D.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />
     <ClCompile Include="Scene\SceneCollision.cpp" />
     <ClCompile Include="Scene\SceneInfo.cpp" />
@@ -196,6 +202,20 @@
     <ClCompile Include="Vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="..\Bin\Shader\Collider.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ColliderVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ColliderVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">ColliderVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">ColliderVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="..\Bin\Shader\Share.fx">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

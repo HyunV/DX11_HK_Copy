@@ -13,6 +13,13 @@ private:
 private:
 	std::unordered_map<std::string, CSharedPtr<class CShader>>	m_mapShader;
 	std::unordered_map<std::string, CSharedPtr<class CConstantBuffer>>	m_mapCBuffer;
+	class CColliderConstantBuffer* m_ColliderCBuffer;
+
+public:
+	class CColliderConstantBuffer* GetColliderCBuffer() const
+	{
+		return m_ColliderCBuffer;
+	}
 
 public:
 	bool Init();

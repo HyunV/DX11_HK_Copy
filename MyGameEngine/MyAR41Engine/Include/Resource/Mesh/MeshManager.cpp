@@ -87,6 +87,19 @@ bool CMeshManager::Init()
 
 	Mesh->SetMaterial(0, 0, "DefaultTexture");
 
+	Vector3	Box2DLineMesh[5] =
+	{
+		Vector3(-0.5f, 0.5f, 0.f),
+		Vector3(0.5f, 0.5f, 0.f),
+		Vector3(0.5f, -0.5f, 0.f),
+		Vector3(-0.5f, -0.5f, 0.f),
+		Vector3(-0.5f, 0.5f, 0.f)
+	};
+
+	CreateMesh(nullptr, MeshType::Sprite, "Box2DLineMesh",
+		Box2DLineMesh, sizeof(Vector3), 5, D3D11_USAGE_IMMUTABLE,
+		D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+
 	return true;
 }
 

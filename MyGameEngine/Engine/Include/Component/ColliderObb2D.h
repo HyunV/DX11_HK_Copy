@@ -24,5 +24,6 @@ public:
     virtual CColliderOBB2D* Clone()    const;
     virtual void Save(FILE* File);
     virtual void Load(FILE* File);
+    virtual bool Collision(CCollider* Dest);
 };
 

@@ -48,6 +48,7 @@ public:	// ===================== Shader =========================
 		return m_ShaderManager->CreateShader<T>(Name);
 	}
 
+	class CColliderConstantBuffer* GetColliderCBuffer()	const;
 	class CShader* FindShader(const std::string& Name);
 	void ReleaseShader(const std::string& Name);
 

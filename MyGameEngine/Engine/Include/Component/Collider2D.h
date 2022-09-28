@@ -26,9 +26,10 @@ public:
     virtual void Update(float DeltaTime);
     virtual void PostUpdate(float DeltaTime);
     virtual void Render();
-    virtual CCollider2D* Clone()    const;
+    virtual CCollider2D* Clone()    const = 0;
     virtual void Save(FILE* File);
     virtual void Load(FILE* File);
+    virtual bool Collision(CCollider* Dest) = 0;
 };
 
 

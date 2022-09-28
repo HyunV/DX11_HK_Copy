@@ -83,12 +83,18 @@ public:
 		return m_CameraManager;
 	}
 
+	CSceneCollision* GetCollisionManager() const
+	{
+		return m_CollisionManager;
+	}
+
 
 public:
 	void Start();
 	bool Init();
 	void Update(float DeltaTime);
 	void PostUpdate(float DeltaTime);
+	void Collision(float DeltaTime);
 	void Save(const char* FullPath);
 	void Load(const char* FullPath);
 	void GetAllGameObjectHierarchyName(std::vector<HierarchyObjectName>& vecName);

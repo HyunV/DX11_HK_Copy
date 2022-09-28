@@ -64,3 +64,8 @@ void CColliderSphere2D::Load(FILE* File)
 {
 	CCollider2D::Load(File);
 }
+
+bool CColliderSphere2D::Collision(CCollider* Dest)
+{
+	return false;
+}

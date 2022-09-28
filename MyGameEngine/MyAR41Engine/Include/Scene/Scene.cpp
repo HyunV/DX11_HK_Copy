@@ -175,6 +175,11 @@ void CScene::PostUpdate(float DeltaTime)
 	m_CameraManager->PostUpdate(DeltaTime);
 }
 
+void CScene::Collision(float DeltaTime)
+{
+	m_CollisionManager->Update(DeltaTime);
+}
+
 void CScene::Save(const char* FullPath)
 {
 	FILE* File = nullptr;
@@ -193,6 +198,8 @@ void CScene::Save(const char* FullPath)
 
 	//SceneInfo ÀúÀå
 	m_SceneInfo->Save(File);
+	m_CameraManager->Save(File);
+	m_CollisionManager->Save(File);
 
 	int	ObjCount = (int)m_ObjList.size();
 
@@ -249,6 +256,9 @@ void CScene::Load(const char* FullPath)
 	m_SceneInfo = CDO->Clone();
 
 	m_SceneInfo->Load(File);
+
+	m_CameraManager->Load(File);
+	m_CollisionManager->Load(File);
 
 	int	ObjCount = 0;
 

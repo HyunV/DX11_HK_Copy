@@ -91,6 +91,13 @@ bool CSceneManager::PostUpdate(float DeltaTime)
 	return ChangeScene();
 }
 
+bool CSceneManager::Collision(float DeltaTime)
+{
+	m_Scene->Collision(DeltaTime);
+
+	return ChangeScene();
+}
+
 bool CSceneManager::ChangeScene()
 {
 	if (m_NextScene)

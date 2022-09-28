@@ -212,8 +212,9 @@ bool CEngine::PostUpdate(float DeltaTime)
     return Result;
 }
 
-void CEngine::Collision(float DeltaTime)
+bool CEngine::Collision(float DeltaTime)
 {
+    return CSceneManager::GetInst()->Collision(DeltaTime);
 }
 
 void CEngine::Render(float DeltaTime)

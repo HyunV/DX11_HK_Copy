@@ -230,3 +230,22 @@ struct CollisionProfile
 	{
 	}
 };
+
+struct CollisionResult
+{
+	class CCollider* Src;
+	class CCollider* Dest;
+	Vector3			HitPoint;
+
+	CollisionResult() :
+		Src(nullptr),
+		Dest(nullptr)
+	{
+	}
+};
+
+struct ColliderCBuffer
+{
+	Vector4	Color;
+	Matrix	matWVP;
+};
