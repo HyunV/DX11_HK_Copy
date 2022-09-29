@@ -41,6 +41,8 @@ protected:
     bool    m_Play;
 
 public:
+    class CScene* GetScene()    const;
+public:
     void Start();
     virtual bool Init();
     virtual void Update(float DeltaTime);

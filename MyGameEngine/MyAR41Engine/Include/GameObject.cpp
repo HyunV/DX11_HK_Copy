@@ -1,20 +1,55 @@
 #include "GameObject.h"
 
-CGameObject::CGameObject()  :
-	m_Parent(nullptr),
+std::unordered_map<std::string, CGameObject*> CGameObject::m_mapObjectCDO;
+
+CGameObject::CGameObject() :
 	m_Scene(nullptr),
-	m_LifeTime(-1.f)
+	m_LifeTime(-1.f),
+	m_ComponentSerialNumber(0)
 {
 	SetTypeID<CGameObject>();
+
+	m_ObjectTypeName = "GameObject";
 }
 
-CGameObject::CGameObject(const CGameObject& Obj)    :
+CGameObject::CGameObject(const CGameObject& Obj) :
 	CRef(Obj)
 {
+	m_ObjectTypeName = Obj.m_ObjectTypeName;
+	m_LifeTime = Obj.m_LifeTime;
+	m_ComponentSerialNumber = Obj.m_ComponentSerialNumber;
+
+	{
+		m_RootComponent = Obj.m_RootComponent->Clone();
+
+		m_RootComponent->SetOwner(this);
+
+		m_RootComponent->AddOwner();
+	}
+
+	{
+		auto	iter = Obj.m_vecObjectComponent.begin();
+		auto	iterEnd = Obj.m_vecObjectComponent.end();
+
+		for (; iter != iterEnd; ++iter)
+		{
+			CObjectComponent* Component = (*iter)->Clone();
+
+			m_vecObjectComponent.push_back(Component);
+		}
+	}
 }
 
 CGameObject::~CGameObject()
 {
+}
+
+void CGameObject::SetScene(CScene* Scene)
+{
+	m_Scene = Scene;
+
+	if (m_RootComponent)
+		m_RootComponent->SetScene(Scene);
 }
 
 void CGameObject::Destroy()
@@ -32,11 +67,28 @@ void CGameObject::Destroy()
 	}
 }
 
+void CGameObject::GetAllComponentHierarchyName(std::vector<HierarchyName>& vecName)
+{
+	if (m_RootComponent)
+	{
+		HierarchyName	Names;
+
+		Names.Name = m_RootComponent->GetName();
+		Names.ClassName = m_RootComponent->GetComponentTypeName();
+		Names.Component = m_RootComponent;
+		Names.Parent = nullptr;
+
+		vecName.push_back(Names);
+
+		m_RootComponent->GetAllComponentHierarchyName(vecName);
+	}
+}
+
 CComponent* CGameObject::FindComponent(const std::string& Name)
 {
 	auto    iter = m_SceneComponentList.begin();
 	auto    iterEnd = m_SceneComponentList.end();
-	
+
 	for (; iter != iterEnd; ++iter)
 	{
 		if ((*iter)->GetName() == Name)
@@ -113,6 +165,102 @@ void CGameObject::PostUpdate(float DeltaTime)
 CGameObject* CGameObject::Clone() const
 {
 	return new CGameObject(*this);
+}
+
+void CGameObject::Save(FILE* File)
+{
+	CRef::Save(File);
+
+	fwrite(&m_LifeTime, 4, 1, File);
+
+	{
+		int	Length = (int)m_RootComponent->GetComponentTypeName().length();
+
+		fwrite(&Length, 4, 1, File);
+		fwrite(m_RootComponent->GetComponentTypeName().c_str(), 1, Length, File);
+
+		m_RootComponent->Save(File);
+	}
+
+	{
+		int	Count = (int)m_vecObjectComponent.size();
+
+		fwrite(&Count, 4, 1, File);
+
+		auto	iter = m_vecObjectComponent.begin();
+		auto	iterEnd = m_vecObjectComponent.end();
+
+		for (; iter != iterEnd; ++iter)
+		{
+			int	Length = (int)(*iter)->GetComponentTypeName().length();
+
+			fwrite(&Length, 4, 1, File);
+			fwrite((*iter)->GetComponentTypeName().c_str(), 1, Length, File);
+
+			(*iter)->Save(File);
+		}
+	}
+}
+
+void CGameObject::Load(FILE* File)
+{
+	CRef::Load(File);
+
+	fread(&m_LifeTime, 4, 1, File);
+
+	{
+		int	Length = 0;
+		char	TypeName[256] = {};
+
+		fread(&Length, 4, 1, File);
+		fread(TypeName, 1, Length, File);
+
+		if (!m_RootComponent)
+		{
+			CComponent* CDO = CComponent::FindCDO(TypeName);
+
+			m_RootComponent = (CSceneComponent*)CDO->Clone();
+
+			m_RootComponent->SetOwner(this);
+			m_RootComponent->SetScene(m_Scene);
+
+			m_RootComponent->Load(File);
+
+			m_RootComponent->AddOwner();
+		}
+
+		else
+		{
+			m_RootComponent->SetOwner(this);
+			m_RootComponent->SetScene(m_Scene);
+
+			m_RootComponent->Load(File);
+		}
+	}
+
+	{
+		int	Count = 0;
+
+		fread(&Count, 4, 1, File);
+
+		for (int i = 0; i < Count; ++i)
+		{
+			int	Length = 0;
+			char	TypeName[256] = {};
+
+			fread(&Length, 4, 1, File);
+			fread(TypeName, 1, Length, File);
+
+			// CDO를 얻어온다.
+			CComponent* CDO = CComponent::FindCDO(TypeName);
+
+			CComponent* Component = CDO->Clone();
+
+			Component->Load(File);
+
+			m_vecObjectComponent.push_back((CObjectComponent*)Component);
+		}
+	}
 }
 
 void CGameObject::SetInheritScale(bool Inherit)

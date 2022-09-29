@@ -3,6 +3,7 @@
 #include "Component/SpriteComponent.h"
 #include "Component/CameraComponent.h"
 #include "Component/TargetArm.h"
+#include "Component/ColliderBox2D.h"
 #include "Input.h"
 #include "Scene/Scene.h"
 #include "Scene/CameraManager.h"
@@ -27,6 +28,7 @@ CPlayer2D::CPlayer2D(const CPlayer2D& Obj) :
 	m_SpriteChild = (CSpriteComponent*)FindComponent("spriteChild");
 	m_Camera = (CCameraComponent*)FindComponent("Camera");
 	m_Arm = (CTargetArm*)FindComponent("Arm");
+	m_Body = (CColliderBox2D*)FindComponent("Body");
 }
 
 CPlayer2D::~CPlayer2D()
@@ -39,6 +41,20 @@ void CPlayer2D::Start()
 
 	if (m_Scene)
 		m_Scene->GetCameraManager()->SetCurrentCamera(m_Camera);
+
+	CInput::GetInst()->AddBindFunction<CPlayer2D>("Rotation", Input_Type::Push,
+		this, &CPlayer2D::RotationInv, m_Scene);
+	CInput::GetInst()->AddBindFunction<CPlayer2D>("RotationInv", Input_Type::Push,
+		this, &CPlayer2D::Rotation, m_Scene);
+
+	CInput::GetInst()->AddBindFunction<CPlayer2D>("MoveUp", Input_Type::Push,
+		this, &CPlayer2D::MoveUp, m_Scene);
+	CInput::GetInst()->AddBindFunction<CPlayer2D>("MoveDown", Input_Type::Push,
+		this, &CPlayer2D::MoveDown, m_Scene);
+
+	//추가
+	CInput::GetInst()->AddBindFunction<CPlayer2D>("Fire", Input_Type::Down, this,
+		&CPlayer2D::Fire, m_Scene);
 }
 
 bool CPlayer2D::Init()
@@ -50,6 +66,11 @@ bool CPlayer2D::Init()
 	m_SpriteChild = CreateComponent<CSpriteComponent>("spriteChild");
 	m_Camera = CreateComponent<CCameraComponent>("Camera");
 	m_Arm = CreateComponent<CTargetArm>("Arm");
+	m_Body = CreateComponent<CColliderBox2D>("Body");
+
+	SetRootComponent(m_Body);
+
+	m_Body->AddChild(m_Sprite);
 
 	m_Sprite->AddChild(m_RightChild);
 
@@ -67,10 +88,12 @@ bool CPlayer2D::Init()
 
 	m_RightChild->AddChild(m_SpriteChild);
 
-	m_Sprite->SetRelativeScale(100.f, 100.f);
-	m_Sprite->SetWorldPosition(500.f, 500.f);
-	m_Sprite->SetPivot(0.5f, 0.5f);
+	m_Body->SetWorldPosition(500.f, 500.f);
 
+	m_Sprite->SetRelativeScale(100.f, 100.f);
+	
+	m_Sprite->SetPivot(0.5f, 0.5f);
+	m_Sprite->SetInheritRotZ(true);
 	CMaterial* Material = m_Sprite->GetMaterial(0);
 
 	Material->SetOpacity(0.5f);
@@ -83,19 +106,7 @@ bool CPlayer2D::Init()
 	m_SpriteChild->SetRelativePosition(100.f, 0.f);
 	m_SpriteChild->SetInheritRotZ(true);
 
-	CInput::GetInst()->AddBindFunction<CPlayer2D>("Rotation", Input_Type::Push,
-		this, &CPlayer2D::RotationInv, m_Scene);
-	CInput::GetInst()->AddBindFunction<CPlayer2D>("RotationInv", Input_Type::Push,
-		this, &CPlayer2D::Rotation, m_Scene);
 
-	CInput::GetInst()->AddBindFunction<CPlayer2D>("MoveUp", Input_Type::Push,
-		this, &CPlayer2D::MoveUp, m_Scene);
-	CInput::GetInst()->AddBindFunction<CPlayer2D>("MoveDown", Input_Type::Push,
-		this, &CPlayer2D::MoveDown, m_Scene);
-
-	//추가
-	CInput::GetInst()->AddBindFunction<CPlayer2D>("Fire", Input_Type::Down, this,
-		&CPlayer2D::Fire, m_Scene);
 
 	//CAnimation2D* Anim = m_Sprite->SetAnimation<CAnimation2D>("PlayerAnim");
 
@@ -130,24 +141,34 @@ CPlayer2D* CPlayer2D::Clone() const
 	return new CPlayer2D(*this);
 }
 
+void CPlayer2D::Save(FILE* File)
+{
+	CGameObject::Save(File);
+}
+
+void CPlayer2D::Load(FILE* File)
+{
+	CGameObject::Load(File);
+}
+
 void CPlayer2D::MoveUp()
 {
-	m_Sprite->AddWorldPosition(m_Sprite->GetWorldAxis(AXIS_Y) * 300.f * g_DeltaTime);
+	m_Body->AddWorldPosition(m_Body->GetWorldAxis(AXIS_Y) * 300.f * g_DeltaTime);
 }
 
 void CPlayer2D::MoveDown()
 {
-	m_Sprite->AddWorldPosition(m_Sprite->GetWorldAxis(AXIS_Y) * -300.f * g_DeltaTime);
+	m_Body->AddWorldPosition(m_Body->GetWorldAxis(AXIS_Y) * -300.f * g_DeltaTime);
 }
 
 void CPlayer2D::Rotation()
 {
-	m_Sprite->AddWorldRotationZ(360.f * g_DeltaTime);
+	m_Body->AddWorldRotationZ(360.f * g_DeltaTime);
 }
 
 void CPlayer2D::RotationInv()
 {
-	m_Sprite->AddWorldRotationZ(-360.f * g_DeltaTime);
+	m_Body->AddWorldRotationZ(-360.f * g_DeltaTime);
 }
 
 void CPlayer2D::Fire()

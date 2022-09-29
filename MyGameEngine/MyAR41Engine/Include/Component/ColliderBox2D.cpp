@@ -8,6 +8,7 @@
 #include "../Resource/ResourceManager.h"
 #include "CameraComponent.h"
 #include "../Resource/Shader/ColliderConstantBuffer.h"
+#include "../CollisionManager.h"
 
 CColliderBox2D::CColliderBox2D()
 {
@@ -42,7 +43,7 @@ bool CColliderBox2D::Init()
 	if (CEngine::GetEditorMode())
 	{
 		m_Mesh = CResourceManager::GetInst()->FindMesh("Box2DLineMesh");
-		m_Shader = CResourceManager::GetInst()->FindShader("ColliderShader");
+		
 	}
 
 	return true;
@@ -66,6 +67,11 @@ void CColliderBox2D::PostUpdate(float DeltaTime)
 
 	m_Max.x = m_Min.x + Size.x;
 	m_Max.y = m_Min.y + Size.y;
+
+	m_Info.Left = m_Min.x;
+	m_Info.Bottom = m_Min.y;
+	m_Info.Right = m_Max.x;
+	m_Info.Top = m_Max.y;
 }
 
 void CColliderBox2D::Render()
@@ -106,14 +112,41 @@ CColliderBox2D* CColliderBox2D::Clone() const
 void CColliderBox2D::Save(FILE* File)
 {
 	CCollider2D::Save(File);
+
+	fwrite(&m_BoxSize, sizeof(Vector2), 1, File);
 }
 
 void CColliderBox2D::Load(FILE* File)
 {
 	CCollider2D::Load(File);
+
+	fread(&m_BoxSize, sizeof(Vector2), 1, File);
+
+	if (CEngine::GetEditorMode())
+	{
+		m_Mesh = CResourceManager::GetInst()->FindMesh("Box2DLineMesh");
+	}
 }
 
 bool CColliderBox2D::Collision(CCollider* Dest)
 {
-	return false;
+	Vector2	HitPoint;
+	bool	Result = false;
+
+	switch (((CCollider2D*)Dest)->GetCollider2DType())
+	{
+	case ECollider2D_Type::Box2D:
+		Result = CCollisionManager::GetInst()->CollisionBox2DToBox2D(HitPoint, this, (CColliderBox2D*)Dest);
+		break;
+	case ECollider2D_Type::OBB2D:
+		break;
+	case ECollider2D_Type::Sphere2D:
+		break;
+	case ECollider2D_Type::Pixel:
+		break;
+	}
+
+	m_HitPoint = Vector3(HitPoint.x, HitPoint.y, 0.f);
+
+	return Result;
 }

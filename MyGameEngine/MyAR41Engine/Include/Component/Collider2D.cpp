@@ -54,9 +54,13 @@ void CCollider2D::Render()
 void CCollider2D::Save(FILE* File)
 {
     CCollider::Save(File);
+
+    fwrite(&m_Collider2DType, sizeof(ECollider2D_Type), 1, File);
 }
 
 void CCollider2D::Load(FILE* File)
 {
     CCollider::Load(File);
+
+    fread(&m_Collider2DType, sizeof(ECollider2D_Type), 1, File);
 }

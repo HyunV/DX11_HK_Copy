@@ -14,6 +14,7 @@ protected:
 
 private:
 	CSharedPtr<class CSpriteComponent>	m_Sprite;
+	CSharedPtr<class CColliderBox2D>	m_Body;
 
 public:
 	virtual void Start();

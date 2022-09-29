@@ -25,6 +25,7 @@ public:
 	void SetWVP(const Matrix& matWVP)
 	{
 		m_BufferData.matWVP = matWVP;
+		m_BufferData.matWVP.Transpose();
 	}
 };
 

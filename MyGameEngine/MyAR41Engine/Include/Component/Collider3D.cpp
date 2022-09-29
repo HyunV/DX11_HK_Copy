@@ -54,11 +54,15 @@ void CCollider3D::Render()
 void CCollider3D::Save(FILE* File)
 {
 	CCollider::Save(File);
+
+	fwrite(&m_Collider3DType, sizeof(ECollider3D_Type), 1, File);
 }
 
 void CCollider3D::Load(FILE* File)
 {
 	CCollider::Load(File);
+
+	fread(&m_Collider3DType, sizeof(ECollider3D_Type), 1, File);
 }
 
 

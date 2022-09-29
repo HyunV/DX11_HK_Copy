@@ -55,6 +55,7 @@ public:
 	bool DeleteChild(CSceneComponent* Child);
 	bool DeleteChild(const std::string& Name);
 	CSceneComponent* FindComponent(const std::string& Name);
+	void GetAllComponentHierarchyName(std::vector<HierarchyName>& vecName);
 
 public:
 	virtual void Destroy();

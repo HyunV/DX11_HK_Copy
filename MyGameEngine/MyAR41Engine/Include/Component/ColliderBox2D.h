@@ -13,6 +13,13 @@ protected:
 
 protected:
     Vector2     m_BoxSize;
+    Box2DInfo   m_Info;
+
+public:
+    const Box2DInfo& GetInfo() const
+    {
+        return m_Info;
+    }
 
 public:
     void SetBoxSize(const Vector2& Size)

@@ -5,6 +5,7 @@ class CCollider :
 {
     friend class CGameObject;
     friend class CScene;
+    friend class CCollisionManager;
 
 protected:
     CCollider();
@@ -12,17 +13,18 @@ protected:
     virtual ~CCollider();
 
 protected:
-    CSharedPtr<class CMesh> m_Mesh;
-    CSharedPtr<class CShader> m_Shader;
-    Vector4                 m_Color;
+    CSharedPtr<class CMesh> m_Mesh; //콜라이더에 쓸 메시
+    CSharedPtr<class CShader> m_Shader; // 콜라이더에 쓸 쉐이더
+    Vector4                 m_Color; //테두리 색
     ECollider_Type          m_ColliderType;
     Vector3                 m_Min;
     Vector3                 m_Max;
-    CollisionResult         m_Result;
+    CollisionResult         m_Result;   //결과에 반영될 충돌체 대상?
     CollisionResult         m_MouseResult;
     std::list<CCollider*>   m_PrevCollisionList; //이전 프레임에 충돌하고 있던 물체들
     std::list<int>          m_CurrentSectionList;
-    CollisionProfile* m_Profile;
+    CollisionProfile* m_Profile; //콜리전 프로파일
+    Vector3           m_HitPoint;
 
     std::function<void(const CollisionResult&)> m_CollisionCallback[(int)ECollision_Result::Max];
     std::function<void(const CollisionResult&)> m_CollisionMouseCallback[(int)ECollision_Result::Max];

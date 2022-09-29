@@ -1,8 +1,10 @@
 
 #include "ShaderManager.h"
 #include "SpriteColorShader.h"
+#include "ColliderShader.h"
 #include "SpriteShader.h"
 #include "ConstantBuffer.h"
+#include "ColliderConstantBuffer.h"
 
 CShaderManager::CShaderManager()
 {
@@ -10,6 +12,7 @@ CShaderManager::CShaderManager()
 
 CShaderManager::~CShaderManager()
 {
+	SAFE_DELETE(m_ColliderCBuffer);
 }
 
 bool CShaderManager::Init()
@@ -18,9 +21,16 @@ bool CShaderManager::Init()
 
 	CreateShader<CSpriteShader>("SpriteShader");
 
+	CreateShader<CColliderShader>("ColliderShader");
+
 	CreateConstantBuffer("Transform", sizeof(TransformCBuffer), 0);
 	CreateConstantBuffer("Material", sizeof(MaterialCBuffer), 1);
 	CreateConstantBuffer("Animation2D", sizeof(Animation2DCBuffer), 2);
+	CreateConstantBuffer("Collider", sizeof(ColliderCBuffer), 10);
+
+	m_ColliderCBuffer = new CColliderConstantBuffer;
+
+	m_ColliderCBuffer->Init();
 
 	return true;
 }

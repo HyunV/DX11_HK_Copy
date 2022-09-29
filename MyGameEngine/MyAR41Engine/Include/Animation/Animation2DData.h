@@ -29,6 +29,7 @@ private:
 	~CAnimation2DData();
 
 private:
+	class CAnimation2D* m_Owner;
 	std::string m_Name;
 	std::string m_SequenceName;
 	CSharedPtr<CAnimationSequence2D>	m_Sequence;

@@ -18,7 +18,7 @@ void CCollisionSection2D::AddCollider(CCollider2D* Collider)
 
 void CCollisionSection2D::Collision(float DeltaTime)
 {
-	if (m_ColliderList.size() < 2)
+	if (m_ColliderList.size() < 2) //충돌체 하나면 충돌날일 없음
 		return;
 
 	for (int i = 0; i < 9; ++i)
@@ -29,18 +29,18 @@ void CCollisionSection2D::Collision(float DeltaTime)
 	}
 
 	auto	iter = m_ColliderList.begin();
-	auto	iterEnd = m_ColliderList.end();
+	auto	iterEnd = m_ColliderList.end(); //끝 전
 	--iterEnd;
 
-	auto	iter1End = m_ColliderList.end();
+	auto	iter1End = m_ColliderList.end(); //진짜 끝부분
 
 	for (; iter != iterEnd; ++iter)
 	{
-		CCollider* Src = *iter;
+		CCollider* Src = *iter; //Src
 
-		auto	iter1 = iter;
-		++iter1;
-
+		auto	iter1 = iter; //src에서 한 칸 앞으로 간거 
+		++iter1; 
+		
 		for (; iter1 != iter1End; ++iter1)
 		{
 			CCollider* Dest = *iter1;
@@ -56,6 +56,7 @@ void CCollisionSection2D::Collision(float DeltaTime)
 			CollisionProfile* SrcProfile = Src->GetCollisionProfile();
 			CollisionProfile* DestProfile = Dest->GetCollisionProfile();
 
+			//둘다 프로파일 무시면 패스
 			if (SrcProfile->vecCollisionInteraction[(int)DestProfile->Channel->Channel] ==
 				ECollision_Interaction::Ignore ||
 				DestProfile->vecCollisionInteraction[(int)SrcProfile->Channel->Channel] ==

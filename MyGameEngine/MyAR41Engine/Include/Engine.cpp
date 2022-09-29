@@ -7,7 +7,7 @@
 #include "Render/RenderManager.h"
 #include "Input.h"
 #include "Editor/EditorGUIManager.h"
-#include "Collisionmanager.h"
+#include "CollisionManager.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")

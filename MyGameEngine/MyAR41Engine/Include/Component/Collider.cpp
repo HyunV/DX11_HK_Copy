@@ -68,6 +68,7 @@ bool CCollider::CheckPrevCollision(CCollider* Collider)
 
 	for (; iter != iterEnd; ++iter)
 	{
+		//이전프레임충돌체 목록들과 충돌체크, 이전프레임에도 남아있으면 충돌중이라는것
 		if (*iter == Collider)
 			return true;
 	}
@@ -77,6 +78,7 @@ bool CCollider::CheckPrevCollision(CCollider* Collider)
 
 void CCollider::CheckPrevCollisionColliderSection()
 {
+	//이전 충돌체 목록들 중 
 	auto	iter = m_PrevCollisionList.begin();
 	auto	iterEnd = m_PrevCollisionList.end();
 
@@ -91,9 +93,10 @@ void CCollider::CheckPrevCollisionColliderSection()
 		for (; iterIndex != iterIndexEnd; ++iterIndex)
 		{
 			// 이전 충돌물체의 충돌영역 목록을 반복한다.
-			auto	iterDestIndex = (*iter)->m_CurrentSectionList.begin();
+			auto	iterDestIndex = (*iter)->m_CurrentSectionList.begin(); //Dest가 속한 인덱스를 찾고
 			auto	iterDestIndexEnd = (*iter)->m_CurrentSectionList.end();
 
+			//현재 충돌 인덱스에 Dsst 인덱스가 포함이 되어있다면 겹쳐져 있다는 뜻?
 			for (; iterDestIndex != iterDestIndexEnd; ++iterDestIndex)
 			{
 				if (*iterIndex == *iterDestIndex)
@@ -109,6 +112,8 @@ void CCollider::CheckPrevCollisionColliderSection()
 
 		// 서로 겹치는 충돌영역이 없으면 이전 프레임에 충돌하고 있다가 서로 다른 영역으로 충돌체가 포함된 것이다.
 		// 둘이 충돌이 해제되었다는 통보를 해주어야 한다.
+
+		//겹쳐진게 없다? -> 이전프레임까진 충돌중인 상태인데 충돌체들의 섹션이 다른영역으로 나뉜 상태?
 		if (!Check)
 		{
 			m_Result.Src = this;
@@ -134,6 +139,7 @@ void CCollider::CheckPrevCollisionColliderSection()
 
 void CCollider::SendPrevCollisionEnd()
 {
+	//이전 충돌이 끝난걸 정리?
 	auto	iter = m_PrevCollisionList.begin();
 	auto	iterEnd = m_PrevCollisionList.end();
 
@@ -172,14 +178,20 @@ void CCollider::ClearFrame()
 
 int CCollider::CheckOverlapSection(CCollider* Dest)
 {
-	int	OverlapCount = 0;
+	//하나의 충돌체는 최대 4개까지섹션이 겹칠 수 있다.
+	//2섹션 이상 겹치면 이미 충돌처리를 해놨기 때문에
+	//겹쳐진 애들 중 가장 Min 쪽에 있는 녀석(인덱스)을 반환한다.
+	//왜냐면 나중에 충돌처리 확인할때 제일 작은 인덱스 기준 순으로 진행할거라서
+	int	OverlapCount = 0; 
 	int	MinIndex = INT_MAX;
 
+	//Src의 섹션리스트
 	auto	iter1 = m_CurrentSectionList.begin();
 	auto	iter1End = m_CurrentSectionList.end();
 
 	for (; iter1 != iter1End; ++iter1)
 	{
+		//Dest의 섹션 리스트
 		auto	iter2 = Dest->m_CurrentSectionList.begin();
 		auto	iter2End = Dest->m_CurrentSectionList.end();
 
@@ -187,9 +199,9 @@ int CCollider::CheckOverlapSection(CCollider* Dest)
 		{
 			if (*iter1 == *iter2)
 			{
-				++OverlapCount;
+				++OverlapCount; //겹치면 중복 +1
 
-				if (*iter1 < MinIndex)
+				if (*iter1 < MinIndex) //제일 작은 인덱스 넣어줌
 					MinIndex = *iter1;
 
 				break;
@@ -197,7 +209,7 @@ int CCollider::CheckOverlapSection(CCollider* Dest)
 		}
 	}
 
-	if (OverlapCount < 2)
+	if (OverlapCount < 2) //겹치는 섹션이 하나면 -1 반환
 		return -1;
 
 	return MinIndex;
@@ -229,6 +241,11 @@ bool CCollider::Init()
 
 	m_Profile = CCollisionManager::GetInst()->FindProfile("Default");
 
+	if (CEngine::GetEditorMode())
+	{
+		m_Shader = CResourceManager::GetInst()->FindShader("ColliderShader");
+	}
+
     return true;
 }
 
@@ -255,9 +272,29 @@ void CCollider::Render()
 void CCollider::Save(FILE* File)
 {
     CSceneComponent::Save(File);
+
+	fwrite(&m_ColliderType, sizeof(ECollider_Type), 1, File);
+
+	int	Length = (int)m_Profile->Name.size();
+	fwrite(&Length, sizeof(int), 1, File);
+	fwrite(m_Profile->Name.c_str(), 1, Length, File);
 }
 
 void CCollider::Load(FILE* File)
 {
     CSceneComponent::Load(File);
+
+	fread(&m_ColliderType, sizeof(ECollider_Type), 1, File);
+
+	int	Length = 0;
+	char	Name[256] = {};
+	fread(&Length, sizeof(int), 1, File);
+	fread(Name, 1, Length, File);
+
+	SetCollisionProfile(Name);
+
+	if (CEngine::GetEditorMode())
+	{
+		m_Shader = CResourceManager::GetInst()->FindShader("ColliderShader");
+	}
 }

@@ -1,4 +1,8 @@
 #include "CollisionManager.h"
+#include "Component/ColliderBox2D.h"
+#include "Component/ColliderSphere2D.h"
+#include "Component/ColliderOBB2D.h"
+#include "Component/ColliderPixel.h"
 
 DEFINITION_SINGLE(CCollisionManager)
 
@@ -32,6 +36,9 @@ CCollisionManager::~CCollisionManager()
 
 bool CCollisionManager::Init()
 {
+	CreateChannel("Default", ECollision_Interaction::Collision);
+	CreateChannel("Mouse", ECollision_Interaction::Collision);
+
 	CreateProfile("Default", "Default", true);
 	CreateProfile("Mouse", "Mouse", true);
 
@@ -148,4 +155,159 @@ CollisionProfile* CCollisionManager::FindProfile(const std::string& Name)
 		return nullptr;
 
 	return iter->second;
+}
+
+bool CCollisionManager::CollisionBox2DToBox2D(Vector2& HitPoint, CColliderBox2D* Src, CColliderBox2D* Dest)
+{
+	if (CollisionBox2DToBox2D(HitPoint, Src->GetInfo(), Dest->GetInfo()))
+	{
+		Dest->m_HitPoint = Vector3(HitPoint.x, HitPoint.y, 0.f);
+		return true;
+	}
+}
+
+bool CCollisionManager::CollisionSphere2DToSphere2D(Vector2& HitPoint, CColliderSphere2D* Src, CColliderSphere2D* Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionOBB2DToOBB2D(Vector2& HitPoint, CColliderOBB2D* Src, CColliderOBB2D* Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionBox2DToSphere2D(Vector2& HitPoint, CColliderBox2D* Src, CColliderSphere2D* Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionBox2DToOBB2D(Vector2& HitPoint, CColliderBox2D* Src, CColliderOBB2D* Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionBox2DToPixel(Vector2& HitPoint, CColliderBox2D* Src, CColliderPixel* Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionSphere2DToOBB2D(Vector2& HitPoint, CColliderSphere2D* Src, CColliderOBB2D* Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionSphere2DToPixel(Vector2& HitPoint, CColliderSphere2D* Src, CColliderPixel* Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionOBB2DToPixel(Vector2& HitPoint, CColliderOBB2D* Src, CColliderPixel* Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionPointToBox2D(Vector2& HitPoint, const Vector2& Src, CColliderBox2D* Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionPointToSphere2D(Vector2& HitPoint, const Vector2& Src, CColliderSphere2D* Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionPointToOBB2D(Vector2& HitPoint, const Vector2& Src, CColliderOBB2D* Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionPointToPixel(Vector2& HitPoint, const Vector2& Src, CColliderPixel* Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionBox2DToBox2D(Vector2& HitPoint, const Box2DInfo& Src,
+	const Box2DInfo& Dest)
+{
+	if (Src.Left > Dest.Right)
+		return false;
+
+	else if (Src.Right < Dest.Left)
+		return false;
+
+	else if (Src.Bottom > Dest.Top)
+		return false;
+
+	else if (Src.Top < Dest.Bottom)
+		return false;
+
+	float Left = Src.Left > Dest.Left ? Src.Left : Dest.Left;
+	float Bottom = Src.Bottom > Dest.Bottom ? Src.Bottom : Dest.Bottom;
+	float Right = Src.Right < Dest.Right ? Src.Right : Dest.Right;
+	float Top = Src.Top < Dest.Top ? Src.Top : Dest.Top;
+
+	HitPoint.x = (Left + Right) / 2.f;
+	HitPoint.y = (Top + Bottom) / 2.f;
+
+	return true;
+}
+
+bool CCollisionManager::CollisionSphere2DToSphere2D(Vector2& HitPoint, const Sphere2DInfo& Src, const Sphere2DInfo& Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionOBB2DToOBB2D(Vector2& HitPoint, const OBB2DInfo& Src, const OBB2DInfo& Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionBox2DToSphere2D(Vector2& HitPoint, const Box2DInfo& Src, const Sphere2DInfo& Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionBox2DToOBB2D(Vector2& HitPoint, const Box2DInfo& Src, const OBB2DInfo& Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionBox2DToPixel(Vector2& HitPoint, const Box2DInfo& Src, const PixelInfo& Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionSphere2DToOBB2D(Vector2& HitPoint, const Sphere2DInfo& Src, const OBB2DInfo& Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionSphere2DToPixel(Vector2& HitPoint, const Sphere2DInfo& Src, CColliderPixel* Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionOBB2DToPixel(Vector2& HitPoint, const OBB2DInfo& Src, const PixelInfo& Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionPointToBox2D(Vector2& HitPoint, const Vector2& Src, const Box2DInfo& Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionPointToSphere2D(Vector2& HitPoint, const Vector2& Src, const Sphere2DInfo& Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionPointToOBB2D(Vector2& HitPoint, const Vector2& Src, const OBB2DInfo& Dest)
+{
+	return false;
+}
+
+bool CCollisionManager::CollisionPointToPixel(Vector2& HitPoint, const Vector2& Src, const PixelInfo& Dest)
+{
+	return false;
 }

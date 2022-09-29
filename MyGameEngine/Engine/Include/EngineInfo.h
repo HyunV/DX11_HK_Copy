@@ -249,3 +249,29 @@ struct ColliderCBuffer
 	Vector4	Color;
 	Matrix	matWVP;
 };
+
+struct Box2DInfo
+{
+	float Left;
+	float Bottom;
+	float Right;
+	float Top;
+};
+
+struct Sphere2DInfo
+{
+	Vector2	Center;
+	float	Radius;
+};
+
+struct OBB2DInfo
+{
+	Vector2	Center;
+	Vector2	Axis[AXIS2D_MAX];
+	float	Length[AXIS2D_MAX];
+};
+
+struct PixelInfo
+{
+
+};

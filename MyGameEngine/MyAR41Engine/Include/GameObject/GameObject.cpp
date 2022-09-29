@@ -70,28 +70,18 @@ void CGameObject::Destroy()
 
 void CGameObject::GetAllComponentHierarchyName(std::vector<HierarchyName>& vecName)
 {
-	auto	iter = m_SceneComponentList.begin();
-	auto	iterEnd = m_SceneComponentList.end();
-
-	for (; iter != iterEnd; ++iter)
+	if (m_RootComponent)
 	{
-		HierarchyName Names;
+		HierarchyName	Names;
 
-		//씬 컴포넌트의 Parent를 데려와서
-		CSceneComponent* Parent = (*iter)->GetParent(); 
+		Names.Name = m_RootComponent->GetName();
+		Names.ClassName = m_RootComponent->GetComponentTypeName();
+		Names.Component = m_RootComponent;
+		Names.Parent = nullptr;
 
-		Names.Name = (*iter)->GetName(); //해당 씬의 이름
-		Names.ClassName = (*iter)->GetComponentTypeName(); //이 씬 컴포넌트의 타입 이름(처음에 반드시 지어줬던 이름)
-		Names.Component = *iter; //해당 씬 컴포넌트 그 자체 클래스
-		Names.Parent = Parent; //Parent 저장
+		vecName.push_back(Names);
 
-		if (Parent)
-		{
-			Names.ParentName = Parent->GetName(); //부모 있으면 부모이름 얻어오고
-			Names.ParentClassName = Parent->GetComponentTypeName(); //그 부모의 컴포넌트 타입 이름도 불러옴
-		}
-
-		vecName.push_back(Names); //정보가 기록된 구조체를 배열에 저장
+		m_RootComponent->GetAllComponentHierarchyName(vecName); //재귀?
 	}
 }
 

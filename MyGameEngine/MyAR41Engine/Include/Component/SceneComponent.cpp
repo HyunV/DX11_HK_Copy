@@ -201,6 +201,36 @@ CSceneComponent* CSceneComponent::FindComponent(const std::string& Name)
 	return nullptr;
 }
 
+void CSceneComponent::GetAllComponentHierarchyName(std::vector<HierarchyName>& vecName)
+{
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		HierarchyName	Names;
+
+		CSceneComponent* Parent = m_vecChild[i]->GetParent();
+
+		Names.Name = m_vecChild[i]->GetName();
+		Names.ClassName = m_vecChild[i]->GetComponentTypeName();
+		Names.Component = m_vecChild[i];
+		Names.Parent = Parent;
+
+		if (Parent)
+		{
+			Names.ParentName = Parent->GetName();
+			Names.ParentClassName = Parent->GetComponentTypeName();
+		}
+
+		vecName.push_back(Names);
+	}
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->GetAllComponentHierarchyName(vecName);
+	}
+}
+
 void CSceneComponent::Destroy()
 {
 	CComponent::Destroy();

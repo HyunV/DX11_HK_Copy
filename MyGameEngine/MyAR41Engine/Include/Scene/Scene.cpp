@@ -6,6 +6,7 @@
 #include "../Component/CameraComponent.h"
 #include "../Component/TargetArm.h"
 #include "../Component/SceneComponent.h"
+#include "../Component/ColliderBox2D.h"
 #include "../Animation/Animation2D.h"
 
 std::unordered_map<std::string, CSceneInfo*> CScene::m_mapSceneInfoCDO;
@@ -45,6 +46,7 @@ CScene::~CScene()
 {
 	CInput::GetInst()->ClearCallback(this);
 
+	SAFE_DELETE(m_CollisionManager);
 	SAFE_DELETE(m_CameraManager);
 	SAFE_DELETE(m_Resource);
 	SAFE_DELETE(m_SceneInfo);
@@ -87,6 +89,12 @@ void CScene::CreateCDO()
 	ComCDO->Init();
 
 	CComponent::AddComponentCDO("TargetArm", ComCDO);
+
+	ComCDO = new CColliderBox2D;
+
+	ComCDO->Init();
+
+	CComponent::AddComponentCDO("Box2D", ComCDO);
 
 	CAnimation2D* AnimCDO = new CAnimation2D;
 

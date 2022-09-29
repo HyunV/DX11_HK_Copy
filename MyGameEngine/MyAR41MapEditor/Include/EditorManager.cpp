@@ -20,6 +20,7 @@
 #include "Editor/EditorGUIManager.h"
 #include "Resource/Animation/AnimationSequence2D.h"
 #include "PathManager.h"
+#include "Input.h"
 
 CEditorManager::CEditorManager()
 {
@@ -79,13 +80,13 @@ bool CEditorManager::Init(HINSTANCE hInst)
     CEditorGUIManager::GetInst()->CreateEditorWindow<CNMyAnimationWindow2>("NMyAnimationWindow2");
     
     // 키 등록
-    /*CInput::GetInst()->AddBindKey("Rotation", 'D');
+    CInput::GetInst()->AddBindKey("Rotation", 'D');
     CInput::GetInst()->AddBindKey("RotationInv", 'A');
 
     CInput::GetInst()->AddBindKey("MoveUp", 'W');
     CInput::GetInst()->AddBindKey("MoveDown", 'S');
 
-    CInput::GetInst()->AddBindKey("Fire", VK_SPACE);*/
+    CInput::GetInst()->AddBindKey("Fire", VK_SPACE);
 
 
     // SceneInfo 생성 기본적으로 사용할 씬 등록
