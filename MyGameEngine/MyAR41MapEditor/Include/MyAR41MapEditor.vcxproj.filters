@@ -75,6 +75,9 @@
     <ClCompile Include="Window\NMyAnimationWindow2.cpp">
       <Filter>03. Window</Filter>
     </ClCompile>
+    <ClCompile Include="Window\SectionWindow.cpp">
+      <Filter>03. Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -126,6 +129,9 @@
       <Filter>03. Window</Filter>
     </ClInclude>
     <ClInclude Include="Window\NMyAnimationWindow2.h">
+      <Filter>03. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\SectionWindow.h">
       <Filter>03. Window</Filter>
     </ClInclude>
   </ItemGroup>

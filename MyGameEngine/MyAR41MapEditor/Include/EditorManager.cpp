@@ -17,6 +17,8 @@
 #include "Window\MyImageWindow.h"
 #include "Window\MyAnimationWindow.h"
 #include "Window\NMyAnimationWindow2.h"
+#include "Window\SectionWindow.h"
+
 #include "Editor/EditorGUIManager.h"
 #include "Resource/Animation/AnimationSequence2D.h"
 #include "PathManager.h"
@@ -78,6 +80,9 @@ bool CEditorManager::Init(HINSTANCE hInst)
     //#과제# 시퀀스 윈도우, 애니메이션 윈도우
     CEditorGUIManager::GetInst()->CreateEditorWindow<CMyAnimationWindow>("MyAnimationWindow");
     CEditorGUIManager::GetInst()->CreateEditorWindow<CNMyAnimationWindow2>("NMyAnimationWindow2");
+
+    //#제작# 콜라이더 섹션 윈도우
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CSectionWindow>("SectionWindow");
     
     // 키 등록
     CInput::GetInst()->AddBindKey("Rotation", 'D');
