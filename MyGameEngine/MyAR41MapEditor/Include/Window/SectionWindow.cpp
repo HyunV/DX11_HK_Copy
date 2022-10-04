@@ -12,7 +12,7 @@
 #include "Component/SceneComponent.h"
 #include "GameObject/GameObject.h"
 #include "Component/SpriteComponent.h"
-#include "Component/SectionComponent.h"
+//#include "Component/SectionComponent.h"
 
 #include "Scene/SceneManager.h"
 #include "Scene/Scene.h"
@@ -79,17 +79,17 @@ void CSectionWindow::Update(float DeltaTime)
 
 void CSectionWindow::CreatePreviewObject(int x, int y)
 {
-	CScene* Scene = CSceneManager::GetInst()->GetScene(); //현재 씬 불러오기
+	//CScene* Scene = CSceneManager::GetInst()->GetScene(); //현재 씬 불러오기
 
-	CGameObject* Obj = nullptr;
+	//CGameObject* Obj = nullptr;
 
-	if(!Obj)
-		Obj = Scene->CreateObject<CGameObject>("PreviewSection");
+	//if(!Obj)
+	//	Obj = Scene->CreateObject<CGameObject>("PreviewSection");
 
-	CSceneComponent* Section = nullptr;
+	//CSceneComponent* Section = nullptr;
 
-	Section = (CSceneComponent*)Obj->CreateComponent<CSectionComponent>("PreviewSectionComponent");
-	Obj->AddSceneComponent(Section);
+	//Section = (CSceneComponent*)Obj->CreateComponent<CSectionComponent>("PreviewSectionComponent");
+	//Obj->AddSceneComponent(Section);
 	//CSectionComponent* test = (CSectionComponent*)Section;
 	
 	//CSceneComponent* Test = nullptr;

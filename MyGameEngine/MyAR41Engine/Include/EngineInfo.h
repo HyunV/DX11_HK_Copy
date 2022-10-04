@@ -274,5 +274,25 @@ struct OBB2DInfo
 
 struct PixelInfo
 {
+	Box2DInfo	Box2D;
+	unsigned char* Pixel;
+	unsigned int	Width;
+	unsigned int	Height;
+	EPixelCollision_Type	PixelColorCollisionType;
+	EPixelCollision_Type	PixelAlphaCollisionType;
+	unsigned char	TypeColor[4];
+	ID3D11ShaderResourceView* SRV;
+	int			RefCount;
 
+	PixelInfo() :
+		RefCount(0),
+		Pixel(nullptr),
+		Box2D{},
+		Width(0),
+		Height(0),
+		PixelColorCollisionType(EPixelCollision_Type::Alpha_Confirm),
+		PixelAlphaCollisionType(EPixelCollision_Type::None),
+		TypeColor{}
+	{
+	}
 };

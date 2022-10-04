@@ -4,6 +4,8 @@
 #include "Component/CameraComponent.h"
 #include "Component/TargetArm.h"
 #include "Component/ColliderBox2D.h"
+#include "Component/ColliderSphere2D.h"
+#include "Component/ColliderOBB2D.h"
 #include "Input.h"
 #include "Scene/Scene.h"
 #include "Scene/CameraManager.h"
@@ -28,7 +30,7 @@ CPlayer2D::CPlayer2D(const CPlayer2D& Obj) :
 	m_SpriteChild = (CSpriteComponent*)FindComponent("spriteChild");
 	m_Camera = (CCameraComponent*)FindComponent("Camera");
 	m_Arm = (CTargetArm*)FindComponent("Arm");
-	m_Body = (CColliderBox2D*)FindComponent("Body");
+	m_Body = (CColliderOBB2D*)FindComponent("Body");
 }
 
 CPlayer2D::~CPlayer2D()
@@ -66,7 +68,7 @@ bool CPlayer2D::Init()
 	m_SpriteChild = CreateComponent<CSpriteComponent>("spriteChild");
 	m_Camera = CreateComponent<CCameraComponent>("Camera");
 	m_Arm = CreateComponent<CTargetArm>("Arm");
-	m_Body = CreateComponent<CColliderBox2D>("Body");
+	m_Body = CreateComponent<CColliderOBB2D>("Body");
 
 	SetRootComponent(m_Body);
 
@@ -93,10 +95,9 @@ bool CPlayer2D::Init()
 	m_Body->SetWorldPosition(500.f, 500.f);
 
 	m_Sprite->SetRelativeScale(100.f, 100.f);
-	
 	m_Sprite->SetPivot(0.5f, 0.5f);
 	m_Sprite->SetInheritRotZ(true);
-	m_Sprite->SetRelativeRotationZ(30.f);
+	//m_Sprite->SetRelativeRotationZ(30.f);
 
 	CMaterial* Material = m_Sprite->GetMaterial(0);
 

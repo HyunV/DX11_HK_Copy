@@ -2,6 +2,7 @@
 #include "ShaderManager.h"
 #include "SpriteColorShader.h"
 #include "ColliderShader.h"
+#include "ColliderImageShader.h"
 #include "SpriteShader.h"
 #include "ConstantBuffer.h"
 #include "ColliderConstantBuffer.h"
@@ -22,6 +23,8 @@ bool CShaderManager::Init()
 	CreateShader<CSpriteShader>("SpriteShader");
 
 	CreateShader<CColliderShader>("ColliderShader");
+
+	CreateShader<CColliderImageShader>("ColliderImageShader");
 
 	CreateConstantBuffer("Transform", sizeof(TransformCBuffer), 0);
 	CreateConstantBuffer("Material", sizeof(MaterialCBuffer), 1);

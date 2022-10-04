@@ -12,8 +12,26 @@ protected:
     virtual ~CColliderOBB2D();
 
 protected:
+    Vector2     m_BoxHalfSize;
+    OBB2DInfo   m_Info;
 
 public:
+    const OBB2DInfo& GetInfo()  const
+    {
+        return m_Info;
+    }
+
+public:
+    void SetBoxHalfSize(const Vector2& Size)
+    {
+        m_BoxHalfSize = Size;
+    }
+
+    void SetBoxHalfSize(float Width, float Height)
+    {
+        m_BoxHalfSize.x = Width;
+        m_BoxHalfSize.y = Height;
+    }
 
 public:
     virtual void Start();

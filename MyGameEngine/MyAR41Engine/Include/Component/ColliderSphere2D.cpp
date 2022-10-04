@@ -134,11 +134,13 @@ bool CColliderSphere2D::Collision(CCollider* Dest)
 		Result = CCollisionManager::GetInst()->CollisionBox2DToSphere2D(HitPoint, (CColliderBox2D*)Dest, this);
 		break;
 	case ECollider2D_Type::OBB2D:
+		Result = CCollisionManager::GetInst()->CollisionSphere2DToOBB2D(HitPoint, this, (CColliderOBB2D*)Dest);
 		break;
 	case ECollider2D_Type::Sphere2D:
 		Result = CCollisionManager::GetInst()->CollisionSphere2DToSphere2D(HitPoint, this, (CColliderSphere2D*)Dest);
 		break;
 	case ECollider2D_Type::Pixel:
+		Result = CCollisionManager::GetInst()->CollisionSphere2DToPixel(HitPoint, this, (CColliderPixel*)Dest);
 		break;
 	}
 

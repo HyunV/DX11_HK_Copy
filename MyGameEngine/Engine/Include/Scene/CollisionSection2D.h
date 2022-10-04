@@ -22,14 +22,6 @@ private:
 public:
 	void AddCollider(class CCollider2D* Collider);
 	void Collision(float DeltaTime);
-
-	Vector2 GetMin() 
-	{
-		return m_Min;
-	}
-	Vector2 GetMax()
-	{
-		return m_Max;
-	}
+	class CCollider* CollisionMouse(const Vector2& MouseWorldPos, float DeltaTime);
 };
 

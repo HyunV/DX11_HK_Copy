@@ -152,3 +152,12 @@ enum class ECollision_Result
 	Release,
 	Max
 };
+
+enum class EPixelCollision_Type
+{
+	None,
+	Color_Ignore,
+	Color_Confirm,
+	Alpha_Ignore,
+	Alpha_Confirm
+};

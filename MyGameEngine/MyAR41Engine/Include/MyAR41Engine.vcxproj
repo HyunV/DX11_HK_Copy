@@ -27,14 +27,13 @@
     <ClInclude Include="Component\Collider2D.h" />
     <ClInclude Include="Component\Collider3D.h" />
     <ClInclude Include="Component\ColliderBox2D.h" />
-    <ClInclude Include="Component\ColliderObb2D.h" />
+    <ClInclude Include="Component\ColliderOBB2D.h" />
     <ClInclude Include="Component\ColliderPixel.h" />
     <ClInclude Include="Component\ColliderSphere2D.h" />
     <ClInclude Include="Component\Component.h" />
     <ClInclude Include="Component\ObjectComponent.h" />
     <ClInclude Include="Component\PrimitiveComponent.h" />
     <ClInclude Include="Component\SceneComponent.h" />
-    <ClInclude Include="Component\SectionComponent.h" />
     <ClInclude Include="Component\SpriteComponent.h" />
     <ClInclude Include="Component\TargetArm.h" />
     <ClInclude Include="Component\Transform.h" />
@@ -87,6 +86,7 @@
     <ClInclude Include="Resource\ResourceManager.h" />
     <ClInclude Include="Resource\Shader\Animation2DConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\ColliderConstantBuffer.h" />
+    <ClInclude Include="Resource\Shader\ColliderImageShader.h" />
     <ClInclude Include="Resource\Shader\ColliderShader.h" />
     <ClInclude Include="Resource\Shader\ComputeShader.h" />
     <ClInclude Include="Resource\Shader\ConstantBuffer.h" />
@@ -124,14 +124,13 @@
     <ClCompile Include="Component\Collider2D.cpp" />
     <ClCompile Include="Component\Collider3D.cpp" />
     <ClCompile Include="Component\ColliderBox2D.cpp" />
-    <ClCompile Include="Component\ColliderObb2D.cpp" />
+    <ClCompile Include="Component\ColliderOBB2D.cpp" />
     <ClCompile Include="Component\ColliderPixel.cpp" />
     <ClCompile Include="Component\ColliderSphere2D.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\ObjectComponent.cpp" />
     <ClCompile Include="Component\PrimitiveComponent.cpp" />
     <ClCompile Include="Component\SceneComponent.cpp" />
-    <ClCompile Include="Component\SectionComponent.cpp" />
     <ClCompile Include="Component\SpriteComponent.cpp" />
     <ClCompile Include="Component\TargetArm.cpp" />
     <ClCompile Include="Component\Transform.cpp" />
@@ -177,6 +176,7 @@
     <ClCompile Include="Resource\ResourceManager.cpp" />
     <ClCompile Include="Resource\Shader\Animation2DConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\ColliderConstantBuffer.cpp" />
+    <ClCompile Include="Resource\Shader\ColliderImageShader.cpp" />
     <ClCompile Include="Resource\Shader\ColliderShader.cpp" />
     <ClCompile Include="Resource\Shader\ComputeShader.cpp" />
     <ClCompile Include="Resource\Shader\ConstantBuffer.cpp" />

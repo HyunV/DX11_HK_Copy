@@ -87,7 +87,7 @@ private:
 	InputSystem_Type	m_InputSystem;
 
 	Vector2	m_MousePos;			// 윈도우 창에서의 위치
-	Vector2	m_MouseWorldPos;	// 월드공간에서의 마우스 위치
+	Vector2	m_MouseWorldPos;	// 월드공간에서의 마우스 위치 2D 전용.
 	Vector2	m_MouseMove;
 	bool	m_MouseLDown;
 	bool	m_MouseLPush;

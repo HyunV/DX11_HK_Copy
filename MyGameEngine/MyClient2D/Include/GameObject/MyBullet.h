@@ -15,7 +15,7 @@ private:
     float m_Distance;
     float m_Damage;
 	CSharedPtr<class CSpriteComponent>	m_Sprite;
-	CSharedPtr<class CColliderBox2D>	m_Body;
+	CSharedPtr<class CColliderSphere2D>	m_Body;
 	CSharedPtr<class CSceneComponent>	m_RightChild;
 
 public:

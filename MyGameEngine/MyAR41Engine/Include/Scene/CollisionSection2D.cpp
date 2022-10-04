@@ -95,3 +95,8 @@ void CCollisionSection2D::Collision(float DeltaTime)
 		}
 	}
 }
+
+CCollider* CCollisionSection2D::CollisionMouse(const Vector2& MouseWorldPos, float DeltaTime)
+{
+	return nullptr;
+}

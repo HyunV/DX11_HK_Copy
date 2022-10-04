@@ -18,7 +18,7 @@ private:
 	CSharedPtr<class CSpriteComponent>	m_SpriteChild;
 	CSharedPtr<class CCameraComponent>	m_Camera;
 	CSharedPtr<class CTargetArm>	m_Arm;
-	CSharedPtr<class CColliderBox2D>	m_Body;
+	CSharedPtr<class CColliderOBB2D>	m_Body;
 
 public:
 	virtual void Start();

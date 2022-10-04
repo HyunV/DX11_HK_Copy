@@ -1,6 +1,6 @@
 #include "MyBullet.h"
 #include "Component/SpriteComponent.h"
-#include "Component/ColliderBox2D.h"
+#include "Component/ColliderSphere2D.h"
 #include "Player2D.h"
 
 
@@ -34,7 +34,7 @@ bool CMyBullet::Init()
 {
 	CGameObject::Init();
 
-	m_Body = CreateComponent<CColliderBox2D>("Body");
+	m_Body = CreateComponent<CColliderSphere2D>("Body");
 	m_Sprite = CreateComponent<CSpriteComponent>("spritebullet");
 
 	m_Body->AddChild(m_Sprite);

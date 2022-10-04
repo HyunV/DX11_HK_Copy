@@ -4,6 +4,8 @@
 #include "../Device.h"
 #include "../Component/Collider2D.h"
 #include "../Component/Collider3D.h"
+#include "../PathManager.h"
+#include "../Input.h"
 
 CSceneCollision::CSceneCollision()
 {
@@ -25,6 +27,23 @@ CSceneCollision::~CSceneCollision()
 	{
 		SAFE_DELETE(m_Section3D.vecSection[i]);
 	}
+
+	auto	iter = m_mapPixelCollision.begin();
+	auto	iterEnd = m_mapPixelCollision.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		--iter->second->RefCount;
+
+		if (iter->second->RefCount == 0)
+		{
+			SAFE_RELEASE(iter->second->SRV);
+			SAFE_DELETE_ARRAY(iter->second->Pixel);
+			SAFE_DELETE(iter->second);
+		}
+	}
+
+	m_mapPixelCollision.clear();
 }
 
 void CSceneCollision::AddCollider(CCollider* Collider)
@@ -100,6 +119,7 @@ void CSceneCollision::Update(float DeltaTime)
 	}
 
 	// 마우스와 먼저 충돌처리를 진행해야 한다.
+	CollisionMouse(DeltaTime);
 
 
 	// 충돌체끼리 충돌처리를 진행한다.
@@ -207,6 +227,75 @@ void CSceneCollision::Load(FILE* File)
 {
 }
 
+void CSceneCollision::CollisionMouse(float DeltaTime)
+{
+	//if (!m_MouseCollision->GetActive())
+	//{
+	//	m_MouseCollision->CallCollisionMouseCallback(ECollision_Result::Release);
+	//	m_MouseCollision = nullptr;
+	//}
+
+	//// UI와 마우스가 충돌이 없을 경우 월드물체와 충돌을 시작한다.
+	//bool MouseUICollision = false;
+	//bool	MouseWorldCollision = false;
+
+	//if (!MouseUICollision)
+	//{
+	//	// World위치를 얻어온다.
+	//	Vector2	MouseWorldPos = CInput::GetInst()->GetMouseWorldPos();
+
+	//	// 마우스가 2D Section에서 어느 영역에 있는지를 판단한다.
+	//	Vector2	MouseIndex = MouseWorldPos;
+	//	MouseIndex -= m_Section2D.WorldStart;
+
+	//	int	IndexX = 0, IndexY = 0;
+
+	//	IndexX = (int)(MouseIndex.x / m_Section2D.SectionSize.x);
+	//	IndexY = (int)(MouseIndex.y / m_Section2D.SectionSize.y);
+
+	//	IndexX = IndexX < 0 ? -1 : IndexX;
+	//	IndexY = IndexY < 0 ? -1 : IndexY;
+
+	//	IndexX = IndexX >= m_Section2D.CountX ? -1 : IndexX;
+	//	IndexY = IndexY >= m_Section2D.CountY ? -1 : IndexY;
+
+	//	if (IndexX != -1 && IndexY != -1)
+	//	{
+	//		CCollider* ColliderMouse = m_Section2D.vecSection[IndexY * m_Section2D.CountX + IndexX]->CollisionMouse(MouseWorldPos, DeltaTime);
+
+	//		if (ColliderMouse)
+	//		{
+	//			if (ColliderMouse != m_MouseCollision)
+	//				ColliderMouse->CallCollisionMouseCallback(ECollision_Result::Collision);
+
+	//			if (m_MouseCollision && m_MouseCollision != ColliderMouse)
+	//			{
+	//				m_MouseCollision->CallCollisionMouseCallback(ECollision_Result::Release);
+	//			}
+
+	//			m_MouseCollision = ColliderMouse;
+	//			MouseWorldCollision = true;
+	//		}
+	//	}
+	//}
+
+	//// 마우스와 UI가 충돌되었다면 기존에 충돌되고 있던 월드물체가 있을 경우 충돌 해제한다.
+	//else if (m_MouseCollision)
+	//{
+	//	m_MouseCollision->CallCollisionMouseCallback(ECollision_Result::Release);
+	//	m_MouseCollision = nullptr;
+	//}
+
+	//if (!MouseWorldCollision)
+	//{
+	//	if (m_MouseCollision)
+	//	{
+	//		m_MouseCollision->CallCollisionMouseCallback(ECollision_Result::Release);
+	//		m_MouseCollision = nullptr;
+	//	}
+	//}
+}
+
 void CSceneCollision::CheckSection(CCollider* Collider)
 {
 
@@ -283,4 +372,152 @@ void CSceneCollision::CheckSection(CCollider* Collider)
 			}
 		}
 	}
+}
+
+bool CSceneCollision::CreatePixelCollision(const std::string& Name, const TCHAR* FileName, const std::string& PathName)
+{
+	const PathInfo* Path = CPathManager::GetInst()->FindPath(PathName);
+
+	TCHAR	FullPath[MAX_PATH] = {};
+
+	if (Path)
+		lstrcpy(FullPath, Path->Path);
+	lstrcat(FullPath, FileName);
+
+	return CreatePixelCollisionFullPath(Name, FullPath);
+}
+
+bool CSceneCollision::CreatePixelCollisionFullPath(const std::string& Name, const TCHAR* FullPath)
+{
+	if (FindPixelCollision(Name))
+		return true;
+
+	// .dds, .tga, 나머지 포맷에 따라 로딩 함수가 다르다.
+	TCHAR	_FileExt[_MAX_EXT] = {};
+
+	_wsplitpath_s(FullPath, nullptr, 0, nullptr, 0, nullptr, 0, _FileExt, _MAX_EXT);
+
+	char	FileExt[_MAX_EXT] = {};
+
+#ifdef UNICODE
+
+	int	ConvertLength = WideCharToMultiByte(CP_ACP, 0, _FileExt, -1, nullptr, 0, nullptr, nullptr);
+	WideCharToMultiByte(CP_ACP, 0, _FileExt, -1, FileExt, ConvertLength, nullptr, nullptr);
+
+#else
+
+	strcpy_s(FileExt, _FileExt);
+
+#endif // UNICODE
+
+	// 확장자를 대문자로 만들어준다.
+	_strupr_s(FileExt);
+
+	DirectX::ScratchImage* Image = new DirectX::ScratchImage;
+
+	if (strcmp(FileExt, ".DDS") == 0)
+	{
+		if (FAILED(DirectX::LoadFromDDSFile(FullPath, DirectX::DDS_FLAGS_NONE, nullptr,
+			*Image)))
+		{
+			SAFE_DELETE(Image);
+			return false;
+		}
+	}
+
+	else if (strcmp(FileExt, ".TGA") == 0)
+	{
+		if (FAILED(DirectX::LoadFromTGAFile(FullPath, nullptr, *Image)))
+		{
+			SAFE_DELETE(Image);
+			return false;
+		}
+	}
+
+	else
+	{
+		if (FAILED(DirectX::LoadFromWICFile(FullPath, DirectX::WIC_FLAGS_NONE, nullptr,
+			*Image)))
+		{
+			SAFE_DELETE(Image);
+			return false;
+		}
+	}
+
+	PixelInfo* Info = new PixelInfo;
+
+	Info->RefCount = 1;
+
+	Info->Width = (unsigned int)Image->GetImages()[0].width;
+	Info->Height = (unsigned int)Image->GetImages()[0].height;
+
+	Info->Pixel = new unsigned char[Image->GetPixelsSize()];
+
+	memcpy(Info->Pixel, Image->GetPixels(), Image->GetPixelsSize());
+
+	// bmp 파일은 메모리에 픽셀정보가 저장될때 상하반전되어 저장이 된다.
+	if (strcmp(FileExt, ".BMP") == 0)
+	{
+		// 원래 순서대로 반전시켜서 저장해둔다.
+		unsigned int LineSize = Info->Width * 4;
+
+		unsigned char* Line = new unsigned char[LineSize];
+
+		int	HalfHeight = Info->Height / 2;
+
+		for (int i = 0; i < HalfHeight; ++i)
+		{
+			memcpy(Line, &Info->Pixel[i * LineSize], LineSize);
+			memcpy(&Info->Pixel[i * LineSize], &Info->Pixel[(Info->Height - 1 - i) * LineSize], LineSize);
+			memcpy(&Info->Pixel[(Info->Height - 1 - i) * LineSize], Line, LineSize);
+		}
+
+		SAFE_DELETE_ARRAY(Line);
+	}
+
+	if (FAILED(DirectX::CreateShaderResourceView(CDevice::GetInst()->GetDevice(),
+		Image->GetImages(),
+		Image->GetImageCount(),
+		Image->GetMetadata(),
+		&Info->SRV)))
+		return false;
+
+	m_mapPixelCollision.insert(std::make_pair(Name, Info));
+
+	SAFE_DELETE(Image);
+
+	return true;
+}
+
+bool CSceneCollision::CreatePixelCollisionMultibyte(const std::string& Name, const char* FileName, const std::string& PathName)
+{
+	const PathInfo* Path = CPathManager::GetInst()->FindPath(PathName);
+
+	char	FullPath[MAX_PATH] = {};
+
+	if (Path)
+		strcpy_s(FullPath, Path->PathMultibyte);
+	strcat_s(FullPath, FileName);
+
+	return CreatePixelCollisionMultibyteFullPath(Name, FullPath);
+}
+
+bool CSceneCollision::CreatePixelCollisionMultibyteFullPath(const std::string& Name, const char* FullPath)
+{
+	TCHAR	WideCharFullPath[MAX_PATH] = {};
+
+	int	Length = MultiByteToWideChar(CP_ACP, 0, FullPath, -1, 0, 0);
+	MultiByteToWideChar(CP_ACP, 0, FullPath, -1, WideCharFullPath, Length);
+
+	return CreatePixelCollisionFullPath(Name, WideCharFullPath);
+}
+
+PixelInfo* CSceneCollision::FindPixelCollision(const std::string& Name)
+{
+	auto	iter = m_mapPixelCollision.find(Name);
+
+	if (iter == m_mapPixelCollision.end())
+		return nullptr;
+
+	return iter->second;
 }
