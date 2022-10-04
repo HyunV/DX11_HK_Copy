@@ -62,24 +62,6 @@ void CTransform::Clear()
 	}
 }
 
-void CTransform::InheritScale()
-{
-	// 부모 트랜스폼이 있고 크기가 부모로부터 영향을 받아서 계산되어야 할 경우
-	if (m_Parent && m_InheritScale)
-		m_WorldScale = m_RelativeScale * m_Parent->GetWorldScale();
-
-	// Scale행렬을 갱신해야 하므로 true로 변환한다.
-	m_UpdateScale = true;
-
-	// 모든 자식노드를 갱신한다.
-	size_t	Size = m_vecChild.size();
-
-	for (size_t i = 0; i < Size; ++i)
-	{
-		m_vecChild[i]->InheritScale();
-	}
-}
-
 void CTransform::InheritRotation(bool Current)
 {
 	// 부모가 있을 경우 부모의 회전에 영향을 받는다.
@@ -87,15 +69,6 @@ void CTransform::InheritRotation(bool Current)
 	// 각 축마다 계산한다.
 	if (m_Parent)
 	{
-		if (m_InheritRotX)
-			m_WorldRot.x = m_RelativeRot.x + m_Parent->GetWorldRot().x;
-
-		if (m_InheritRotY)
-			m_WorldRot.y = m_RelativeRot.y + m_Parent->GetWorldRot().y;
-
-		if (m_InheritRotZ)
-			m_WorldRot.z = m_RelativeRot.z + m_Parent->GetWorldRot().z;
-
 		// x, y, z 축 회전중 하나라도 부모에 영향을 받고 현재 트랜스폼이 아닌 회전이 일어난
 		// 트랜스폼의 자식 트랜스폼일 경우 위치가 변경이 되어야 한다.
 		if ((m_InheritRotX || m_InheritRotY || m_InheritRotZ) && !Current)
@@ -206,24 +179,6 @@ void CTransform::InheritParentRotationPos()
 	}
 }
 
-void CTransform::InheritWorldScale()
-{
-	// 부모 트랜스폼이 있고 크기가 부모로부터 영향을 받아서 계산되어야 할 경우
-	if (m_Parent && m_InheritScale)
-		m_RelativeScale = m_WorldScale / m_Parent->GetWorldScale();
-
-	// Scale행렬을 갱신해야 하므로 true로 변환한다.
-	m_UpdateScale = true;
-
-	// 모든 자식노드를 갱신한다.
-	size_t	Size = m_vecChild.size();
-
-	for (size_t i = 0; i < Size; ++i)
-	{
-		m_vecChild[i]->InheritWorldScale();
-	}
-}
-
 void CTransform::InheritWorldRotation(bool Current)
 {
 	// 부모가 있을 경우 부모의 회전에 영향을 받는다.
@@ -231,19 +186,15 @@ void CTransform::InheritWorldRotation(bool Current)
 	// 각 축마다 계산한다.
 	if (m_Parent)
 	{
-		if (m_InheritRotX)
-			m_RelativeRot.x = m_WorldRot.x - m_Parent->GetWorldRot().x;
-
-		if (m_InheritRotY)
-			m_RelativeRot.y = m_WorldRot.y - m_Parent->GetWorldRot().y;
-
-		if (m_InheritRotZ)
-			m_RelativeRot.z = m_WorldRot.z - m_Parent->GetWorldRot().z;
-
 		// x, y, z 축 회전중 하나라도 부모에 영향을 받고 현재 트랜스폼이 아닌 회전이 일어난
 		// 트랜스폼의 자식 트랜스폼일 경우 위치가 변경이 되어야 한다.
 		if ((m_InheritRotX || m_InheritRotY || m_InheritRotZ) && !Current)
 			InheritWorldParentRotationPos();
+	}
+
+	else
+	{
+		m_WorldRot = m_RelativeRot;
 	}
 
 	// x, y, z 축 회전 각도를 이용하여 실제 회전행렬을 구하기 위한 사원수를 만들어낸다.
@@ -305,6 +256,9 @@ void CTransform::InheritWorldParentRotationPos()
 		Matrix	matRot;
 		Vector3	ParentRot;
 
+		if (m_Owner->GetName() == "RightChild")
+			int a = 0;
+
 		if (m_InheritRotX)
 			ParentRot.x = m_Parent->GetWorldRot().x;
 
@@ -319,7 +273,7 @@ void CTransform::InheritWorldParentRotationPos()
 			// 부모로부터 회전한 위치로 적용이 되기 때문에 월드위치를 강제할 경우 해당 위치로부터 
 			// 현재의 상대적인 위치를 구한 후에 부모 회전의 역회전을 이용하여 최종 상대적인
 			// 위치를 구해주어야 한다.
-			Vector3	RelativePos = m_WorldPos - m_Parent->GetWorldPos();
+			//Vector3	RelativePos = m_WorldPos - m_Parent->GetWorldPos();
 
 			// 역회전.
 
@@ -362,9 +316,26 @@ void CTransform::SetRelativeScale(const Vector3& Scale)
 	m_RelativeScale = Scale;
 
 	// 부모가 없을 경우라면 월드공간에서의 크기는 상대적인 크기와 동일한 크기로 적용을 한다.
-	m_WorldScale = Scale;
+	if (!m_Parent)
+		m_WorldScale = Scale;
 
-	InheritScale();
+	else
+	{
+		if (m_InheritScale)
+			m_WorldScale = m_RelativeScale * m_Parent->GetWorldScale();
+
+		else
+			m_WorldScale = m_RelativeScale;
+	}
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->SetChildRelativeScale(Scale);
+	}
+
+	m_UpdateScale = true;
 }
 
 void CTransform::SetRelativeScale(const Vector2& Scale)
@@ -402,7 +373,27 @@ void CTransform::SetRelativeRotation(const Vector3& Rot)
 	m_RelativeRot = Rot;
 
 	// 부모가 없을 경우라면 월드공간에서의 회전을 상대적인 회전과 동일한 회전으로 적용을 한다.
-	m_WorldRot = Rot;
+	if (!m_Parent)
+		m_WorldRot = Rot;
+
+	else
+	{
+		if (m_InheritRotX)
+			m_WorldRot.x = Rot.x + m_Parent->GetWorldRot().x;
+
+		if (m_InheritRotY)
+			m_WorldRot.y = Rot.y + m_Parent->GetWorldRot().y;
+
+		if (m_InheritRotZ)
+			m_WorldRot.z = Rot.z + m_Parent->GetWorldRot().z;
+	}
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->SetChildRelativeRotation(Rot);
+	}
 
 	InheritRotation(true);
 }
@@ -442,7 +433,18 @@ void CTransform::SetRelativePosition(const Vector3& Pos)
 	m_RelativePos = Pos;
 
 	// 부모가 없을 경우라면 월드공간에서의 위치를 상대적인 위치와 동일한 위치로 적용을 한다.
-	m_WorldPos = Pos;
+	if (!m_Parent)
+		m_WorldPos = Pos;
+
+	else
+		m_WorldPos = Pos + m_Parent->GetWorldPos();
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->SetChildRelativePosition(Pos);
+	}
 
 	InheritParentRotationPos();
 }
@@ -482,9 +484,26 @@ void CTransform::AddRelativeScale(const Vector3& Scale)
 	m_RelativeScale += Scale;
 
 	// 부모가 없을 경우라면 월드공간에서의 크기는 상대적인 크기와 동일한 크기로 적용을 한다.
-	m_WorldScale = m_RelativeScale;
+	if (!m_Parent)
+		m_WorldScale = m_RelativeScale;
 
-	InheritScale();
+	else
+	{
+		if (m_InheritScale)
+			m_WorldScale = m_RelativeScale * m_Parent->GetWorldScale();
+
+		else
+			m_WorldScale = m_RelativeScale;
+	}
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->AddChildRelativeScale(Scale);
+	}
+
+	m_UpdateScale = true;
 }
 
 void CTransform::AddRelativeScale(const Vector2& Scale)
@@ -522,7 +541,27 @@ void CTransform::AddRelativeRotation(const Vector3& Rot)
 	m_RelativeRot += Rot;
 
 	// 부모가 없을 경우라면 월드공간에서의 회전을 상대적인 회전과 동일한 회전으로 적용을 한다.
-	m_WorldRot = m_RelativeRot;
+	if (!m_Parent)
+		m_WorldRot = m_RelativeRot;
+
+	else
+	{
+		if (m_InheritRotX)
+			m_WorldRot.x = Rot.x + m_Parent->GetWorldRot().x;
+
+		if (m_InheritRotY)
+			m_WorldRot.y = Rot.y + m_Parent->GetWorldRot().y;
+
+		if (m_InheritRotZ)
+			m_WorldRot.z = Rot.z + m_Parent->GetWorldRot().z;
+	}
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->AddChildRelativeRotation(Rot);
+	}
 
 	InheritRotation(true);
 }
@@ -562,7 +601,18 @@ void CTransform::AddRelativePosition(const Vector3& Pos)
 	m_RelativePos += Pos;
 
 	// 부모가 없을 경우라면 월드공간에서의 위치를 상대적인 위치와 동일한 위치로 적용을 한다.
-	m_WorldPos = m_RelativePos;
+	if (!m_Parent)
+		m_WorldPos = m_RelativePos;
+
+	else
+		m_WorldPos = m_RelativePos + m_Parent->GetWorldPos();
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->AddChildRelativePosition(Pos);
+	}
 
 	InheritParentRotationPos();
 }
@@ -597,14 +647,151 @@ void CTransform::AddRelativePositionZ(float z)
 	AddRelativePosition(Vector3(0.f, 0.f, z));
 }
 
+void CTransform::SetChildRelativeScale(const Vector3& Scale)
+{
+	m_RelativeScale = Scale;
+
+	if (m_InheritScale)
+		m_WorldScale = m_RelativeScale * m_Parent->GetWorldScale();
+
+	else
+		m_WorldScale = m_RelativeScale;
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->SetChildRelativeScale(Scale);
+	}
+}
+
+void CTransform::SetChildRelativeRotation(const Vector3& Rot)
+{
+	if (m_InheritRotX)
+	{
+		m_RelativeRot.x = Rot.x;
+		m_WorldRot.x = m_RelativeRot.x + m_Parent->GetWorldRot().x;
+	}
+
+	if (m_InheritRotY)
+	{
+		m_RelativeRot.y = Rot.y;
+		m_WorldRot.y = m_RelativeRot.y + m_Parent->GetWorldRot().y;
+	}
+
+	if (m_InheritRotZ)
+	{
+		m_RelativeRot.z = Rot.z;
+		m_WorldRot.z = m_RelativeRot.z + m_Parent->GetWorldRot().z;
+	}
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->SetChildRelativeRotation(Rot);
+	}
+}
+
+void CTransform::SetChildRelativePosition(const Vector3& Pos)
+{
+	m_RelativePos = Pos;
+
+	m_WorldPos = m_RelativePos + m_Parent->GetWorldPos();
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->SetChildRelativePosition(Pos);
+	}
+}
+
+void CTransform::AddChildRelativeScale(const Vector3& Scale)
+{
+	m_RelativeScale += Scale;
+
+	if (m_InheritScale)
+		m_WorldScale = m_RelativeScale * m_Parent->GetWorldScale();
+
+	else
+		m_WorldScale = m_RelativeScale;
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->AddChildRelativeScale(Scale);
+	}
+}
+
+void CTransform::AddChildRelativeRotation(const Vector3& Rot)
+{
+	if (m_InheritRotX)
+	{
+		m_RelativeRot.x += Rot.x;
+		m_WorldRot.x = m_RelativeRot.x + m_Parent->GetWorldRot().x;
+	}
+
+	if (m_InheritRotY)
+	{
+		m_RelativeRot.y += Rot.y;
+		m_WorldRot.y = m_RelativeRot.y + m_Parent->GetWorldRot().y;
+	}
+
+	if (m_InheritRotZ)
+	{
+		m_RelativeRot.z += Rot.z;
+		m_WorldRot.z = m_RelativeRot.z + m_Parent->GetWorldRot().z;
+	}
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->AddChildRelativeRotation(Rot);
+	}
+}
+
+void CTransform::AddChildRelativePosition(const Vector3& Pos)
+{
+	m_RelativePos += Pos;
+
+	m_WorldPos = m_RelativePos + m_Parent->GetWorldPos();
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->AddChildRelativePosition(Pos);
+	}
+}
+
 void CTransform::SetWorldScale(const Vector3& Scale)
 {
 	m_WorldScale = Scale;
 
 	// 부모가 없을 경우라면 상대적인 크기는 월드공간에서의 크기와 동일한 크기로 적용을 한다.
-	m_RelativeScale = m_WorldScale;
+	if (!m_Parent)
+		m_RelativeScale = m_WorldScale;
 
-	InheritWorldScale();
+	else
+	{
+		if (m_InheritScale)
+			m_RelativeScale = m_WorldScale / m_Parent->GetWorldScale();
+
+		else
+			m_RelativeScale = m_WorldScale;
+	}
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->SetChildWorldScale(Scale);
+	}
+
+	m_UpdateScale = true;
 }
 
 void CTransform::SetWorldScale(const Vector2& Scale)
@@ -642,7 +829,15 @@ void CTransform::SetWorldRotation(const Vector3& Rot)
 	m_WorldRot = Rot;
 
 	// 부모가 없을 경우라면 상대적인 회전을 월드공간에서의 회전과 동일한 회전으로 적용을 한다.
-	m_RelativeRot = m_WorldRot;
+	if (!m_Parent)
+		m_RelativeRot = m_WorldRot;
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->SetChildWorldRotation(Rot);
+	}
 
 	InheritWorldRotation(true);
 }
@@ -682,7 +877,15 @@ void CTransform::SetWorldPosition(const Vector3& Pos)
 	m_WorldPos = Pos;
 
 	// 부모가 없을 경우라면 상대적인 위치를 월드공간에서의 위치와 동일한 위치로 적용을 한다.
-	m_RelativePos = m_WorldPos;
+	if (!m_Parent)
+		m_RelativePos = m_WorldPos;
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->SetChildWorldPosition(Pos);
+	}
 
 	InheritWorldParentRotationPos();
 }
@@ -722,9 +925,26 @@ void CTransform::AddWorldScale(const Vector3& Scale)
 	m_WorldScale += Scale;
 
 	// 부모가 없을 경우라면 상대적인 크기는 월드공간에서의 크기와 동일한 크기로 적용을 한다.
-	m_RelativeScale = m_WorldScale;
+	if (!m_Parent)
+		m_RelativeScale = m_WorldScale;
 
-	InheritWorldScale();
+	else
+	{
+		if (m_InheritScale)
+			m_RelativeScale = m_WorldScale / m_Parent->GetWorldScale();
+
+		else
+			m_RelativeScale = m_WorldScale;
+	}
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->AddChildWorldScale(Scale);
+	}
+
+	m_UpdateScale = true;
 }
 
 void CTransform::AddWorldScale(const Vector2& Scale)
@@ -762,7 +982,15 @@ void CTransform::AddWorldRotation(const Vector3& Rot)
 	m_WorldRot += Rot;
 
 	// 부모가 없을 경우라면 상대적인 회전을 월드공간에서의 회전과 동일한 회전으로 적용을 한다.
-	m_RelativeRot = m_WorldRot;
+	if (!m_Parent)
+		m_RelativeRot = m_WorldRot;
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->AddChildWorldRotation(Rot);
+	}
 
 	InheritWorldRotation(true);
 }
@@ -802,7 +1030,15 @@ void CTransform::AddWorldPosition(const Vector3& Pos)
 	m_WorldPos += Pos;
 
 	// 부모가 없을 경우라면 상대적인 위치를 월드공간에서의 위치와 동일한 위치로 적용을 한다.
-	m_RelativePos = m_WorldPos;
+	if (!m_Parent)
+		m_RelativePos = m_WorldPos;
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->AddChildWorldPosition(Pos);
+	}
 
 	InheritWorldParentRotationPos();
 }
@@ -837,9 +1073,132 @@ void CTransform::AddWorldPositionZ(float z)
 	AddWorldPosition(Vector3(0.f, 0.f, z));
 }
 
+void CTransform::SetChildWorldScale(const Vector3& Scale)
+{
+	m_WorldScale = Scale;
+
+	if (m_InheritScale)
+		m_RelativeScale = m_WorldScale / m_Parent->GetWorldScale();
+
+	else
+		m_RelativeScale = m_WorldScale;
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->SetChildWorldScale(Scale);
+	}
+
+	m_UpdateScale = true;
+}
+
+void CTransform::SetChildWorldRotation(const Vector3& Rot)
+{
+	if (m_InheritRotX)
+	{
+		m_WorldRot.x = Rot.x;
+		m_RelativeRot.x = m_WorldRot.x - m_Parent->GetWorldRot().x;
+	}
+
+	if (m_InheritRotY)
+	{
+		m_WorldRot.y = Rot.y;
+		m_RelativeRot.y = m_WorldRot.y - m_Parent->GetWorldRot().y;
+	}
+
+	if (m_InheritRotZ)
+	{
+		m_WorldRot.z = Rot.z;
+		m_RelativeRot.z = m_WorldRot.z - m_Parent->GetWorldRot().z;
+	}
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->SetChildWorldRotation(Rot);
+	}
+}
+
+void CTransform::SetChildWorldPosition(const Vector3& Pos)
+{
+	m_WorldPos = Pos;
+
+	//m_RelativePos = m_WorldPos - m_Parent->GetWorldPos();
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->SetChildWorldPosition(Pos);
+	}
+}
+
+void CTransform::AddChildWorldScale(const Vector3& Scale)
+{
+	m_WorldScale += Scale;
+
+	if (m_InheritScale)
+		m_RelativeScale = m_WorldScale / m_Parent->GetWorldScale();
+
+	else
+		m_RelativeScale = m_WorldScale;
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->AddChildWorldScale(Scale);
+	}
+
+	m_UpdateScale = true;
+}
+
+void CTransform::AddChildWorldRotation(const Vector3& Rot)
+{
+	if (m_InheritRotX)
+	{
+		m_WorldRot.x += Rot.x;
+		m_RelativeRot.x = m_WorldRot.x - m_Parent->GetWorldRot().x;
+	}
+
+	if (m_InheritRotY)
+	{
+		m_WorldRot.y += Rot.y;
+		m_RelativeRot.y = m_WorldRot.y - m_Parent->GetWorldRot().y;
+	}
+
+	if (m_InheritRotZ)
+	{
+		m_WorldRot.z += Rot.z;
+		m_RelativeRot.z = m_WorldRot.z - m_Parent->GetWorldRot().z;
+	}
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->AddChildWorldRotation(Rot);
+	}
+}
+
+void CTransform::AddChildWorldPosition(const Vector3& Pos)
+{
+	m_WorldPos += Pos;
+
+	//m_RelativePos = m_WorldPos - m_Parent->GetWorldPos();
+
+	size_t	Size = m_vecChild.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecChild[i]->AddChildWorldPosition(Pos);
+	}
+}
+
 void CTransform::Start()
 {
-	InheritScale();
 	InheritRotation(true);
 	InheritParentRotationPos();
 }
@@ -915,9 +1274,8 @@ void CTransform::SetTransform()
 {
 	m_CBuffer->SetWorldMatrix(m_matWorld);
 
-	Matrix matView = m_Scene->GetCameraManager()->GetCurrentCamera()->GetViewMatrix();
-	Matrix matProj = m_Scene->GetCameraManager()->GetCurrentCamera()->GetProjMatrix();
-
+	Matrix	matView = m_Scene->GetCameraManager()->GetCurrentCamera()->GetViewMatrix();
+	Matrix	matProj = m_Scene->GetCameraManager()->GetCurrentCamera()->GetProjMatrix();
 
 	m_CBuffer->SetViewMatrix(matView);
 	m_CBuffer->SetProjMatrix(matProj);

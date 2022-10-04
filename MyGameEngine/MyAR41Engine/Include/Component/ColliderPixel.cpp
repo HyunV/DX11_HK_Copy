@@ -1,9 +1,17 @@
 #include "ColliderPixel.h"
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
+#include "../Scene/CameraManager.h"
 #include "../Render/RenderManager.h"
 #include "../Resource/Material/Material.h"
 #include "../Engine.h"
+#include "../Resource/ResourceManager.h"
+#include "CameraComponent.h"
+#include "../Resource/Shader/ColliderConstantBuffer.h"
+#include "../CollisionManager.h"
+#include "ColliderBox2D.h"
+#include "ColliderOBB2D.h"
+#include "ColliderSphere2D.h"
 
 CColliderPixel::CColliderPixel()
 {

@@ -53,6 +53,7 @@ bool CMeshManager::Init()
 
 	Mesh->SetMaterial(0, 0, "DefaultColor");
 
+	//@@UV메시
 	VertexUV	CenterUVMesh[4] =
 	{
 		VertexUV(Vector3(-0.5f, 0.5f, 0.f), Vector2(0.f, 0.f)),
@@ -98,6 +99,27 @@ bool CMeshManager::Init()
 
 	CreateMesh(nullptr, MeshType::Sprite, "Box2DLineMesh",
 		Box2DLineMesh, sizeof(Vector3), 5, D3D11_USAGE_IMMUTABLE,
+		D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
+
+	//@@원메시
+	Vector3	Sphere2DLineMesh[361];
+
+	Sphere2DLineMesh[0].x = 1.f;
+	Sphere2DLineMesh[0].y = 0.f;
+
+	for (int i = 0; i < 360; ++i)
+	{
+		float Radian = (i + 1) * PI / 180.f;
+
+		Sphere2DLineMesh[i + 1].x = cosf(Radian);
+		Sphere2DLineMesh[i + 1].y = sinf(Radian);
+	}
+
+	Sphere2DLineMesh[360].x = 1.f;
+	Sphere2DLineMesh[360].y = 0.f;
+
+	CreateMesh(nullptr, MeshType::Sprite, "Sphere2DLineMesh",
+		Sphere2DLineMesh, sizeof(Vector3), 361, D3D11_USAGE_IMMUTABLE,
 		D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
 	return true;

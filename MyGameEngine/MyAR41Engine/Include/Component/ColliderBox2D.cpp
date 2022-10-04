@@ -9,6 +9,9 @@
 #include "CameraComponent.h"
 #include "../Resource/Shader/ColliderConstantBuffer.h"
 #include "../CollisionManager.h"
+#include "ColliderSphere2D.h"
+#include "ColliderOBB2D.h"
+#include "ColliderPixel.h"
 
 CColliderBox2D::CColliderBox2D()
 {
@@ -141,6 +144,7 @@ bool CColliderBox2D::Collision(CCollider* Dest)
 	case ECollider2D_Type::OBB2D:
 		break;
 	case ECollider2D_Type::Sphere2D:
+		Result = CCollisionManager::GetInst()->CollisionBox2DToSphere2D(HitPoint, this, (CColliderSphere2D*)Dest);
 		break;
 	case ECollider2D_Type::Pixel:
 		break;

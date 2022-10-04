@@ -586,6 +586,12 @@ void CMaterial::Load(FILE* File)
 	fread(&m_EmissiveColor, sizeof(Vector4), 1, File);
 	fread(&m_Opacity, 4, 1, File);
 
+	m_CBuffer->SetBaseColor(m_BaseColor);
+	m_CBuffer->SetAmbientColor(m_AmbientColor);
+	m_CBuffer->SetSpecularColor(m_SpecularColor);
+	m_CBuffer->SetEmissiveColor(m_EmissiveColor);
+	m_CBuffer->SetOpacity(m_Opacity);
+
 	for (int i = 0; i < 3; ++i)
 	{
 		bool	RenderStateEnable = false;

@@ -2,8 +2,16 @@
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
 #include "../Render/RenderManager.h"
+#include "../Scene/CameraManager.h"
 #include "../Resource/Material/Material.h"
 #include "../Engine.h"
+#include "../Resource/ResourceManager.h"
+#include "CameraComponent.h"
+#include "../Resource/Shader/ColliderConstantBuffer.h"
+#include "../CollisionManager.h"
+#include "ColliderBox2D.h"
+#include "ColliderSphere2D.h"
+#include "ColliderPixel.h"
 
 CColliderOBB2D::CColliderOBB2D()
 {

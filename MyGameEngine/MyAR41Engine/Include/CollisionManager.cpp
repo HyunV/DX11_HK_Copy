@@ -12,7 +12,6 @@ CCollisionManager::CCollisionManager()
 
 CCollisionManager::~CCollisionManager()
 {
-	//프로파일 및 채널 제거
 	{
 		auto	iter = m_mapProfile.begin();
 		auto	iterEnd = m_mapProfile.end();
@@ -45,8 +44,8 @@ bool CCollisionManager::Init()
 	return true;
 }
 
-bool CCollisionManager::CreateProfile(const std::string& Name, 
-	const std::string& ChannelName, bool Enable, 
+bool CCollisionManager::CreateProfile(const std::string& Name,
+	const std::string& ChannelName, bool Enable,
 	ECollision_Interaction BaseInteraction)
 {
 	CollisionProfile* Profile = FindProfile(Name);
@@ -89,7 +88,8 @@ bool CCollisionManager::CreateProfile(const std::string& Name,
 	return true;
 }
 
-bool CCollisionManager::SetCollisionInteraction(const std::string& Name, const std::string& ChannelName, ECollision_Interaction Interaction)
+bool CCollisionManager::SetCollisionInteraction(const std::string& Name,
+	const std::string& ChannelName, ECollision_Interaction Interaction)
 {
 	CollisionProfile* Profile = FindProfile(Name);
 
@@ -117,7 +117,7 @@ bool CCollisionManager::SetCollisionInteraction(const std::string& Name, const s
 	return true;
 }
 
-bool CCollisionManager::CreateChannel(const std::string& Name, 
+bool CCollisionManager::CreateChannel(const std::string& Name,
 	ECollision_Interaction Interaction)
 {
 	size_t	Count = m_vecChannel.size();
@@ -133,7 +133,7 @@ bool CCollisionManager::CreateChannel(const std::string& Name,
 	NewChannel->Name = Name;
 	NewChannel->Channel = (ECollision_Channel)m_vecChannel.size();
 	NewChannel->Interaction = Interaction;
-	
+
 	m_vecChannel.push_back(NewChannel);
 
 	auto	iter = m_mapProfile.begin();
@@ -151,7 +151,7 @@ CollisionProfile* CCollisionManager::FindProfile(const std::string& Name)
 {
 	auto	iter = m_mapProfile.find(Name);
 
-	if(iter == m_mapProfile.end())
+	if (iter == m_mapProfile.end())
 		return nullptr;
 
 	return iter->second;
@@ -164,10 +164,19 @@ bool CCollisionManager::CollisionBox2DToBox2D(Vector2& HitPoint, CColliderBox2D*
 		Dest->m_HitPoint = Vector3(HitPoint.x, HitPoint.y, 0.f);
 		return true;
 	}
+
+	return false;
 }
 
-bool CCollisionManager::CollisionSphere2DToSphere2D(Vector2& HitPoint, CColliderSphere2D* Src, CColliderSphere2D* Dest)
+bool CCollisionManager::CollisionSphere2DToSphere2D(Vector2& HitPoint, CColliderSphere2D* Src,
+	CColliderSphere2D* Dest)
 {
+	if (CollisionSphere2DToSphere2D(HitPoint, Src->GetInfo(), Dest->GetInfo()))
+	{
+		Dest->m_HitPoint = Vector3(HitPoint.x, HitPoint.y, 0.f);
+		return true;
+	}
+
 	return false;
 }
 
@@ -178,6 +187,12 @@ bool CCollisionManager::CollisionOBB2DToOBB2D(Vector2& HitPoint, CColliderOBB2D*
 
 bool CCollisionManager::CollisionBox2DToSphere2D(Vector2& HitPoint, CColliderBox2D* Src, CColliderSphere2D* Dest)
 {
+	if (CollisionBox2DToSphere2D(HitPoint, Src->GetInfo(), Dest->GetInfo()))
+	{
+		Dest->m_HitPoint = Vector3(HitPoint.x, HitPoint.y, 0.f);
+		return true;
+	}
+
 	return false;
 }
 
@@ -252,9 +267,16 @@ bool CCollisionManager::CollisionBox2DToBox2D(Vector2& HitPoint, const Box2DInfo
 	return true;
 }
 
-bool CCollisionManager::CollisionSphere2DToSphere2D(Vector2& HitPoint, const Sphere2DInfo& Src, const Sphere2DInfo& Dest)
+bool CCollisionManager::CollisionSphere2DToSphere2D(Vector2& HitPoint, const Sphere2DInfo& Src,
+	const Sphere2DInfo& Dest)
 {
-	return false;
+	float	Dist = Src.Center.Distance(Dest.Center);
+
+	bool result = Dist <= Src.Radius + Dest.Radius;
+
+	HitPoint = (Src.Center + Dest.Center) / 2.f;
+
+	return result;
 }
 
 bool CCollisionManager::CollisionOBB2DToOBB2D(Vector2& HitPoint, const OBB2DInfo& Src, const OBB2DInfo& Dest)
@@ -262,8 +284,81 @@ bool CCollisionManager::CollisionOBB2DToOBB2D(Vector2& HitPoint, const OBB2DInfo
 	return false;
 }
 
-bool CCollisionManager::CollisionBox2DToSphere2D(Vector2& HitPoint, const Box2DInfo& Src, const Sphere2DInfo& Dest)
+bool CCollisionManager::CollisionBox2DToSphere2D(Vector2& HitPoint, const Box2DInfo& Src,
+	const Sphere2DInfo& Dest)
 {
+	if ((Src.Left <= Dest.Center.x && Dest.Center.x <= Src.Right) ||
+		(Src.Bottom <= Dest.Center.y && Dest.Center.y <= Src.Top))
+	{
+		Box2DInfo	Info = Src;
+		Info.Left -= Dest.Radius;
+		Info.Bottom -= Dest.Radius;
+		Info.Right += Dest.Radius;
+		Info.Top += Dest.Radius;
+
+		if (Info.Left > Dest.Center.x)
+			return false;
+
+		else if (Info.Bottom > Dest.Center.y)
+			return false;
+
+		else if (Info.Right < Dest.Center.x)
+			return false;
+
+		else if (Info.Top < Dest.Center.y)
+			return false;
+
+		Box2DInfo	OverlapBox;
+
+		OverlapBox.Left = Dest.Center.x - Dest.Radius;
+		OverlapBox.Bottom = Dest.Center.y - Dest.Radius;
+		OverlapBox.Right = Dest.Center.x + Dest.Radius;
+		OverlapBox.Top = Dest.Center.y + Dest.Radius;
+
+		OverlapBox.Left = Src.Left > OverlapBox.Left ? Src.Left : OverlapBox.Left;
+		OverlapBox.Bottom = Src.Bottom > OverlapBox.Bottom ? Src.Bottom : OverlapBox.Bottom;
+		OverlapBox.Right = Src.Right < OverlapBox.Right ? Src.Right : OverlapBox.Right;
+		OverlapBox.Top = Src.Top < OverlapBox.Top ? Src.Top : OverlapBox.Top;
+
+		HitPoint.x = (OverlapBox.Left + OverlapBox.Right) / 2.f;
+		HitPoint.y = (OverlapBox.Bottom + OverlapBox.Top) / 2.f;
+
+		return true;
+	}
+
+	Vector2	Pos[4] =
+	{
+		Vector2(Src.Left, Src.Top),
+		Vector2(Src.Right, Src.Top),
+		Vector2(Src.Left, Src.Bottom),
+		Vector2(Src.Right, Src.Bottom)
+	};
+
+	for (int i = 0; i < 4; ++i)
+	{
+		float Dist = Dest.Center.Distance(Pos[i]);
+
+		if (Dist <= Dest.Radius)
+		{
+			Box2DInfo	OverlapBox;
+
+			OverlapBox.Left = Dest.Center.x - Dest.Radius;
+			OverlapBox.Bottom = Dest.Center.y - Dest.Radius;
+			OverlapBox.Right = Dest.Center.x + Dest.Radius;
+			OverlapBox.Top = Dest.Center.y + Dest.Radius;
+
+			OverlapBox.Left = Src.Left > OverlapBox.Left ? Src.Left : OverlapBox.Left;
+			OverlapBox.Bottom = Src.Bottom > OverlapBox.Bottom ? Src.Bottom : OverlapBox.Bottom;
+			OverlapBox.Right = Src.Right < OverlapBox.Right ? Src.Right : OverlapBox.Right;
+			OverlapBox.Top = Src.Top < OverlapBox.Top ? Src.Top : OverlapBox.Top;
+
+			HitPoint.x = (OverlapBox.Left + OverlapBox.Right) / 2.f;
+			HitPoint.y = (OverlapBox.Bottom + OverlapBox.Top) / 2.f;
+
+			return true;
+		}
+	}
+
 	return false;
 }
 

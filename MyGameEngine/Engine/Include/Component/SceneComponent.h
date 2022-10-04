@@ -78,11 +78,10 @@ public:
 	void SetInheritParentRotationPosZ(bool Inherit);
 
 	// 부모의 정보를 자식 Transform에 적용한다.
-	void InheritScale();
+
 	void InheritRotation(bool Current);
 	void InheritParentRotationPos();
 
-	void InheritWorldScale();
 	void InheritWorldRotation(bool Current);
 	void InheritWorldParentRotationPos();
 

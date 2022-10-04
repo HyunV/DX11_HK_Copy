@@ -269,6 +269,7 @@ struct OBB2DInfo
 	Vector2	Center;
 	Vector2	Axis[AXIS2D_MAX];
 	float	Length[AXIS2D_MAX];
+
 };
 
 struct PixelInfo

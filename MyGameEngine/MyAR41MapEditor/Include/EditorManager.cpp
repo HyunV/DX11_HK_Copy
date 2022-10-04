@@ -23,6 +23,7 @@
 #include "Resource/Animation/AnimationSequence2D.h"
 #include "PathManager.h"
 #include "Input.h"
+#include "CollisionManager.h"
 
 CEditorManager::CEditorManager()
 {
@@ -92,6 +93,34 @@ bool CEditorManager::Init(HINSTANCE hInst)
     CInput::GetInst()->AddBindKey("MoveDown", 'S');
 
     CInput::GetInst()->AddBindKey("Fire", VK_SPACE);
+
+    //충돌 프로파일 등록
+    CCollisionManager::GetInst()->CreateChannel("Player", ECollision_Interaction::Collision);
+    CCollisionManager::GetInst()->CreateChannel("PlayerAttack", ECollision_Interaction::Collision);
+    CCollisionManager::GetInst()->CreateChannel("Monster", ECollision_Interaction::Collision);
+    CCollisionManager::GetInst()->CreateChannel("MonsterAttack", ECollision_Interaction::Collision);
+
+    CCollisionManager::GetInst()->CreateProfile("Player", "Player", true);
+    CCollisionManager::GetInst()->CreateProfile("PlayerAttack", "PlayerAttack", true);
+    CCollisionManager::GetInst()->CreateProfile("Monster", "Monster", true);
+    CCollisionManager::GetInst()->CreateProfile("MonsterAttack", "MonsterAttack", true);
+
+    CCollisionManager::GetInst()->SetCollisionInteraction("Player", "PlayerAttack", ECollision_Interaction::Ignore);
+
+    CCollisionManager::GetInst()->SetCollisionInteraction("Player", "Player", ECollision_Interaction::Ignore);
+
+    CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "Player", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "MonsterAttack", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "PlayerAttack", ECollision_Interaction::Ignore);
+
+
+    CCollisionManager::GetInst()->SetCollisionInteraction("Monster", "MonsterAttack", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Monster", "Monster", ECollision_Interaction::Ignore);
+
+    CCollisionManager::GetInst()->SetCollisionInteraction("MonsterAttack", "Monster", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("MonsterAttack", "MonsterAttack", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("MonsterAttack", "PlayerAttack", ECollision_Interaction::Ignore);
+
 
 
     // SceneInfo 생성 기본적으로 사용할 씬 등록

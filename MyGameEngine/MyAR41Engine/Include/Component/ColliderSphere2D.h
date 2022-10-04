@@ -12,8 +12,19 @@ protected:
     virtual ~CColliderSphere2D();
 
 protected:
+    float           m_Radius;
+    Sphere2DInfo    m_Info;
+public:
+    const Sphere2DInfo& GetInfo()  const
+    {
+        return m_Info;
+    }
 
 public:
+    void SetRadius(float Radius)
+    {
+        m_Radius = Radius;
+    }
 
 public:
     virtual void Start();

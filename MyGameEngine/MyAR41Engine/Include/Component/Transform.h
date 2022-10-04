@@ -81,11 +81,11 @@ public:
 	}
 
 	// 부모의 정보를 자식 Transform에 적용한다.
-	void InheritScale();
+	//void InheritScale();
 	void InheritRotation(bool Current);
 	void InheritParentRotationPos();
 
-	void InheritWorldScale();
+	//void InheritWorldScale();
 	void InheritWorldRotation(bool Current);
 	void InheritWorldParentRotationPos();
 
@@ -160,6 +160,15 @@ public:
 	void AddRelativePositionX(float x);
 	void AddRelativePositionY(float y);
 	void AddRelativePositionZ(float z);
+
+private:
+	void SetChildRelativeScale(const Vector3& Scale);
+	void SetChildRelativeRotation(const Vector3& Rot);
+	void SetChildRelativePosition(const Vector3& Pos);
+
+	void AddChildRelativeScale(const Vector3& Scale);
+	void AddChildRelativeRotation(const Vector3& Rot);
+	void AddChildRelativePosition(const Vector3& Pos);
 
 private:	// World
 	Vector3		m_WorldScale;
@@ -303,6 +312,15 @@ public:
 	void AddWorldPositionX(float x);
 	void AddWorldPositionY(float y);
 	void AddWorldPositionZ(float z);
+
+	private:
+		void SetChildWorldScale(const Vector3& Scale);
+		void SetChildWorldRotation(const Vector3& Rot);
+		void SetChildWorldPosition(const Vector3& Pos);
+
+		void AddChildWorldScale(const Vector3& Scale);
+		void AddChildWorldRotation(const Vector3& Rot);
+		void AddChildWorldPosition(const Vector3& Pos);
 
 public:
 	void Start();

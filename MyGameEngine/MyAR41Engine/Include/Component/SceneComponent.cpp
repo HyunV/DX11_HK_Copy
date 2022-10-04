@@ -11,6 +11,7 @@ CSceneComponent::CSceneComponent() :
 	m_Transform = new CTransform;
 
 	m_Transform->Init();
+	m_Transform->m_Owner = this;
 
 	m_ComponentType = ComponentType::Scene;
 
@@ -424,11 +425,6 @@ void CSceneComponent::SetInheritParentRotationPosZ(bool Inherit)
 	m_Transform->SetInheritParentRotationPosZ(Inherit);
 }
 
-void CSceneComponent::InheritScale()
-{
-	m_Transform->InheritScale();
-}
-
 void CSceneComponent::InheritRotation(bool Current)
 {
 	m_Transform->InheritRotation(Current);
@@ -437,11 +433,6 @@ void CSceneComponent::InheritRotation(bool Current)
 void CSceneComponent::InheritParentRotationPos()
 {
 	m_Transform->InheritParentRotationPos();
-}
-
-void CSceneComponent::InheritWorldScale()
-{
-	m_Transform->InheritWorldScale();
 }
 
 void CSceneComponent::InheritWorldRotation(bool Current)

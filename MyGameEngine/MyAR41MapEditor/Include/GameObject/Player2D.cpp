@@ -70,7 +70,7 @@ bool CPlayer2D::Init()
 
 	SetRootComponent(m_Body);
 
-	//m_Body->SetCollisionProfile("Player");
+	m_Body->SetCollisionProfile("Player");
 
 	m_Body->AddChild(m_Sprite);
 
@@ -96,6 +96,8 @@ bool CPlayer2D::Init()
 	
 	m_Sprite->SetPivot(0.5f, 0.5f);
 	m_Sprite->SetInheritRotZ(true);
+	m_Sprite->SetRelativeRotationZ(30.f);
+
 	CMaterial* Material = m_Sprite->GetMaterial(0);
 
 	Material->SetOpacity(0.5f);
@@ -176,16 +178,24 @@ void CPlayer2D::RotationInv()
 void CPlayer2D::Fire()
 {
 	CMyBullet* Bullet = m_Scene->CreateObject<CMyBullet>("MyBullet");
-	Bullet->SetWorldPosition(m_Sprite->GetWorldPos());
-	Vector3 v3 = m_Sprite->GetWorldRot();
-	Bullet->SetWorldRotationZ(v3.z);
+	Bullet->SetWorldPosition(GetWorldPos());
+	Bullet->SetWorldRotation(GetWorldRot());
 
-	CMyBullet* Bullet2 = m_Scene->CreateObject<CMyBullet>("MyBullet2");
-	Bullet2->SetWorldPosition(m_Sprite->GetWorldPos());
-	//Bullet2->AddWorldRotationZ(15.f * g_DeltaTime);
-	Bullet2->SetWorldRotationZ(m_Sprite->GetWorldRot().z+15.f);
+	//CMyBullet* Bullet2 = m_Scene->CreateObject<CMyBullet>("MyBullet2");
+	//Bullet2->SetWorldPosition(m_Sprite->GetWorldPos());
+	////Bullet2->AddWorldRotationZ(15.f * g_DeltaTime);
+	//Bullet2->SetWorldRotationZ(m_Sprite->GetWorldRot().z+15.f);
 
-	CMyBullet* Bullet3 = m_Scene->CreateObject<CMyBullet>("MyBullet3");
-	Bullet3->SetWorldPosition(m_Sprite->GetWorldPos());
-	Bullet3->SetWorldRotationZ(m_Sprite->GetWorldRot().z - 15.f);
+	//CMyBullet* Bullet3 = m_Scene->CreateObject<CMyBullet>("MyBullet3");
+	//Bullet3->SetWorldPosition(m_Sprite->GetWorldPos());
+	//Bullet3->SetWorldRotationZ(m_Sprite->GetWorldRot().z - 15.f);
+	
+	//CMyBullet* Bullet = m_Scene->CreateObject<CMyBullet>("MyBullet");
+
+	//Bullet->SetWorldPosition(GetWorldPos());
+	//Bullet->SetWorldRotation(GetWorldRot());
+	Bullet->SetCollisionProfileName("PlayerAttack");
+
+	//Bullet2->SetCollisionProfileName("PlayerAttack");
+	//Bullet3->SetCollisionProfileName("PlayerAttack");
 }

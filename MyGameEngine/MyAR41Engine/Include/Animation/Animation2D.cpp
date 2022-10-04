@@ -32,6 +32,8 @@ CAnimation2D::CAnimation2D(const CAnimation2D& Anim) :
 		{
 			m_CurAnimation = Data;
 		}
+
+		m_mapAnimation.insert(std::make_pair(iter->first, Data));
 	}
 }
 

@@ -1,8 +1,10 @@
 
 #include "Monster.h"
 #include "Component/SpriteComponent.h"
-#include "Component/ColliderBox2D.h"
 #include "Resource/Material/Material.h"
+
+#include "Component/ColliderBox2D.h"
+#include "Component/ColliderSphere2D.h"
 
 CMonster::CMonster()
 {
@@ -29,11 +31,14 @@ bool CMonster::Init()
 {
 	CGameObject::Init();
 
-	m_Body = CreateComponent<CColliderBox2D>("Body");
+	//m_Body = CreateComponent<CColliderBox2D>("Body");
+	m_Body = CreateComponent<CColliderSphere2D>("Body");
 	m_Sprite = CreateComponent<CSpriteComponent>("Sprite");
 
 	//m_Sprite->AddChild(m_Sprite);
 	m_Body->AddChild(m_Sprite);
+
+	m_Body->SetCollisionProfile("Monster");
 
 	//m_Body->SetCollisionProfile("Monster");
 
