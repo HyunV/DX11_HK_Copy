@@ -5,6 +5,7 @@
 class CCollisionSection2D
 {
 	friend class CSceneCollision;
+	friend class CScene; 	//³» Ãß°¡
 
 private:
 	CCollisionSection2D();
@@ -21,5 +22,14 @@ private:
 public:
 	void AddCollider(class CCollider2D* Collider);
 	void Collision(float DeltaTime);
+
+	Vector2 GetMin() 
+	{
+		return m_Min;
+	}
+	Vector2 GetMax()
+	{
+		return m_Max;
+	}
 };
 

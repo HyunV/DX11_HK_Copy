@@ -180,6 +180,7 @@
     <ClCompile Include="GameObject\Monster.cpp" />
     <ClCompile Include="GameObject\MyBullet.cpp" />
     <ClCompile Include="GameObject\Player2D.cpp" />
+    <ClCompile Include="GameObject\PreviewSection.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene\EditorDefaultScene.cpp" />
     <ClCompile Include="Window\ClassWindow.cpp" />
@@ -200,6 +201,7 @@
     <ClInclude Include="GameObject\Monster.h" />
     <ClInclude Include="GameObject\MyBullet.h" />
     <ClInclude Include="GameObject\Player2D.h" />
+    <ClInclude Include="GameObject\PreviewSection.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene\EditorDefaultScene.h" />
     <ClInclude Include="Window\ClassWindow.h" />

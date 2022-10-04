@@ -1,5 +1,6 @@
 #include "CollisionSection2D.h"
 #include "../Component/Collider2D.h"
+#include "../Resource/ResourceManager.h"
 
 CCollisionSection2D::CCollisionSection2D()
 {

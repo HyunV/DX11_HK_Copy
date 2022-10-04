@@ -14,6 +14,7 @@
 #include "Animation/Animation2DData.h"
 #include "Animation/Animation2D.h"
 #include "Engine.h"
+#include "Component/SceneComponent.h"
 //#include "Resource/ResourceManager.h"
 //#include "Resource/Animation/AnimationManager.h"
 
@@ -146,13 +147,13 @@ void CNMyAnimationWindow2::Update(float DeltaTime)
 
 void CNMyAnimationWindow2::SetSelectComponent(const std::string& Item, CSceneComponent* Component)
 {
-	m_SpriteComponent = (CSpriteComponent*)Component;
+	//m_SpriteComponent = (CSpriteComponent*)Component;
 	if (Component && Component->GetComponentTypeName() == "SpriteComponent")
 	{
 		//m_SelectComponent = Component;
 		//m_SpriteComponent
 		m_SelectedComponent->SetText(Component->GetName().c_str());
-	}		
+	}
 	else
 		return;
 }

@@ -23,7 +23,7 @@ private:
 
     class CEditorInput* m_AnimationName; //애니메이션 파일명
     class CEditorInput* m_SelectedComponent; //선택한 컴포넌트(무조건 스프라이트)
-    //CSharedPtr<class CSceneComponent> m_SelectComponent;
+    CSharedPtr<class CSceneComponent> m_SelectComponent;
 
     class CEditorInput* m_SelectAct; //선택한 행동
     class CEditorInput* m_SelectSqc; //선택한 시퀀스

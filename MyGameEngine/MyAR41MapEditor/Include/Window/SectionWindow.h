@@ -20,7 +20,8 @@ private:
 public:
     virtual bool Init();
     virtual void Update(float DeltaTime);
-
+private:
+    void CreatePreviewObject(int x, int y);
 private:
     void ConfirmBtnCallback();
     void isCheckCallback();

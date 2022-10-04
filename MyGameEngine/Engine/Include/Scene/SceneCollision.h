@@ -51,6 +51,11 @@ private:
 
 public:
 	void AddCollider(class CCollider* Collider);
+	
+	Section2D* GetSection()
+	{
+		return &m_Section2D;
+	}
 
 public:
 	bool Init();

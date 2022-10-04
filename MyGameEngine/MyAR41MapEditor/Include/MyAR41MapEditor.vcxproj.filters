@@ -78,6 +78,9 @@
     <ClCompile Include="Window\SectionWindow.cpp">
       <Filter>03. Window</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject\PreviewSection.cpp">
+      <Filter>04. GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="Window\SectionWindow.h">
       <Filter>03. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\PreviewSection.h">
+      <Filter>04. GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

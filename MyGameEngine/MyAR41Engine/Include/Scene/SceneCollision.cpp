@@ -62,7 +62,7 @@ void CSceneCollision::Update(float DeltaTime)
 
 	for (; iter != iterEnd;)
 	{
-		//물체가 뒤졌으면 삭제해줌
+		//물체가 죽으면 삭제해줌
 		if (!(*iter)->GetActive())
 		{
 			iter = m_ColliderList.erase(iter);

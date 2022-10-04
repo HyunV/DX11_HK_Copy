@@ -32,10 +32,12 @@ bool CMonster::Init()
 	m_Body = CreateComponent<CColliderBox2D>("Body");
 	m_Sprite = CreateComponent<CSpriteComponent>("Sprite");
 
+	//m_Sprite->AddChild(m_Sprite);
 	m_Body->AddChild(m_Sprite);
 
-	m_Sprite->SetPivot(0.5f, 0.f);
+	//m_Body->SetCollisionProfile("Monster");
 
+	m_Sprite->SetPivot(0.5f, 0.f);
 	m_Sprite->SetRelativeScale(100.f, 100.f);
 	m_Sprite->SetRelativePosition(0.f, -50.f);
 	m_Body->SetWorldPosition(500.f, 600.f);

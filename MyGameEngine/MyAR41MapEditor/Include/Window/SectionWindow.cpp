@@ -9,6 +9,14 @@
 #include "Editor/EditorListBox.h"
 #include "Editor/EditorCheckBox.h"
 
+#include "Component/SceneComponent.h"
+#include "GameObject/GameObject.h"
+#include "Component/SpriteComponent.h"
+#include "Component/SectionComponent.h"
+
+#include "Scene/SceneManager.h"
+#include "Scene/Scene.h"
+
 CSectionWindow::CSectionWindow()
 {
 }
@@ -69,8 +77,32 @@ void CSectionWindow::Update(float DeltaTime)
 	CEditorWindow::Update(DeltaTime);
 }
 
+void CSectionWindow::CreatePreviewObject(int x, int y)
+{
+	CScene* Scene = CSceneManager::GetInst()->GetScene(); //현재 씬 불러오기
+
+	CGameObject* Obj = nullptr;
+
+	if(!Obj)
+		Obj = Scene->CreateObject<CGameObject>("PreviewSection");
+
+	CSceneComponent* Section = nullptr;
+
+	Section = (CSceneComponent*)Obj->CreateComponent<CSectionComponent>("PreviewSectionComponent");
+	Obj->AddSceneComponent(Section);
+	//CSectionComponent* test = (CSectionComponent*)Section;
+	
+	//CSceneComponent* Test = nullptr;
+	//Test = Obj->GetRootComponent();
+
+}
+
 void CSectionWindow::ConfirmBtnCallback()
 {
 	OutputDebugStringA("확인버튼");
-	m_IndexCount->SetInt(m_InputX->GetInt() * m_InputY->GetInt());
+	int CountX = m_InputX->GetInt();
+	int CountY = m_InputY->GetInt();
+	m_IndexCount->SetInt(CountX * CountY);
+
+	CreatePreviewObject(CountX, CountY);
 }

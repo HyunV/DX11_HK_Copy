@@ -163,6 +163,9 @@
     <Filter Include="02. Resource\02. Shader\02. ShaderClass\02. Collider">
       <UniqueIdentifier>{d45c4172-0226-49e0-b273-b121a54c62e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Component\01. SceneComponent\00. MyComp">
+      <UniqueIdentifier>{98bf3012-c2cf-47da-b4a0-2f73f409b831}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineInfo.h">
@@ -447,6 +450,9 @@
     <ClInclude Include="Resource\Shader\ColliderShader.h">
       <Filter>02. Resource\02. Shader\02. ShaderClass\02. Collider</Filter>
     </ClInclude>
+    <ClInclude Include="Component\SectionComponent.h">
+      <Filter>05. Component\01. SceneComponent\00. MyComp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -703,6 +709,9 @@
     </ClCompile>
     <ClCompile Include="Resource\Shader\ColliderShader.cpp">
       <Filter>02. Resource\02. Shader\02. ShaderClass\02. Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\SectionComponent.cpp">
+      <Filter>05. Component\01. SceneComponent\00. MyComp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
