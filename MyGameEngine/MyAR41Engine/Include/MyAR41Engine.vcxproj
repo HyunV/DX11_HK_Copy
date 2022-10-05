@@ -98,6 +98,8 @@
     <ClInclude Include="Resource\Shader\SpriteColorShader.h" />
     <ClInclude Include="Resource\Shader\SpriteShader.h" />
     <ClInclude Include="Resource\Shader\TransformConstantBuffer.h" />
+    <ClInclude Include="Resource\Shader\UIConstantBuffer.h" />
+    <ClInclude Include="Resource\Shader\UIShader.h" />
     <ClInclude Include="Resource\Texture\DirectXTex.h" />
     <ClInclude Include="Resource\Texture\Texture.h" />
     <ClInclude Include="Resource\Texture\TextureManager.h" />
@@ -109,8 +111,12 @@
     <ClInclude Include="Scene\SceneInfo.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\SceneResource.h" />
+    <ClInclude Include="Scene\SceneViewport.h" />
     <ClInclude Include="SharedPtr.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="UI\UIButton.h" />
+    <ClInclude Include="UI\UIWidget.h" />
+    <ClInclude Include="UI\UIWindow.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="Vector4.h" />
@@ -188,6 +194,8 @@
     <ClCompile Include="Resource\Shader\SpriteColorShader.cpp" />
     <ClCompile Include="Resource\Shader\SpriteShader.cpp" />
     <ClCompile Include="Resource\Shader\TransformConstantBuffer.cpp" />
+    <ClCompile Include="Resource\Shader\UIConstantBuffer.cpp" />
+    <ClCompile Include="Resource\Shader\UIShader.cpp" />
     <ClCompile Include="Resource\Texture\Texture.cpp" />
     <ClCompile Include="Resource\Texture\TextureManager.cpp" />
     <ClCompile Include="Scene\CameraManager.cpp" />
@@ -198,7 +206,11 @@
     <ClCompile Include="Scene\SceneInfo.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\SceneResource.cpp" />
+    <ClCompile Include="Scene\SceneViewport.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="UI\UIButton.cpp" />
+    <ClCompile Include="UI\UIWidget.cpp" />
+    <ClCompile Include="UI\UIWindow.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="Vector4.cpp" />
@@ -256,6 +268,20 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SpriteColorVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\UI.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UIVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UIVS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>

@@ -8,6 +8,9 @@
     <ContentFile>
       <FullPath>C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\Sprite.cso</FullPath>
     </ContentFile>
+    <ContentFile>
+      <FullPath>C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\UI.cso</FullPath>
+    </ContentFile>
   </ContentFiles>
   <SatelliteDlls />
   <NonRecipeFileRefs />

@@ -23,8 +23,9 @@ protected:
     CollisionResult         m_MouseResult;
     std::list<CCollider*>   m_PrevCollisionList; //이전 프레임에 충돌하고 있던 물체들
     std::list<int>          m_CurrentSectionList;
-    CollisionProfile* m_Profile; //콜리전 프로파일
-    Vector3           m_HitPoint;
+    CollisionProfile*       m_Profile; //콜리전 프로파일
+    Vector3                 m_HitPoint;
+    bool                    m_MouseCollision;
 
     std::function<void(const CollisionResult&)> m_CollisionCallback[(int)ECollision_Result::Max];
     std::function<void(const CollisionResult&)> m_CollisionMouseCallback[(int)ECollision_Result::Max];

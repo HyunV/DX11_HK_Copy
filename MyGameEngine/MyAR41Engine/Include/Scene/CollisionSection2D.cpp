@@ -22,13 +22,6 @@ void CCollisionSection2D::Collision(float DeltaTime)
 	if (m_ColliderList.size() < 2) //충돌체 하나면 충돌날일 없음
 		return;
 
-	for (int i = 0; i < 9; ++i)
-	{
-		for (int j = i + 1; j < 10; ++j)
-		{
-		}
-	}
-
 	auto	iter = m_ColliderList.begin();
 	auto	iterEnd = m_ColliderList.end(); //끝 전
 	--iterEnd;
@@ -98,5 +91,24 @@ void CCollisionSection2D::Collision(float DeltaTime)
 
 CCollider* CCollisionSection2D::CollisionMouse(const Vector2& MouseWorldPos, float DeltaTime)
 {
+	if (m_ColliderList.empty())
+		return nullptr;
+
+	if (m_ColliderList.size() > 1)
+		m_ColliderList.sort(CCollisionSection2D::ColliderSort);
+
+	auto	iter = m_ColliderList.begin();
+	auto	iterEnd = m_ColliderList.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		if ((*iter)->CollisionMouse(MouseWorldPos))
+			return *iter;
+	}
 	return nullptr;
+}
+
+bool CCollisionSection2D::ColliderSort(CCollider2D* Src, CCollider2D* Dest)
+{
+	return Src->GetMin().y < Dest->GetMin().y;
 }

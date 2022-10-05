@@ -163,6 +163,24 @@
     <Filter Include="02. Resource\02. Shader\02. ShaderClass\02. Collider">
       <UniqueIdentifier>{d45c4172-0226-49e0-b273-b121a54c62e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="09. UI">
+      <UniqueIdentifier>{6843bde2-c1ba-4518-9072-482e878e9dd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09. UI\01. Window">
+      <UniqueIdentifier>{cd3b1683-1f74-4c42-9e9c-03219ea15e62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09. UI\02. Widget">
+      <UniqueIdentifier>{6b170736-b817-43ca-a30c-b9b6d7d82cd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\05. Viewport">
+      <UniqueIdentifier>{478a8d01-f6b4-4806-bde2-676575cde13e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\02. Shader\03. ConstantBuffer\05. UI">
+      <UniqueIdentifier>{33dd29a2-c1c0-4e92-8ef0-41e142e2216c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\02. Shader\02. ShaderClass\03. UI">
+      <UniqueIdentifier>{365e64f2-5061-4852-ba31-bca28885eb4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineInfo.h">
@@ -450,6 +468,24 @@
     <ClInclude Include="Resource\Shader\ColliderImageShader.h">
       <Filter>02. Resource\02. Shader\02. ShaderClass\02. Collider</Filter>
     </ClInclude>
+    <ClInclude Include="UI\UIWindow.h">
+      <Filter>09. UI\01. Window</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIButton.h">
+      <Filter>09. UI\02. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIWidget.h">
+      <Filter>09. UI\02. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneViewport.h">
+      <Filter>03. Scene\05. Viewport</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\UIConstantBuffer.h">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\05. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\UIShader.h">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\03. UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -710,6 +746,24 @@
     <ClCompile Include="Resource\Shader\ColliderImageShader.cpp">
       <Filter>02. Resource\02. Shader\02. ShaderClass\02. Collider</Filter>
     </ClCompile>
+    <ClCompile Include="UI\UIWindow.cpp">
+      <Filter>09. UI\01. Window</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIButton.cpp">
+      <Filter>09. UI\02. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIWidget.cpp">
+      <Filter>09. UI\02. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneViewport.cpp">
+      <Filter>03. Scene\05. Viewport</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\UIConstantBuffer.cpp">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\05. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\UIShader.cpp">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\03. UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Bin\Shader\Sprite.fx">
@@ -719,6 +773,9 @@
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\Collider.fx">
+      <Filter>02. Resource\02. Shader\01. HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\UI.fx">
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
   </ItemGroup>

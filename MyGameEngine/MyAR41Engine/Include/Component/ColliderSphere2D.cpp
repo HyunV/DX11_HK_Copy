@@ -148,3 +148,15 @@ bool CColliderSphere2D::Collision(CCollider* Dest)
 
 	return Result;
 }
+
+bool CColliderSphere2D::CollisionMouse(const Vector2& MouseWorldPos)
+{
+	Vector2	HitPoint;
+
+	m_MouseCollision = CCollisionManager::GetInst()->CollisionPointToSphere2D(HitPoint, MouseWorldPos,
+		m_Info);
+
+	m_HitPoint = Vector3(HitPoint.x, HitPoint.y, 0.f);
+
+	return m_MouseCollision;
+}

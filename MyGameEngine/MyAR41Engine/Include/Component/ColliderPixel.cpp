@@ -176,6 +176,18 @@ bool CColliderPixel::Collision(CCollider* Dest)
 	return Result;
 }
 
+bool CColliderPixel::CollisionMouse(const Vector2& MouseWorldPos)
+{
+	Vector2	HitPoint;
+
+	m_MouseCollision = CCollisionManager::GetInst()->CollisionPointToPixel(HitPoint, MouseWorldPos,
+		*m_Info);
+
+	m_HitPoint = Vector3(HitPoint.x, HitPoint.y, 0.f);
+
+	return m_MouseCollision;
+}
+
 void CColliderPixel::SetInfo(const std::string& Name, const TCHAR* FileName, const std::string& PathName)
 {
 	if (!m_Scene->GetCollisionManager()->CreatePixelCollision(Name, FileName, PathName))

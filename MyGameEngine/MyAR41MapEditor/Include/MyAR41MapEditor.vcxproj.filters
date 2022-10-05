@@ -25,6 +25,9 @@
     <Filter Include="04. GameObject">
       <UniqueIdentifier>{5b1bf3ed-04be-4f9c-8a2e-2316711cb742}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. UI">
+      <UniqueIdentifier>{e3e46541-3465-4a89-991e-c3cfc624509d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="GameObject\PreviewSection.cpp">
       <Filter>04. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\StartSceneUI.cpp">
+      <Filter>05. UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +145,9 @@
     </ClInclude>
     <ClInclude Include="GameObject\PreviewSection.h">
       <Filter>04. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\StartSceneUI.h">
+      <Filter>05. UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

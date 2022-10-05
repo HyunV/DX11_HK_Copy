@@ -861,7 +861,64 @@ bool CCollisionManager::CollisionPointToOBB2D(Vector2& HitPoint, const Vector2& 
 bool CCollisionManager::CollisionPointToPixel(Vector2& HitPoint, const Vector2& Src,
 	const PixelInfo& Dest)
 {
-	return false;
+	// 픽셀충돌체를 구성하는 사각형과 충돌처리를 먼저 한다.
+	if (!CollisionPointToBox2D(HitPoint, Src, Dest.Box2D))
+		return false;
+
+	Vector2	ConvertSrc = Src;
+
+	ConvertSrc.x -= Dest.Box2D.Left;
+	ConvertSrc.y -= Dest.Box2D.Bottom;
+
+	ConvertSrc.y = Dest.Height - ConvertSrc.y;
+
+	bool	Collision = false;
+
+	int	Index = (int)ConvertSrc.y * (int)Dest.Width * 4 + (int)ConvertSrc.x * 4;
+
+	switch (Dest.PixelColorCollisionType)
+	{
+	case EPixelCollision_Type::Color_Ignore:
+		if (Dest.Pixel[Index] == Dest.TypeColor[0] &&
+			Dest.Pixel[Index + 1] == Dest.TypeColor[1] &&
+			Dest.Pixel[Index + 2] == Dest.TypeColor[2])
+			Collision = false;
+
+		else
+			Collision = true;
+		break;
+	case EPixelCollision_Type::Color_Confirm:
+		if (Dest.Pixel[Index] == Dest.TypeColor[0] &&
+			Dest.Pixel[Index + 1] == Dest.TypeColor[1] &&
+			Dest.Pixel[Index + 2] == Dest.TypeColor[2])
+			Collision = true;
+
+		else
+			Collision = false;
+		break;
+	}
+
+	switch (Dest.PixelAlphaCollisionType)
+	{
+	case EPixelCollision_Type::Alpha_Ignore:
+		if (Dest.Pixel[Index + 3] == Dest.TypeColor[3])
+			Collision = false;
+
+		else
+			Collision = true;
+		break;
+	case EPixelCollision_Type::Alpha_Confirm:
+		if (Dest.Pixel[Index + 3] == Dest.TypeColor[3])
+			Collision = true;
+
+		else
+			Collision = false;
+		break;
+	}
+
+	HitPoint = Src;
+
+	return Collision;
 }
 
 Box2DInfo CCollisionManager::ConvertBox2DInfo(const Sphere2DInfo& Info)

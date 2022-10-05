@@ -183,6 +183,7 @@
     <ClCompile Include="GameObject\PreviewSection.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene\EditorDefaultScene.cpp" />
+    <ClCompile Include="UI\StartSceneUI.cpp" />
     <ClCompile Include="Window\ClassWindow.cpp" />
     <ClCompile Include="Window\ComponentWindow.cpp" />
     <ClCompile Include="Window\DetailWindow.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="GameObject\PreviewSection.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene\EditorDefaultScene.h" />
+    <ClInclude Include="UI\StartSceneUI.h" />
     <ClInclude Include="Window\ClassWindow.h" />
     <ClInclude Include="Window\ComponentWindow.h" />
     <ClInclude Include="Window\DetailWindow.h" />

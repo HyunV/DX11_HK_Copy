@@ -13,6 +13,7 @@ CCollider::CCollider()
 
     m_ComponentTypeName = "Collider";
 	m_Result.Src = this;
+	m_MouseCollision = false;
 }
 
 CCollider::CCollider(const CCollider& component)    :
@@ -25,6 +26,7 @@ CCollider::CCollider(const CCollider& component)    :
     m_Max = component.m_Max;
 	m_Profile = component.m_Profile;
 	m_Result.Src = this;
+	m_MouseCollision = false;
 }
 
 CCollider::~CCollider()
@@ -263,7 +265,7 @@ void CCollider::Render()
 {
     CSceneComponent::Render();
 
-	if (m_PrevCollisionList.empty())
+	if (m_PrevCollisionList.empty() && !m_MouseCollision)
 		m_Color = Vector4(0.f, 1.f, 0.f, 1.f);
 	else
 		m_Color = Vector4(1.f, 0.f, 0.f, 1.f);

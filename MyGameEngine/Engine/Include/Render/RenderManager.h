@@ -16,6 +16,8 @@ class CRenderManager
 private:
 	std::vector<RenderLayer*>	m_RenderLayerList;
 	CRenderStateManager* m_RenderStateManager;
+	CSharedPtr<class CRenderState> m_AlphaBlend;
+	CSharedPtr<class CRenderState> m_DepthDisable;
 
 public:
 	void CreateLayer(const std::string& Name, int Priority);

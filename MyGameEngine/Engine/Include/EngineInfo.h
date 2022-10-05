@@ -296,3 +296,14 @@ struct PixelInfo
 	{
 	}
 };
+
+struct UICBuffer
+{
+	Vector4 UITint;
+	Matrix	UIWVP;
+	Vector2 UIMeshSize;
+	Vector2 UIPivot;
+	int		UITextureEnable;
+	float	UIOpacity;
+	Vector2	UIEmpty;
+};

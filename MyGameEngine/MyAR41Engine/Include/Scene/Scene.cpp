@@ -40,12 +40,19 @@ CScene::CScene() :
 	m_CollisionManager->m_Owner = this;
 
 	m_CollisionManager->Init();
+
+	m_Viewport = new CSceneViewport;
+
+	m_Viewport->m_Owner = this;
+
+	m_Viewport->Init();
 }
 
 CScene::~CScene()
 {
 	CInput::GetInst()->ClearCallback(this);
 
+	SAFE_DELETE(m_Viewport);
 	SAFE_DELETE(m_CollisionManager);
 	SAFE_DELETE(m_CameraManager);
 	SAFE_DELETE(m_Resource);
@@ -116,6 +123,8 @@ void CScene::Start()
 	}
 
 	m_CameraManager->Start();
+
+	m_Viewport->Start();
 }
 
 bool CScene::Init()
@@ -151,6 +160,8 @@ void CScene::Update(float DeltaTime)
 	}
 
 	m_CameraManager->Update(DeltaTime);
+
+	m_Viewport->Update(DeltaTime);
 }
 
 void CScene::PostUpdate(float DeltaTime)
@@ -181,6 +192,8 @@ void CScene::PostUpdate(float DeltaTime)
 	}
 
 	m_CameraManager->PostUpdate(DeltaTime);
+
+	m_Viewport->PostUpdate(DeltaTime);
 }
 
 void CScene::Collision(float DeltaTime)

@@ -1,11 +1,39 @@
-﻿  unity_0OF5KA8Y9HDJZZ10.cpp
+﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
+  
+  compilation object save succeeded; see C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\UI.cso
+  unity_PGROZ3Q3V82KHJB7.cpp
+  unity_2Z6OP8YMZA47GW3I.cpp
+  unity_03TH7MW947J4KP2S.cpp
+  unity_281KUFXMPKK300WY.cpp
+  unity_KT7YQ9CN2OID7CHF.cpp
+  unity_E8WLQJF4ZIEMGET3.cpp
+  unity_YDY6EXMA9UJPAQ6N.cpp
+  unity_HPDLQP3CSY1NK5KB.cpp
+  unity_KW1RTES3VA2L1B5U.cpp
+  unity_U20NJVCP42TREL28.cpp
+  unity_9TETQDI69GYQLOR5.cpp
+  unity_JESXV9VK5A12XDCE.cpp
   MyAR41Engine.vcxproj -> C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  0개 파일이 복사되었습니다.
+  .\MyAR41Engine\Include\EngineInfo.h
+  .\MyAR41Engine\Include\Render\RenderManager.h
+  .\MyAR41Engine\Include\Resource\Shader\UIConstantBuffer.h
+  .\MyAR41Engine\Include\Resource\Shader\UIShader.h
+  .\MyAR41Engine\Include\Scene\Scene.h
+  .\MyAR41Engine\Include\Scene\SceneViewport.h
+  .\MyAR41Engine\Include\UI\UIWidget.h
+  .\MyAR41Engine\Include\UI\UIWindow.h
+  8개 파일이 복사되었습니다.
   파일을 찾을 수 없습니다-*.inl
   0개 파일이 복사되었습니다.
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  1개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\UI.cso
+  .\MyAR41Engine\Bin\Shader\UI.fx
+  3개 파일이 복사되었습니다.
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  1개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\UI.cso
+  .\MyAR41Engine\Bin\Shader\UI.fx
+  3개 파일이 복사되었습니다.
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  1개 파일이 복사되었습니다.
+  .\MyAR41Engine\Bin\UI.cso
+  .\MyAR41Engine\Bin\Shader\UI.fx
+  3개 파일이 복사되었습니다.

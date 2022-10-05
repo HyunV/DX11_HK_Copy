@@ -229,71 +229,76 @@ void CSceneCollision::Load(FILE* File)
 
 void CSceneCollision::CollisionMouse(float DeltaTime)
 {
-	//if (!m_MouseCollision->GetActive())
-	//{
-	//	m_MouseCollision->CallCollisionMouseCallback(ECollision_Result::Release);
-	//	m_MouseCollision = nullptr;
-	//}
+	if (m_MouseCollision)
+	{
+		if (!m_MouseCollision->GetActive())
+		{
+			m_MouseCollision->CallCollisionMouseCallback(ECollision_Result::Release);
+			m_MouseCollision = nullptr;
+		}
+	}
 
-	//// UI와 마우스가 충돌이 없을 경우 월드물체와 충돌을 시작한다.
-	//bool MouseUICollision = false;
-	//bool	MouseWorldCollision = false;
+	// UI와 마우스가 충돌이 없을 경우 월드물체와 충돌을 시작한다.
+	bool MouseUICollision = false;
+	bool	MouseWorldCollision = false;
 
-	//if (!MouseUICollision)
-	//{
-	//	// World위치를 얻어온다.
-	//	Vector2	MouseWorldPos = CInput::GetInst()->GetMouseWorldPos();
+	// UI와 마우스 충돌처리를 진행한다. 그 결과에 따라 다른 충돌처리를 할지 말지를 결정한다.
 
-	//	// 마우스가 2D Section에서 어느 영역에 있는지를 판단한다.
-	//	Vector2	MouseIndex = MouseWorldPos;
-	//	MouseIndex -= m_Section2D.WorldStart;
+	if (!MouseUICollision)
+	{
+		// World위치를 얻어온다.
+		Vector2	MouseWorldPos = CInput::GetInst()->GetMouseWorldPos();
 
-	//	int	IndexX = 0, IndexY = 0;
+		// 마우스가 2D Section에서 어느 영역에 있는지를 판단한다.
+		Vector2	MouseIndex = MouseWorldPos;
+		MouseIndex -= m_Section2D.WorldStart;
 
-	//	IndexX = (int)(MouseIndex.x / m_Section2D.SectionSize.x);
-	//	IndexY = (int)(MouseIndex.y / m_Section2D.SectionSize.y);
+		int	IndexX = 0, IndexY = 0;
 
-	//	IndexX = IndexX < 0 ? -1 : IndexX;
-	//	IndexY = IndexY < 0 ? -1 : IndexY;
+		IndexX = (int)(MouseIndex.x / m_Section2D.SectionSize.x);
+		IndexY = (int)(MouseIndex.y / m_Section2D.SectionSize.y);
 
-	//	IndexX = IndexX >= m_Section2D.CountX ? -1 : IndexX;
-	//	IndexY = IndexY >= m_Section2D.CountY ? -1 : IndexY;
+		IndexX = IndexX < 0 ? -1 : IndexX;
+		IndexY = IndexY < 0 ? -1 : IndexY;
 
-	//	if (IndexX != -1 && IndexY != -1)
-	//	{
-	//		CCollider* ColliderMouse = m_Section2D.vecSection[IndexY * m_Section2D.CountX + IndexX]->CollisionMouse(MouseWorldPos, DeltaTime);
+		IndexX = IndexX >= m_Section2D.CountX ? -1 : IndexX;
+		IndexY = IndexY >= m_Section2D.CountY ? -1 : IndexY;
 
-	//		if (ColliderMouse)
-	//		{
-	//			if (ColliderMouse != m_MouseCollision)
-	//				ColliderMouse->CallCollisionMouseCallback(ECollision_Result::Collision);
+		if (IndexX != -1 && IndexY != -1)
+		{
+			CCollider* ColliderMouse = m_Section2D.vecSection[IndexY * m_Section2D.CountX + IndexX]->CollisionMouse(MouseWorldPos, DeltaTime);
 
-	//			if (m_MouseCollision && m_MouseCollision != ColliderMouse)
-	//			{
-	//				m_MouseCollision->CallCollisionMouseCallback(ECollision_Result::Release);
-	//			}
+			if (ColliderMouse)
+			{
+				if (ColliderMouse != m_MouseCollision)
+					ColliderMouse->CallCollisionMouseCallback(ECollision_Result::Collision);
 
-	//			m_MouseCollision = ColliderMouse;
-	//			MouseWorldCollision = true;
-	//		}
-	//	}
-	//}
+				if (m_MouseCollision && m_MouseCollision != ColliderMouse)
+				{
+					m_MouseCollision->CallCollisionMouseCallback(ECollision_Result::Release);
+				}
 
-	//// 마우스와 UI가 충돌되었다면 기존에 충돌되고 있던 월드물체가 있을 경우 충돌 해제한다.
-	//else if (m_MouseCollision)
-	//{
-	//	m_MouseCollision->CallCollisionMouseCallback(ECollision_Result::Release);
-	//	m_MouseCollision = nullptr;
-	//}
+				m_MouseCollision = ColliderMouse;
+				MouseWorldCollision = true;
+			}
+		}
+	}
 
-	//if (!MouseWorldCollision)
-	//{
-	//	if (m_MouseCollision)
-	//	{
-	//		m_MouseCollision->CallCollisionMouseCallback(ECollision_Result::Release);
-	//		m_MouseCollision = nullptr;
-	//	}
-	//}
+	// 마우스와 UI가 충돌되었다면 기존에 충돌되고 있던 월드물체가 있을 경우 충돌 해제한다.
+	else if (m_MouseCollision)
+	{
+		m_MouseCollision->CallCollisionMouseCallback(ECollision_Result::Release);
+		m_MouseCollision = nullptr;
+	}
+
+	if (!MouseWorldCollision)
+	{
+		if (m_MouseCollision)
+		{
+			m_MouseCollision->CallCollisionMouseCallback(ECollision_Result::Release);
+			m_MouseCollision = nullptr;
+		}
+	}
 }
 
 void CSceneCollision::CheckSection(CCollider* Collider)

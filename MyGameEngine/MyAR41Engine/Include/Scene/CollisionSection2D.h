@@ -23,5 +23,8 @@ public:
 	void AddCollider(class CCollider2D* Collider);
 	void Collision(float DeltaTime);
 	class CCollider* CollisionMouse(const Vector2& MouseWorldPos, float DeltaTime);
+
+private:
+	static bool ColliderSort(class CCollider2D* Src, class CCollider2D* Dest);
 };
 

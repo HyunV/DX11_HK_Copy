@@ -2,6 +2,7 @@
 #include "ResourceManager.h"
 #include "Mesh/MeshManager.h"
 #include "Texture/TextureManager.h"
+#include "../UI/UIWidget.h"
 
 DEFINITION_SINGLE(CResourceManager)
 
@@ -12,6 +13,9 @@ CResourceManager::CResourceManager()
 
 CResourceManager::~CResourceManager()
 {
+	SAFE_DELETE(CUIWidget::m_CBuffer);
+	SAFE_DELETE(CUIWidget::m_AnimCBuffer);
+
 	SAFE_DELETE(m_AnimationManager);
 	SAFE_DELETE(m_MaterialManager);
 	SAFE_DELETE(m_TextureManager);
@@ -24,6 +28,14 @@ bool CResourceManager::Init()
 	m_ShaderManager = new CShaderManager;
 
 	m_ShaderManager->Init();
+
+	CUIWidget::m_CBuffer = new CUIConstantBuffer;
+
+	CUIWidget::m_CBuffer->Init();
+
+	CUIWidget::m_AnimCBuffer = new CAnimation2DConstantBuffer;
+
+	CUIWidget::m_AnimCBuffer->Init();
 
 	m_TextureManager = new CTextureManager;
 

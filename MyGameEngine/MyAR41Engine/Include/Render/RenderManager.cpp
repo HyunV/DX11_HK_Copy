@@ -2,6 +2,11 @@
 #include "RenderManager.h"
 #include "../Component/SceneComponent.h"
 #include "RenderState.h"
+#include "../Scene/SceneManager.h"
+#include "../Scene/Scene.h"
+#include "../Scene/SceneViewport.h"
+#include "BlendState.h"
+#include "DepthStencilState.h"
 
 DEFINITION_SINGLE(CRenderManager)
 
@@ -110,6 +115,9 @@ bool CRenderManager::Init()
 
 	SetLayerAlphaBlend("Default");
 
+	m_AlphaBlend = m_RenderStateManager->FindRenderState<CBlendState>("AlphaBlend");
+	m_DepthDisable = m_RenderStateManager->FindRenderState<CDepthStencilState>("DepthDisable");
+
 	return true;
 }
 
@@ -150,6 +158,16 @@ void CRenderManager::Render(float DeltaTime)
 				(*iter)->AlphaBlend->ResetState();
 		}
 	}
+
+	// 2D, 3D 물체를 모두 출력했다면 UI를 출력해준다.
+	// 깊이버퍼를 안쓰고 알파블렌드를 적용한다.
+	m_AlphaBlend->SetState();
+	m_DepthDisable->SetState();
+
+	CSceneManager::GetInst()->GetScene()->GetViewport()->Render();
+
+	m_DepthDisable->ResetState();
+	m_AlphaBlend->ResetState();
 }
 
 void CRenderManager::SetBlendFactor(const std::string& Name, float r, float g, float b, float a)
