@@ -4,6 +4,7 @@ class CStartSceneUI :
 	public CUIWindow
 {
 	friend class CSceneViewport;
+	friend class CScene;
 
 protected:
 	CStartSceneUI();

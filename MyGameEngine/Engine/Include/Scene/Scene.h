@@ -48,6 +48,30 @@ public:
 		return iter->second;
 	}
 
+	template <typename T>
+	static T* CreateUIWindowCDO(const std::string& Name)
+	{
+		T* CDO = new T;
+
+		CDO->Init();
+
+		CUIWindow::AddUIWindowCDO(Name, (CUIWindow*)CDO);
+
+		return CDO;
+	}
+
+	template <typename T>
+	static T* CreateUIWidgetCDO(const std::string& Name)
+	{
+		T* CDO = new T;
+
+		CDO->Init();
+
+		CUIWidget::AddUIWidgetCDO(Name, (CUIWidget*)CDO);
+
+		return CDO;
+	}
+
 private:
 	bool		m_Change;
 	bool		m_Start;

@@ -4,6 +4,7 @@
 #include "Shader/ShaderManager.h"
 #include "Material/MaterialManager.h"
 #include "Animation/AnimationManager.h"
+#include "Sound/SoundManager.h"
 
 class CResourceManager
 {
@@ -13,9 +14,7 @@ private:
 	class  CTextureManager* m_TextureManager;
 	CMaterialManager* m_MaterialManager;
 	CAnimationManager* m_AnimationManager;
-	//텍스처 매니저
-	//사운드 매니저
-	//폰트 매니저 등등..
+	CSoundManager* m_SoundManager;
 
 public:
 	bool Init();
@@ -100,6 +99,22 @@ public:	// ===================== Animation =========================
 	CAnimationSequence2D* FindAnimationSequence2D(const std::string& Name);
 	void ReleaseAnimationSequence2D(const std::string& Name);
 	class CAnimation2DConstantBuffer* GetAnim2DConstantBuffer()	const;
+
+public:	// ============================ Sound ================================
+	bool CreateSoundChannel(const std::string& Name);
+	bool LoadSound(const std::string& GroupName, const std::string& Name,
+		bool Loop, const char* FileName, const std::string& PathName = SOUND_PATH);
+	bool SetVolume(int Volume);
+	bool SetVolume(const std::string& GroupName, int Volume);
+	bool SoundPlay(const std::string& Name);
+	bool SoundStop(const std::string& Name);
+	bool SoundPause(const std::string& Name);
+	bool SoundResume(const std::string& Name);
+
+
+	FMOD::ChannelGroup* FindChannelGroup(const std::string& Name);
+	class CSound* FindSound(const std::string& Name);
+	void ReleaseSound(const std::string& Name);
 
 	// ==========================싱글톤==========================
 	DECLARE_SINGLE(CResourceManager)

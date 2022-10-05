@@ -1,18 +1,32 @@
 #include "UIWindow.h"
 
+std::unordered_map<std::string, CUIWindow*> CUIWindow::m_mapUIWindowCDO;
+
 CUIWindow::CUIWindow() :
 	m_ZOrder(0),
 	m_Start(false)
 {
+	m_WindowTypeName = "UIWindow";
 }
 
 CUIWindow::CUIWindow(const CUIWindow& Window) :
 	CRef(Window)
 {
 	m_ZOrder = Window.m_ZOrder;
-	m_vecWidget = Window.m_vecWidget;
 	m_Size = Window.m_Size;
 	m_Start = false;
+	m_WindowTypeName = Window.m_WindowTypeName;
+
+	size_t	Size = Window.m_vecWidget.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		CUIWidget* Widget = Window.m_vecWidget[i]->Clone();
+
+		Widget->m_Owner = this;
+
+		m_vecWidget.push_back(Widget);
+	}
 }
 
 CUIWindow::~CUIWindow()
@@ -88,6 +102,8 @@ void CUIWindow::PostUpdate(float DeltaTime)
 
 void CUIWindow::Render()
 {
+	std::sort(m_vecWidget.begin(), m_vecWidget.end(), CUIWindow::SortWidget);
+
 	auto	iter = m_vecWidget.begin();
 	auto	iterEnd = m_vecWidget.end();
 
@@ -118,8 +134,59 @@ CUIWindow* CUIWindow::Clone()
 
 void CUIWindow::Save(FILE* File)
 {
+	fwrite(&m_ZOrder, sizeof(int), 1, File);
+	fwrite(&m_Pos, sizeof(Vector2), 1, File);
+	fwrite(&m_Size, sizeof(Vector2), 1, File);
+
+	int	Count = (int)m_vecWidget.size();
+
+	fwrite(&Count, sizeof(int), 1, File);
+
+	for (int i = 0; i < Count; ++i)
+	{
+		std::string	TypeName = m_vecWidget[i]->GetWidgetTypeName();
+
+		int	Length = (int)TypeName.length();
+		fwrite(&Length, sizeof(int), 1, File);
+		fwrite(TypeName.c_str(), 1, Length, File);
+
+		m_vecWidget[i]->Save(File);
+	}
 }
 
 void CUIWindow::Load(FILE* File)
 {
+	fread(&m_ZOrder, sizeof(int), 1, File);
+	fread(&m_Pos, sizeof(Vector2), 1, File);
+	fread(&m_Size, sizeof(Vector2), 1, File);
+
+	int	Count = 0;
+
+	fread(&Count, sizeof(int), 1, File);
+
+	for (int i = 0; i < Count; ++i)
+	{
+		char	TypeName[256] = {};
+
+		int	Length = 0;
+		fread(&Length, sizeof(int), 1, File);
+		fread(TypeName, 1, Length, File);
+
+		CUIWidget* CDO = CUIWidget::FindCDO(TypeName);
+
+		CUIWidget* Widget = CDO->Clone();
+
+		Widget->m_Owner = this;
+		Widget->m_Scene = m_Scene;
+
+		Widget->Init();
+		Widget->Load(File);
+
+		m_vecWidget.push_back(Widget);
+	}
+}
+
+bool CUIWindow::SortWidget(CSharedPtr<CUIWidget> Src, CSharedPtr<CUIWidget> Dest)
+{
+	return Src->GetZOrder() > Dest->GetZOrder();
 }

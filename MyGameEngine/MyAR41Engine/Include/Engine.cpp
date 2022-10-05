@@ -54,6 +54,8 @@ CEngine::~CEngine()
 
     CResourceManager::DestroyInst();
 
+    SAFE_DELETE(m_Setting);
+
     SAFE_DELETE(m_Timer);
 
     CDevice::DestroyInst();
@@ -72,6 +74,10 @@ bool CEngine::Init(HINSTANCE hInst, const TCHAR* Title,
     Register(ClassName, IconID, SmallIconID, MenuID);
 
     Create(Title, ClassName);
+
+    m_Setting = new CEngineSetting;
+
+    m_Setting->Init();
 
     // Device ÃÊ±âÈ­
     if (!CDevice::GetInst()->Init(m_hWnd, DeviceWidth, DeviceHeight, WindowMode))

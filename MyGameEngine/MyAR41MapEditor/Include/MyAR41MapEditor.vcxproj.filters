@@ -28,6 +28,9 @@
     <Filter Include="05. UI">
       <UniqueIdentifier>{e3e46541-3465-4a89-991e-c3cfc624509d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Setting">
+      <UniqueIdentifier>{af058d0e-e286-409b-8be5-de59fef5fd5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -86,6 +89,12 @@
     </ClCompile>
     <ClCompile Include="UI\StartSceneUI.cpp">
       <Filter>05. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Setting\EngineShareSetting.cpp">
+      <Filter>06. Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="Setting\DefaultSetting.cpp">
+      <Filter>06. Setting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +157,12 @@
     </ClInclude>
     <ClInclude Include="UI\StartSceneUI.h">
       <Filter>05. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting\EngineShareSetting.h">
+      <Filter>06. Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting\DefaultSetting.h">
+      <Filter>06. Setting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

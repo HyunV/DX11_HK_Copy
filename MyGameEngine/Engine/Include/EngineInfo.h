@@ -24,6 +24,9 @@
 #include "Matrix.h"
 #include "SharedPtr.h"
 #include "Resource/Texture/DirectXTex.h"
+#include "fmod.hpp"
+
+#pragma comment(lib, "../Bin/fmod64_vc.lib")
 
 extern float g_DeltaTime; //전역변수 해놓은거 가져오는 extern
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EngineInfo.h"
+#include "EngineSetting.h"
 
 class CEngine
 {
@@ -16,6 +17,8 @@ private:
 	//맨 아래 콜백함수로 m_WndProcFunc 정보를 받아온다.
 	static bool		m_EditorMode;
 	static std::function<bool(HWND, UINT, WPARAM, LPARAM)> m_WndProcFunc;
+	CEngineSetting* m_Setting;
+
 
 public:
 	static bool GetEditorMode()
@@ -73,5 +76,16 @@ public:
 		m_WndProcFunc = std::bind(Func, Obj, std::placeholders::_1, std::placeholders::_2,
 			std::placeholders::_3, std::placeholders::_4);
 	}
+
+	template <typename T>
+	void SetEngineSetting()
+	{
+		SAFE_DELETE(m_Setting);
+
+		m_Setting = new T;
+
+		m_Setting->Init();
+	}
+
 	DECLARE_SINGLE(CEngine)
 };

@@ -49,6 +49,36 @@ CSceneResource::~CSceneResource()
 			CResourceManager::GetInst()->ReleaseTexture(Name);
 		}
 	}
+
+	{
+		auto	iter = m_mapAnimationSequence2D.begin();
+		auto	iterEnd = m_mapAnimationSequence2D.end();
+
+		for (; iter != iterEnd;)
+		{
+			std::string	Name = iter->first;
+
+			iter = m_mapAnimationSequence2D.erase(iter);
+			iterEnd = m_mapAnimationSequence2D.end();
+
+			CResourceManager::GetInst()->ReleaseAnimationSequence2D(Name);
+		}
+	}
+
+	{
+		auto	iter = m_mapSound.begin();
+		auto	iterEnd = m_mapSound.end();
+
+		for (; iter != iterEnd;)
+		{
+			std::string	Name = iter->first;
+
+			iter = m_mapSound.erase(iter);
+			iterEnd = m_mapSound.end();
+
+			CResourceManager::GetInst()->ReleaseSound(Name);
+		}
+	}
 }
 
 bool CSceneResource::Init()
@@ -335,6 +365,80 @@ CAnimationSequence2D* CSceneResource::FindAnimationSequence2D(const std::string&
 		m_mapAnimationSequence2D.insert(std::make_pair(Name, Sequence));
 
 		return Sequence;
+	}
+
+	return iter->second;
+}
+
+bool CSceneResource::CreateSoundChannel(const std::string& Name)
+{
+	return CResourceManager::GetInst()->CreateSoundChannel(Name);
+}
+
+bool CSceneResource::LoadSound(const std::string& GroupName, const std::string& Name, bool Loop, const char* FileName, const std::string& PathName)
+{
+	if (FindSound(Name))
+		return false;
+
+	if (!CResourceManager::GetInst()->LoadSound(GroupName, Name, Loop, FileName, PathName))
+		return false;
+
+	CSound* Sound = CResourceManager::GetInst()->FindSound(Name);
+
+	m_mapSound.insert(std::make_pair(Name, Sound));
+
+	return true;
+}
+
+bool CSceneResource::SetVolume(int Volume)
+{
+	return CResourceManager::GetInst()->SetVolume(Volume);
+}
+
+bool CSceneResource::SetVolume(const std::string& GroupName, int Volume)
+{
+	return CResourceManager::GetInst()->SetVolume(GroupName, Volume);
+}
+
+bool CSceneResource::SoundPlay(const std::string& Name)
+{
+	return CResourceManager::GetInst()->SoundPlay(Name);
+}
+
+bool CSceneResource::SoundStop(const std::string& Name)
+{
+	return CResourceManager::GetInst()->SoundStop(Name);
+}
+
+bool CSceneResource::SoundPause(const std::string& Name)
+{
+	return CResourceManager::GetInst()->SoundPause(Name);
+}
+
+bool CSceneResource::SoundResume(const std::string& Name)
+{
+	return CResourceManager::GetInst()->SoundResume(Name);
+}
+
+FMOD::ChannelGroup* CSceneResource::FindChannelGroup(const std::string& Name)
+{
+	return CResourceManager::GetInst()->FindChannelGroup(Name);
+}
+
+CSound* CSceneResource::FindSound(const std::string& Name)
+{
+	auto	iter = m_mapSound.find(Name);
+
+	if (iter == m_mapSound.end())
+	{
+		CSound* Sound = CResourceManager::GetInst()->FindSound(Name);
+
+		if (!Sound)
+			return nullptr;
+
+		m_mapSound.insert(std::make_pair(Name, Sound));
+
+		return Sound;
 	}
 
 	return iter->second;

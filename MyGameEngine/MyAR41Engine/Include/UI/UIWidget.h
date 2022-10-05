@@ -3,17 +3,61 @@
 #include "../Ref.h"
 #include "../Resource/Shader/UIConstantBuffer.h"
 #include "../Resource/Shader/Animation2DConstantBuffer.h"
+#include "../Resource/Texture/Texture.h"
+
+struct UIWidgetImageInfo
+{
+    CSharedPtr<class CTexture>	Texture;
+    Vector4		Tint;
+    std::vector<Animation2DFrameData>   vecFrameData;
+
+    int     Frame;
+    float   Time;
+    float   FrameTime;
+    float   PlayTime;
+    float   PlayScale;
+
+    UIWidgetImageInfo() :
+        Tint(Vector4::White),
+        Frame(0),
+        Time(0.f),
+        FrameTime(0.f),
+        PlayTime(1.f),
+        PlayScale(1.f)
+    {
+    }
+};
 
 class CUIWidget :
     public CRef
 {
     friend class CUIWindow;
     friend class CResourceManager;
+    friend class CScene;
 
 protected:
     CUIWidget();
     CUIWidget(const CUIWidget& Widget);
     virtual ~CUIWidget() = 0;
+
+private:
+    static std::unordered_map<std::string, CUIWidget*>	m_mapUIWidgetCDO;
+
+public:
+    static void AddUIWidgetCDO(const std::string& Name, CUIWidget* CDO)
+    {
+        m_mapUIWidgetCDO.insert(std::make_pair(Name, CDO));
+    }
+
+    static CUIWidget* FindCDO(const std::string& Name)
+    {
+        auto	iter = m_mapUIWidgetCDO.find(Name);
+
+        if (iter == m_mapUIWidgetCDO.end())
+            return nullptr;
+
+        return iter->second;
+    }
 
 protected:
     static CUIConstantBuffer* m_CBuffer;
@@ -32,6 +76,14 @@ protected:
     Vector4 m_Tint;
     CSharedPtr<class CShader>   m_Shader;
     CSharedPtr<class CMesh>     m_Mesh;
+    std::string		m_WiwdgetTypeName;
+
+public:
+    const std::string& GetWidgetTypeName()	const
+    {
+        return m_WiwdgetTypeName;
+    }
+
 
 public:
     int GetZOrder() const

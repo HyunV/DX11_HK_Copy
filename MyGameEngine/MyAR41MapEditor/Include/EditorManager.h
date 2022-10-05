@@ -20,9 +20,5 @@ private:
 	void OpenScene();
 	void CreateEmptyObject();
 	void CreateObject();
-	void CreateCDO();
-
-private:
-	void LoadResource();
 };
 

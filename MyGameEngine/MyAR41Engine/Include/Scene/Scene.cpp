@@ -8,6 +8,9 @@
 #include "../Component/SceneComponent.h"
 #include "../Component/ColliderBox2D.h"
 #include "../Animation/Animation2D.h"
+#include "../UI/UIButton.h"
+#include "../UI/UIImage.h"
+#include "../UI/UIWindow.h"
 
 std::unordered_map<std::string, CSceneInfo*> CScene::m_mapSceneInfoCDO;
 
@@ -61,18 +64,21 @@ CScene::~CScene()
 
 void CScene::CreateCDO()
 {
+	// ==================== SceneInfo ====================
 	CSceneInfo* Info = new CSceneInfo;
 
 	Info->Init();
 
 	CScene::AddSceneInfoCDO("SceneInfo", Info);
 
+	// ==================== GameObject ====================
 	CGameObject* ObjCDO = new CGameObject;
 
 	ObjCDO->Init();
 
 	CGameObject::AddObjectCDO("GameObject", ObjCDO);
 
+	// ==================== Component ====================
 	CComponent* ComCDO = new CSceneComponent;
 
 	ComCDO->Init();
@@ -103,11 +109,31 @@ void CScene::CreateCDO()
 
 	CComponent::AddComponentCDO("Box2D", ComCDO);
 
+	// ==================== Animation ====================
 	CAnimation2D* AnimCDO = new CAnimation2D;
 
 	AnimCDO->Init();
 
 	CAnimation2D::AddAnimationCDO("Animation2D", AnimCDO);
+
+	// ==================== UI ====================
+	CUIWindow* UIWindowCDO = new CUIWindow;
+
+	UIWindowCDO->Init();
+
+	CUIWindow::AddUIWindowCDO("UIWindow", UIWindowCDO);
+
+	CUIWidget* UIWidgetCDO = new CUIButton;
+
+	UIWidgetCDO->Init();
+
+	CUIWidget::AddUIWidgetCDO("UIButton", UIWidgetCDO);
+
+	UIWidgetCDO = new CUIImage;
+
+	UIWidgetCDO->Init();
+
+	CUIWidget::AddUIWidgetCDO("UIImage", UIWidgetCDO);
 }
 
 void CScene::Start()
@@ -221,6 +247,7 @@ void CScene::Save(const char* FullPath)
 	m_SceneInfo->Save(File);
 	m_CameraManager->Save(File);
 	m_CollisionManager->Save(File);
+	m_Viewport->Save(File);
 
 	int	ObjCount = (int)m_ObjList.size();
 
@@ -280,6 +307,7 @@ void CScene::Load(const char* FullPath)
 
 	m_CameraManager->Load(File);
 	m_CollisionManager->Load(File);
+	m_Viewport->Load(File);
 
 	int	ObjCount = 0;
 

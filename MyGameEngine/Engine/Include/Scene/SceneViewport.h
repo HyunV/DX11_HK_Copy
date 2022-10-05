@@ -2,6 +2,7 @@
 
 #include "../EngineInfo.h"
 #include "../UI/UIWindow.h"
+#include "../UI/UIWidget.h"
 
 class CSceneViewport
 {

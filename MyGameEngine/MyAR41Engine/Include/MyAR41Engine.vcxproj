@@ -57,7 +57,16 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineInfo.h" />
     <ClInclude Include="EngineMath.h" />
+    <ClInclude Include="EngineSetting.h" />
     <ClInclude Include="Flag.h" />
+    <ClInclude Include="fmod.h" />
+    <ClInclude Include="fmod.hpp" />
+    <ClInclude Include="fmod_codec.h" />
+    <ClInclude Include="fmod_common.h" />
+    <ClInclude Include="fmod_dsp.h" />
+    <ClInclude Include="fmod_dsp_effects.h" />
+    <ClInclude Include="fmod_errors.h" />
+    <ClInclude Include="fmod_output.h" />
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />
@@ -100,6 +109,8 @@
     <ClInclude Include="Resource\Shader\TransformConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\UIConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\UIShader.h" />
+    <ClInclude Include="Resource\Sound\Sound.h" />
+    <ClInclude Include="Resource\Sound\SoundManager.h" />
     <ClInclude Include="Resource\Texture\DirectXTex.h" />
     <ClInclude Include="Resource\Texture\Texture.h" />
     <ClInclude Include="Resource\Texture\TextureManager.h" />
@@ -115,6 +126,7 @@
     <ClInclude Include="SharedPtr.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="UI\UIButton.h" />
+    <ClInclude Include="UI\UIImage.h" />
     <ClInclude Include="UI\UIWidget.h" />
     <ClInclude Include="UI\UIWindow.h" />
     <ClInclude Include="Vector2.h" />
@@ -155,6 +167,7 @@
     <ClCompile Include="Editor\EditorWidget.cpp" />
     <ClCompile Include="Editor\EditorWindow.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="EngineSetting.cpp" />
     <ClCompile Include="GameObject\GameObject.cpp" />
     <ClCompile Include="imgui.cpp" />
     <ClCompile Include="imgui_demo.cpp" />
@@ -196,6 +209,8 @@
     <ClCompile Include="Resource\Shader\TransformConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\UIConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\UIShader.cpp" />
+    <ClCompile Include="Resource\Sound\Sound.cpp" />
+    <ClCompile Include="Resource\Sound\SoundManager.cpp" />
     <ClCompile Include="Resource\Texture\Texture.cpp" />
     <ClCompile Include="Resource\Texture\TextureManager.cpp" />
     <ClCompile Include="Scene\CameraManager.cpp" />
@@ -209,6 +224,7 @@
     <ClCompile Include="Scene\SceneViewport.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="UI\UIButton.cpp" />
+    <ClCompile Include="UI\UIImage.cpp" />
     <ClCompile Include="UI\UIWidget.cpp" />
     <ClCompile Include="UI\UIWindow.cpp" />
     <ClCompile Include="Vector2.cpp" />
@@ -287,6 +303,9 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="fmod.cs" />
+    <None Include="fmod_dsp.cs" />
+    <None Include="fmod_errors.cs" />
     <None Include="Resource\Texture\DirectXTex.inl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

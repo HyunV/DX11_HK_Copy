@@ -7,6 +7,7 @@
 #include "../Resource/Material/Material.h"
 #include "../Resource/Animation/AnimationSequence2D.h"
 #include "../Resource/ResourceManager.h"
+#include "../Resource/Sound/Sound.h"
 
 class CSceneResource
 {
@@ -25,6 +26,7 @@ private:
 	std::unordered_map<std::string, CSharedPtr<CTexture>>	m_mapTexture;
 	std::unordered_map<std::string, CSharedPtr<CMaterial>>	m_mapMaterial;
 	std::unordered_map<std::string, CSharedPtr<CAnimationSequence2D>>	m_mapAnimationSequence2D;
+	std::unordered_map<std::string, CSharedPtr<CSound>>	m_mapSound;
 
 public:
 	bool Init();
@@ -91,5 +93,20 @@ public:	// ===================== Animation =========================
 	bool LoadSequence2D(const std::string& Name, const char* FileName, const std::string& PathName);
 
 	CAnimationSequence2D* FindAnimationSequence2D(const std::string& Name);
+
+public:	// ============================ Sound ================================
+	bool CreateSoundChannel(const std::string& Name);
+	bool LoadSound(const std::string& GroupName, const std::string& Name,
+		bool Loop, const char* FileName, const std::string& PathName = SOUND_PATH);
+	bool SetVolume(int Volume);
+	bool SetVolume(const std::string& GroupName, int Volume);
+	bool SoundPlay(const std::string& Name);
+	bool SoundStop(const std::string& Name);
+	bool SoundPause(const std::string& Name);
+	bool SoundResume(const std::string& Name);
+
+
+	FMOD::ChannelGroup* FindChannelGroup(const std::string& Name);
+	class CSound* FindSound(const std::string& Name);
 };
 

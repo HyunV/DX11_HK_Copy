@@ -181,6 +181,15 @@
     <Filter Include="02. Resource\02. Shader\02. ShaderClass\03. UI">
       <UniqueIdentifier>{365e64f2-5061-4852-ba31-bca28885eb4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Resource\06. Sound">
+      <UniqueIdentifier>{6d5aec04-d0d3-4f1f-bc15-47826eb75c90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\06. Sound\01. FMOD">
+      <UniqueIdentifier>{17871c21-bd6c-4505-aed9-5aeb64d1e08b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\09. Setting">
+      <UniqueIdentifier>{04363ee0-0788-4888-84f1-fba0c308de8d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineInfo.h">
@@ -486,6 +495,42 @@
     <ClInclude Include="Resource\Shader\UIShader.h">
       <Filter>02. Resource\02. Shader\02. ShaderClass\03. UI</Filter>
     </ClInclude>
+    <ClInclude Include="fmod.h">
+      <Filter>02. Resource\06. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod.hpp">
+      <Filter>02. Resource\06. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_codec.h">
+      <Filter>02. Resource\06. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_common.h">
+      <Filter>02. Resource\06. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_dsp.h">
+      <Filter>02. Resource\06. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_dsp_effects.h">
+      <Filter>02. Resource\06. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_errors.h">
+      <Filter>02. Resource\06. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_output.h">
+      <Filter>02. Resource\06. Sound\01. FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Sound\SoundManager.h">
+      <Filter>02. Resource\06. Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Sound\Sound.h">
+      <Filter>02. Resource\06. Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineSetting.h">
+      <Filter>01. Manager\09. Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIImage.h">
+      <Filter>09. UI\02. Widget</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -764,6 +809,18 @@
     <ClCompile Include="Resource\Shader\UIShader.cpp">
       <Filter>02. Resource\02. Shader\02. ShaderClass\03. UI</Filter>
     </ClCompile>
+    <ClCompile Include="Resource\Sound\SoundManager.cpp">
+      <Filter>02. Resource\06. Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Sound\Sound.cpp">
+      <Filter>02. Resource\06. Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineSetting.cpp">
+      <Filter>01. Manager\09. Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIImage.cpp">
+      <Filter>09. UI\02. Widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Bin\Shader\Sprite.fx">
@@ -782,6 +839,15 @@
   <ItemGroup>
     <None Include="Resource\Texture\DirectXTex.inl">
       <Filter>02. Resource\03. Texture</Filter>
+    </None>
+    <None Include="fmod.cs">
+      <Filter>02. Resource\06. Sound\01. FMOD</Filter>
+    </None>
+    <None Include="fmod_dsp.cs">
+      <Filter>02. Resource\06. Sound\01. FMOD</Filter>
+    </None>
+    <None Include="fmod_errors.cs">
+      <Filter>02. Resource\06. Sound\01. FMOD</Filter>
     </None>
   </ItemGroup>
 </Project>

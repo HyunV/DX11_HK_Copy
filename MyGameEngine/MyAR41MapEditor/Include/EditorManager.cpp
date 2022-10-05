@@ -21,9 +21,13 @@
 
 #include "Editor/EditorGUIManager.h"
 #include "Resource/Animation/AnimationSequence2D.h"
-#include "PathManager.h"
+
 #include "Input.h"
 #include "CollisionManager.h"
+
+#include "Setting/EngineShareSetting.h"
+#include "Scene/EditorDefaultScene.h"
+
 
 CEditorManager::CEditorManager()
 {
@@ -47,9 +51,11 @@ bool CEditorManager::Init(HINSTANCE hInst)
         return false;
     }
 
-    LoadResource();
+    CSceneInfo* Info = new CEditorDefaultScene;
 
-    CreateCDO();
+    CScene::AddSceneInfoCDO("EditorDefaultScene", Info);
+
+    CEngineShareSetting::Setting();
 
     //테스트 윈도우 클래스로 창을 띄움
     CEngine::SetWndProcCallback<CEditorManager>(this, &CEditorManager::WndProc);
@@ -84,44 +90,6 @@ bool CEditorManager::Init(HINSTANCE hInst)
 
     //#제작# 콜라이더 섹션 윈도우
     CEditorGUIManager::GetInst()->CreateEditorWindow<CSectionWindow>("SectionWindow");
-    
-    // 키 등록
-    CInput::GetInst()->AddBindKey("Rotation", 'D');
-    CInput::GetInst()->AddBindKey("RotationInv", 'A');
-
-    CInput::GetInst()->AddBindKey("MoveUp", 'W');
-    CInput::GetInst()->AddBindKey("MoveDown", 'S');
-
-    CInput::GetInst()->AddBindKey("Fire", VK_SPACE);
-
-    //충돌 프로파일 등록
-    CCollisionManager::GetInst()->CreateChannel("Player", ECollision_Interaction::Collision);
-    CCollisionManager::GetInst()->CreateChannel("PlayerAttack", ECollision_Interaction::Collision);
-    CCollisionManager::GetInst()->CreateChannel("Monster", ECollision_Interaction::Collision);
-    CCollisionManager::GetInst()->CreateChannel("MonsterAttack", ECollision_Interaction::Collision);
-
-    CCollisionManager::GetInst()->CreateProfile("Player", "Player", true);
-    CCollisionManager::GetInst()->CreateProfile("PlayerAttack", "PlayerAttack", true);
-    CCollisionManager::GetInst()->CreateProfile("Monster", "Monster", true);
-    CCollisionManager::GetInst()->CreateProfile("MonsterAttack", "MonsterAttack", true);
-
-    CCollisionManager::GetInst()->SetCollisionInteraction("Player", "PlayerAttack", ECollision_Interaction::Ignore);
-
-    CCollisionManager::GetInst()->SetCollisionInteraction("Player", "Player", ECollision_Interaction::Ignore);
-
-    CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "Player", ECollision_Interaction::Ignore);
-    CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "MonsterAttack", ECollision_Interaction::Ignore);
-    CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "PlayerAttack", ECollision_Interaction::Ignore);
-
-
-    CCollisionManager::GetInst()->SetCollisionInteraction("Monster", "MonsterAttack", ECollision_Interaction::Ignore);
-    CCollisionManager::GetInst()->SetCollisionInteraction("Monster", "Monster", ECollision_Interaction::Ignore);
-
-    CCollisionManager::GetInst()->SetCollisionInteraction("MonsterAttack", "Monster", ECollision_Interaction::Ignore);
-    CCollisionManager::GetInst()->SetCollisionInteraction("MonsterAttack", "MonsterAttack", ECollision_Interaction::Ignore);
-    CCollisionManager::GetInst()->SetCollisionInteraction("MonsterAttack", "PlayerAttack", ECollision_Interaction::Ignore);
-
-
 
     // SceneInfo 생성 기본적으로 사용할 씬 등록
     CSceneManager::GetInst()->CreateSceneInfo<CEditorDefaultScene>();
@@ -262,84 +230,4 @@ void CEditorManager::CreateObject()
         //트리가 해당 오브젝트를 들고있게 된다.
     }
 
-}
-
-void CEditorManager::CreateCDO()
-{
-    CSceneInfo* Info = new CEditorDefaultScene;
-
-    CScene::AddSceneInfoCDO("EditorDefaultScene", Info);
-
-    CScene::CreateObjectCDO<CPlayer2D>("Player2D");
-    CScene::CreateObjectCDO<CMonster>("Monster");
-    CScene::CreateObjectCDO<CMyBullet>("MyBullet");
-}
-
-void CEditorManager::LoadResource()
-{
-    //128 128
-    CResourceManager::GetInst()->CreateAnimationSequence2D(
-        "PlayerIdle", "PlayerSprite", TEXT("Player.png"));
-
-    //플레이어 대기모션 사진 구간을 나눠서 애니메이션 처리
-    for (int i = 0; i < 14; ++i)
-    {
-        CResourceManager::GetInst()->AddAnimationSequence2DFrame("PlayerIdle",
-            Vector2(i * 45.f, 60.f), Vector2((i + 1) * 45.f, 120.f));
-    }
-
- 
-    const PathInfo* Info = CPathManager::GetInst()->FindPath(ROOT_PATH);
-
-    char FullPath[MAX_PATH] = {};
-
-    if (Info)
-        strcpy_s(FullPath, Info->PathMultibyte);
-
-    strcat_s(FullPath, "Sequence/");
-
-    //시퀀스 폴더 내 있는 모든 파일 로드
-    for (const auto& file : std::filesystem::directory_iterator(FullPath))
-    {
-        char FileName[64] = {};
-        char MaxPath[MAX_PATH] = {};
-        char Ext[_MAX_EXT] = {};
-
-        strcpy_s(MaxPath, file.path().generic_string().c_str());
-        _splitpath_s(MaxPath, nullptr, 0, nullptr, 0, FileName, 64, Ext, _MAX_EXT);
-
-        CResourceManager::GetInst()->CreateAnimationSequence2D(FileName, nullptr);
-        CResourceManager::GetInst()->FindAnimationSequence2D(FileName)->Load(MaxPath);
-    }
-
-
-
-    //낱장단위 이미지를 처리
-    std::vector<const TCHAR*>   vecFileName;
-
-    for (int i = 1; i <= 89; ++i)
-    {
-        TCHAR* FileName = new TCHAR[MAX_PATH];
-
-        memset(FileName, 0, sizeof(TCHAR) * MAX_PATH);
-
-        wsprintf(FileName, TEXT("Explosion/Explosion%d.png"), i);
-
-        vecFileName.push_back(FileName);
-    }
-
-    vecFileName;
-
-    CResourceManager::GetInst()->CreateAnimationSequence2D(
-        "PlayerRun", "Explosion", vecFileName);
-
-    CResourceManager::GetInst()->AddAnimationSequence2DFrameAll("PlayerRun",
-        89, Vector2(0.f, 0.f), Vector2(320.f, 240.f));
-
-    for (int i = 0; i <= 88; ++i)
-    {
-        SAFE_DELETE_ARRAY(vecFileName[i]);
-    }
-
-    vecFileName.clear();
 }

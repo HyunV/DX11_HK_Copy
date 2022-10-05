@@ -4,14 +4,34 @@
 #include "UIWidget.h"
 
 class CUIWindow :
-    public CRef
+	public CRef
 {
-    friend class CSceneViewport;
+	friend class CSceneViewport;
+	friend class CScene;
 
 protected:
-    CUIWindow();
-    CUIWindow(const CUIWindow& Window);
-    virtual ~CUIWindow();
+	CUIWindow();
+	CUIWindow(const CUIWindow& Window);
+	virtual ~CUIWindow();
+
+private:
+	static std::unordered_map<std::string, CUIWindow*>	m_mapUIWindowCDO;
+
+public:
+	static void AddUIWindowCDO(const std::string& Name, CUIWindow* CDO)
+	{
+		m_mapUIWindowCDO.insert(std::make_pair(Name, CDO));
+	}
+
+	static CUIWindow* FindCDO(const std::string& Name)
+	{
+		auto	iter = m_mapUIWindowCDO.find(Name);
+
+		if (iter == m_mapUIWindowCDO.end())
+			return nullptr;
+
+		return iter->second;
+	}
 
 protected:
 	class CScene* m_Scene;
@@ -21,6 +41,13 @@ protected:
 	Vector2	m_Pos;
 	Vector2	m_Size;
 	bool	m_Start;
+	std::string		m_WindowTypeName;
+
+public:
+	const std::string& GetWindowTypeName()	const
+	{
+		return m_WindowTypeName;
+	}
 
 public:
 	int GetZOrder() const

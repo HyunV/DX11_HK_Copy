@@ -106,8 +106,48 @@ void CSceneViewport::Render()
 
 void CSceneViewport::Save(FILE* File)
 {
+	int	Count = (int)m_vecWindow.size();
+
+	fwrite(&Count, sizeof(int), 1, File);
+
+	auto	iter = m_vecWindow.begin();
+	auto	iterEnd = m_vecWindow.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		std::string	TypeName = (*iter)->GetWindowTypeName();
+
+		int	Length = (int)TypeName.length();
+		fwrite(&Length, sizeof(int), 1, File);
+		fwrite(TypeName.c_str(), 1, Length, File);
+
+		(*iter)->Save(File);
+	}
 }
 
 void CSceneViewport::Load(FILE* File)
 {
+	int	Count = 0;
+
+	fread(&Count, sizeof(int), 1, File);
+
+	for (int i = 0; i < Count; ++i)
+	{
+		char	TypeName[256] = {};
+		int	Length = 0;
+
+		fwrite(&Length, sizeof(int), 1, File);
+		fwrite(TypeName, 1, Length, File);
+
+		CUIWindow* CDO = CUIWindow::FindCDO(TypeName);
+
+		CUIWindow* Window = CDO->Clone();
+
+		Window->m_Owner = this;
+		Window->m_Scene = m_Owner;
+
+		Window->Load(File);
+
+		m_vecWindow.push_back(Window);
+	}
 }

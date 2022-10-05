@@ -16,6 +16,7 @@ CResourceManager::~CResourceManager()
 	SAFE_DELETE(CUIWidget::m_CBuffer);
 	SAFE_DELETE(CUIWidget::m_AnimCBuffer);
 
+	SAFE_DELETE(m_SoundManager);
 	SAFE_DELETE(m_AnimationManager);
 	SAFE_DELETE(m_MaterialManager);
 	SAFE_DELETE(m_TextureManager);
@@ -53,11 +54,16 @@ bool CResourceManager::Init()
 
 	m_AnimationManager->Init();
 
+	m_SoundManager = new CSoundManager;
+
+	m_SoundManager->Init();
+
 	return true;
 }
 
 void CResourceManager::Update()
 {
+	m_SoundManager->Update();
 }
 
 bool CResourceManager::CreateMesh(CScene* Scene, MeshType Type,
@@ -235,4 +241,59 @@ void CResourceManager::ReleaseAnimationSequence2D(const std::string& Name)
 CAnimation2DConstantBuffer* CResourceManager::GetAnim2DConstantBuffer() const
 {
 	return m_AnimationManager->GetAnim2DConstantBuffer();
+}
+
+bool CResourceManager::CreateSoundChannel(const std::string& Name)
+{
+	return m_SoundManager->CreateSoundChannel(Name);
+}
+
+bool CResourceManager::LoadSound(const std::string& GroupName, const std::string& Name, bool Loop, const char* FileName, const std::string& PathName)
+{
+	return m_SoundManager->LoadSound(GroupName, Name, Loop, FileName, PathName);
+}
+
+bool CResourceManager::SetVolume(int Volume)
+{
+	return m_SoundManager->SetVolume(Volume);
+}
+
+bool CResourceManager::SetVolume(const std::string& GroupName, int Volume)
+{
+	return m_SoundManager->SetVolume(GroupName, Volume);
+}
+
+bool CResourceManager::SoundPlay(const std::string& Name)
+{
+	return m_SoundManager->SoundPlay(Name);
+}
+
+bool CResourceManager::SoundStop(const std::string& Name)
+{
+	return m_SoundManager->SoundStop(Name);
+}
+
+bool CResourceManager::SoundPause(const std::string& Name)
+{
+	return m_SoundManager->SoundPause(Name);
+}
+
+bool CResourceManager::SoundResume(const std::string& Name)
+{
+	return m_SoundManager->SoundResume(Name);
+}
+
+FMOD::ChannelGroup* CResourceManager::FindChannelGroup(const std::string& Name)
+{
+	return m_SoundManager->FindChannelGroup(Name);
+}
+
+CSound* CResourceManager::FindSound(const std::string& Name)
+{
+	return m_SoundManager->FindSound(Name);
+}
+
+void CResourceManager::ReleaseSound(const std::string& Name)
+{
+	m_SoundManager->ReleaseSound(Name);
 }

@@ -8,6 +8,8 @@
 #include "../Scene/CameraManager.h"
 #include "UIWindow.h"
 
+std::unordered_map<std::string, CUIWidget*> CUIWidget::m_mapUIWidgetCDO;
+
 CUIConstantBuffer* CUIWidget::m_CBuffer = nullptr;
 CAnimation2DConstantBuffer* CUIWidget::m_AnimCBuffer = nullptr;
 
@@ -18,6 +20,7 @@ CUIWidget::CUIWidget() :
     m_Start(false),
     m_Tint(1.f, 1.f, 1.f, 1.f)
 {
+    m_WiwdgetTypeName = "UIWidget";
 }
 
 CUIWidget::CUIWidget(const CUIWidget& Widget) :
@@ -96,6 +99,9 @@ bool CUIWidget::Init()
 
 void CUIWidget::Update(float DeltaTime)
 {
+    // 출력될 위치정보를 만들어준다. m_Pos는 위젯을 가지고 있는 윈도우로부터 상대적인 위치
+    // 정보로 구성된다. 그러므로 최종 출력될 위치는 윈도우위치 + m_Pos 가 된다.
+    m_RenderPos = m_Owner->GetPos() + m_Pos;
 }
 
 void CUIWidget::PostUpdate(float DeltaTime)
@@ -146,8 +152,66 @@ CUIWidget* CUIWidget::Clone()
 
 void CUIWidget::Save(FILE* File)
 {
+    fwrite(&m_ZOrder, sizeof(int), 1, File);
+
+    fwrite(&m_Pos, sizeof(Vector2), 1, File);
+    fwrite(&m_RenderPos, sizeof(Vector2), 1, File);
+    fwrite(&m_Size, sizeof(Vector2), 1, File);
+    fwrite(&m_Pivot, sizeof(Vector2), 1, File);
+    fwrite(&m_MeshSize, sizeof(Vector2), 1, File);
+
+    fwrite(&m_Angle, sizeof(float), 1, File);
+    fwrite(&m_Opacity, sizeof(float), 1, File);
+
+    fwrite(&m_Tint, sizeof(Vector4), 1, File);
+
+    int	Length = (int)m_Mesh->GetName().length();
+
+    fwrite(&Length, 4, 1, File);
+    fwrite(m_Mesh->GetName().c_str(), 1, Length, File);
+
+    Length = (int)m_Shader->GetName().length();
+
+    fwrite(&Length, 4, 1, File);
+    fwrite(m_Shader->GetName().c_str(), 1, Length, File);
 }
 
 void CUIWidget::Load(FILE* File)
 {
+    fread(&m_ZOrder, sizeof(int), 1, File);
+
+    fread(&m_Pos, sizeof(Vector2), 1, File);
+    fread(&m_RenderPos, sizeof(Vector2), 1, File);
+    fread(&m_Size, sizeof(Vector2), 1, File);
+    fread(&m_Pivot, sizeof(Vector2), 1, File);
+    fread(&m_MeshSize, sizeof(Vector2), 1, File);
+
+    fread(&m_Angle, sizeof(float), 1, File);
+    fread(&m_Opacity, sizeof(float), 1, File);
+
+    fread(&m_Tint, sizeof(Vector4), 1, File);
+
+    int	Length = 0;
+    char    MeshName[256] = {};
+    char    ShaderName[256] = {};
+
+    fread(&Length, 4, 1, File);
+    fread(MeshName, 1, Length, File);
+
+    Length = 0;
+
+    fread(&Length, 4, 1, File);
+    fread(ShaderName, 1, Length, File);
+
+    if (m_Scene)
+    {
+        m_Mesh = m_Scene->GetResource()->FindMesh(MeshName);
+        m_Shader = m_Scene->GetResource()->FindShader(ShaderName);
+    }
+
+    else
+    {
+        m_Mesh = CResourceManager::GetInst()->FindMesh(MeshName);
+        m_Shader = CResourceManager::GetInst()->FindShader(ShaderName);
+    }
 }
