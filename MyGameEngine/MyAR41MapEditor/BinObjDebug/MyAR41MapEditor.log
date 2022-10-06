@@ -1,10 +1,10 @@
-﻿  unity_2I42EUJD3Q58JEHU.cpp
-  unity_5GMXIBC8NTZKGRMD.cpp
+﻿  unity_QW6BBJNG460XWQRA.cpp
+  unity_Y8D3CKFQA8L32WHM.cpp
+  unity_2I42EUJD3Q58JEHU.cpp
   unity_CDCOGG68EJJKSZ8M.cpp
   unity_K14UG39BRSHJFRHM.cpp
-  unity_QW6BBJNG460XWQRA.cpp
   unity_WJ8ORV6OWNVI8UIA.cpp
-  unity_Y8D3CKFQA8L32WHM.cpp
+  unity_5GMXIBC8NTZKGRMD.cpp
 DirectXTex_Debug.lib(DirectXTexImage.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_Debug.lib(DirectXTexImage.obj)' 또는 'C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41MapEditor\Bin\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
 DirectXTex_Debug.lib(DirectXTexDDS.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_Debug.lib(DirectXTexDDS.obj)' 또는 'C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41MapEditor\Bin\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
 DirectXTex_Debug.lib(DirectXTexTGA.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_Debug.lib(DirectXTexTGA.obj)' 또는 'C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41MapEditor\Bin\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
@@ -18,8 +18,15 @@ DirectXTex_Debug.lib(BC.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectX
 DirectXTex_Debug.lib(BC4BC5.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_Debug.lib(BC4BC5.obj)' 또는 'C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41MapEditor\Bin\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
 DirectXTex_Debug.lib(BC6HBC7.obj) : warning LNK4099: 'DirectXTex.pdb' PDB를 'DirectXTex_Debug.lib(BC6HBC7.obj)' 또는 'C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41MapEditor\Bin\DirectXTex.pdb'에서 찾을 수 없습니다. 디버그 정보가 없는 것처럼 개체를 링크합니다.
   MyAR41MapEditor.vcxproj -> C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41MapEditor\Bin\MyAR41MapEditor_Debug.exe
-  .\MyAR41MapEditor\Include\GameObject\Monster.cpp
-  1개 파일이 복사되었습니다.
   0개 파일이 복사되었습니다.
+  0개 파일이 복사되었습니다.
+  .\MyAR41MapEditor\Include\UI\StartSceneUI.cpp
+  .\MyAR41MapEditor\Include\UI\StartSceneUI.h
+  2개 파일이 복사되었습니다.
+  .\MyAR41MapEditor\Include\Setting\DefaultSetting.cpp
+  .\MyAR41MapEditor\Include\Setting\DefaultSetting.h
+  .\MyAR41MapEditor\Include\Setting\EngineShareSetting.cpp
+  .\MyAR41MapEditor\Include\Setting\EngineShareSetting.h
+  4개 파일이 복사되었습니다.
   .\MyAR41MapEditor\Bin\MyAR41MapEditor_Debug.exe
   1개 파일이 복사되었습니다.

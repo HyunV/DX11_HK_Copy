@@ -169,6 +169,9 @@
     <ClInclude Include="GameObject\Player2D.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene\MainSceneInfo.h" />
+    <ClInclude Include="Setting\DefaultSetting.h" />
+    <ClInclude Include="Setting\EngineShareSetting.h" />
+    <ClInclude Include="UI\StartSceneUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyClient2D.rc" />
@@ -183,6 +186,9 @@
     <ClCompile Include="GameObject\Player2D.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene\MainSceneInfo.cpp" />
+    <ClCompile Include="Setting\DefaultSetting.cpp" />
+    <ClCompile Include="Setting\EngineShareSetting.cpp" />
+    <ClCompile Include="UI\StartSceneUI.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

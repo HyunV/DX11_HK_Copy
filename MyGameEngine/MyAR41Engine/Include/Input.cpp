@@ -1,6 +1,10 @@
 #include "Input.h"
 #include "Resource/ResourceManager.h"
 #include "Device.h"
+#include "Scene/Scene.h"
+#include "Scene/SceneManager.h"
+#include "Scene/CameraManager.h"
+#include "Component/CameraComponent.h"
 
 #pragma comment(lib, "dinput8.lib")
 
@@ -171,6 +175,13 @@ void CInput::UpdateMouse(float DeltaTime)
 	m_MouseMove = MousePos - m_MousePos;
 
 	m_MousePos = MousePos;
+
+	// WorldPosition을 만들어준다. 마우스의 위치에 카메라의 위치를 더한다.
+	CCameraComponent* Camera = CSceneManager::GetInst()->GetScene()->GetCameraManager()->GetCurrentCamera();
+
+	Vector3 CameraPos = Camera->GetWorldPos();
+
+	m_MouseWorldPos = m_MousePos + Vector2(CameraPos.x, CameraPos.y);
 
 	/*RECT	rc = {};
 	GetClientRect(m_hWnd, &rc);

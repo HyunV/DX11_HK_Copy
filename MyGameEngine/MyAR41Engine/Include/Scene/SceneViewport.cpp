@@ -1,4 +1,6 @@
 #include "SceneViewport.h"
+#include "../GameObject/GameObject.h"
+#include "Scene.h"
 
 CSceneViewport::CSceneViewport()
 {
@@ -81,6 +83,8 @@ void CSceneViewport::PostUpdate(float DeltaTime)
 
 void CSceneViewport::Render()
 {
+	std::sort(m_vecWindow.begin(), m_vecWindow.end(), CSceneViewport::SortWindow);
+
 	auto	iter = m_vecWindow.begin();
 	auto	iterEnd = m_vecWindow.end();
 
@@ -150,4 +154,9 @@ void CSceneViewport::Load(FILE* File)
 
 		m_vecWindow.push_back(Window);
 	}
+}
+
+bool CSceneViewport::SortWindow(CSharedPtr<CUIWindow> Src, CSharedPtr<CUIWindow> Dest)
+{
+	return Src->GetZOrder() > Dest->GetZOrder();
 }

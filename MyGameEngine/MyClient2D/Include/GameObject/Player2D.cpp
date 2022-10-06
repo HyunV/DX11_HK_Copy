@@ -112,17 +112,15 @@ bool CPlayer2D::Init()
 	m_SpriteChild->SetInheritRotZ(true);
 
 
+	CAnimation2D* Anim = m_Sprite->SetAnimation<CAnimation2D>("PlayerAnim");
 
-	//CAnimation2D* Anim = m_Sprite->SetAnimation<CAnimation2D>("PlayerAnim");
+	Anim->AddAnimation("Run", "PlayerRun");
+	Anim->SetLoop("Run", true);
 
-	//Anim->AddAnimation("Idle", "TestTTT");
-	////Anim->AddAnimation("Idle", "PlayerIdle");
-	//Anim->SetLoop("Idle", true);
+	Anim->AddAnimation("Idle", "PlayerIdle");
+	Anim->SetLoop("Idle", true);
 
-	//Anim->AddAnimation("Run", "PlayerRun");
-	//Anim->SetLoop("Run", true);
-
-	//Anim->SetCurrentAnimation("Idle");
+	Anim->SetCurrentAnimation("Idle");
 
 	return true;
 }

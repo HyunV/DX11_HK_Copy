@@ -314,7 +314,7 @@ void CScene::Load(const char* FullPath)
 	int	ObjCount = 0;
 
 	fread(&ObjCount, 4, 1, File);
-
+	
 	for (int i = 0; i < ObjCount; ++i)
 	{
 		Length = 0;

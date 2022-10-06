@@ -5,7 +5,6 @@
 class CCollisionSection2D
 {
 	friend class CSceneCollision;
-	friend class CScene; 	//³» Ãß°¡
 
 private:
 	CCollisionSection2D();

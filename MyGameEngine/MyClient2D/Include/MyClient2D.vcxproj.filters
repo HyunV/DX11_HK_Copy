@@ -22,6 +22,12 @@
     <Filter Include="03. GameObject">
       <UniqueIdentifier>{adcf7d2e-1583-4598-9f93-dbcc233b64eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Setting">
+      <UniqueIdentifier>{38f7ee28-a3c6-4260-8c3f-2a12c98e802d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. UI">
+      <UniqueIdentifier>{dff1e396-195f-4ef6-aee7-23a516198a9d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -44,6 +50,15 @@
     </ClInclude>
     <ClInclude Include="GameObject\Monster.h">
       <Filter>03. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting\DefaultSetting.h">
+      <Filter>04. Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="Setting\EngineShareSetting.h">
+      <Filter>04. Setting</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\StartSceneUI.h">
+      <Filter>05. UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -74,6 +89,15 @@
     </ClCompile>
     <ClCompile Include="GameObject\Monster.cpp">
       <Filter>03. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Setting\DefaultSetting.cpp">
+      <Filter>04. Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="Setting\EngineShareSetting.cpp">
+      <Filter>04. Setting</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\StartSceneUI.cpp">
+      <Filter>05. UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

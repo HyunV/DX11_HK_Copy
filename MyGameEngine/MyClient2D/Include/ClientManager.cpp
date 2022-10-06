@@ -2,6 +2,7 @@
 #include "Scene/SceneManager.h"
 #include "Scene/MainSceneInfo.h"
 #include "Input.h"
+#include "Setting/EngineShareSetting.h"
 
 CClientManager::CClientManager()
 {
@@ -19,6 +20,8 @@ bool CClientManager::Init(HINSTANCE hInst)
     {
         return false;
     }
+
+    CEngineShareSetting::Setting();
 
     // Å° µî·Ï
     CInput::GetInst()->AddBindKey("Rotation", 'D');
