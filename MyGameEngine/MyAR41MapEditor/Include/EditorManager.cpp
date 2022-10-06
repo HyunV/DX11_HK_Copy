@@ -94,6 +94,7 @@ bool CEditorManager::Init(HINSTANCE hInst)
     // SceneInfo 생성 기본적으로 사용할 씬 등록
     CSceneManager::GetInst()->CreateSceneInfo<CEditorDefaultScene>();
 
+
     return true;
 }
 

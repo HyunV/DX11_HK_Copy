@@ -1,41 +1,13 @@
-﻿FXC : warning X4717: Effects deprecated for D3DCompiler_47
-  
-  compilation object save succeeded; see C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\Collider.cso
-FXC : warning X4717: Effects deprecated for D3DCompiler_47
-  
-  compilation object save succeeded; see C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\Sprite.cso
-FXC : warning X4717: Effects deprecated for D3DCompiler_47
-  
-  compilation object save succeeded; see C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\UI.cso
-  unity_PGROZ3Q3V82KHJB7.cpp
-  unity_2Z6OP8YMZA47GW3I.cpp
-  unity_03TH7MW947J4KP2S.cpp
-  unity_281KUFXMPKK300WY.cpp
+﻿  unity_03TH7MW947J4KP2S.cpp
   unity_TPOFG42SKDHEBLUJ.cpp
-  unity_NBGX8803PUENNEDY.cpp
-  unity_LNAWYTI131YA00RB.cpp
-  unity_DCDXQPF2JHNS4BJJ.cpp
-  unity_YS8DBEKBRAZOF53O.cpp
-  unity_WR9T9FZZ8YJ9491G.cpp
-  unity_1ZD56XI8AVY2MWL8.cpp
-  unity_U6HGZ6G8E824KDR0.cpp
   MyAR41Engine.vcxproj -> C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
   0개 파일이 복사되었습니다.
   파일을 찾을 수 없습니다-*.inl
   0개 파일이 복사되었습니다.
   0개 파일이 복사되었습니다.
-  .\MyAR41Engine\Bin\Collider.cso
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  .\MyAR41Engine\Bin\Sprite.cso
-  .\MyAR41Engine\Bin\UI.cso
-  4개 파일이 복사되었습니다.
-  .\MyAR41Engine\Bin\Collider.cso
+  1개 파일이 복사되었습니다.
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  .\MyAR41Engine\Bin\Sprite.cso
-  .\MyAR41Engine\Bin\UI.cso
-  4개 파일이 복사되었습니다.
-  .\MyAR41Engine\Bin\Collider.cso
+  1개 파일이 복사되었습니다.
   .\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  .\MyAR41Engine\Bin\Sprite.cso
-  .\MyAR41Engine\Bin\UI.cso
-  4개 파일이 복사되었습니다.
+  1개 파일이 복사되었습니다.

@@ -64,7 +64,9 @@ void CColliderBox2D::PostUpdate(float DeltaTime)
 	Vector2	Size = m_BoxSize;
 	Size.x *= GetWorldScale().x;
 	Size.y *= GetWorldScale().y;
-
+	//Size.x *= GetRelativeScale().x;
+	//Size.y *= GetRelativeScale().x;
+	Size;
 	m_Min.x = GetWorldPos().x - Size.x * 0.5f;
 	m_Min.y = GetWorldPos().y - Size.y * 0.5f;
 
@@ -86,7 +88,9 @@ void CColliderBox2D::Render()
 	Matrix	matView = m_Scene->GetCameraManager()->GetCurrentCamera()->GetViewMatrix();
 	Matrix	matProj = m_Scene->GetCameraManager()->GetCurrentCamera()->GetProjMatrix();
 
-	Vector3	Scale = GetWorldScale();
+	//===콜라이더 자식 컴포넌트로 쓸거같아서 오브젝트랑 피벗에 맞게 상대좌표로 수정함.
+	//Vector3	Scale = GetWorldScale();
+	Vector3	Scale = GetRelativeScale();
 	Scale.x *= m_BoxSize.x;
 	Scale.y *= m_BoxSize.y;
 

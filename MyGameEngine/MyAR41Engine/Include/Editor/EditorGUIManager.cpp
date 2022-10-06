@@ -65,7 +65,8 @@ void CEditorGUIManager::Update(float DeltaTime)
 	{
 		iter->second->Update(DeltaTime);
 	}
-
+	static bool Demo = true;
+	ImGui::ShowDemoWindow(&Demo);
 	// 위에서 그리게 되면 IMGUI 내부 렌더링 버퍼에 그려준 녀석들이 들어가 있다.
 	// 최종 렌더링을 하기 위한 버퍼를 만들어준다.
 	ImGui::Render();

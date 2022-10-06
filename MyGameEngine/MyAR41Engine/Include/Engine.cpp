@@ -175,7 +175,10 @@ void CEngine::Logic()
     CInput::GetInst()->Update(DeltaTime);
 
     if (m_EditorMode)
+    {
         CEditorGUIManager::GetInst()->Update(DeltaTime);
+
+    }
 
     CResourceManager::GetInst()->Update();
 
