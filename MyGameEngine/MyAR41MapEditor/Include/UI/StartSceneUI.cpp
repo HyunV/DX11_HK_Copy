@@ -70,4 +70,6 @@ void CStartSceneUI::Save(FILE* File)
 void CStartSceneUI::Load(FILE* File)
 {
     CUIWindow::Load(File);
+
+    m_Button = FindWidget<CUIButton>("Button");
 }

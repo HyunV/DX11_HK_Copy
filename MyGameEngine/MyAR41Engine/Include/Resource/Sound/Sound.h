@@ -16,6 +16,7 @@ private:
     FMOD::Sound* m_Sound;
     FMOD::ChannelGroup* m_Group;
     FMOD::Channel* m_Channel;
+    std::string     m_GroupName;
     bool        m_Play;
     bool        m_Loop;
     bool        m_Pause;
@@ -23,6 +24,11 @@ private:
     char        m_PathName[MAX_PATH];
 
 public:
+    const std::string& GetGroupName()   const
+    {
+        return m_GroupName;
+    }
+
     bool GetPlay()   const
     {
         return m_Play;
@@ -31,6 +37,12 @@ public:
     bool GetLoop()  const
     {
         return m_Loop;
+    }
+
+public:
+    void SetGroupName(const std::string& GroupName)
+    {
+        m_GroupName = GroupName;
     }
 
 public:

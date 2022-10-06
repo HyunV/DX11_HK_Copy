@@ -303,6 +303,8 @@ void CScene::Load(const char* FullPath)
 
 	m_SceneInfo = CDO->Clone();
 
+	m_SceneInfo->m_Owner = this;
+
 	m_SceneInfo->Load(File);
 
 	m_CameraManager->Load(File);

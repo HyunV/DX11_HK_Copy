@@ -110,6 +110,13 @@ void CSound::Resume()
 
 void CSound::Save(FILE* File)
 {
+	fwrite(&m_Loop, sizeof(bool), 1, File);
+
+	int	Length = (int)m_GroupName.length();
+
+	fwrite(&Length, sizeof(int), 1, File);
+	fwrite(m_GroupName.c_str(), 1, Length, File);
+
 	fwrite(m_FileName, sizeof(char), MAX_PATH, File);
 	fwrite(m_PathName, sizeof(char), MAX_PATH, File);
 }

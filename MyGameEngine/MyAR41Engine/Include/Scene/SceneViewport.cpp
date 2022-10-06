@@ -136,8 +136,8 @@ void CSceneViewport::Load(FILE* File)
 		char	TypeName[256] = {};
 		int	Length = 0;
 
-		fwrite(&Length, sizeof(int), 1, File);
-		fwrite(TypeName, 1, Length, File);
+		fread(&Length, sizeof(int), 1, File);
+		fread(TypeName, 1, Length, File);
 
 		CUIWindow* CDO = CUIWindow::FindCDO(TypeName);
 

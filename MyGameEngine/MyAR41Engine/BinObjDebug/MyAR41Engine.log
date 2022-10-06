@@ -1,27 +1,21 @@
-﻿  unity_PGROZ3Q3V82KHJB7.cpp
-  unity_2Z6OP8YMZA47GW3I.cpp
-  unity_03TH7MW947J4KP2S.cpp
-  unity_TPOFG42SKDHEBLUJ.cpp
-  unity_NBGX8803PUENNEDY.cpp
-  unity_LNAWYTI131YA00RB.cpp
-  unity_DCDXQPF2JHNS4BJJ.cpp
-  unity_YS8DBEKBRAZOF53O.cpp
-  unity_WR9T9FZZ8YJ9491G.cpp
+﻿  unity_03TH7MW947J4KP2S.cpp
   unity_1ZD56XI8AVY2MWL8.cpp
+  unity_281KUFXMPKK300WY.cpp
+  unity_2Z6OP8YMZA47GW3I.cpp
+  unity_DCDXQPF2JHNS4BJJ.cpp
+  unity_LNAWYTI131YA00RB.cpp
+  unity_NBGX8803PUENNEDY.cpp
+  unity_PGROZ3Q3V82KHJB7.cpp
+  unity_TPOFG42SKDHEBLUJ.cpp
   unity_U6HGZ6G8E824KDR0.cpp
-C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Include\UI\UIButton.cpp(317,38): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다. (소스 파일 컴파일 중 ../BinObjDebug/unity_U6HGZ6G8E824KDR0.cpp)
-C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Include\UI\UIButton.cpp(328,40): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다. (소스 파일 컴파일 중 ../BinObjDebug/unity_U6HGZ6G8E824KDR0.cpp)
+  unity_WR9T9FZZ8YJ9491G.cpp
+  unity_YS8DBEKBRAZOF53O.cpp
   MyAR41Engine.vcxproj -> C:\Users\Hyun\Desktop\DX11\MyGameEngine\MyAR41Engine\Bin\MyAR41Engine_Debug.lib
-  .\MyAR41Engine\Include\Engine.h
-  .\MyAR41Engine\Include\EngineSetting.h
+  .\MyAR41Engine\Include\EngineInfo.h
   .\MyAR41Engine\Include\Resource\Sound\Sound.h
-  .\MyAR41Engine\Include\Scene\Scene.h
-  .\MyAR41Engine\Include\Scene\SceneViewport.h
-  .\MyAR41Engine\Include\UI\UIButton.h
-  .\MyAR41Engine\Include\UI\UIImage.h
   .\MyAR41Engine\Include\UI\UIWidget.h
   .\MyAR41Engine\Include\UI\UIWindow.h
-  9개 파일이 복사되었습니다.
+  4개 파일이 복사되었습니다.
   파일을 찾을 수 없습니다-*.inl
   0개 파일이 복사되었습니다.
   0개 파일이 복사되었습니다.

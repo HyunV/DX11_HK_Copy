@@ -166,23 +166,41 @@ void CUIWindow::Load(FILE* File)
 
 	for (int i = 0; i < Count; ++i)
 	{
-		char	TypeName[256] = {};
+		if (m_vecWidget.empty())
+		{
+			char	TypeName[256] = {};
 
-		int	Length = 0;
-		fread(&Length, sizeof(int), 1, File);
-		fread(TypeName, 1, Length, File);
+			int	Length = 0;
+			fread(&Length, sizeof(int), 1, File);
+			fread(TypeName, 1, Length, File);
 
-		CUIWidget* CDO = CUIWidget::FindCDO(TypeName);
+			CUIWidget* CDO = CUIWidget::FindCDO(TypeName);
 
-		CUIWidget* Widget = CDO->Clone();
+			CUIWidget* Widget = CDO->Clone();
 
-		Widget->m_Owner = this;
-		Widget->m_Scene = m_Scene;
+			Widget->m_Owner = this;
+			Widget->m_Scene = m_Scene;
 
-		Widget->Init();
-		Widget->Load(File);
+			Widget->Init();
+			Widget->Load(File);
 
-		m_vecWidget.push_back(Widget);
+			m_vecWidget.push_back(Widget);
+		}
+
+		else
+		{
+			char	TypeName[256] = {};
+
+			int	Length = 0;
+			fread(&Length, sizeof(int), 1, File);
+			fread(TypeName, 1, Length, File);
+
+			m_vecWidget[i]->m_Owner = this;
+			m_vecWidget[i]->m_Scene = m_Scene;
+
+			m_vecWidget[i]->Init();
+			m_vecWidget[i]->Load(File);
+		}
 	}
 }
 

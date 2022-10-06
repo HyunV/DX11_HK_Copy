@@ -8,6 +8,7 @@ class CUIWindow :
 {
 	friend class CSceneViewport;
 	friend class CScene;
+	friend class CSceneManager;
 
 protected:
 	CUIWindow();

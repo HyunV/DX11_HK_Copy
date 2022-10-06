@@ -34,6 +34,7 @@ class CUIWidget :
     friend class CUIWindow;
     friend class CResourceManager;
     friend class CScene;
+    friend class CSceneManager;
 
 protected:
     CUIWidget();

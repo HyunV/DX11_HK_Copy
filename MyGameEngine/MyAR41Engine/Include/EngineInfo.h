@@ -285,9 +285,14 @@ struct PixelInfo
 	EPixelCollision_Type	PixelAlphaCollisionType;
 	unsigned char	TypeColor[4];
 	ID3D11ShaderResourceView* SRV;
+	std::string	Name;
+	TCHAR		FileName[MAX_PATH];
+	char		PathName[MAX_PATH];
 	int			RefCount;
 
 	PixelInfo() :
+		FileName{},
+		PathName{},
 		RefCount(0),
 		Pixel(nullptr),
 		Box2D{},

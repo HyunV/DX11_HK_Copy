@@ -27,20 +27,42 @@ void CUIImage::SetTexture(CTexture* Texture)
 
 bool CUIImage::SetTexture(const std::string& Name, const TCHAR* FileName, const std::string& PathName)
 {
-    if (!m_Scene->GetResource()->LoadTexture(Name, FileName, PathName))
-        return false;
+    if (m_Scene)
+    {
+        if (!m_Scene->GetResource()->LoadTexture(Name, FileName, PathName))
+            return false;
 
-    m_TextureInfo.Texture = m_Scene->GetResource()->FindTexture(Name);
+        m_TextureInfo.Texture = m_Scene->GetResource()->FindTexture(Name);
+    }
+
+    else
+    {
+        if (!CResourceManager::GetInst()->LoadTexture(Name, FileName, PathName))
+            return false;
+
+        m_TextureInfo.Texture = CResourceManager::GetInst()->FindTexture(Name);
+    }
 
     return true;
 }
 
 bool CUIImage::SetTextureFullPath(const std::string& Name, const TCHAR* FullPath)
 {
-    if (!m_Scene->GetResource()->LoadTextureFullPath(Name, FullPath))
-        return false;
+    if (m_Scene)
+    {
+        if (!m_Scene->GetResource()->LoadTextureFullPath(Name, FullPath))
+            return false;
 
-    m_TextureInfo.Texture = m_Scene->GetResource()->FindTexture(Name);
+        m_TextureInfo.Texture = m_Scene->GetResource()->FindTexture(Name);
+    }
+
+    else
+    {
+        if (!CResourceManager::GetInst()->LoadTextureFullPath(Name, FullPath))
+            return false;
+
+        m_TextureInfo.Texture = CResourceManager::GetInst()->FindTexture(Name);
+    }
 
     return true;
 }
@@ -48,20 +70,42 @@ bool CUIImage::SetTextureFullPath(const std::string& Name, const TCHAR* FullPath
 bool CUIImage::SetTexture(const std::string& Name, const std::vector<const TCHAR*>& vecFileName,
     const std::string& PathName)
 {
-    if (!m_Scene->GetResource()->LoadTexture(Name, vecFileName, PathName))
-        return false;
+    if (m_Scene)
+    {
+        if (!m_Scene->GetResource()->LoadTexture(Name, vecFileName, PathName))
+            return false;
 
-    m_TextureInfo.Texture = m_Scene->GetResource()->FindTexture(Name);
+        m_TextureInfo.Texture = m_Scene->GetResource()->FindTexture(Name);
+    }
+
+    else
+    {
+        if (!CResourceManager::GetInst()->LoadTexture(Name, vecFileName, PathName))
+            return false;
+
+        m_TextureInfo.Texture = CResourceManager::GetInst()->FindTexture(Name);
+    }
 
     return true;
 }
 
 bool CUIImage::SetTextureFullPath(const std::string& Name, const std::vector<const TCHAR*>& vecFullPath)
 {
-    if (!m_Scene->GetResource()->LoadTextureFullPath(Name, vecFullPath))
-        return false;
+    if (m_Scene)
+    {
+        if (!m_Scene->GetResource()->LoadTextureFullPath(Name, vecFullPath))
+            return false;
 
-    m_TextureInfo.Texture = m_Scene->GetResource()->FindTexture(Name);
+        m_TextureInfo.Texture = m_Scene->GetResource()->FindTexture(Name);
+    }
+
+    else
+    {
+        if (!CResourceManager::GetInst()->LoadTextureFullPath(Name, vecFullPath))
+            return false;
+
+        m_TextureInfo.Texture = CResourceManager::GetInst()->FindTexture(Name);
+    }
 
     return true;
 }
@@ -188,5 +232,91 @@ void CUIImage::Save(FILE* File)
 void CUIImage::Load(FILE* File)
 {
     CUIWidget::Load(File);
+
+    fread(&m_TextureInfo.Tint, sizeof(Vector4), 1, File);
+
+    fread(&m_TextureInfo.FrameTime, sizeof(float), 1, File);
+    fread(&m_TextureInfo.PlayTime, sizeof(float), 1, File);
+    fread(&m_TextureInfo.PlayScale, sizeof(float), 1, File);
+
+    int FrameCount = 0;
+    fread(&FrameCount, sizeof(int), 1, File);
+
+    m_TextureInfo.vecFrameData.resize((size_t)FrameCount);
+
+    if (FrameCount > 0)
+        fread(&m_TextureInfo.vecFrameData[0], sizeof(Animation2DFrameData), FrameCount, File);
+
+    char    TexName[256] = {};
+
+    int Length = 0;
+
+    fread(&Length, sizeof(int), 1, File);
+    fread(TexName, 1, Length, File);
+
+    int	TextureSRVCount = 0;
+
+    fread(&TextureSRVCount, sizeof(int), 1, File);
+
+    if (TextureSRVCount == 1)
+    {
+        TCHAR	FileName[MAX_PATH] = {};
+        char	PathName[MAX_PATH] = {};
+
+        fread(FileName, sizeof(TCHAR), MAX_PATH, File);
+        fread(PathName, sizeof(char), MAX_PATH, File);
+
+        if (m_Scene)
+        {
+            m_Scene->GetResource()->LoadTexture(TexName, FileName, PathName);
+
+            m_TextureInfo.Texture = m_Scene->GetResource()->FindTexture(TexName);
+        }
+
+        else
+        {
+            CResourceManager::GetInst()->LoadTexture(TexName, FileName, PathName);
+
+            m_TextureInfo.Texture = CResourceManager::GetInst()->FindTexture(TexName);
+        }
+    }
+
+    else
+    {
+        std::vector<const TCHAR*>	vecFileName;
+        std::string	ResultPathName;
+
+        for (int i = 0; i < TextureSRVCount; ++i)
+        {
+            TCHAR* FileName = new TCHAR[MAX_PATH];
+            char	PathName[MAX_PATH] = {};
+
+            fread(FileName, sizeof(TCHAR), MAX_PATH, File);
+            fread(PathName, sizeof(char), MAX_PATH, File);
+
+            ResultPathName = PathName;
+
+            vecFileName.push_back(FileName);
+        }
+
+        if (m_Scene)
+        {
+            m_Scene->GetResource()->LoadTexture(TexName, vecFileName, ResultPathName);
+
+            m_TextureInfo.Texture = m_Scene->GetResource()->FindTexture(TexName);
+        }
+
+        else
+        {
+            CResourceManager::GetInst()->LoadTexture(TexName, vecFileName, ResultPathName);
+
+            m_TextureInfo.Texture = CResourceManager::GetInst()->FindTexture(TexName);
+        }
+
+        for (int i = 0; i < TextureSRVCount; ++i)
+        {
+            SAFE_DELETE_ARRAY(vecFileName[i]);
+        }
+    }
 }
 

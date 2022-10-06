@@ -44,20 +44,42 @@ void CUIButton::SetTexture(EButtonState State, CTexture* Texture)
 
 bool CUIButton::SetTexture(EButtonState State, const std::string& Name, const TCHAR* FileName, const std::string& PathName)
 {
-    if (!m_Scene->GetResource()->LoadTexture(Name, FileName, PathName))
-        return false;
+    if (m_Scene)
+    {
+        if (!m_Scene->GetResource()->LoadTexture(Name, FileName, PathName))
+            return false;
 
-    m_TextureInfo[(int)State].Texture = m_Scene->GetResource()->FindTexture(Name);
+        m_TextureInfo[(int)State].Texture = m_Scene->GetResource()->FindTexture(Name);
+    }
+
+    else
+    {
+        if (!CResourceManager::GetInst()->LoadTexture(Name, FileName, PathName))
+            return false;
+
+        m_TextureInfo[(int)State].Texture = CResourceManager::GetInst()->FindTexture(Name);
+    }
 
     return true;
 }
 
 bool CUIButton::SetTextureFullPath(EButtonState State, const std::string& Name, const TCHAR* FullPath)
 {
-    if (!m_Scene->GetResource()->LoadTextureFullPath(Name, FullPath))
-        return false;
+    if (m_Scene)
+    {
+        if (!m_Scene->GetResource()->LoadTextureFullPath(Name, FullPath))
+            return false;
 
-    m_TextureInfo[(int)State].Texture = m_Scene->GetResource()->FindTexture(Name);
+        m_TextureInfo[(int)State].Texture = m_Scene->GetResource()->FindTexture(Name);
+    }
+
+    else
+    {
+        if (!CResourceManager::GetInst()->LoadTextureFullPath(Name, FullPath))
+            return false;
+
+        m_TextureInfo[(int)State].Texture = CResourceManager::GetInst()->FindTexture(Name);
+    }
 
     return true;
 }
@@ -65,20 +87,42 @@ bool CUIButton::SetTextureFullPath(EButtonState State, const std::string& Name, 
 bool CUIButton::SetTexture(EButtonState State, const std::string& Name, const std::vector<const TCHAR*>& vecFileName,
     const std::string& PathName)
 {
-    if (!m_Scene->GetResource()->LoadTexture(Name, vecFileName, PathName))
-        return false;
+    if (m_Scene)
+    {
+        if (!m_Scene->GetResource()->LoadTexture(Name, vecFileName, PathName))
+            return false;
 
-    m_TextureInfo[(int)State].Texture = m_Scene->GetResource()->FindTexture(Name);
+        m_TextureInfo[(int)State].Texture = m_Scene->GetResource()->FindTexture(Name);
+    }
+
+    else
+    {
+        if (!CResourceManager::GetInst()->LoadTexture(Name, vecFileName, PathName))
+            return false;
+
+        m_TextureInfo[(int)State].Texture = CResourceManager::GetInst()->FindTexture(Name);
+    }
 
     return true;
 }
 
 bool CUIButton::SetTextureFullPath(EButtonState State, const std::string& Name, const std::vector<const TCHAR*>& vecFullPath)
 {
-    if (!m_Scene->GetResource()->LoadTextureFullPath(Name, vecFullPath))
-        return false;
+    if (m_Scene)
+    {
+        if (!m_Scene->GetResource()->LoadTextureFullPath(Name, vecFullPath))
+            return false;
 
-    m_TextureInfo[(int)State].Texture = m_Scene->GetResource()->FindTexture(Name);
+        m_TextureInfo[(int)State].Texture = m_Scene->GetResource()->FindTexture(Name);
+    }
+
+    else
+    {
+        if (!CResourceManager::GetInst()->LoadTextureFullPath(Name, vecFullPath))
+            return false;
+
+        m_TextureInfo[(int)State].Texture = CResourceManager::GetInst()->FindTexture(Name);
+    }
 
     return true;
 }
@@ -123,16 +167,31 @@ void CUIButton::SetSound(EButtonEventState State, CSound* Sound)
 
 void CUIButton::SetSound(EButtonEventState State, const std::string& Name)
 {
-    m_Sound[(int)State] = m_Scene->GetResource()->FindSound(Name);
+    if (m_Scene)
+        m_Sound[(int)State] = m_Scene->GetResource()->FindSound(Name);
+
+    else
+        m_Sound[(int)State] = CResourceManager::GetInst()->FindSound(Name);
 }
 
 bool CUIButton::SetSound(EButtonEventState State, const std::string& GroupName, const std::string& Name,
     bool Loop, const char* FileName, const std::string& PathName)
 {
-    if (!m_Scene->GetResource()->LoadSound(GroupName, Name, Loop, FileName, PathName))
-        return false;
+    if (m_Scene)
+    {
+        if (!m_Scene->GetResource()->LoadSound(GroupName, Name, Loop, FileName, PathName))
+            return false;
 
-    m_Sound[(int)State] = m_Scene->GetResource()->FindSound(Name);
+        m_Sound[(int)State] = m_Scene->GetResource()->FindSound(Name);
+    }
+
+    else
+    {
+        if (!CResourceManager::GetInst()->LoadSound(GroupName, Name, Loop, FileName, PathName))
+            return false;
+
+        m_Sound[(int)State] = CResourceManager::GetInst()->FindSound(Name);
+    }
 
     return true;
 }
@@ -312,24 +371,38 @@ void CUIButton::Save(FILE* File)
         if (FrameCount > 0)
             fwrite(&m_TextureInfo[i].vecFrameData[0], sizeof(Animation2DFrameData), FrameCount, File);
 
-        std::string TexName = m_TextureInfo[i].Texture->GetName();
+        bool    TextureEnable = m_TextureInfo[i].Texture ? true : false;
 
-        int Length = TexName.length();
-        fwrite(&Length, sizeof(int), 1, File);
-        fwrite(TexName.c_str(), 1, Length, File);
+        fwrite(&TextureEnable, sizeof(bool), 1, File);
 
-        m_TextureInfo[i].Texture->Save(File);
+        if (TextureEnable)
+        {
+            std::string TexName = m_TextureInfo[i].Texture->GetName();
+
+            int Length = (int)TexName.length();
+            fwrite(&Length, sizeof(int), 1, File);
+            fwrite(TexName.c_str(), 1, Length, File);
+
+            m_TextureInfo[i].Texture->Save(File);
+        }
     }
 
     for (int i = 0; i < (int)EButtonState::Max; ++i)
     {
-        std::string SoundName = m_Sound[i]->GetName();
+        bool    SoundEnable = m_Sound[i] ? true : false;
 
-        int Length = SoundName.length();
-        fwrite(&Length, sizeof(int), 1, File);
-        fwrite(SoundName.c_str(), 1, Length, File);
+        fwrite(&SoundEnable, sizeof(bool), 1, File);
 
-        m_Sound[i]->Save(File);
+        if (SoundEnable)
+        {
+            std::string SoundName = m_Sound[i]->GetName();
+
+            int Length = (int)SoundName.length();
+            fwrite(&Length, sizeof(int), 1, File);
+            fwrite(SoundName.c_str(), 1, Length, File);
+
+            m_Sound[i]->Save(File);
+        }
     }
 }
 
@@ -354,101 +427,131 @@ void CUIButton::Load(FILE* File)
             fread(&m_TextureInfo[i].vecFrameData[0], sizeof(Animation2DFrameData), FrameCount, File);
         }
 
-        char    TexName[256] = {};
+        bool    TextureEnable = false;
 
-        int Length = 0;
+        fread(&TextureEnable, sizeof(bool), 1, File);
 
-        fread(&Length, sizeof(int), 1, File);
-        fread(TexName, 1, Length, File);
-
-        int	TextureSRVCount = 0;
-
-        fread(&TextureSRVCount, sizeof(int), 1, File);
-
-        if (TextureSRVCount == 1)
+        if (TextureEnable)
         {
-            TCHAR	FileName[MAX_PATH] = {};
-            char	PathName[MAX_PATH] = {};
+            char    TexName[256] = {};
 
-            fread(FileName, sizeof(TCHAR), MAX_PATH, File);
-            fread(PathName, sizeof(char), MAX_PATH, File);
+            int Length = 0;
 
-            if (m_Scene)
+            fread(&Length, sizeof(int), 1, File);
+            fread(TexName, 1, Length, File);
+
+            EImageType  ImageType;
+
+            fread(&ImageType, sizeof(EImageType), 1, File);
+
+            int	TextureSRVCount = 0;
+
+            fread(&TextureSRVCount, sizeof(int), 1, File);
+
+            if (TextureSRVCount == 1)
             {
-                m_Scene->GetResource()->LoadTexture(TexName, FileName, PathName);
-
-                m_TextureInfo[i].Texture = m_Scene->GetResource()->FindTexture(TexName);
-            }
-
-            else
-            {
-                CResourceManager::GetInst()->LoadTexture(TexName, FileName, PathName);
-
-                m_TextureInfo[i].Texture = CResourceManager::GetInst()->FindTexture(TexName);
-            }
-        }
-
-        else
-        {
-            std::vector<const TCHAR*>	vecFileName;
-            std::string	ResultPathName;
-
-            for (int i = 0; i < TextureSRVCount; ++i)
-            {
-                TCHAR* FileName = new TCHAR[MAX_PATH];
+                TCHAR	FileName[MAX_PATH] = {};
                 char	PathName[MAX_PATH] = {};
 
                 fread(FileName, sizeof(TCHAR), MAX_PATH, File);
                 fread(PathName, sizeof(char), MAX_PATH, File);
 
-                ResultPathName = PathName;
+                if (m_Scene)
+                {
+                    m_Scene->GetResource()->LoadTexture(TexName, FileName, PathName);
 
-                vecFileName.push_back(FileName);
-            }
+                    m_TextureInfo[i].Texture = m_Scene->GetResource()->FindTexture(TexName);
+                }
 
-            if (m_Scene)
-            {
-                m_Scene->GetResource()->LoadTexture(TexName, vecFileName, ResultPathName);
+                else
+                {
+                    CResourceManager::GetInst()->LoadTexture(TexName, FileName, PathName);
 
-                m_TextureInfo[i].Texture = m_Scene->GetResource()->FindTexture(TexName);
+                    m_TextureInfo[i].Texture = CResourceManager::GetInst()->FindTexture(TexName);
+                }
             }
 
             else
             {
-                CResourceManager::GetInst()->LoadTexture(TexName, vecFileName, ResultPathName);
+                std::vector<const TCHAR*>	vecFileName;
+                std::string	ResultPathName;
 
-                m_TextureInfo[i].Texture = CResourceManager::GetInst()->FindTexture(TexName);
-            }
+                for (int i = 0; i < TextureSRVCount; ++i)
+                {
+                    TCHAR* FileName = new TCHAR[MAX_PATH];
+                    char	PathName[MAX_PATH] = {};
 
-            for (int i = 0; i < TextureSRVCount; ++i)
-            {
-                SAFE_DELETE_ARRAY(vecFileName[i]);
+                    fread(FileName, sizeof(TCHAR), MAX_PATH, File);
+                    fread(PathName, sizeof(char), MAX_PATH, File);
+
+                    ResultPathName = PathName;
+
+                    vecFileName.push_back(FileName);
+                }
+
+                if (m_Scene)
+                {
+                    m_Scene->GetResource()->LoadTexture(TexName, vecFileName, ResultPathName);
+
+                    m_TextureInfo[i].Texture = m_Scene->GetResource()->FindTexture(TexName);
+                }
+
+                else
+                {
+                    CResourceManager::GetInst()->LoadTexture(TexName, vecFileName, ResultPathName);
+
+                    m_TextureInfo[i].Texture = CResourceManager::GetInst()->FindTexture(TexName);
+                }
+
+                for (int i = 0; i < TextureSRVCount; ++i)
+                {
+                    SAFE_DELETE_ARRAY(vecFileName[i]);
+                }
             }
         }
     }
 
     for (int i = 0; i < (int)EButtonState::Max; ++i)
     {
-        char    SoundName[256] = {};
+        bool    SoundEnable = false;
 
-        int Length = 0;
+        fread(&SoundEnable, sizeof(bool), 1, File);
 
-        fread(&Length, sizeof(int), 1, File);
-        fread(SoundName, 1, Length, File);
-
-        char    FileName[MAX_PATH] = {};
-        char    PathName[MAX_PATH] = {};
-        fread(FileName, sizeof(char), MAX_PATH, File);
-        fread(PathName, sizeof(char), MAX_PATH, File);
-
-        // Group 이름과 Loop 저장해야한다
-        if (m_Scene)
+        if (SoundEnable)
         {
-            //m_Scene->GetResource()->LoadSound(, Name, )
-        }
+            char    SoundName[256] = {};
 
-        else
-        {
+            int Length = 0;
+
+            fread(&Length, sizeof(int), 1, File);
+            fread(SoundName, 1, Length, File);
+
+            bool    Loop = false;
+            fread(&Loop, sizeof(bool), 1, File);
+
+            Length = 0;
+            char    GroupName[256] = {};
+
+            fread(&Length, sizeof(int), 1, File);
+            fread(GroupName, 1, Length, File);
+
+            char    FileName[MAX_PATH] = {};
+            char    PathName[MAX_PATH] = {};
+            fread(FileName, sizeof(char), MAX_PATH, File);
+            fread(PathName, sizeof(char), MAX_PATH, File);
+
+            // Group 이름과 Loop 저장해야한다
+            if (m_Scene)
+            {
+                m_Scene->GetResource()->LoadSound(GroupName, SoundName, Loop, FileName, PathName);
+                m_Sound[i] = m_Scene->GetResource()->FindSound(SoundName);
+            }
+
+            else
+            {
+                CResourceManager::GetInst()->LoadSound(GroupName, SoundName, Loop, FileName, PathName);
+                m_Sound[i] = CResourceManager::GetInst()->FindSound(SoundName);
+            }
         }
     }
 }

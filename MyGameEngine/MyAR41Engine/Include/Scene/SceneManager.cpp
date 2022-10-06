@@ -4,6 +4,8 @@
 #include "../GameObject/GameObject.h"
 #include "../Component/SceneComponent.h"
 #include "../Animation/Animation2D.h"
+#include "../UI/UIWindow.h"
+#include "../UI/UIWidget.h"
 
 DEFINITION_SINGLE(CSceneManager)
 
@@ -52,6 +54,26 @@ CSceneManager::~CSceneManager()
 	{
 		auto	iter = CAnimation2D::m_mapAnimationCDO.begin();
 		auto	iterEnd = CAnimation2D::m_mapAnimationCDO.end();
+
+		for (; iter != iterEnd; ++iter)
+		{
+			SAFE_DELETE(iter->second);
+		}
+	}
+
+	{
+		auto	iter = CUIWindow::m_mapUIWindowCDO.begin();
+		auto	iterEnd = CUIWindow::m_mapUIWindowCDO.end();
+
+		for (; iter != iterEnd; ++iter)
+		{
+			SAFE_DELETE(iter->second);
+		}
+	}
+
+	{
+		auto	iter = CUIWidget::m_mapUIWidgetCDO.begin();
+		auto	iterEnd = CUIWidget::m_mapUIWidgetCDO.end();
 
 		for (; iter != iterEnd; ++iter)
 		{
