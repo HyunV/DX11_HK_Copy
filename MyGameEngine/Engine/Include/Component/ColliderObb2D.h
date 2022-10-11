@@ -32,6 +32,10 @@ public:
         m_BoxHalfSize.x = Width;
         m_BoxHalfSize.y = Height;
     }
+    Vector2 GetBoxHalfSize()
+    {
+        return m_BoxHalfSize;
+    }
 
 public:
     virtual void Start();

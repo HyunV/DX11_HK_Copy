@@ -14,6 +14,11 @@
 #include "Engine.h"
 #include "PathManager.h"
 
+#include "Component/ColliderBox2D.h"
+#include "Component/ColliderOBB2D.h"
+#include "Component/ColliderSphere2D.h"
+#include "Component/ColliderPixel.h"
+
 CDetailWindow::CDetailWindow()
 {
 }
@@ -162,9 +167,33 @@ void CDetailWindow::CreateTargetArmComponentWidget()
 void CDetailWindow::CreateCollider2DComponentWidget()
 {
 	//콜라이더
-	//이거 넣고 릭나옴
+
 	CEditorTree<void*>* Category = CreateWidget<CEditorTree<void*>>("ColliderComponent");
 	
+	Category->SetSize(400.f, 300.f);
+
+	Category->AddItem(nullptr, "Collider");
+
+	CEditorText* Text = Category->CreateWidget<CEditorText>("Collider", "ColliderName");
+	Text->SetColor(0, 255, 0, 255);
+	Text->SetText("");
+
+	CEditorInput* InputX = Category->CreateWidget<CEditorInput>("Collider", "InputX");
+	InputX->SetInputType(EImGuiInputType::Float);
+
+	Category->CreateWidget<CEditorSameLine>("Collider", "Line");
+
+	CEditorInput* InputY = Category->CreateWidget<CEditorInput>("Collider", "InputY");
+	InputY->SetInputType(EImGuiInputType::Float);
+
+	CEditorInput* InputR = Category->CreateWidget<CEditorInput>("Collider", "InputRadian");
+	InputR->SetInputType(EImGuiInputType::Float);
+
+	CEditorButton* ConfirmButton = Category->CreateWidget<CEditorButton>("Collider", "Confirm");
+
+	ConfirmButton->SetClickCallback<CDetailWindow>(this, &CDetailWindow::ColliderSettingClick);
+	ConfirmButton->SetSize(300, 30);
+	m_vecColliderComponent.push_back(Category);
 }
 
 void CDetailWindow::CreateColliderPixelComponentWidget()
@@ -238,6 +267,53 @@ void CDetailWindow::ChangeWidget(CSceneComponent* Component)
 		{
 			AddWidget(m_vecColliderComponent[i]);
 		}
+
+		std::string Name = Component->GetComponentTypeName();
+		CEditorTree<void*>* Category = (CEditorTree<void*>*)m_vecColliderComponent[0];
+
+		CEditorInput* InputX = Category->FindWidget<CEditorInput>("InputX");
+		CEditorInput* InputY = Category->FindWidget<CEditorInput>("InputY");
+		CEditorInput* InputR = Category->FindWidget<CEditorInput>("InputRadian");
+		CEditorText* Text = Category->FindWidget<CEditorText>("ColliderName");
+
+		if (Name == "ColliderBox2D")
+		{
+			Text->SetText("ColliderBox2D");
+			Vector2 v = ((CColliderBox2D*)Component)->GetBoxSize();
+			InputX->SetFloat(v.x);
+			InputY->SetFloat(v.y);
+
+			InputR->SetFloat(0.f);
+			InputR->ReadOnly(true);
+
+		}
+		else if (Name == "ColliderOBB2D")
+		{
+			Text->SetText("ColliderOBB2D");
+			Vector2 v = ((CColliderOBB2D*)Component)->GetBoxHalfSize();
+			InputX->SetFloat(v.x * 2.f);
+			InputY->SetFloat(v.x * 2.f);
+
+			InputR->SetFloat(0.f);
+			InputR->ReadOnly(true);
+		}
+		else if (Name == "ColliderSphere2D")
+		{
+			Text->SetText("ColliderSphere2D");
+			float  Radian = ((CColliderSphere2D*)Component)->GetInfo().Radius;			
+			InputR->SetFloat(Radian);
+
+			InputX->SetFloat(0.f);
+			InputX->ReadOnly(true);
+			InputY->SetFloat(0.f);
+			InputY->ReadOnly(true);
+		}
+		else if (Name == "ColliderPixel")
+		{
+			Text->SetText("ColliderPixel");
+		}
+		else 
+			return;
 	}
 }
 
@@ -284,4 +360,43 @@ void CDetailWindow::LoadButtonClick()
 			}
 		}
 	}
+}
+
+void CDetailWindow::ColliderSettingClick()
+{
+	CEditorTree<void*>* Category = (CEditorTree<void*>*)m_vecColliderComponent[0];
+
+	CEditorText* Text = Category->FindWidget<CEditorText>("ColliderName");
+
+	CEditorInput* InputX = Category->FindWidget<CEditorInput>("InputX");
+	CEditorInput* InputY = Category->FindWidget<CEditorInput>("InputY");
+	CEditorInput* InputR = Category->FindWidget<CEditorInput>("InputRadian");
+
+	std::string s = Text->GetTextUTF8();
+
+	CSceneComponent* component = m_SelectComponent;
+
+	if (s == "ColliderBox2D")
+	{
+		Vector2 v(InputX->GetFloat(), InputY->GetFloat());
+		((CColliderBox2D*)component)->SetBoxSize(v);
+	}
+	else if (s == "ColliderOBB2D")
+	{
+		Vector2 v(InputX->GetFloat(), InputY->GetFloat());
+		((CColliderOBB2D*)component)->SetBoxHalfSize(v.x / 2.f, v.y / 2.f);
+	}
+	else if (s == "ColliderSphere2D")
+	{
+		float radian = InputR->GetFloat();
+		((CColliderSphere2D*)component)->SetRadius(radian);
+	}
+	else if (s == "ColliderPixel")
+	{
+
+	}
+	else
+		return;
+
+
 }

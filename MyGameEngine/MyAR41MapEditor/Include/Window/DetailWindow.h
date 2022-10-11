@@ -43,5 +43,6 @@ private:
 
 private:
 	void LoadButtonClick();
+	void ColliderSettingClick();
 };
 

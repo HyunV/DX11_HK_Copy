@@ -109,7 +109,9 @@ bool CPlayer2D::Init()
 
 	m_SpriteChild->SetRelativeScale(50.f, 50.f);
 	m_SpriteChild->SetRelativePosition(100.f, 0.f);
+	m_SpriteChild->SetPivot(0.5f, 0.5f);
 	m_SpriteChild->SetInheritRotZ(true);
+
 
 
 	CAnimation2D* Anim = m_Sprite->SetAnimation<CAnimation2D>("PlayerAnim");
