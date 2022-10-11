@@ -16,6 +16,8 @@ protected:
 	std::vector<class CEditorWidget*>	m_vecSpriteComponent;
 	std::vector<class CEditorWidget*>	m_vecCameraComponent;
 	std::vector<class CEditorWidget*>	m_vecTargetArmComponent;
+	std::vector<class CEditorWidget*>	m_vecColliderComponent;
+	
 	CSharedPtr<class CSceneComponent> m_SelectComponent;
 
 public:
@@ -30,6 +32,13 @@ private:
 	void CreateSpriteComponentWidget();
 	void CreateCameraComponentWidget();
 	void CreateTargetArmComponentWidget();
+	
+	//collider
+
+	void CreateCollider2DComponentWidget();
+	void CreateColliderPixelComponentWidget();
+	
+
 	void ChangeWidget(class CSceneComponent* Component);
 
 private:

@@ -253,6 +253,11 @@ void CColliderPixel::SetInfo(const std::string& Name, const TCHAR* FileName, con
 
 	if (m_Info)
 	{
+		//##이름은 같고 파일이름이 다를 때
+		//if (m_Info->Name == Name)
+		//{
+
+		//}
 		--m_Info->RefCount;
 
 		if (m_Info->RefCount == 0)

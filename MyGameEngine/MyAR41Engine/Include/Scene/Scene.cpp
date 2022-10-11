@@ -7,6 +7,9 @@
 #include "../Component/TargetArm.h"
 #include "../Component/SceneComponent.h"
 #include "../Component/ColliderBox2D.h"
+#include "../Component/ColliderOBB2D.h"
+#include "../Component/ColliderPixel.h"
+#include "../Component/ColliderSphere2D.h"
 #include "../Animation/Animation2D.h"
 #include "../UI/UIButton.h"
 #include "../UI/UIImage.h"
@@ -107,7 +110,27 @@ void CScene::CreateCDO()
 
 	ComCDO->Init();
 
-	CComponent::AddComponentCDO("Box2D", ComCDO);
+	CComponent::AddComponentCDO("ColliderBox2D", ComCDO);
+
+	ComCDO = new CColliderOBB2D;
+
+	ComCDO->Init();
+
+	CComponent::AddComponentCDO("ColliderOBB2D", ComCDO);
+
+	ComCDO = new CColliderSphere2D;
+
+	ComCDO->Init();
+
+	CComponent::AddComponentCDO("ColliderSphere2D", ComCDO);
+
+	ComCDO = new CColliderPixel;
+
+	ComCDO->Init();
+
+	CComponent::AddComponentCDO("ColliderPixel", ComCDO);
+
+
 
 	// ==================== Animation ====================
 	CAnimation2D* AnimCDO = new CAnimation2D;

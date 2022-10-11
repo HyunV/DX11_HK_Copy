@@ -29,6 +29,7 @@
 #include "Scene/EditorDefaultScene.h"
 
 
+
 CEditorManager::CEditorManager()
 {
 }
@@ -61,7 +62,7 @@ bool CEditorManager::Init(HINSTANCE hInst)
     CEngine::SetWndProcCallback<CEditorManager>(this, &CEditorManager::WndProc);
 
     //#예제 출력# 테스트 윈도우 생성 (티모?)
-    CEditorGUIManager::GetInst()->CreateEditorWindow<CTestWindow>("TestWindow");
+    //CEditorGUIManager::GetInst()->CreateEditorWindow<CTestWindow>("TestWindow");
     
     //#예제 출력# 오브젝트 윈도우 생성
     CEditorGUIManager::GetInst()->CreateEditorWindow<CObjectWindow>("ObjectWindow"); 
@@ -89,7 +90,7 @@ bool CEditorManager::Init(HINSTANCE hInst)
     CEditorGUIManager::GetInst()->CreateEditorWindow<CNMyAnimationWindow2>("NMyAnimationWindow2");
 
     //#제작# 콜라이더 섹션 윈도우
-    CEditorGUIManager::GetInst()->CreateEditorWindow<CSectionWindow>("SectionWindow");
+    //CEditorGUIManager::GetInst()->CreateEditorWindow<CSectionWindow>("SectionWindow");
 
     // SceneInfo 생성 기본적으로 사용할 씬 등록
     CSceneManager::GetInst()->CreateSceneInfo<CEditorDefaultScene>();

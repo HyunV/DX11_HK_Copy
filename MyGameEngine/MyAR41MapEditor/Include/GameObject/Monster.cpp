@@ -17,7 +17,7 @@ CMonster::CMonster()
 CMonster::CMonster(const CMonster& Obj) :
 	CGameObject(Obj)
 {
-	m_Body = (CColliderBox2D*)FindComponent("Body");
+	//m_Body = (CColliderPixel*)FindComponent("Body");
 	m_Sprite = (CSpriteComponent*)FindComponent("Sprite");
 }
 
@@ -30,16 +30,17 @@ void CMonster::Start()
 	CGameObject::Start();
 
 	//픽셀 콜라이더 일때
-	//m_Body->SetInfo("PixelCollision", TEXT("PixelCollision.png"));
+	m_Body->SetInfo("PixelCollision", TEXT("PixelCollision.png"));
 	//m_Body->SetPixelColorCollisionType(EPixelCollision_Type::Color_Ignore);
-	//m_Body->SetPixelColor(255, 0, 255);
+	m_Body->SetPixelColor(255, 0, 255);
+	m_Body->SetInfo("PixelCollision", TEXT("End.png"));
 }
 
 bool CMonster::Init()
 {
 	CGameObject::Init();
 
-	//m_Body = CreateComponent<CColliderPixel>("Body");
+	m_Body = CreateComponent<CColliderPixel>("Body");
 	m_Sprite = CreateComponent<CSpriteComponent>("Sprite");
 
 	//m_Sprite->AddChild(m_Sprite);
@@ -59,9 +60,9 @@ bool CMonster::Init()
 //m_Sprite->GetMaterial(0)->SetRenderState("DepthDisable");
 
 	//===========MyTest
-	m_Body = CreateComponent<CColliderBox2D>("Body");
-	m_Body->SetCollisionProfile("Monster");
-	m_Body->SetBoxSize(300.f, 300.f);
+	//m_Body = CreateComponent<CColliderBox2D>("Body");
+	//m_Body->SetCollisionProfile("Monster");
+	//m_Body->SetBoxSize(300.f, 300.f);
 	//m_Body->SetPivot(0.f, 0.f);
 	m_Sprite->AddChild(m_Body);
 

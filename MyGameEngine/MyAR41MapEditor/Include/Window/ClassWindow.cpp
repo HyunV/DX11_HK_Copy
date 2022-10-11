@@ -21,6 +21,12 @@
 #include "Component/SpriteComponent.h"
 #include "Component/CameraComponent.h"
 #include "Component/TargetArm.h"
+#include "Component/ColliderBox2D.h"
+#include "Component/ColliderOBB2D.h"
+#include "Component/ColliderSphere2D.h"
+#include "Component/ColliderPixel.h"
+
+#include "Engine.h"
 
 CClassWindow::CClassWindow()
 {
@@ -177,12 +183,14 @@ void CClassWindow::ComponentCreateCallback()
 
     //새로운 씬 컴포 생성
     CSceneComponent* NewComponent = nullptr;
+    
 
     //## (컴포넌트 추가)컴포넌트 종류에 따라 추가해줌
     if (m_SelectComponentItem == "SpriteComponent")
     {
         Name = "SpriteComponent(SpriteComponent)";
         NewComponent = (CSceneComponent*)SelectObject->CreateComponent<CSpriteComponent>("SpriteComponent");
+              
     }
 
     else if (m_SelectComponentItem == "SceneComponent")
@@ -200,13 +208,55 @@ void CClassWindow::ComponentCreateCallback()
         Name = "CameraComponent(CameraComponent)";
         NewComponent = (CSceneComponent*)SelectObject->CreateComponent<CCameraComponent>("CameraComponent");
     }
+    else if (m_SelectComponentItem == "ColliderBox2D")
+    {
+        Name = "ColliderComponent(CameraComponent)";
+        NewComponent = (CSceneComponent*)SelectObject->CreateComponent<CColliderBox2D>("ColliderBox2D");
+        NewComponent->SetScene(CSceneManager::GetInst()->GetScene());
+    }
+    else if (m_SelectComponentItem == "ColliderOBB2D")
+    {
+        Name = "ColliderComponent(ColliderOBB2D)";
+        NewComponent = (CSceneComponent*)SelectObject->CreateComponent<CColliderOBB2D>("ColliderOBB2D");
+    }
+    else if (m_SelectComponentItem == "ColliderSphere2D")
+    {
+        Name = "ColliderComponent(ColliderSphere2D)";
+        NewComponent = (CSceneComponent*)SelectObject->CreateComponent<CColliderSphere2D>("ColliderSphere2D");
+    }
+    else if (m_SelectComponentItem == "ColliderPixel")
+    {
+        Name = "ColliderComponent(ColliderPixel)";
+        NewComponent = (CSceneComponent*)SelectObject->CreateComponent<CColliderPixel>("ColliderPixel");
+
+        OPENFILENAME	ofn = {};
+
+        TCHAR	FullPath[MAX_PATH] = {};
+
+        TCHAR	Filter[] = TEXT("모든 파일\0*.*\0PNG\0*.png\0JPG\0*.jpg\0BMP\0*.bmp");
+
+        ofn.lStructSize = sizeof(OPENFILENAME);
+        ofn.hwndOwner = CEngine::GetInst()->GetWindowHandle();
+        ofn.lpstrFilter = Filter;
+        ofn.lpstrFile = FullPath;
+        ofn.nMaxFile = MAX_PATH;
+        ofn.lpstrInitialDir = CPathManager::GetInst()->FindPath(TEXTURE_PATH)->Path;
+
+        if (GetOpenFileName(&ofn) != 0)
+        {
+            ((CColliderPixel*)NewComponent)->SetInfoFullPath("test", FullPath);
+        }        
+    }
+
 
     //선택했던 컴포넌트 새로 만든 컴포넌트 추가
     SelectComponent->AddChild(NewComponent);
+    NewComponent->Start();
     
     //컴포넌트 윈도우에도 추가
     ComponentWindow->AddItem((CComponent*)NewComponent, Name, ParentName);
 }
+
 
 void CClassWindow::LoadGameObjectName()
 {
@@ -376,7 +426,10 @@ void CClassWindow::LoadComponentName()
             strcmp(Name, "Transform2D") == 0 ||
             strcmp(Name, "Component") == 0 ||
             strcmp(Name, "PrimitiveComponent") == 0||
-            strcmp(Name, "ObjectComponent") == 0)
+            strcmp(Name, "ObjectComponent") == 0||
+            strcmp(Name, "Collider") == 0 ||
+            strcmp(Name, "Collider2D") == 0 ||
+            strcmp(Name, "Collider3D") == 0)
             continue;
 
         m_ComponentList->AddItem(Name);

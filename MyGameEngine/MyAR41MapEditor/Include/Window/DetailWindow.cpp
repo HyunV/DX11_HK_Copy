@@ -65,6 +65,17 @@ CDetailWindow::~CDetailWindow()
 
 		m_vecTargetArmComponent.clear();
 	}
+
+	{
+		size_t	Size = m_vecColliderComponent.size();
+
+		for (size_t i = 0; i < Size; ++i)
+		{
+			AddWidget(m_vecColliderComponent[i]);
+		}
+
+		m_vecColliderComponent.clear();
+	}
 }
 
 void CDetailWindow::SetSelectComponent(CSceneComponent* Component)
@@ -88,6 +99,7 @@ bool CDetailWindow::Init()
 	CreateSpriteComponentWidget();
 	CreateCameraComponentWidget();
 	CreateTargetArmComponentWidget();
+	CreateCollider2DComponentWidget();
 
 	// 위젯 한번 지워주기
 	ClearWidget();
@@ -111,10 +123,13 @@ void CDetailWindow::Update(float DeltaTime)
 
 void CDetailWindow::CreateSceneComponentWidget()
 {
+	//TODO 씬 컴포넌트
 }
 
 void CDetailWindow::CreateSpriteComponentWidget()
 {
+	//TODO 스프라이트 컴포넌트
+	//머테리얼, 이미지 체인지, 애니메이션
 	CEditorTree<void*>* Category = CreateWidget<CEditorTree<void*>>("SpriteComponent");
 
 	Category->SetHideName("SpriteComponent");
@@ -136,14 +151,30 @@ void CDetailWindow::CreateSpriteComponentWidget()
 
 void CDetailWindow::CreateCameraComponentWidget()
 {
+	//TODO 카메라 컴포넌트
 }
 
 void CDetailWindow::CreateTargetArmComponentWidget()
+{
+	//TODO 타겟암
+}
+
+void CDetailWindow::CreateCollider2DComponentWidget()
+{
+	//콜라이더
+	//이거 넣고 릭나옴
+	CEditorTree<void*>* Category = CreateWidget<CEditorTree<void*>>("ColliderComponent");
+	
+}
+
+void CDetailWindow::CreateColliderPixelComponentWidget()
 {
 }
 
 void CDetailWindow::ChangeWidget(CSceneComponent* Component)
 {
+	std::string s = Component->GetComponentTypeName();
+	//=======씬 컴포넌트일때==========
 	if (Component->GetComponentTypeName() == "SceneComponent")
 	{
 		size_t	Size = m_vecSceneComponent.size();
@@ -153,7 +184,7 @@ void CDetailWindow::ChangeWidget(CSceneComponent* Component)
 			AddWidget(m_vecSceneComponent[i]);
 		}
 	}
-
+	//=======스프라이트 컴포넌트일때==========
 	else if (Component->GetComponentTypeName() == "SpriteComponent")
 	{
 		size_t	Size = m_vecSpriteComponent.size();
@@ -174,7 +205,7 @@ void CDetailWindow::ChangeWidget(CSceneComponent* Component)
 			ImageWidget->SetTexture(Texture);
 		}
 	}
-
+	//=======카메라 컴포넌트일때==========
 	else if (Component->GetComponentTypeName() == "CameraComponent")
 	{
 		size_t	Size = m_vecCameraComponent.size();
@@ -184,7 +215,7 @@ void CDetailWindow::ChangeWidget(CSceneComponent* Component)
 			AddWidget(m_vecCameraComponent[i]);
 		}
 	}
-
+	//=======타겟암 컴포넌트일때==========
 	else if (Component->GetComponentTypeName() == "TargetArmComponent")
 	{
 		size_t	Size = m_vecTargetArmComponent.size();
@@ -192,6 +223,20 @@ void CDetailWindow::ChangeWidget(CSceneComponent* Component)
 		for (size_t i = 0; i < Size; ++i)
 		{
 			AddWidget(m_vecTargetArmComponent[i]);
+		}
+	}
+	//=======콜라이더(Box, OBB, 원, 픽셀)  컴포넌트일때==========
+	else if (Component->GetComponentTypeName() == "ColliderBox2D" ||
+		Component->GetComponentTypeName() == "ColliderOBB2D" || 
+		Component->GetComponentTypeName() == "ColliderSphere2D" || 
+		Component->GetComponentTypeName() == "ColliderPixel")
+	{
+		OutputDebugStringA("콜라이더");
+		size_t	Size = m_vecColliderComponent.size();
+
+		for (size_t i = 0; i < Size; ++i)
+		{
+			AddWidget(m_vecColliderComponent[i]);
 		}
 	}
 }
