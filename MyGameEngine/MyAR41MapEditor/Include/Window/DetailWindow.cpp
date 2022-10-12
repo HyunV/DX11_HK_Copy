@@ -85,17 +85,24 @@ CDetailWindow::~CDetailWindow()
 
 void CDetailWindow::SetSelectComponent(CSceneComponent* Component)
 {
-	if(m_SelectComponent && Component)
-	{
-		if (m_SelectComponent != Component)
-		{
-			ClearWidget();
+	//if(m_SelectComponent && Component)
+	//{
+	//	if (m_SelectComponent != Component)
+	//	{
+	//		ClearWidget();
 
-			// 타입에 맞는 GUI 추가
-			ChangeWidget(Component);
-		}
+	//		// 타입에 맞는 GUI 추가
+	//		ChangeWidget(Component);
+	//	}
+	//}
+	//m_SelectComponent = Component;
+
+	if (Component)
+	{
+		ClearWidget();
+		ChangeWidget(Component);
+		m_SelectComponent = Component;
 	}
-	m_SelectComponent = Component;
 }
 
 bool CDetailWindow::Init()
@@ -150,6 +157,10 @@ void CDetailWindow::CreateSpriteComponentWidget()
 	CEditorButton* LoadButton = Category->CreateWidget<CEditorButton>("Sprite", "Load");
 
 	LoadButton->SetClickCallback<CDetailWindow>(this, &CDetailWindow::LoadButtonClick);
+
+	CEditorButton* CreateAnimationButton = Category->CreateWidget<CEditorButton>("Sprite", "CreateAnimation");
+	CreateAnimationButton->SetSize(200, 30);
+	CreateAnimationButton->SetClickCallback<CDetailWindow>(this, &CDetailWindow::AnimationButtonClick);
 
 	m_vecSpriteComponent.push_back(Category);
 }
@@ -398,5 +409,10 @@ void CDetailWindow::ColliderSettingClick()
 	else
 		return;
 
+
+}
+
+void CDetailWindow::AnimationButtonClick()
+{
 
 }

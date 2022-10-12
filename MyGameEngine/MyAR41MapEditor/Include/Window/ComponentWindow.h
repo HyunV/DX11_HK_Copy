@@ -14,6 +14,7 @@ protected:
 private:
     CEditorTree<class CComponent*>* m_Tree;
     CSharedPtr<class CComponent>    m_SelectComponent;
+    CEditorText* m_Text;
 
 public:
     class CComponent* GetSelectComponent() const

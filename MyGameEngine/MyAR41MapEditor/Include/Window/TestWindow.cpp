@@ -114,7 +114,7 @@ bool CTestWindow::Init()
 
 	//슬라이더 바
 	CEditorSliderBar* Slide = CreateWidget<CEditorSliderBar>("슬라이드");
-	Slide->SetClickCallback<CTestWindow>(this, &CTestWindow::SliderCallback);
+	//Slide->SetClickCallback<CTestWindow>(this, &CTestWindow::SliderCallback);
 
 	//체크박스
 	m_Check = CreateWidget<CEditorCheckBox>("쳌박");

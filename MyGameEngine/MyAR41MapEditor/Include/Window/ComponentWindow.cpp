@@ -43,6 +43,11 @@ void CComponentWindow::ClearSelect()
 
 bool CComponentWindow::Init()
 {
+	m_Text = CreateWidget<CEditorText>("Text");
+
+	m_Text->SetColor(0, 255, 0, 255);
+	m_Text->SetText("* 선택한 컴포넌트");
+
 	m_Tree = CreateWidget<CEditorTree<CComponent*>>("ComponentTree");
 
 	m_Tree->SetHideName("ComponentTree");
@@ -70,6 +75,7 @@ void CComponentWindow::TreeCallback(CEditorTreeItem<class CComponent*>* Node, co
 	char Text[256] = {};
 	sprintf_s(Text, "%s\n", Item.c_str());
 	OutputDebugStringA(Text);
+	m_Text->SetText(Text);
 
 	m_SelectComponent = Node->GetCustomData();
 
@@ -79,9 +85,9 @@ void CComponentWindow::TreeCallback(CEditorTreeItem<class CComponent*>* Node, co
 	DetailWindow->SetSelectComponent((CSceneComponent*)m_SelectComponent.Get());
 
 	//##과제 내 윈도우에 추가
-	CMyImageWindow* MyImageWindow = CEditorGUIManager::GetInst()->FindEditorWindow<CMyImageWindow>("MyImageWindow");
+	//CMyImageWindow* MyImageWindow = CEditorGUIManager::GetInst()->FindEditorWindow<CMyImageWindow>("MyImageWindow");
 
-	MyImageWindow->SetSelectComponent(Item, (CSceneComponent*)m_SelectComponent.Get());
+	//MyImageWindow->SetSelectComponent(Item, (CSceneComponent*)m_SelectComponent.Get());
 
 	//애니메이션 윈도우에도 추가
 	CNMyAnimationWindow2* AnimationWindow = CEditorGUIManager::GetInst()->
@@ -92,6 +98,7 @@ void CComponentWindow::TreeCallback(CEditorTreeItem<class CComponent*>* Node, co
 
 	if (m_SelectComponent)
 	{
+
 		CSceneComponent* Component = (CSceneComponent*)m_SelectComponent.Get();
 
 		TransformWindow->SetSelectComponent(Component);

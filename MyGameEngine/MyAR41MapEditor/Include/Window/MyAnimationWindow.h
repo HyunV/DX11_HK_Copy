@@ -23,9 +23,11 @@ private:
     class CEditorInput* m_InputLT[2];
     class CEditorInput* m_InputRB[2];
 
-    class CEditorText* m_SaveMessege;
+    class CEditorText* m_Messege;
+    class CEditorSliderBar* m_Slide;
 
     TCHAR m_ImageFullPath[512];
+    float m_Time;
     
 public:
     virtual bool Init();

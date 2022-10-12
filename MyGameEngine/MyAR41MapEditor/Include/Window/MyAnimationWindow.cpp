@@ -7,6 +7,7 @@
 #include "Editor/EditorInput.h"
 #include "Editor/EditorComboBox.h"
 #include "Editor/EditorListBox.h"
+#include "Editor/EditorSliderBar.h"
 #include "PathManager.h"
 #include "Engine.h"
 #include "Resource/ResourceManager.h"
@@ -43,36 +44,19 @@ bool CMyAnimationWindow::Init()
     CEditorSameLine* Line = CreateWidget<CEditorSameLine>("Line");
     Line = CreateWidget<CEditorSameLine>("Line");
 
-    //m_Combo = CreateWidget<CEditorComboBox>("ImageTypeComboBox");
-    //m_Combo->SetSelectPrevViewName(true);
-    //m_Combo->SetHideName("ImageTypeComboBox");
-    //m_Combo->SetPrevViewName("이미지 타입 선택");
-    //m_Combo->SetSizeX(150.f);
-
-    //m_Combo->AddItem("Atlas(Default)");
-    //m_Combo->AddItem("Frame");
-    //m_Combo->AddItem("Array");
-
-    //m_Combo->SetSelectCallback<CMyAnimationWindow>(this, &CMyAnimationWindow::SelectComboCallback);
-
-    //Line = CreateWidget<CEditorSameLine>("Line");
-
     CEditorButton* ImageLoadButton = CreateWidget<CEditorButton>("이미지 불러오기");
     ImageLoadButton->SetSize(120.f, 30.f);
     ImageLoadButton->SetClickCallback<CMyAnimationWindow>
         (this, &CMyAnimationWindow::SelectLoadImageButtonCallback);
 
+    m_Messege = CreateWidget<CEditorText>("Message");
+    m_Messege->SetColor(0, 255, 0, 255);
+    m_Messege->SetText("sequence");
+
     CEditorLabel* Label2 = CreateWidget<CEditorLabel>("이미지 목록");
     Label2->SetColor(255, 0, 0, 255);
     Label2->SetAlign(0.5f, 0.5f);
     Label2->SetSize(120.f, 30.f);
-
-    //Line = CreateWidget<CEditorSameLine>("Line");
-
-    //CEditorLabel* Label3 = CreateWidget<CEditorLabel>("선택된 이미지");
-    //Label3->SetColor(255, 0, 0, 255);
-    //Label3->SetAlign(0.5f, 0.5f);
-    //Label3->SetSize(150.f, 30.f);
 
     Line = CreateWidget<CEditorSameLine>("Line");
 
@@ -92,11 +76,6 @@ bool CMyAnimationWindow::Init()
     m_List-> SetSize(120.f, 150.f);
 
     m_List->SetSelectCallback<CMyAnimationWindow>(this, &CMyAnimationWindow::SelectListCallback);
-
-    //Line = CreateWidget<CEditorSameLine>("Line");
-
-    //CEditorImage* PreviewImage = CreateWidget<CEditorImage>("미리보기");
-    //PreviewImage->SetSize(150.f, 150.f);
 
     Line = CreateWidget<CEditorSameLine>("Line");
 
@@ -146,15 +125,48 @@ bool CMyAnimationWindow::Init()
     m_InputRB[1]->SetHintText("B : ");
     m_InputRB[1]->SetInputType(EImGuiInputType::Float);
 
-    m_SaveMessege = CreateWidget<CEditorText>("Message");
-    m_SaveMessege->SetColor(0, 255, 0, 255);
+    //Line = CreateWidget<CEditorSameLine>("Line");
 
+    CEditorImage* PreviewImage = CreateWidget<CEditorImage>("미리보기");
+    PreviewImage->SetSize(150.f, 150.f);
+
+    Line = CreateWidget<CEditorSameLine>("Line");
+
+    CEditorButton* PlayButton = CreateWidget<CEditorButton>(">");
+    PlayButton->SetSize(40.f, 40.f);
+
+    Line = CreateWidget<CEditorSameLine>("Line");
+
+    CEditorButton* PauseButton = CreateWidget<CEditorButton>("||");
+    PauseButton->SetSize(40.f, 40.f);
+
+    Line = CreateWidget<CEditorSameLine>("Line");
+
+    CEditorButton* StopButton = CreateWidget<CEditorButton>("ㅁ");
+    StopButton->SetSize(40.f, 40.f);
+
+    m_Slide = CreateWidget<CEditorSliderBar>("Slide");
+    m_Slide->SetBarMaxRange(20);
     return true;
 }
 
 void CMyAnimationWindow::Update(float DeltaTime)
 {
     CEditorWindow::Update(DeltaTime);
+        
+
+
+    m_Time += DeltaTime;
+    if (m_Time > 1.f)
+    {
+        m_Time = 0;
+        m_Slide->AddCurrentValue();
+        if (m_Slide->GetCurrentValue() > m_Slide->GetBarMaxRange())
+        {
+            m_Slide->ResetCurrentValue();
+        }
+    }
+
 }
 
 void CMyAnimationWindow::SelectComboCallback(int SelectIndex, const std::string& Item)
@@ -213,7 +225,7 @@ void CMyAnimationWindow::SelectLoadImageButtonCallback()
 
         m_List->Clear();
 
-        m_SaveMessege->SetText("");
+        m_Messege->SetText("");
 
         TCHAR str[512];
         int i = (int)wcslen(ofn.lpstrFile)+1;
@@ -367,11 +379,11 @@ void CMyAnimationWindow::SaveSequence()
 
     if(!Seq->Save(FullPath))
     {
-        m_SaveMessege->SetText("저장 실패..");
+        m_Messege->SetText("저장 실패..");
         return;
     }
     else{
-        m_SaveMessege->SetText("저장 완료!");
+        m_Messege->SetText("저장 완료!");
     }
 }
 

@@ -210,7 +210,7 @@ void CClassWindow::ComponentCreateCallback()
     }
     else if (m_SelectComponentItem == "ColliderBox2D")
     {
-        Name = "ColliderComponent(CameraComponent)";
+        Name = "ColliderComponent(ColliderBox2D)";
         NewComponent = (CSceneComponent*)SelectObject->CreateComponent<CColliderBox2D>("ColliderBox2D");
         NewComponent->SetScene(CSceneManager::GetInst()->GetScene());
     }
