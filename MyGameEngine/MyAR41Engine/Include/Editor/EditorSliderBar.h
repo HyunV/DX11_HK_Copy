@@ -48,11 +48,11 @@ public:
     }
 
 public:
-    //template <typename T>
-    //void SetClickCallback(T* Obj, void(T::* Func)())
-    //{
-    //    m_ClickCallback = std::bind(Func, Obj);
-    //}
+    template <typename T>
+    void SetClickCallback(T* Obj, void(T::* Func)())
+    {
+        m_ClickCallback = std::bind(Func, Obj);
+    }
 };
 
 

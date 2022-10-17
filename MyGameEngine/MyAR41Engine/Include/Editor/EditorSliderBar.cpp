@@ -20,7 +20,7 @@ void CEditorSliderBar::Render()
 {
     m_Set = ImGui::SliderInt(m_NameUTF8.c_str(), &m_CurrentValue, m_MinBarRange, m_MaxBarRange);
 
-    //if (m_Set && m_ClickCallback)
-    //    m_ClickCallback();
+    if (m_Set && m_ClickCallback)
+        m_ClickCallback();
 
 }

@@ -43,6 +43,5 @@ private:
     void ImageSetButtonCallback(); //이미지 설정 콜백
     void MaterialSetButtonCallback(); //이미지 설정 콜백
     void LoadImageName();
-    
 };
 

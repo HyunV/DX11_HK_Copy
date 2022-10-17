@@ -90,9 +90,9 @@ void CComponentWindow::TreeCallback(CEditorTreeItem<class CComponent*>* Node, co
 	//MyImageWindow->SetSelectComponent(Item, (CSceneComponent*)m_SelectComponent.Get());
 
 	//애니메이션 윈도우에도 추가
-	CNMyAnimationWindow2* AnimationWindow = CEditorGUIManager::GetInst()->
+	/*CNMyAnimationWindow2* AnimationWindow = CEditorGUIManager::GetInst()->
 		FindEditorWindow<CNMyAnimationWindow2>("NMyAnimationWindow2");
-	//AnimationWindow->SetSelectComponent(Item, (CSceneComponent*)m_SelectComponent.Get());
+	AnimationWindow->SetSelectComponent((CSceneComponent*)m_SelectComponent.Get());*/
 
 	
 

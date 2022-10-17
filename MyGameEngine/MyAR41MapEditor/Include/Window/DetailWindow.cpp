@@ -19,6 +19,9 @@
 #include "Component/ColliderSphere2D.h"
 #include "Component/ColliderPixel.h"
 
+#include "NMyAnimationWindow2.h"
+#include "Editor/EditorGUIManager.h"
+
 CDetailWindow::CDetailWindow()
 {
 }
@@ -414,5 +417,14 @@ void CDetailWindow::ColliderSettingClick()
 
 void CDetailWindow::AnimationButtonClick()
 {
+	//애니메이션 윈도우에 해당 컴포넌트 추가
 
+	CNMyAnimationWindow2* AnimationWindow = CEditorGUIManager::GetInst()
+		->FindEditorWindow<CNMyAnimationWindow2>("NMyAnimationWindow2");
+		
+	AnimationWindow->SetSelectComponent(m_SelectComponent);
+
+	CEditorWindow* Window = CEditorGUIManager::GetInst()->FindEditorWindow<CEditorWindow>("NMyAnimationWindow2");
+	if (Window)
+		Window->Open();
 }

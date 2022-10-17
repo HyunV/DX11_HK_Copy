@@ -145,13 +145,11 @@ void CNMyAnimationWindow2::Update(float DeltaTime)
 	//스프라이트 이미지 업데이트
 }
 
-void CNMyAnimationWindow2::SetSelectComponent(const std::string& Item, CSceneComponent* Component)
+void CNMyAnimationWindow2::SetSelectComponent(CSceneComponent* Component)
 {
-	//m_SpriteComponent = (CSpriteComponent*)Component;
 	if (Component && Component->GetComponentTypeName() == "SpriteComponent")
 	{
-		//m_SelectComponent = Component;
-		//m_SpriteComponent
+		m_SpriteComponent = (CSpriteComponent*)Component;
 		m_SelectedComponent->SetText(Component->GetName().c_str());
 	}
 	else

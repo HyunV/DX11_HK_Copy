@@ -1,0 +1,19 @@
+1014
+애니메이션 에디터 이어서 작업
+
+Imgui 베타기능 중
+imguizmo 라고 있음
+x, y를 화살표로 표현해주는 ui
+
+■ imgui::BeginGroup()
+
+텍스트
+컬러..
+imgui::Endgroup() 
+이걸로 세로 배치 할 수 있음
+
+이거 위젯을 만들었는데
+윈도우를 통해 만들면 안됨
+
+애니메이션에 틴트효과 주고싶을때?
+imgui Color picker

@@ -17,5 +17,8 @@ private:
     void LoadResource();
     void SetInput();
     void SetCollision();
+
+    void LoadSequence();
+    void LoadAnimation();
 };
 

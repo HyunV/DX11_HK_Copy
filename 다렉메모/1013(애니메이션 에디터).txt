@@ -1,0 +1,5 @@
+애니메이션 에디터 제작
+
+recursive_directory_iterator
+계층구조로 폴더 내부 애들까지 얻어오는 기능
+

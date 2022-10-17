@@ -37,6 +37,7 @@ public:
     {
         return m_CurrentValue;
     }
+
     void AddCurrentValue()
     {
         m_CurrentValue++;
@@ -47,11 +48,11 @@ public:
     }
 
 public:
-    //template <typename T>
-    //void SetClickCallback(T* Obj, void(T::* Func)())
-    //{
-    //    m_ClickCallback = std::bind(Func, Obj);
-    //}
+    template <typename T>
+    void SetClickCallback(T* Obj, void(T::* Func)())
+    {
+        m_ClickCallback = std::bind(Func, Obj);
+    }
 };
 
 

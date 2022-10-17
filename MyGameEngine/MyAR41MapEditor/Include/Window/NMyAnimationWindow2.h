@@ -40,7 +40,7 @@ private:
 public:
     virtual bool Init();
     virtual void Update(float DeltaTime);
-    void SetSelectComponent(const std::string& Item, CSceneComponent* Component);
+    void SetSelectComponent(CSceneComponent* Component);
 private:
     void LoadSqc(); //시퀀스 목록 가져옴
     void ResetSetting(); //값들 다 초기화해주는 함수
