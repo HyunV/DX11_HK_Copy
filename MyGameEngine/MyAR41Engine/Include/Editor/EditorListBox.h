@@ -7,6 +7,7 @@ class CEditorListBox :
 
 	template <typename T>
 	friend class CEditorTreeItem;
+	friend class CEditorGroup;
 
 protected:
     CEditorListBox();
@@ -35,6 +36,11 @@ public:
 	int GetSelectIndex()	const
 	{
 		return m_SelectIndex;
+	}
+
+	int GetListSize() const
+	{
+		return (int)m_vecItem.size();
 	}
 
 public:

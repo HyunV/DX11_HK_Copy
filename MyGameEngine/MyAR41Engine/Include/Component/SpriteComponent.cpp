@@ -86,6 +86,12 @@ CTexture* CSpriteComponent::GetTexture(int Index) const
 	return m_vecMaterial[0]->GetTexture(Index);
 }
 
+void CSpriteComponent::ClearAnimation()
+{
+	m_Animation = nullptr;
+	SetTextureFrameIndex(0);
+}
+
 void CSpriteComponent::Start()
 {
 	CPrimitiveComponent::Start();
@@ -181,6 +187,8 @@ void CSpriteComponent::Load(FILE* File)
 		CAnimation2D* CDO = CAnimation2D::FindCDO(ClassName);
 
 		m_Animation = CDO->Clone();
+
+		m_Animation->m_Owner = this;
 
 		m_Animation->Load(File);
 	}

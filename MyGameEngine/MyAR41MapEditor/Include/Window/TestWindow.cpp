@@ -148,7 +148,15 @@ void CTestWindow::Update(float DeltaTime)
 
 void CTestWindow::TestButtonCallback()
 {
-	MessageBox(0, TEXT("Button"), TEXT("버트트트트튼"), MB_OK);
+	//MessageBox(0, TEXT("Button"), TEXT("버트트트트튼"), MB_OK);
+	ImGui::OpenPopup(this->m_Name.c_str());
+
+	if (ImGui::BeginPopup(this->m_Name.c_str()))
+	{
+		ImGui::Text("Aquarium");
+		ImGui::Selectable("Tst");
+		ImGui::EndPopup();
+	}
 }
 
 void CTestWindow::InputCallback()

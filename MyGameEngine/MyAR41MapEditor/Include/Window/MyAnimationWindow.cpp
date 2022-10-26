@@ -349,7 +349,7 @@ void CMyAnimationWindow::SelectLoadImageButtonCallback()
         int Width = texture->GetWidth();
         int Height = texture->GetHeight();
         m_PreviewImage->SetImageStart(0, 0);
-        m_PreviewImage->SetImageEnd(Width, Height);
+        m_PreviewImage->SetImageEnd((float)Width, (float)Height);
 
         if (m_ImageType == EImageType::Frame)
         {
@@ -515,7 +515,7 @@ void CMyAnimationWindow::StopButton()
     int Width = texture->GetWidth();
     int Height = texture->GetHeight();
     m_PreviewImage->SetImageStart(0, 0);
-    m_PreviewImage->SetImageEnd(Width, Height);
+    m_PreviewImage->SetImageEnd((float)Width, (float)Height);
 }
 
 void CMyAnimationWindow::SliderCallback()
@@ -523,7 +523,6 @@ void CMyAnimationWindow::SliderCallback()
     //char Text[256] = {};
     //sprintf_s(Text, "%d\n", m_Slide->GetCurrentValue());
     //OutputDebugStringA(Text);
-
     if (m_ImageType == EImageType::Atlas && m_List->GetListSize() != 0 && m_vecFrame.size() != 0)
     {
         int n = m_Slide->GetCurrentValue()-1;

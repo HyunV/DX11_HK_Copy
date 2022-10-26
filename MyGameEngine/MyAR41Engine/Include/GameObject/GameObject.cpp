@@ -5,7 +5,8 @@ std::unordered_map<std::string, CGameObject*> CGameObject::m_mapObjectCDO;
 CGameObject::CGameObject() :
 	m_Scene(nullptr),
 	m_LifeTime(-1.f),
-	m_ComponentSerialNumber(0)
+	m_ComponentSerialNumber(0),
+	m_Start(false)
 {
 	SetTypeID<CGameObject>();
 
@@ -18,7 +19,9 @@ CGameObject::CGameObject(const CGameObject& Obj) :
 	m_ObjectTypeName = Obj.m_ObjectTypeName;
 	m_LifeTime = Obj.m_LifeTime;
 	m_ComponentSerialNumber = Obj.m_ComponentSerialNumber;
+	m_Start = false;
 
+	if (Obj.m_RootComponent)
 	{
 		m_RootComponent = Obj.m_RootComponent->Clone();
 
@@ -110,6 +113,8 @@ CComponent* CGameObject::FindComponent(const std::string& Name)
 
 void CGameObject::Start()
 {
+	m_Start = true;
+
 	if (m_RootComponent)
 		m_RootComponent->Start();
 

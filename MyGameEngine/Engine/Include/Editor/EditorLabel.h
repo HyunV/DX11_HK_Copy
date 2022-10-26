@@ -8,6 +8,7 @@ class CEditorLabel :
 
     template <typename T>
     friend class CEditorTreeItem;
+    friend class CEditorGroup;
 
 protected:
     CEditorLabel();

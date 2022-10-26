@@ -11,6 +11,8 @@
 #include "TransformWindow.h"
 #include "Editor/EditorGUIManager.h"
 
+#include "Editor/EditorPopup.h"
+
 CObjectWindow::CObjectWindow()
 {
 }
@@ -57,6 +59,21 @@ void CObjectWindow::TreeCallback(CEditorTreeItem<CGameObject*>* Node, const std:
 	sprintf_s(Text, "%s\n", Item.c_str());
 
 	OutputDebugStringA(Text); //콘솔에 누른 오브젝트 이름 출력
+	
+	//m_Tree->CreateWidget<CEditorPopup>(m_Tree->GetName(), "Popup");
+	
+	//CEditorPopup* popup = CreateWidget<CEditorPopup>("Popup");
+	
+
+	
+	//ImGui::OpenPopup("ObjectWindow");
+
+	//if (ImGui::BeginPopup("ObjectWindow"))
+	//{
+	//	ImGui::Text("Aquarium");
+	//	ImGui::Selectable("Tst");
+	//	ImGui::EndPopup();
+	//}
 
 	//컴포넌트 윈도우에 선택한 것들을 비운다.
 	CComponentWindow* ComponentWindow = CEditorGUIManager::GetInst()->FindEditorWindow<CComponentWindow>("ComponentWindow");

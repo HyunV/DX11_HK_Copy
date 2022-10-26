@@ -18,9 +18,10 @@ CUIWidget::CUIWidget() :
     m_Angle(0.f),
     m_Opacity(1.f),
     m_Start(false),
-    m_Tint(1.f, 1.f, 1.f, 1.f)
+    m_Tint(1.f, 1.f, 1.f, 1.f),
+    m_MouseHovered(false)
 {
-    m_WiwdgetTypeName = "UIWidget";
+    m_WidgetTypeName = "UIWidget";
 }
 
 CUIWidget::CUIWidget(const CUIWidget& Widget) :
@@ -36,6 +37,7 @@ CUIWidget::CUIWidget(const CUIWidget& Widget) :
     m_Shader = Widget.m_Shader;
     m_Tint = Widget.m_Tint;
     m_MeshSize = Widget.m_MeshSize;
+    m_MouseHovered = false;
 }
 
 CUIWidget::~CUIWidget()
@@ -99,13 +101,14 @@ bool CUIWidget::Init()
 
 void CUIWidget::Update(float DeltaTime)
 {
-    // 출력될 위치정보를 만들어준다. m_Pos는 위젯을 가지고 있는 윈도우로부터 상대적인 위치
-    // 정보로 구성된다. 그러므로 최종 출력될 위치는 윈도우위치 + m_Pos 가 된다.
-    m_RenderPos = m_Owner->GetPos() + m_Pos;
+
 }
 
 void CUIWidget::PostUpdate(float DeltaTime)
 {
+    // 출력될 위치정보를 만들어준다. m_Pos는 위젯을 가지고 있는 윈도우로부터 상대적인 위치
+// 정보로 구성된다. 그러므로 최종 출력될 위치는 윈도우위치 + m_Pos 가 된다.
+    m_RenderPos = m_Owner->GetPos() + m_Pos;
 }
 
 void CUIWidget::Render()
@@ -119,10 +122,6 @@ void CUIWidget::Render()
     CCameraComponent* Camera = m_Scene->GetCameraManager()->GetUICamera();
 
     Matrix  matProj = Camera->GetProjMatrix();
-
-    // 출력될 위치정보를 만들어준다. m_Pos는 위젯을 가지고 있는 윈도우로부터 상대적인 위치
-    // 정보로 구성된다. 그러므로 최종 출력될 위치는 윈도우위치 + m_Pos 가 된다.
-    m_RenderPos = m_Owner->GetPos() + m_Pos;
 
     Matrix  matScale, matRot, matTranslate;
 
@@ -214,4 +213,23 @@ void CUIWidget::Load(FILE* File)
         m_Mesh = CResourceManager::GetInst()->FindMesh(MeshName);
         m_Shader = CResourceManager::GetInst()->FindShader(ShaderName);
     }
+}
+
+bool CUIWidget::CollisionMouse(const Vector2& MousePos)
+{
+    Vector2 Pos = m_Owner->GetPos() + m_Pos - m_Pivot * m_Size;
+
+    if (Pos.x > MousePos.x)
+        return false;
+
+    else if (Pos.x + m_Size.x < MousePos.x)
+        return false;
+
+    else if (Pos.y > MousePos.y)
+        return false;
+
+    else if (Pos.y + m_Size.y < MousePos.y)
+        return false;
+
+    return true;
 }

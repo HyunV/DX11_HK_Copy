@@ -18,6 +18,15 @@
 #include <dinput.h> //다렉용 input 헤더
 #include <filesystem> //C++17 에디터 classwindow의 directory_iterator 사용하기 위함
 
+//폰트출력용 디라이트
+#include <dwrite_3.h> 
+#include <d2d1.h>
+
+#include <process.h> //쓰레드
+
+#pragma comment(lib, "dwrite.lib")
+#pragma comment(lib, "d2d1.lib")
+
 #include "Vector2.h"
 #include "Vector3.h"
 #include "Vector4.h"
@@ -36,6 +45,8 @@ extern float g_DeltaTime; //전역변수 해놓은거 가져오는 extern
 #define	TEXTURE_PATH	"Texture"
 #define	SOUND_PATH		"Sound"
 #define	FONT_PATH		"Font"
+#define	ANIMATION2D_PATH		"Animation2D"
+#define	SCENE_PATH		"Scene"
 
 //싱글톤 생성, 파괴 매크로
 #define DECLARE_SINGLE(Type)	\
@@ -314,4 +325,18 @@ struct UICBuffer
 	int		UITextureEnable;
 	float	UIOpacity;
 	Vector2	UIEmpty;
+};
+
+struct UIProgressBarCBuffer
+{
+	int		BarDir;
+	float	Percent;
+	Vector2	Empty;
+};
+
+struct ThreadSyncData
+{
+	int	Header;
+	int	Size;
+	unsigned char Data[1024];
 };

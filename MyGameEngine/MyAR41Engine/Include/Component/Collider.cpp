@@ -163,6 +163,9 @@ void CCollider::SendPrevCollisionEnd()
 
 void CCollider::CallCollisionCallback(ECollision_Result Type)
 {
+	if (Type == ECollision_Result::Release)
+		m_MouseCollision = false;
+
 	if (m_CollisionCallback[(int)Type])
 		m_CollisionCallback[(int)Type](m_Result);
 }

@@ -61,7 +61,7 @@ private:
 	T				m_CustomData; //트리 아이템 추가할때 넣어주는 데이터
 	//선택 시 
 	std::function<void(CEditorTreeItem<T>*, const std::string&)> m_SelectCallback;
-
+	
 public:
 	T GetCustomData() const
 	{
@@ -168,6 +168,20 @@ public:
 		{
 			if (m_SelectCallback)
 				m_SelectCallback(this, m_Item);
+		}
+
+		//우클릭
+		if (ImGui::IsItemClicked(1) && !ImGui::IsItemToggledOpen())
+		{
+			//m_popup = CreateWidget<CEditorWidget>("Popup");
+			//ImGui::OpenPopup(m_ItemUTF8.c_str());
+			//
+			//if (ImGui::BeginPopup(m_ItemUTF8.c_str()))
+			//{
+			//	ImGui::Text("Aquarium");
+			//	ImGui::Selectable("Tst");
+			//	ImGui::EndPopup();
+			//}
 		}
 
 		size_t	WidgetCount = m_vecWidget.size();

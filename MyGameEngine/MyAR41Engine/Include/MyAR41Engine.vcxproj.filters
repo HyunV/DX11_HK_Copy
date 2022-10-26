@@ -190,6 +190,12 @@
     <Filter Include="01. Manager\09. Setting">
       <UniqueIdentifier>{04363ee0-0788-4888-84f1-fba0c308de8d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Resource\07. Font">
+      <UniqueIdentifier>{507197e3-6abb-4f0b-a386-bc815469b8cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\10. Thread">
+      <UniqueIdentifier>{2680b9c1-411e-40a1-b705-1cacda7fb7e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineInfo.h">
@@ -531,6 +537,54 @@
     <ClInclude Include="UI\UIImage.h">
       <Filter>09. UI\02. Widget</Filter>
     </ClInclude>
+    <ClInclude Include="Editor\EditorPopup.h">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Font\Font.h">
+      <Filter>02. Resource\07. Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Font\FontManager.h">
+      <Filter>02. Resource\07. Font</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Font\FontCollection.h">
+      <Filter>02. Resource\07. Font</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIText.h">
+      <Filter>09. UI\02. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIProgressBar.h">
+      <Filter>09. UI\02. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\UIProgressBarShader.h">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\03. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\UIProgressBarConstantBuffer.h">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\05. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UINumber.h">
+      <Filter>09. UI\02. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor\EditorGroup.h">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\ThreadManager.h">
+      <Filter>01. Manager\10. Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\Thread.h">
+      <Filter>01. Manager\10. Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\LoadingThread.h">
+      <Filter>01. Manager\10. Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\DataStream.h">
+      <Filter>01. Manager\10. Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\ThreadQueue.h">
+      <Filter>01. Manager\10. Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\Sync.h">
+      <Filter>01. Manager\10. Thread</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -820,6 +874,51 @@
     </ClCompile>
     <ClCompile Include="UI\UIImage.cpp">
       <Filter>09. UI\02. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\EditorPopup.cpp">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Font\FontManager.cpp">
+      <Filter>02. Resource\07. Font</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Font\Font.cpp">
+      <Filter>02. Resource\07. Font</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Font\FontCollection.cpp">
+      <Filter>02. Resource\07. Font</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIText.cpp">
+      <Filter>09. UI\02. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIProgressBar.cpp">
+      <Filter>09. UI\02. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\UIProgressBarShader.cpp">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\03. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\UIProgressBarConstantBuffer.cpp">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\05. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UINumber.cpp">
+      <Filter>09. UI\02. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Editor\EditorGroup.cpp">
+      <Filter>07. Editor\03. Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\ThreadManager.cpp">
+      <Filter>01. Manager\10. Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\Thread.cpp">
+      <Filter>01. Manager\10. Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\LoadingThread.cpp">
+      <Filter>01. Manager\10. Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\DataStream.cpp">
+      <Filter>01. Manager\10. Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\ThreadQueue.cpp">
+      <Filter>01. Manager\10. Thread</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

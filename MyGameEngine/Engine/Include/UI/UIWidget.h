@@ -35,6 +35,7 @@ class CUIWidget :
     friend class CResourceManager;
     friend class CScene;
     friend class CSceneManager;
+    friend class CSceneViewport;
 
 protected:
     CUIWidget();
@@ -74,15 +75,16 @@ protected:
     float   m_Angle;
     float   m_Opacity;
     bool	m_Start;
+    bool    m_MouseHovered;
     Vector4 m_Tint;
     CSharedPtr<class CShader>   m_Shader;
     CSharedPtr<class CMesh>     m_Mesh;
-    std::string		m_WiwdgetTypeName;
+    std::string		m_WidgetTypeName;
 
 public:
     const std::string& GetWidgetTypeName()	const
     {
-        return m_WiwdgetTypeName;
+        return m_WidgetTypeName;
     }
 
 
@@ -139,12 +141,12 @@ public:
         m_Pos.y = y;
     }
 
-    void SetSize(const Vector2& Size)
+    virtual void SetSize(const Vector2& Size)
     {
         m_Size = Size;
     }
 
-    void SetSize(float x, float y)
+    virtual void SetSize(float x, float y)
     {
         m_Size.x = x;
         m_Size.y = y;
@@ -194,5 +196,6 @@ public:
     virtual CUIWidget* Clone();
     virtual void Save(FILE* File);
     virtual void Load(FILE* File);
+    virtual bool CollisionMouse(const Vector2& MousePos);
 };
 

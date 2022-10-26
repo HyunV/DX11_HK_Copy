@@ -7,6 +7,7 @@
 #include "ConstantBuffer.h"
 #include "ColliderConstantBuffer.h"
 #include "UIShader.h"
+#include "UIProgressBarShader.h"
 
 CShaderManager::CShaderManager()
 {
@@ -29,11 +30,14 @@ bool CShaderManager::Init()
 
 	CreateShader<CUIShader>("UIShader");
 
+	CreateShader<CUIProgressBarShader>("UIProgressBarShader");
+
 	CreateConstantBuffer("Transform", sizeof(TransformCBuffer), 0);
 	CreateConstantBuffer("Material", sizeof(MaterialCBuffer), 1);
 	CreateConstantBuffer("Animation2D", sizeof(Animation2DCBuffer), 2);
 	CreateConstantBuffer("Collider", sizeof(ColliderCBuffer), 10);
 	CreateConstantBuffer("UI", sizeof(UICBuffer), 10);
+	CreateConstantBuffer("UIProgressBar", sizeof(UIProgressBarCBuffer), 11);
 
 	m_ColliderCBuffer = new CColliderConstantBuffer;
 

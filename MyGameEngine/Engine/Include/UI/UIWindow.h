@@ -113,9 +113,12 @@ public:
 	virtual CUIWindow* Clone();
 	virtual void Save(FILE* File);
 	virtual void Load(FILE* File);
+	CUIWidget* CollisionMouse(const Vector2& MousePos);
 
 private:
 	static bool SortWidget(CSharedPtr<CUIWidget> Src, CSharedPtr<CUIWidget> Dest);
+	static bool SortWidgetInv(CSharedPtr<CUIWidget> Src, CSharedPtr<CUIWidget> Dest);
+
 
 public:
 	template <typename T>

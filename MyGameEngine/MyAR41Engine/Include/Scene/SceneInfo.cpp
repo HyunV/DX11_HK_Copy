@@ -91,3 +91,7 @@ void CSceneInfo::Load(FILE* File)
 		m_PlayerObjectName = Name;
 	}
 }
+
+void CSceneInfo::SceneChangeComplete()
+{
+}

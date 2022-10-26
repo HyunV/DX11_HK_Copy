@@ -45,5 +45,8 @@ private:
 private:
     void LoadGameObjectName();
     void LoadComponentName();
+
+    //Å×½ºÆ®
+    void MakeObject();
 };
 

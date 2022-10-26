@@ -16,6 +16,7 @@ protected:
 protected:
 	class CScene* m_Owner;
 	std::vector<CSharedPtr<CUIWindow>>	m_vecWindow;
+	CSharedPtr<class CUIWidget>	m_CollisionWidget;
 
 public:
 	void LoadComplete();
@@ -28,9 +29,12 @@ public:
 	void Render();
 	void Save(FILE* File);
 	void Load(FILE* File);
+	bool CollisionMouse();
 
 private:
 	static bool SortWindow(CSharedPtr<CUIWindow> Src, CSharedPtr<CUIWindow> Dest);
+	static bool SortWindowInv(CSharedPtr<CUIWindow> Src, CSharedPtr<CUIWindow> Dest);
+
 
 public:
 	template <typename T>

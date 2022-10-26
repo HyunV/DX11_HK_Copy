@@ -17,6 +17,28 @@ protected:
     CSharedPtr<CAnimation2D> m_Animation;
 
 public:
+    std::string GetAnimationName()  const
+    {
+        if (!m_Animation)
+            return "None";
+
+        return m_Animation->GetAnimationClassName();
+    }
+
+    void GetAnimationNames(std::vector<std::string>& vecNames)
+    {
+        if (!m_Animation)
+            return;
+
+        m_Animation->GetAnimationNames(vecNames);
+    }
+
+    CAnimation2D* GetAnimation()    const
+    {
+        return m_Animation;
+    }
+
+public:
     bool SetTexture(class CTexture* Texture);
     bool SetTexture(const std::string& Name, const TCHAR* FileName,
         const std::string& PathName = TEXTURE_PATH);
@@ -27,6 +49,8 @@ public:
     void SetTextureFrameIndex(int Index);
 
     class CTexture* GetTexture(int Index = 0)    const;
+
+    void ClearAnimation();
 
 public:
     virtual void Start();

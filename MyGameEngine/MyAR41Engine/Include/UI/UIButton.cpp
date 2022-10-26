@@ -9,7 +9,7 @@ CUIButton::CUIButton() :
     m_State(EButtonState::Normal),
     m_MouseHovered(false)
 {
-    m_WiwdgetTypeName = "UIButton";
+    m_WidgetTypeName = "UIButton";
     SetImageTint(EButtonState::Normal, 200, 200, 200, 255);
     SetImageTint(EButtonState::Hovered, 255, 255, 255, 255);
     SetImageTint(EButtonState::Click, 150, 150, 150, 255);
@@ -335,12 +335,29 @@ void CUIButton::Render()
 
     if (TextureEnable)
     {
-        int TextureFrame = 0;
+        if (!m_TextureInfo[(int)m_State].vecFrameData.empty())
+        {
+            int TextureFrame = 0;
 
-        if (m_TextureInfo[(int)m_State].Texture->GetImageType() == EImageType::Frame)
-            TextureFrame = m_TextureInfo[(int)m_State].Frame;
+            if (m_TextureInfo[(int)m_State].Texture->GetImageType() == EImageType::Frame)
+                TextureFrame = m_TextureInfo[(int)m_State].Frame;
 
-        m_TextureInfo[(int)m_State].Texture->SetShader(0, (int)EShaderBufferType::Pixel, TextureFrame);
+            m_TextureInfo[(int)m_State].Texture->SetShader(0, (int)EShaderBufferType::Pixel, TextureFrame);
+
+            m_AnimCBuffer->SetAnim2DEnable(true);
+            m_AnimCBuffer->SetFrame(m_TextureInfo[(int)m_State].Frame);
+            m_AnimCBuffer->SetImageFrame(m_TextureInfo[(int)m_State].vecFrameData[m_TextureInfo[(int)m_State].Frame].Start,
+                m_TextureInfo[(int)m_State].vecFrameData[m_TextureInfo[(int)m_State].Frame].End);
+            m_AnimCBuffer->SetImageSize((float)m_TextureInfo[(int)m_State].Texture->GetWidth(),
+                (float)m_TextureInfo[(int)m_State].Texture->GetHeight());
+            m_AnimCBuffer->SetImageType((EAnimation2DType)m_TextureInfo[(int)m_State].Texture->GetImageType());
+        }
+
+        else
+        {
+            m_TextureInfo[(int)m_State].Texture->SetShader(0, (int)EShaderBufferType::Pixel, 0);
+            m_AnimCBuffer->SetAnim2DEnable(false);
+        }
     }
 
     m_Tint = m_TextureInfo[(int)m_State].Tint;

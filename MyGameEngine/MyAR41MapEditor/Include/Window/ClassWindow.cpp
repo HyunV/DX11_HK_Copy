@@ -28,6 +28,8 @@
 
 #include "Engine.h"
 
+#include <time.h>
+
 CClassWindow::CClassWindow()
 {
 }
@@ -155,6 +157,8 @@ void CClassWindow::ObjectCreateCallback()
     {
         Window->AddItem(Obj, m_SelectObjectItem);
     }
+    //===================================================================
+    //MakeObject();
 }
 
 void CClassWindow::ComponentCreateCallback()
@@ -178,7 +182,6 @@ void CClassWindow::ComponentCreateCallback()
         SelectComponent = SelectObject->GetRootComponent();
     }
 
-    std::string ParentName = SelectComponent->GetName() + "(" + SelectComponent->GetComponentTypeName() + ")";
     std::string Name;
 
     //새로운 씬 컴포 생성
@@ -250,11 +253,23 @@ void CClassWindow::ComponentCreateCallback()
 
 
     //선택했던 컴포넌트 새로 만든 컴포넌트 추가
-    SelectComponent->AddChild(NewComponent);
-    NewComponent->Start();
-    
-    //컴포넌트 윈도우에도 추가
-    ComponentWindow->AddItem((CComponent*)NewComponent, Name, ParentName);
+    if (SelectComponent)
+    {
+        std::string	ParentName = SelectComponent->GetName() + "(" + SelectComponent->GetComponentTypeName() + ")";
+
+        SelectComponent->AddChild(NewComponent);
+        NewComponent->Start();
+
+        //컴포넌트 윈도우에도 추가
+        ComponentWindow->AddItem((CComponent*)NewComponent, Name, ParentName);
+    }
+    else
+    {
+        std::string	ObjName = SelectObject->GetName() + "(" + SelectObject->GetObjectTypeName() + ")";
+
+        ComponentWindow->AddItem((CComponent*)NewComponent, Name, ObjName);
+    }
+
 }
 
 
@@ -434,4 +449,27 @@ void CClassWindow::LoadComponentName()
 
         m_ComponentList->AddItem(Name);
     }
+}
+
+void CClassWindow::MakeObject()
+{
+    CScene* Scene = CSceneManager::GetInst()->GetScene();
+    CGameObject* Obj = nullptr;
+    CObjectWindow* Window = CEditorGUIManager::GetInst()->FindEditorWindow<CObjectWindow>("ObjectWindow");
+    
+    srand((unsigned int)time(0));
+
+    for (int i = 0; i < 100; i++)
+    {
+        Obj = Scene->CreateObject<CPlayer2D>(m_SelectObjectItem);
+        Obj->SetWorldPosition(rand() %1280, rand() % 720);
+        //Obj->SetRelativePosition(500, 200);
+
+        if (Window)
+        {
+            Window->AddItem(Obj, m_SelectObjectItem);
+        }
+    }
+
+
 }

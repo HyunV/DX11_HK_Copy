@@ -50,9 +50,11 @@ private:
 	std::list <CSharedPtr<class CCollider>>	m_ColliderList;
 	std::unordered_map<std::string, PixelInfo*>	m_mapPixelCollision;
 	CSharedPtr<class CCollider> m_MouseCollision;
+	bool		m_CollisionWidget;
 
 public:
 	void AddCollider(class CCollider* Collider);
+	bool CollisionWidget();
 
 public:
 	bool Init();

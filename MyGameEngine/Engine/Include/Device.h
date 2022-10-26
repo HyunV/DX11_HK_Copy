@@ -15,7 +15,27 @@ private:
 	HWND m_hWnd; //윈도우 핸들 제어
 	Resolution m_RS; //해상도
 
+	//d2d렌터 타겟, 1004문서 참고
+private:
+	ID2D1RenderTarget* m_2DTarget;
+	ID2D1RenderTarget* m_2DTargetWorld;
+	ID2D1Factory* m_2DFactory;
+
 public:
+	ID2D1RenderTarget* Get2DTarget()	const
+	{
+		return m_2DTarget;
+	}
+
+	ID2D1RenderTarget* Get2DWorldTarget()	const
+	{
+		return m_2DTargetWorld;
+	}
+
+	ID2D1Factory* Get2DFactory()	const
+	{
+		return m_2DFactory;
+	}
 	Resolution GetResolution()	const
 	{
 		return m_RS;

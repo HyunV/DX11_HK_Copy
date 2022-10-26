@@ -1,4 +1,5 @@
 #include "UIWindow.h"
+#include "../Device.h"
 
 std::unordered_map<std::string, CUIWindow*> CUIWindow::m_mapUIWindowCDO;
 
@@ -7,6 +8,8 @@ CUIWindow::CUIWindow() :
 	m_Start(false)
 {
 	m_WindowTypeName = "UIWindow";
+	m_Size = Vector2((float)CDevice::GetInst()->GetResolution().Width,
+		(float)CDevice::GetInst()->GetResolution().Height);
 }
 
 CUIWindow::CUIWindow(const CUIWindow& Window) :
@@ -102,7 +105,8 @@ void CUIWindow::PostUpdate(float DeltaTime)
 
 void CUIWindow::Render()
 {
-	std::sort(m_vecWidget.begin(), m_vecWidget.end(), CUIWindow::SortWidget);
+	if (m_vecWidget.size() >= 2)
+		std::sort(m_vecWidget.begin(), m_vecWidget.end(), CUIWindow::SortWidget);
 
 	auto	iter = m_vecWidget.begin();
 	auto	iterEnd = m_vecWidget.end();
@@ -204,7 +208,50 @@ void CUIWindow::Load(FILE* File)
 	}
 }
 
+CUIWidget* CUIWindow::CollisionMouse(const Vector2& MousePos)
+{
+	if (m_Pos.x > MousePos.x)
+		return nullptr;
+
+	else if (m_Pos.x + m_Size.x < MousePos.x)
+		return nullptr;
+
+	else if (m_Pos.y > MousePos.y)
+		return nullptr;
+
+	else if (m_Pos.y + m_Size.y < MousePos.y)
+		return nullptr;
+
+	if (m_vecWidget.size() >= 2)
+		std::sort(m_vecWidget.begin(), m_vecWidget.end(), CUIWindow::SortWidgetInv);
+
+	auto	iter = m_vecWidget.begin();
+	auto	iterEnd = m_vecWidget.end();
+
+	for (; iter != iterEnd; ++iter)
+	{
+		if (!(*iter)->GetEnable())
+			continue;
+
+		if ((*iter)->CollisionMouse(MousePos))
+		{
+			(*iter)->m_MouseHovered = true;
+			return *iter;
+		}
+
+		else
+			(*iter)->m_MouseHovered = false;
+	}
+
+	return nullptr;
+}
+
 bool CUIWindow::SortWidget(CSharedPtr<CUIWidget> Src, CSharedPtr<CUIWidget> Dest)
 {
 	return Src->GetZOrder() > Dest->GetZOrder();
+}
+
+bool CUIWindow::SortWidgetInv(CSharedPtr<CUIWidget> Src, CSharedPtr<CUIWidget> Dest)
+{
+	return Src->GetZOrder() < Dest->GetZOrder();
 }

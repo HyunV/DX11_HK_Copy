@@ -161,3 +161,35 @@ enum class EPixelCollision_Type
 	Alpha_Ignore,
 	Alpha_Confirm
 };
+
+enum class EProgressBarTextureType
+{
+	Back,
+	Bar,
+	Max
+};
+
+enum class EProgressBarDir
+{
+	RightToLeft,
+	LeftToRight,
+	TopToBottom,
+	BottomToTop
+};
+
+enum class ESceneComponentType
+{
+	Scene,
+	Primitive,
+	Sprite,
+	Camera,
+	TargetArm,
+	Collider,
+	Collider2D,
+	Box2D,
+	OBB2D,
+	Sphere2D,
+	Pixel,
+	Collider3D,
+	Max
+};

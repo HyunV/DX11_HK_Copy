@@ -4,6 +4,7 @@ class CEditorText :
     public CEditorWidget
 {
     friend class CEditorWindow;
+	friend class CEditorGroup;
 
 	template <typename T>
 	friend class CEditorTreeItem;

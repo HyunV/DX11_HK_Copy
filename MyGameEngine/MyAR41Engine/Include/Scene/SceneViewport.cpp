@@ -1,6 +1,7 @@
 #include "SceneViewport.h"
 #include "../GameObject/GameObject.h"
 #include "Scene.h"
+#include "../Input.h"
 
 CSceneViewport::CSceneViewport()
 {
@@ -83,6 +84,7 @@ void CSceneViewport::PostUpdate(float DeltaTime)
 
 void CSceneViewport::Render()
 {
+	if (m_vecWindow.size() >= 2)
 	std::sort(m_vecWindow.begin(), m_vecWindow.end(), CSceneViewport::SortWindow);
 
 	auto	iter = m_vecWindow.begin();
@@ -156,7 +158,75 @@ void CSceneViewport::Load(FILE* File)
 	}
 }
 
+bool CSceneViewport::CollisionMouse()
+{
+	if (m_vecWindow.size() >= 2)
+		std::sort(m_vecWindow.begin(), m_vecWindow.end(), CSceneViewport::SortWindowInv);
+
+	if (m_CollisionWidget && !m_CollisionWidget->GetActive())
+		m_CollisionWidget = nullptr;
+
+	// 마우스 위치를 얻어온다.
+	Vector2	MousePos = CInput::GetInst()->GetMousePos();
+
+	auto	iter = m_vecWindow.begin();
+	auto	iterEnd = m_vecWindow.end();
+
+	bool	Result = false;
+
+	for (; iter != iterEnd; ++iter)
+	{
+		if (!(*iter)->GetEnable())
+			continue;
+
+		CUIWidget* Widget = (*iter)->CollisionMouse(MousePos);
+
+		if (m_CollisionWidget && m_CollisionWidget != Widget)
+			m_CollisionWidget->m_MouseHovered = false;
+
+		if (Widget)
+			m_CollisionWidget = Widget;
+
+		if (Widget)
+		{
+			Result = true;
+			break;
+		}
+	}
+
+	// 충돌이 안되었다면
+	if (!Result)
+	{
+		if (m_CollisionWidget)
+			m_CollisionWidget->m_MouseHovered = false;
+
+		m_CollisionWidget = nullptr;
+	}
+
+	iter = m_vecWindow.begin();
+	iterEnd = m_vecWindow.end();
+
+	for (; iter != iterEnd;)
+	{
+		if (!(*iter)->GetActive())
+		{
+			iter = m_vecWindow.erase(iter);
+			iterEnd = m_vecWindow.end();
+			continue;
+		}
+
+		++iter;
+	}
+
+	return Result;
+}
+
 bool CSceneViewport::SortWindow(CSharedPtr<CUIWindow> Src, CSharedPtr<CUIWindow> Dest)
 {
 	return Src->GetZOrder() > Dest->GetZOrder();
+}
+
+bool CSceneViewport::SortWindowInv(CSharedPtr<CUIWindow> Src, CSharedPtr<CUIWindow> Dest)
+{
+	return Src->GetZOrder() < Dest->GetZOrder();
 }

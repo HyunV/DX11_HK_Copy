@@ -7,13 +7,13 @@
 
 CUIImage::CUIImage()
 {
-    m_WiwdgetTypeName = "UIImage";
+    m_WidgetTypeName = "UIImage";
 }
 
-CUIImage::CUIImage(const CUIImage& Button) :
-    CUIWidget(Button)
+CUIImage::CUIImage(const CUIImage& Image) :
+    CUIWidget(Image)
 {
-    m_TextureInfo = Button.m_TextureInfo;
+    m_TextureInfo = Image.m_TextureInfo;
 }
 
 CUIImage::~CUIImage()
@@ -192,12 +192,29 @@ void CUIImage::Render()
 
     if (TextureEnable)
     {
-        int TextureFrame = 0;
+        if (!m_TextureInfo.vecFrameData.empty())
+        {
+            int TextureFrame = 0;
 
-        if (m_TextureInfo.Texture->GetImageType() == EImageType::Frame)
-            TextureFrame = m_TextureInfo.Frame;
+            if (m_TextureInfo.Texture->GetImageType() == EImageType::Frame)
+                TextureFrame = m_TextureInfo.Frame;
 
-        m_TextureInfo.Texture->SetShader(0, (int)EShaderBufferType::Pixel, TextureFrame);
+            m_TextureInfo.Texture->SetShader(0, (int)EShaderBufferType::Pixel, TextureFrame);
+
+            m_AnimCBuffer->SetAnim2DEnable(true);
+            m_AnimCBuffer->SetFrame(m_TextureInfo.Frame);
+            m_AnimCBuffer->SetImageFrame(m_TextureInfo.vecFrameData[m_TextureInfo.Frame].Start,
+                m_TextureInfo.vecFrameData[m_TextureInfo.Frame].End);
+            m_AnimCBuffer->SetImageSize((float)m_TextureInfo.Texture->GetWidth(),
+                (float)m_TextureInfo.Texture->GetHeight());
+            m_AnimCBuffer->SetImageType((EAnimation2DType)m_TextureInfo.Texture->GetImageType());
+        }
+
+        else
+        {
+            m_TextureInfo.Texture->SetShader(0, (int)EShaderBufferType::Pixel, 0);
+            m_AnimCBuffer->SetAnim2DEnable(false);
+        }
     }
 
     m_Tint = m_TextureInfo.Tint;
@@ -253,6 +270,10 @@ void CUIImage::Load(FILE* File)
 
     fread(&Length, sizeof(int), 1, File);
     fread(TexName, 1, Length, File);
+
+    EImageType  ImageType;
+
+    fread(&ImageType, sizeof(EImageType), 1, File);
 
     int	TextureSRVCount = 0;
 

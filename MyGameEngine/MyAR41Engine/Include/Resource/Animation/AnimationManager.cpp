@@ -202,10 +202,24 @@ bool CAnimationManager::LoadSequence2D(const std::string& Name, const char* Full
 {
 	CAnimationSequence2D* Sequence = FindAnimationSequence2D(Name);
 
+	bool	Find = true;
+
 	if (!Sequence)
+	{
+		Sequence = new CAnimationSequence2D;
+
+		Sequence->SetName(Name);
+
+		Find = false;
+	}
+
+	if (!Sequence->Load(FullPath))
 		return false;
 
-	return Sequence->Load(FullPath);
+	if (!Find)
+		m_mapSequence2D.insert(std::make_pair(Name, Sequence));
+
+	return true;
 }
 
 bool CAnimationManager::SaveSequence2D(const std::string& Name, const char* FileName, 
@@ -224,10 +238,24 @@ bool CAnimationManager::LoadSequence2D(const std::string& Name, const char* File
 {
 	CAnimationSequence2D* Sequence = FindAnimationSequence2D(Name);
 
+	bool	Find = true;
+
 	if (!Sequence)
+	{
+		Sequence = new CAnimationSequence2D;
+
+		Sequence->SetName(Name);
+
+		Find = false;
+	}
+
+	if (!Sequence->Load(FileName, PathName))
 		return false;
 
-	return Sequence->Load(FileName, PathName);
+	if (!Find)
+		m_mapSequence2D.insert(std::make_pair(Name, Sequence));
+
+	return true;
 }
 
 CAnimationSequence2D* CAnimationManager::FindAnimationSequence2D(const std::string& Name)

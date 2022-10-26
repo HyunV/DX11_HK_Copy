@@ -16,6 +16,10 @@ private:
     class CEditorInput* m_SceneSaveName;
     class CEditorInput* m_SceneSelectName;
 
+    class CEditorInput* m_SceneInfoName;
+
+    class CEditorListBox* m_SceneInfoList;
+
 public:
     const std::string& GetSelectSceneItem() const
     {
@@ -30,6 +34,12 @@ private:
     void SceneChange();
     void SceneSave();
     void SceneClickCallback(int Index, const std::string& Item);
+    void SceneInfoClickCallback(int Index, const std::string& Item);
     void LoadSceneDirectory();
+    void LoadSceneInfoDirectory();
+
+    void NewSceneButtonCallback();
+
+    void SelectSceneInfo(std::string& s);
 };
 

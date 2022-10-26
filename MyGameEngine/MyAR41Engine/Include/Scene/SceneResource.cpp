@@ -1,3 +1,4 @@
+
 #include "SceneResource.h"
 
 CSceneResource::CSceneResource()
@@ -20,6 +21,7 @@ CSceneResource::~CSceneResource()
 			CResourceManager::GetInst()->ReleaseMesh(Name);
 		}
 	}
+
 	{
 		auto	iter = m_mapShader.begin();
 		auto	iterEnd = m_mapShader.end();
@@ -77,6 +79,38 @@ CSceneResource::~CSceneResource()
 			iterEnd = m_mapSound.end();
 
 			CResourceManager::GetInst()->ReleaseSound(Name);
+		}
+	}
+
+
+	{
+		auto	iter = m_mapFont.begin();
+		auto	iterEnd = m_mapFont.end();
+
+		for (; iter != iterEnd;)
+		{
+			std::string	Name = iter->first;
+
+			iter = m_mapFont.erase(iter);
+			iterEnd = m_mapFont.end();
+
+			CResourceManager::GetInst()->ReleaseFont(Name);
+		}
+	}
+
+
+	{
+		auto	iter = m_mapFontCollection.begin();
+		auto	iterEnd = m_mapFontCollection.end();
+
+		for (; iter != iterEnd;)
+		{
+			std::string	Name = iter->first;
+
+			iter = m_mapFontCollection.erase(iter);
+			iterEnd = m_mapFontCollection.end();
+
+			CResourceManager::GetInst()->ReleaseFontCollection(Name);
 		}
 	}
 }
@@ -234,10 +268,10 @@ CMaterial* CSceneResource::FindMaterial(const std::string& Name)
 	return iter->second;
 }
 
-bool CSceneResource::CreateAnimationSequence2D(const std::string& Name, 
+bool CSceneResource::CreateAnimationSequence2D(const std::string& Name,
 	const std::string& TextureName, const TCHAR* FileName, const std::string& PathName)
 {
-	if(FindAnimationSequence2D(Name))
+	if (FindAnimationSequence2D(Name))
 		return true;
 
 	if (!CResourceManager::GetInst()->CreateAnimationSequence2D(Name, TextureName,
@@ -249,7 +283,8 @@ bool CSceneResource::CreateAnimationSequence2D(const std::string& Name,
 	return true;
 }
 
-bool CSceneResource::CreateAnimationSequence2D(const std::string& Name, CTexture* Texture)
+bool CSceneResource::CreateAnimationSequence2D(const std::string& Name,
+	CTexture* Texture)
 {
 	if (FindAnimationSequence2D(Name))
 		return true;
@@ -280,7 +315,7 @@ bool CSceneResource::CreateAnimationSequence2DFullPath(
 
 bool CSceneResource::CreateAnimationSequence2D(const std::string& Name,
 	const std::string& TextureName,
-	const std::vector<const TCHAR*>& vecFileName, 
+	const std::vector<const TCHAR*>& vecFileName,
 	const std::string& PathName)
 {
 	if (FindAnimationSequence2D(Name))
@@ -311,12 +346,14 @@ bool CSceneResource::CreateAnimationSequence2DFullPath(
 	return true;
 }
 
-bool CSceneResource::AddAnimationSequence2DFrame(const std::string& Name, const Vector2& Start, const Vector2& End)
+bool CSceneResource::AddAnimationSequence2DFrame(const std::string& Name,
+	const Vector2& Start, const Vector2& End)
 {
 	return CResourceManager::GetInst()->AddAnimationSequence2DFrame(Name, Start, End);
 }
 
-bool CSceneResource::AddAnimationSequence2DFrame(const std::string& Name, float StartX, float StartY, float EndX, float EndY)
+bool CSceneResource::AddAnimationSequence2DFrame(const std::string& Name,
+	float StartX, float StartY, float EndX, float EndY)
 {
 	return CResourceManager::GetInst()->AddAnimationSequence2DFrame(Name, StartX, StartY, EndX, EndY);
 }
@@ -341,12 +378,14 @@ bool CSceneResource::LoadSequence2D(const std::string& Name, const char* FullPat
 	return CResourceManager::GetInst()->LoadSequence2D(Name, FullPath);
 }
 
-bool CSceneResource::SaveSequence2D(const std::string& Name, const char* FileName, const std::string& PathName)
+bool CSceneResource::SaveSequence2D(const std::string& Name, const char* FileName,
+	const std::string& PathName)
 {
 	return CResourceManager::GetInst()->SaveSequence2D(Name, FileName, PathName);
 }
 
-bool CSceneResource::LoadSequence2D(const std::string& Name, const char* FileName, const std::string& PathName)
+bool CSceneResource::LoadSequence2D(const std::string& Name, const char* FileName,
+	const std::string& PathName)
 {
 	return CResourceManager::GetInst()->LoadSequence2D(Name, FileName, PathName);
 }
@@ -369,7 +408,6 @@ CAnimationSequence2D* CSceneResource::FindAnimationSequence2D(const std::string&
 
 	return iter->second;
 }
-
 bool CSceneResource::CreateSoundChannel(const std::string& Name)
 {
 	return CResourceManager::GetInst()->CreateSoundChannel(Name);
@@ -443,3 +481,140 @@ CSound* CSceneResource::FindSound(const std::string& Name)
 
 	return iter->second;
 }
+
+bool CSceneResource::CreateFontCollection(const std::string& Name,
+	const TCHAR* FileName, const std::string& PathName)
+{
+	if (FindFontCollection(Name))
+		return false;
+
+	if (!CResourceManager::GetInst()->CreateFontCollection(Name, FileName, PathName))
+		return false;
+
+	CFontCollection* Font = CResourceManager::GetInst()->FindFontCollection(Name);
+
+	m_mapFontCollection.insert(std::make_pair(Name, Font));
+
+	return true;
+}
+
+bool CSceneResource::LoadFont(const std::string& Name, const TCHAR* FontName,
+	int Weight, float FontSize, const TCHAR* LocalName, int Stretch)
+{
+	if (FindFont(Name))
+		return false;
+
+	if (!CResourceManager::GetInst()->LoadFont(Name, FontName, Weight,
+		FontSize, LocalName, Stretch))
+		return false;
+
+	CFont* Font = CResourceManager::GetInst()->FindFont(Name);
+
+	m_mapFont.insert(std::make_pair(Name, Font));
+
+	return true;
+}
+
+const TCHAR* CSceneResource::GetFontFaceName(const std::string& CollectionName)
+{
+	return CResourceManager::GetInst()->GetFontFaceName(CollectionName);
+}
+
+const char* CSceneResource::GetFontFaceNameMultibyte(const std::string& CollectionName)
+{
+	return CResourceManager::GetInst()->GetFontFaceNameMultibyte(CollectionName);
+}
+
+bool CSceneResource::CreateFontColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+	return CResourceManager::GetInst()->CreateFontColor(r, g, b, a);
+}
+
+bool CSceneResource::CreateFontColor(float r, float g, float b, float a)
+{
+	return CResourceManager::GetInst()->CreateFontColor(r, g, b, a);
+}
+
+bool CSceneResource::CreateFontColor(const Vector4& Color)
+{
+	return CResourceManager::GetInst()->CreateFontColor(Color);
+}
+
+bool CSceneResource::CreateFontColor(unsigned int Color)
+{
+	return CResourceManager::GetInst()->CreateFontColor(Color);
+}
+
+ID2D1SolidColorBrush* CSceneResource::FindFontColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+	return CResourceManager::GetInst()->FindFontColor(r, g, b, a);
+}
+
+ID2D1SolidColorBrush* CSceneResource::FindFontColor(float r, float g, float b, float a)
+{
+	return CResourceManager::GetInst()->FindFontColor(r, g, b, a);
+}
+
+ID2D1SolidColorBrush* CSceneResource::FindFontColor(const Vector4& Color)
+{
+	return CResourceManager::GetInst()->FindFontColor(Color);
+}
+
+ID2D1SolidColorBrush* CSceneResource::FindFontColor(unsigned int Color)
+{
+	return CResourceManager::GetInst()->FindFontColor(Color);
+}
+
+unsigned int CSceneResource::CreateFontColorKey(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+	return CResourceManager::GetInst()->CreateFontColorKey(r, g, b, a);
+}
+
+unsigned int CSceneResource::CreateFontColorKey(float r, float g, float b, float a)
+{
+	return CResourceManager::GetInst()->CreateFontColorKey(r, g, b, a);
+}
+
+unsigned int CSceneResource::CreateFontColorKey(const Vector4& Color)
+{
+	return CResourceManager::GetInst()->CreateFontColorKey(Color);
+}
+
+CFont* CSceneResource::FindFont(const std::string& Name)
+{
+	auto	iter = m_mapFont.find(Name);
+
+	if (iter == m_mapFont.end())
+	{
+		CFont* Font = CResourceManager::GetInst()->FindFont(Name);
+
+		if (!Font)
+			return nullptr;
+
+		m_mapFont.insert(std::make_pair(Name, Font));
+
+		return Font;
+	}
+
+	return iter->second;
+}
+
+CFontCollection* CSceneResource::FindFontCollection(const std::string& Name)
+{
+	auto	iter = m_mapFontCollection.find(Name);
+
+	if (iter == m_mapFontCollection.end())
+	{
+		CFontCollection* Font = CResourceManager::GetInst()->FindFontCollection(Name);
+
+		if (!Font)
+			return nullptr;
+
+		m_mapFontCollection.insert(std::make_pair(Name, Font));
+
+		return Font;
+	}
+
+	return iter->second;
+}
+

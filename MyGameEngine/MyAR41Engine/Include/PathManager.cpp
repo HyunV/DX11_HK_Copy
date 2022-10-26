@@ -67,6 +67,8 @@ bool CPathManager::Init()
 	AddPath(SHADER_PATH, TEXT("Shader/"));
 	AddPath(SOUND_PATH, TEXT("Sound/"));
 	AddPath(FONT_PATH, TEXT("Font/"));
+	AddPath(ANIMATION2D_PATH, TEXT("Animation2D/"));
+	AddPath(SCENE_PATH, TEXT("Scene/"));
 
 	return true;
 }

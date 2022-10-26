@@ -1,5 +1,7 @@
 #include "EditorManager.h"
 #include "Scene/EditorDefaultScene.h"
+#include "Scene/EditorTestScene.h"
+
 #include "Scene/SceneManager.h"
 #include "Scene/Scene.h"
 #include "Editor/EditorGUIManager.h"
@@ -56,13 +58,19 @@ bool CEditorManager::Init(HINSTANCE hInst)
 
     CScene::AddSceneInfoCDO("EditorDefaultScene", Info);
 
+    //========내 코드===========================================
+    CSceneInfo* TestSceneInfo = new CEditorTestScene;
+
+    CScene::AddSceneInfoCDO("EditorTestScene", TestSceneInfo);
+    //==========================================================
+
     CEngineShareSetting::Setting();
 
     //테스트 윈도우 클래스로 창을 띄움
     CEngine::SetWndProcCallback<CEditorManager>(this, &CEditorManager::WndProc);
 
     //#예제 출력# 테스트 윈도우 생성 (티모?)
-    //CEditorGUIManager::GetInst()->CreateEditorWindow<CTestWindow>("TestWindow");
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CTestWindow>("TestWindow");
     
     //#예제 출력# 오브젝트 윈도우 생성
     CEditorGUIManager::GetInst()->CreateEditorWindow<CObjectWindow>("ObjectWindow"); 
@@ -94,6 +102,8 @@ bool CEditorManager::Init(HINSTANCE hInst)
 
     // SceneInfo 생성 기본적으로 사용할 씬 등록
     CSceneManager::GetInst()->CreateSceneInfo<CEditorDefaultScene>();
+
+    //CSceneManager::GetInst()->CreateSceneInfo<CEditorTestScene>();
 
 
     return true;

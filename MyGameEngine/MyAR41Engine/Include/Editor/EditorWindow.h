@@ -46,7 +46,7 @@ public:
 
 public:
 	template <typename T>
-	T* CreateWidget(const std::string& Name, float Width = 100.f, float Height = 100.f)
+	T* CreateWidget(const std::string& Name, float Width = 100.f, float Height = 30.f)
 	{
 		T* Widget = new T;
 
@@ -61,6 +61,24 @@ public:
 		}
 
 		m_vecWidget.push_back(Widget);
+
+		return Widget;
+	}
+
+	template <typename T>
+	T* CreateWidgetEmpty(const std::string& Name, float Width = 100.f, float Height = 30.f)
+	{
+		T* Widget = new T;
+
+		Widget->SetName(Name);
+		Widget->m_Owner = this;
+		Widget->SetSize(Width, Height);
+
+		if (!Widget->Init())
+		{
+			SAFE_DELETE(Widget);
+			return nullptr;
+		}
 
 		return Widget;
 	}

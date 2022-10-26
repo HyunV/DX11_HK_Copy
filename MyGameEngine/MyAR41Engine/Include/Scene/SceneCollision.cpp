@@ -6,8 +6,11 @@
 #include "../Component/Collider3D.h"
 #include "../PathManager.h"
 #include "../Input.h"
+#include "Scene.h"
+#include "SceneViewport.h"
 
-CSceneCollision::CSceneCollision()
+CSceneCollision::CSceneCollision()	:
+	m_CollisionWidget(false)
 {
 }
 
@@ -49,6 +52,11 @@ CSceneCollision::~CSceneCollision()
 void CSceneCollision::AddCollider(CCollider* Collider)
 {
 	m_ColliderList.push_back(Collider);
+}
+
+bool CSceneCollision::CollisionWidget()
+{
+	return m_CollisionWidget = m_Owner->GetViewport()->CollisionMouse();
 }
 
 bool CSceneCollision::Init()
@@ -239,12 +247,11 @@ void CSceneCollision::CollisionMouse(float DeltaTime)
 	}
 
 	// UI와 마우스가 충돌이 없을 경우 월드물체와 충돌을 시작한다.
-	bool MouseUICollision = false;
 	bool	MouseWorldCollision = false;
 
 	// UI와 마우스 충돌처리를 진행한다. 그 결과에 따라 다른 충돌처리를 할지 말지를 결정한다.
 
-	if (!MouseUICollision)
+	if (!m_CollisionWidget)
 	{
 		// World위치를 얻어온다.
 		Vector2	MouseWorldPos = CInput::GetInst()->GetMouseWorldPos();

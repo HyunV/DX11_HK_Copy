@@ -161,7 +161,8 @@ bool CAnimation2D::AddAnimation(const std::string& Name,
 
 	CAnimationSequence2D* Sequence = nullptr;
 
-	if (Anim)//애니메이션이 중복이면 인자들 수정 처리
+	//============내 코드애니메이션이 중복이면 인자들 수정 처리
+	if (Anim)
 	{
 		if (m_Owner->GetScene())
 		{
@@ -186,6 +187,7 @@ bool CAnimation2D::AddAnimation(const std::string& Name,
 
 		return true;
 	}
+	//,================================================================
 		
 	//스프라이트 컴포에 씬 얻고 애니메이션 시퀀스 불러옴
 	if (m_Owner->GetScene())
@@ -241,6 +243,7 @@ bool CAnimation2D::AddAnimation(const std::string& Name,
 	Anim->m_Loop = Loop;
 	Anim->m_Reverse = Reverse;
 	Anim->m_FrameTime = PlayTime / Sequence->GetFrameCount();
+	Anim->m_Owner = this;
 
 	if (m_mapAnimation.empty())
 	{

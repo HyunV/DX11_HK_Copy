@@ -4,6 +4,7 @@
 #include "Scene/Scene.h"
 #include "Scene/SceneManager.h"
 #include "Scene/CameraManager.h"
+#include "Scene/SceneCollision.h"
 #include "Component/CameraComponent.h"
 
 #pragma comment(lib, "dinput8.lib")
@@ -19,7 +20,8 @@ CInput::CInput() :
 	m_Keyboard(nullptr),
 	m_Mouse(nullptr),
 	m_KeyArray{},
-	m_MouseState{}
+	m_MouseState{},
+	m_CollisionWidget(false)
 {
 }
 
@@ -140,6 +142,9 @@ void CInput::Update(float DeltaTime)
 	}
 
 	UpdateMouse(DeltaTime);
+
+	// 마우스와 Widget과의 충돌처리를 진행한다.
+	m_CollisionWidget = CSceneManager::GetInst()->GetScene()->GetCollisionManager()->CollisionWidget();
 
 	UpdateKeyState(DeltaTime);
 
