@@ -7,7 +7,8 @@
 CAnimationSequence2D::CAnimationSequence2D()	:
 	m_Scene(nullptr),
 	m_Anim2DType(EAnimation2DType::Atlas),
-	m_FrameCount(0)
+	m_FrameCount(0),
+	m_LoopCount(0)
 {
 	SetTypeID<CAnimationSequence2D>();
 }
@@ -235,6 +236,9 @@ bool CAnimationSequence2D::Save(const char* FullPath)
 	fwrite(&FrameCount, 4, 1, File);
 	fwrite(&m_vecFrameData[0], sizeof(Animation2DFrameData), FrameCount, File);
 
+	//*추가
+	fwrite(&m_LoopCount, 4, 1, File);
+
 	fclose(File);
 
 	return true;
@@ -351,6 +355,8 @@ bool CAnimationSequence2D::Load(const char* FullPath)
 
 	fread(&m_vecFrameData[0], sizeof(Animation2DFrameData), FrameCount, File);
 
+	//*추가
+	fread(&m_LoopCount, 4, 1, File);
 
 	fclose(File);
 

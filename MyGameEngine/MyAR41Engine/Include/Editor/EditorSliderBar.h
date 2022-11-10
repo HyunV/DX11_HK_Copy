@@ -46,6 +46,10 @@ public:
     {
         m_CurrentValue = m_MinBarRange;
     }
+    void SetCurrentValue(int num)
+    {
+        m_CurrentValue = num;
+    }
 
 public:
     template <typename T>

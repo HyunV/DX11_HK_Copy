@@ -22,10 +22,10 @@ public:
 	virtual void Render();
 
 public:
-	template <typename T>
-	T* CreateWidget(const std::string& Name, float Width = 100.f, float Height = 100.f)
+	template <typename WidgetType>
+	WidgetType* CreateWidget(const std::string& Name, float Width = 100.f, float Height = 100.f)
 	{
-		T* Widget = new T;
+		WidgetType* Widget = new WidgetType;
 
 		Widget->SetName(Name);
 		Widget->m_Owner = m_Owner;
@@ -40,6 +40,19 @@ public:
 		m_vecWidget.push_back(Widget);
 
 		return Widget;
+	}
+
+	template <typename WidgetType>
+	WidgetType* FindWidget(const std::string& Name)
+	{
+		size_t Size = m_vecWidget.size();
+
+		for (size_t i = 0; i < Size; i++)
+		{
+			if (m_vecWidget[i]->GetName() == Name)
+				return (WidgetType*)m_vecWidget[i];
+		}
+		return nullptr;
 	}
 };
 

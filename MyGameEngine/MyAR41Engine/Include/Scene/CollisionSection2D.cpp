@@ -64,6 +64,9 @@ void CCollisionSection2D::Collision(float DeltaTime)
 					Src->AddPrevCollisionCollider(Dest);
 					Dest->AddPrevCollisionCollider(Src);
 
+					Src->SetCollisionResultDest(Dest);
+					Dest->SetCollisionResultDest(Src);
+
 					Src->CallCollisionCallback(ECollision_Result::Collision);
 					Dest->CallCollisionCallback(ECollision_Result::Collision);
 				}

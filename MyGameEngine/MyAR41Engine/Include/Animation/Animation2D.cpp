@@ -120,7 +120,7 @@ void CAnimation2D::Update(float DeltaTime)
 
 	if (AnimEnd)
 	{
-		if (m_CurAnimation->m_Loop)
+		if (m_CurAnimation->m_Loop) //·çÇÁ ½Ã
 		{
 			if (m_CurAnimation->m_Reverse)
 				m_CurAnimation->m_Frame = m_CurAnimation->m_Sequence->GetFrameCount() - 1;
@@ -447,7 +447,6 @@ void CAnimation2D::SetShader()
 			m_Owner->SetTexture(m_CurAnimation->m_Sequence->GetTexture());
 			m_Owner->SetTextureFrameIndex(m_CurAnimation->m_Frame);
 		}
-
 		else
 		{
 			m_CurAnimation->m_Sequence->GetTexture()->SetShader(0,

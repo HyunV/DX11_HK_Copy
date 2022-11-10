@@ -4,6 +4,7 @@ class CEditorCheckBox :
     public CEditorWidget
 {
     friend class CEditorWindow;
+    friend class CEditorGroup;
 
 protected:
     CEditorCheckBox();

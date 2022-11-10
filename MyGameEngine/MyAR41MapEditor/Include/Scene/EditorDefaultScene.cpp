@@ -4,6 +4,7 @@
 #include "../UI/StartSceneUI.h"
 
 #include "../GameObject/Monster.h"
+#include "../GameObject/Player2D.h"
 
 CEditorDefaultScene::CEditorDefaultScene()
 {
@@ -19,6 +20,7 @@ bool CEditorDefaultScene::Init()
     m_Owner->GetViewport()->CreateUIWindow<CStartSceneUI>("StartUI");
 
     //CMonster* Monster = m_Owner->CreateObject<CMonster>("Monster");
+    //CPlayer2D* Player = m_Owner->CreateObject<CPlayer2D>("Player2D");
 
     return true;
 }

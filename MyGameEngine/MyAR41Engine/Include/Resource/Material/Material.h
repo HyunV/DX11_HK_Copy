@@ -53,6 +53,28 @@ protected:
     CSharedPtr<CRenderState>    m_RenderState[3];
 
 public:
+    const Vector4& GetBaseColor()
+    {
+        return m_BaseColor;
+    }
+    const Vector4& GetAmbientColor()
+    {
+        return m_AmbientColor;
+    }
+    const Vector4& GetSpecularColor()
+    {
+        return m_SpecularColor;
+    }
+    const Vector4& GetEmissiveColor()
+    {
+        return m_EmissiveColor;
+    }
+    const float GetOpacity()
+    {
+        return m_Opacity;
+    }
+
+public:
     void SetBaseColor(const Vector4& Color);
     void SetBaseColor(float r, float g, float b, float a);
     void SetBaseColorUnsignedChar(unsigned char r, unsigned char g, unsigned char b,

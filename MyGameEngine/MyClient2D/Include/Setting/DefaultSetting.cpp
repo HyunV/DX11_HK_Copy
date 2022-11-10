@@ -144,6 +144,11 @@ void CDefaultSetting::LoadSequence()
         strcpy_s(MaxPath, file.path().generic_string().c_str());
         _splitpath_s(MaxPath, nullptr, 0, nullptr, 0, FileName, 64, Ext, _MAX_EXT);
 
+        if (strcmp(FileName, "imgui") == 0)
+        {
+            continue;
+        }
+
         CResourceManager::GetInst()->CreateAnimationSequence2D(FileName, nullptr);
         CResourceManager::GetInst()->FindAnimationSequence2D(FileName)->Load(MaxPath);
     }

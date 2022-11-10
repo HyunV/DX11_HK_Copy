@@ -35,7 +35,6 @@ private:
 	static bool SortWindow(CSharedPtr<CUIWindow> Src, CSharedPtr<CUIWindow> Dest);
 	static bool SortWindowInv(CSharedPtr<CUIWindow> Src, CSharedPtr<CUIWindow> Dest);
 
-
 public:
 	template <typename T>
 	T* FindUIWindow(const std::string& Name)

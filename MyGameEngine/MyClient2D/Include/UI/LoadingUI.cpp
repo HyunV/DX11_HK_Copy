@@ -18,6 +18,11 @@ CLoadingUI::~CLoadingUI()
 {
 }
 
+void CLoadingUI::SetLoadingPercent(float Percent)
+{
+    m_LoadingBar->SetValue(Percent * 100.f);
+}
+
 void CLoadingUI::Start()
 {
     CUIWindow::Start();

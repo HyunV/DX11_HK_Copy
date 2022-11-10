@@ -39,6 +39,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -53,6 +54,7 @@
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableUnitySupport>true</EnableUnitySupport>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -110,6 +112,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,6 +130,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -146,6 +150,7 @@
       <ConformanceMode>true</ConformanceMode>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -164,6 +169,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -192,6 +198,11 @@
     <ClCompile Include="Window\ComponentWindow.cpp" />
     <ClCompile Include="Window\DetailWindow.cpp" />
     <ClCompile Include="Window\DetailWindow\CameraWidgetList.cpp" />
+    <ClCompile Include="Window\DetailWindow\ColliderBox2DWidgetList.cpp" />
+    <ClCompile Include="Window\DetailWindow\ColliderOBB2DWidgetList.cpp" />
+    <ClCompile Include="Window\DetailWindow\ColliderPixelWidgetList.cpp" />
+    <ClCompile Include="Window\DetailWindow\ColliderSphereWidgetList.cpp" />
+    <ClCompile Include="Window\DetailWindow\ColliderWidgetList.cpp" />
     <ClCompile Include="Window\DetailWindow\ComponentWidgetList.cpp" />
     <ClCompile Include="Window\DetailWindow\PrimitiveWidgetList.cpp" />
     <ClCompile Include="Window\DetailWindow\SceneComponentWidgetList.cpp" />
@@ -199,10 +210,10 @@
     <ClCompile Include="Window\DetailWindow\TargetArmWidgetList.cpp" />
     <ClCompile Include="Window\MyAnimationWindow.cpp" />
     <ClCompile Include="Window\MyImageWindow.cpp" />
+    <ClCompile Include="Window\MySequenceWindow.cpp" />
     <ClCompile Include="Window\NMyAnimationWindow2.cpp" />
     <ClCompile Include="Window\ObjectWindow.cpp" />
     <ClCompile Include="Window\SceneWindow.cpp" />
-    <ClCompile Include="Window\SectionWindow.cpp" />
     <ClCompile Include="Window\TestWindow.cpp" />
     <ClCompile Include="Window\TransformWindow.cpp" />
   </ItemGroup>
@@ -224,6 +235,11 @@
     <ClInclude Include="Window\ComponentWindow.h" />
     <ClInclude Include="Window\DetailWindow.h" />
     <ClInclude Include="Window\DetailWindow\CameraWidgetList.h" />
+    <ClInclude Include="Window\DetailWindow\ColliderBox2DWidgetList.h" />
+    <ClInclude Include="Window\DetailWindow\ColliderOBB2DWidgetList.h" />
+    <ClInclude Include="Window\DetailWindow\ColliderPixelWidgetList.h" />
+    <ClInclude Include="Window\DetailWindow\ColliderSphereWidgetList.h" />
+    <ClInclude Include="Window\DetailWindow\ColliderWidgetList.h" />
     <ClInclude Include="Window\DetailWindow\ComponentWidgetList.h" />
     <ClInclude Include="Window\DetailWindow\PrimitiveWidgetList.h" />
     <ClInclude Include="Window\DetailWindow\SceneComponentWidgetList.h" />
@@ -231,10 +247,10 @@
     <ClInclude Include="Window\DetailWindow\TargetArmWidgetList.h" />
     <ClInclude Include="Window\MyAnimationWindow.h" />
     <ClInclude Include="Window\MyImageWindow.h" />
+    <ClInclude Include="Window\MySequenceWindow.h" />
     <ClInclude Include="Window\NMyAnimationWindow2.h" />
     <ClInclude Include="Window\ObjectWindow.h" />
     <ClInclude Include="Window\SceneWindow.h" />
-    <ClInclude Include="Window\SectionWindow.h" />
     <ClInclude Include="Window\TestWindow.h" />
     <ClInclude Include="Window\TransformWindow.h" />
   </ItemGroup>

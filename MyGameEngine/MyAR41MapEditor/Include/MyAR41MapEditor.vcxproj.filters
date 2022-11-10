@@ -34,6 +34,9 @@
     <Filter Include="03. Window\01. DetailWindow">
       <UniqueIdentifier>{26cad731-a3dd-433c-b3b7-e8010e2ce757}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Window\01. DetailWindow\01. Collider2D">
+      <UniqueIdentifier>{878d52c5-ac69-494d-a2aa-6ebdc76ee8b4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -84,9 +87,6 @@
     <ClCompile Include="Window\NMyAnimationWindow2.cpp">
       <Filter>03. Window</Filter>
     </ClCompile>
-    <ClCompile Include="Window\SectionWindow.cpp">
-      <Filter>03. Window</Filter>
-    </ClCompile>
     <ClCompile Include="UI\StartSceneUI.cpp">
       <Filter>05. UI</Filter>
     </ClCompile>
@@ -122,6 +122,24 @@
     </ClCompile>
     <ClCompile Include="Scene\LoadingSceneInfo.cpp">
       <Filter>02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\DetailWindow\ColliderWidgetList.cpp">
+      <Filter>03. Window\01. DetailWindow\01. Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\DetailWindow\ColliderOBB2DWidgetList.cpp">
+      <Filter>03. Window\01. DetailWindow\01. Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\DetailWindow\ColliderBox2DWidgetList.cpp">
+      <Filter>03. Window\01. DetailWindow\01. Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\DetailWindow\ColliderSphereWidgetList.cpp">
+      <Filter>03. Window\01. DetailWindow\01. Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\DetailWindow\ColliderPixelWidgetList.cpp">
+      <Filter>03. Window\01. DetailWindow\01. Collider2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Window\MySequenceWindow.cpp">
+      <Filter>03. Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,9 +194,6 @@
     <ClInclude Include="Window\NMyAnimationWindow2.h">
       <Filter>03. Window</Filter>
     </ClInclude>
-    <ClInclude Include="Window\SectionWindow.h">
-      <Filter>03. Window</Filter>
-    </ClInclude>
     <ClInclude Include="UI\StartSceneUI.h">
       <Filter>05. UI</Filter>
     </ClInclude>
@@ -214,6 +229,24 @@
     </ClInclude>
     <ClInclude Include="Scene\LoadingSceneInfo.h">
       <Filter>02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\DetailWindow\ColliderWidgetList.h">
+      <Filter>03. Window\01. DetailWindow\01. Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\DetailWindow\ColliderOBB2DWidgetList.h">
+      <Filter>03. Window\01. DetailWindow\01. Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\DetailWindow\ColliderBox2DWidgetList.h">
+      <Filter>03. Window\01. DetailWindow\01. Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\DetailWindow\ColliderSphereWidgetList.h">
+      <Filter>03. Window\01. DetailWindow\01. Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\DetailWindow\ColliderPixelWidgetList.h">
+      <Filter>03. Window\01. DetailWindow\01. Collider2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Window\MySequenceWindow.h">
+      <Filter>03. Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

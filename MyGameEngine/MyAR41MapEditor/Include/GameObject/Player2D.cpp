@@ -69,6 +69,7 @@ bool CPlayer2D::Init()
 	m_Camera = CreateComponent<CCameraComponent>("Camera");
 	m_Arm = CreateComponent<CTargetArm>("Arm");
 	m_Body = CreateComponent<CColliderOBB2D>("Body");
+	m_Body->SetBoxHalfSize(250.f, 250.f);
 
 	SetRootComponent(m_Body);
 
@@ -97,11 +98,14 @@ bool CPlayer2D::Init()
 	m_Sprite->SetRelativeScale(100.f, 100.f);
 	m_Sprite->SetPivot(0.5f, 0.5f);
 	m_Sprite->SetInheritRotZ(true);
+	m_Sprite->SetTexture("Grim", TEXT("Nightmare Grimm Anim/002.Idle/002-03-062.png"));
+	m_Sprite->SetRelativeScale(259.f*0.5, 436.f*0.5);
 	//m_Sprite->SetRelativeRotationZ(30.f);
 
 	CMaterial* Material = m_Sprite->GetMaterial(0);
 
 	Material->SetOpacity(0.5f);
+	
 	//Material->SetRenderState("DepthDisable");
 
 	m_RightChild->SetRelativePosition(150.f, 0.f);
@@ -114,16 +118,18 @@ bool CPlayer2D::Init()
 
 
 
-	//CAnimation2D* Anim = m_Sprite->SetAnimation<CAnimation2D>("PlayerAnim");
+	CAnimation2D* Anim = m_Sprite->SetAnimation<CAnimation2D>("PlayerAnim");
 
-	//Anim->AddAnimation("Run", "PlayerRun");
-	//Anim->SetLoop("Run", true);
+	
+	Anim->AddAnimation("Idle", "AtlasTest5");
+	Anim->AddAnimation("Run", "FrameGrimTest3");
+	
+	Anim->SetLoop("Idle", true);
+	Anim->SetLoop("Run", true);
 
-	//Anim->AddAnimation("Idle", "PlayerIdle");
-	//Anim->SetLoop("Idle", true);
+	Anim->SetCurrentAnimation("Idle");
 
-	//Anim->SetCurrentAnimation("Idle");
-
+	
 	return true;
 }
 
@@ -169,6 +175,8 @@ void CPlayer2D::MoveDown()
 void CPlayer2D::Rotation()
 {
 	m_Body->AddWorldRotationZ(360.f * g_DeltaTime);
+	m_Sprite->GetAnimation()->SetCurrentAnimation("Run");
+	m_Sprite->SetRelativeScale(269.f * 0.5f, 475 * 0.5f);
 }
 
 void CPlayer2D::RotationInv()
@@ -181,6 +189,9 @@ void CPlayer2D::Fire()
 	CMyBullet* Bullet = m_Scene->CreateObject<CMyBullet>("MyBullet");
 	Bullet->SetWorldPosition(GetWorldPos());
 	Bullet->SetWorldRotation(GetWorldRot());
+
+	//m_Sprite->GetAnimation()->SetCurrentAnimation("Idle");
+	//m_Sprite->SetRelativeScale(259.f * 0.5f, 436 * 0.5f);
 
 	//CMyBullet* Bullet2 = m_Scene->CreateObject<CMyBullet>("MyBullet2");
 	//Bullet2->SetWorldPosition(m_Sprite->GetWorldPos());

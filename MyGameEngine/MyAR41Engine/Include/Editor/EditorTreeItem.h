@@ -159,7 +159,7 @@ public:
 	{
 		ImGuiTreeNodeFlags	Flag = m_Flag;
 
-		if (m_vecChild.empty())
+		if (m_vecChild.empty() && m_vecWidget.empty())
 			Flag |= ImGuiTreeNodeFlags_Leaf;
 
 		bool	ItemOpen = ImGui::TreeNodeEx(m_ItemUTF8.c_str(), Flag);
@@ -184,12 +184,7 @@ public:
 			//}
 		}
 
-		size_t	WidgetCount = m_vecWidget.size();
 
-		for (size_t i = 0; i < WidgetCount; ++i)
-		{
-			m_vecWidget[i]->Render();
-		}
 
 		/*if (ImGui::BeginDragDropSource())
 		{
@@ -203,6 +198,13 @@ public:
 			for (size_t i = 0; i < Size; ++i)
 			{
 				m_vecChild[i]->Render();
+			}
+
+			size_t	WidgetCount = m_vecWidget.size();
+
+			for (size_t i = 0; i < WidgetCount; ++i)
+			{
+				m_vecWidget[i]->Render();
 			}
 
 			ImGui::TreePop();

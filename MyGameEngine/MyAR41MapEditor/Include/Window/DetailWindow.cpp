@@ -27,6 +27,11 @@
 #include "DetailWindow/SpriteComponentWidgetList.h"
 #include "DetailWindow/SceneComponentWidgetList.h"
 #include "DetailWindow/PrimitiveWidgetList.h"
+#include "DetailWindow/ColliderWidgetList.h"
+#include "DetailWindow/ColliderBox2DWidgetList.h"
+#include "DetailWindow/ColliderOBB2DWidgetList.h"
+#include "DetailWindow/ColliderPixelWidgetList.h"
+#include "DetailWindow/ColliderSphereWidgetList.h"
 
 CDetailWindow::CDetailWindow()
 {
@@ -108,48 +113,6 @@ void CDetailWindow::Update(float DeltaTime)
 	}
 }
 
-//void CDetailWindow::CreateSceneComponentWidget()
-//{
-//	//TODO 씬 컴포넌트
-//}
-
-//void CDetailWindow::CreateSpriteComponentWidget()
-//{
-//	//TODO 스프라이트 컴포넌트
-//	//머테리얼, 이미지 체인지, 애니메이션
-//	CEditorTree<void*>* Category = CreateWidget<CEditorTree<void*>>("SpriteComponent");
-//
-//	Category->SetHideName("SpriteComponent");
-//
-//	Category->SetSize(400.f, 300.f);
-//
-//	Category->AddItem(nullptr, "Sprite");
-//
-//	Category->CreateWidget<CEditorImage>("Sprite", "SpriteImage");
-//
-//	Category->CreateWidget<CEditorSameLine>("Sprite", "Line");
-//
-//	CEditorButton* LoadButton = Category->CreateWidget<CEditorButton>("Sprite", "Load");
-//
-//	LoadButton->SetClickCallback<CDetailWindow>(this, &CDetailWindow::LoadButtonClick);
-//
-//	CEditorButton* CreateAnimationButton = Category->CreateWidget<CEditorButton>("Sprite", "CreateAnimation");
-//	CreateAnimationButton->SetSize(200, 30);
-//	CreateAnimationButton->SetClickCallback<CDetailWindow>(this, &CDetailWindow::AnimationButtonClick);
-//
-//	m_vecSpriteComponent.push_back(Category);
-//}
-
-//void CDetailWindow::CreateCameraComponentWidget()
-//{
-//	//TODO 카메라 컴포넌트
-//}
-
-//void CDetailWindow::CreateTargetArmComponentWidget()
-//{
-//	//TODO 타겟암
-//}
-
 //void CDetailWindow::CreateCollider2DComponentWidget()
 //{
 //	//콜라이더
@@ -181,10 +144,7 @@ void CDetailWindow::Update(float DeltaTime)
 //	ConfirmButton->SetSize(300, 30);
 //	m_vecColliderComponent.push_back(Category);
 //}
-//
-//void CDetailWindow::CreateColliderPixelComponentWidget()
-//{
-//}
+
 
 void CDetailWindow::ChangeWidget(CSceneComponent* Component)
 {
@@ -215,13 +175,14 @@ void CDetailWindow::ChangeWidget(CSceneComponent* Component)
 
 	}
 	//=======콜라이더(Box, OBB, 원, 픽셀)  컴포넌트일때==========
-	//else if (Component->GetComponentTypeName() == "ColliderBox2D" ||
-	//	Component->GetComponentTypeName() == "ColliderOBB2D" ||
-	//	Component->GetComponentTypeName() == "ColliderSphere2D" ||
-	//	Component->GetComponentTypeName() == "ColliderPixel")
-	//{
-	//	OutputDebugStringA("콜라이더");
-	
+	else if (Component->GetComponentTypeName() == "ColliderBox2D" ||
+		Component->GetComponentTypeName() == "ColliderOBB2D" ||
+		Component->GetComponentTypeName() == "ColliderSphere2D" ||
+		Component->GetComponentTypeName() == "ColliderPixel")
+	{
+		OutputDebugStringA("콜라이더");
+		//AddWidget(m_vecComponentWidgetList[(int)ESceneComponentType::OBB2D]);
+		//((CColliderWidgetList*)m_vecComponentWidgetList[(int)ESceneComponentType::OBB2D])->SetColliderContent((CCollider2D*)Component);
 	//	size_t	Size = m_vecColliderComponent.size();
 
 	//	for (size_t i = 0; i < Size; ++i)
@@ -275,54 +236,7 @@ void CDetailWindow::ChangeWidget(CSceneComponent* Component)
 	//	}
 	//	else 
 	//		return;
-	//}
-}
-
-void CDetailWindow::LoadButtonClick()
-{
-	//OPENFILENAME	ofn = {};
-
-	//TCHAR	FullPath[MAX_PATH] = {};
-
-	//TCHAR	Filter[] = TEXT("모든 파일\0*.*\0PNG\0*.png\0JPG\0*.jpg\0BMP\0*.bmp");
-
-	//ofn.lStructSize = sizeof(OPENFILENAME);
-	//ofn.hwndOwner = CEngine::GetInst()->GetWindowHandle();
-	//ofn.lpstrFilter = Filter;
-	//ofn.lpstrFile = FullPath;
-	//ofn.nMaxFile = MAX_PATH;
-	//ofn.lpstrInitialDir = CPathManager::GetInst()->FindPath(TEXTURE_PATH)->Path;
-
-	//if (GetOpenFileName(&ofn) != 0)
-	//{
-	//	CEditorTree<void*>* Category = (CEditorTree<void*>*)m_vecSpriteComponent[0];
-
-	//	CEditorImage* ImageWidget = Category->FindWidget<CEditorImage>("SpriteImage");
-
-	//	if (ImageWidget)
-	//	{
-	//		TCHAR	wTexName[256] = {};
-
-	//		_wsplitpath_s(FullPath, 0, 0, 0, 0, wTexName, 256, 0, 0);
-
-	//		char	TexName[256] = {};
-
-	//		int Length = (int)WideCharToMultiByte(CP_ACP, 0, wTexName, -1, nullptr, 0, nullptr, nullptr);
-
-	//		WideCharToMultiByte(CP_ACP, 0, wTexName, -1, TexName, Length, nullptr, nullptr);
-
-	//		ImageWidget->SetTextureFullPath(TexName, FullPath);
-
-	//		// 선택한 SpriteComponent의 Texture를 교체한다.
-	//		if (m_SelectComponent)
-	//		{
-	//			((CSpriteComponent*)m_SelectComponent.Get())->SetTextureFullPath(TexName, FullPath);
-
-	//			// Animation을 제거한다.
-	//			((CSpriteComponent*)m_SelectComponent.Get())->ClearAnimation();
-	//		}
-	//	}
-	//}
+	}
 }
 
 void CDetailWindow::CreateEditorWidgetList(ESceneComponentType Type)
@@ -347,22 +261,22 @@ void CDetailWindow::CreateEditorWidgetList(ESceneComponentType Type)
 		WidgetList = CreateWidgetEmpty<CTargetArmWidgetList>("TargetArmComponent");
 		break;
 	case ESceneComponentType::Collider:
-		//WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("SceneComponent");
+		//WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("Notuse");
 		break;
 	case ESceneComponentType::Collider2D:
-		//WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("SceneComponent");
+		//WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("Notuse2");
 		break;
 	case ESceneComponentType::Box2D:
-		//WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("SceneComponent");
+		//WidgetList = CreateWidgetEmpty<CColliderBox2DWidgetList>("ColliderBox2DComponent");
 		break;
 	case ESceneComponentType::OBB2D:
-		//WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("SceneComponent");
+		//WidgetList = CreateWidgetEmpty<CColliderOBB2DWidgetList>("ColliderOBB2DComponent");
 		break;
 	case ESceneComponentType::Sphere2D:
-		//WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("SceneComponent");
+		//WidgetList = CreateWidgetEmpty<CColliderSphereWidgetList>("ColliderSphere2DComponent");
 		break;
 	case ESceneComponentType::Pixel:
-		//WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("SceneComponent");
+		//WidgetList = CreateWidgetEmpty<CColliderPixelWidgetList>("ColliderPixelComponent");
 		break;
 	case ESceneComponentType::Collider3D:
 		//WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("SceneComponent");

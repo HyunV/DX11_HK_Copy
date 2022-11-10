@@ -332,7 +332,7 @@ bool CSceneResource::CreateAnimationSequence2D(const std::string& Name,
 
 bool CSceneResource::CreateAnimationSequence2DFullPath(
 	const std::string& Name, const std::string& TextureName,
-	const std::vector<const TCHAR*>& vecFullPath)
+	const std::vector<const TCHAR*>& vecFullPath, int LoopCount)
 {
 	if (FindAnimationSequence2D(Name))
 		return true;

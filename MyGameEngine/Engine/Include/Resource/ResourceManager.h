@@ -86,7 +86,7 @@ public:	// ===================== Animation =========================
 	bool CreateAnimationSequence2DFullPath(const std::string& Name, const std::string& TextureName, const TCHAR* FullPath);
 	bool CreateAnimationSequence2D(const std::string& Name, const std::string& TextureName, const std::vector<const TCHAR*>& vecFileName,
 		const std::string& PathName = TEXTURE_PATH);
-	bool CreateAnimationSequence2DFullPath(const std::string& Name, const std::string& TextureName, const std::vector<const TCHAR*>& vecFullPath);
+	bool CreateAnimationSequence2DFullPath(const std::string& Name, const std::string& TextureName, const std::vector<const TCHAR*>& vecFullPath, int LoopCount = 0);
 	bool AddAnimationSequence2DFrame(const std::string& Name, const Vector2& Start, const Vector2& End);
 	bool AddAnimationSequence2DFrame(const std::string& Name, float StartX, float StartY, float EndX,
 		float EndY);

@@ -19,7 +19,7 @@ private:
 
     class CEditorInput* m_ObjectSelectName;
     class CEditorInput* m_ComponentSelectName;
-
+    class CEditorInput* m_NumberingCount;
 
 public:
     const std::string& GetSelectObjectItem() const

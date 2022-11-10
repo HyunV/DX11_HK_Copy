@@ -8,6 +8,7 @@
 #include "Editor/EditorListBox.h"
 #include "Editor/EditorComboBox.h"
 #include "Editor/EditorTree.h"
+#include "Editor/EditorGroup.h"
 #include "PathManager.h"
 #include "Scene/SceneManager.h"
 #include "Scene/Scene.h"
@@ -65,11 +66,17 @@ bool CClassWindow::Init()
     //우측에 어떤 오브젝트를 선택했는지 보여준다.
     Line = CreateWidget<CEditorSameLine>("Line");
 
-    m_ObjectSelectName = CreateWidget<CEditorInput>("ObjectName");
+    CEditorGroup* Group = CreateWidget<CEditorGroup>("Group");
+
+    m_ObjectSelectName = Group->CreateWidget<CEditorInput>("ObjectName");
 
     m_ObjectSelectName->SetHideName("ObjectName");
     m_ObjectSelectName->SetSize(150.f, 30.f);
     m_ObjectSelectName->AddFlag(ImGuiInputTextFlags_ReadOnly);
+
+    m_NumberingCount = Group->CreateWidget<CEditorInput>("NumberingCount");
+    m_NumberingCount->SetHideName("NumberingCount");
+    m_NumberingCount->SetInputType(EImGuiInputType::Int);
 
     Label = CreateWidget<CEditorLabel>("ComponentClass");
 
@@ -139,24 +146,41 @@ void CClassWindow::ObjectCreateCallback()
     if (m_SelectObjectItem == "")
         return;
 
+
+    //===================================오브젝트 생성 콜백=======================================
     CObjectWindow* Window = CEditorGUIManager::GetInst()->FindEditorWindow<CObjectWindow>("ObjectWindow");
+    int ObjectNumber = 0;
+    
+    std::string strNum = std::to_string(ObjectNumber);
+    if (ObjectNumber == 0)
+        strNum = "";
+
+    std::string FinalName = "";
+    while (Scene->FindObject(m_SelectObjectItem + strNum))
+    {
+        ObjectNumber++;
+        strNum = std::to_string(ObjectNumber);
+    }
 
     if (m_SelectObjectItem == "GameObject")
-        Obj = Scene->CreateObject<CGameObject>(m_SelectObjectItem);
+        Obj = Scene->CreateObject<CGameObject>(m_SelectObjectItem+strNum);
 
     else if (m_SelectObjectItem == "Player2D")
-        Obj = Scene->CreateObject<CPlayer2D>(m_SelectObjectItem);
+        Obj = Scene->CreateObject<CPlayer2D>(m_SelectObjectItem+strNum);
 
     else if (m_SelectObjectItem == "MyBullet")
-        Obj = Scene->CreateObject<CMyBullet>(m_SelectObjectItem);
+        Obj = Scene->CreateObject<CMyBullet>(m_SelectObjectItem+strNum);
 
     else if (m_SelectObjectItem == "Monster")
-        Obj = Scene->CreateObject<CMonster>(m_SelectObjectItem);
+        Obj = Scene->CreateObject<CMonster>(m_SelectObjectItem+strNum);
 
     if (Window)
     {
-        Window->AddItem(Obj, m_SelectObjectItem);
+        Window->AddItem(Obj, m_SelectObjectItem+strNum);
     }
+
+    //if (ObjectNumber != 0)
+    //    m_NumberingCount->SetInt(m_NumberingCount->GetInt() + 1);
     //===================================================================
     //MakeObject();
 }
@@ -462,7 +486,7 @@ void CClassWindow::MakeObject()
     for (int i = 0; i < 100; i++)
     {
         Obj = Scene->CreateObject<CPlayer2D>(m_SelectObjectItem);
-        Obj->SetWorldPosition(rand() %1280, rand() % 720);
+        Obj->SetWorldPosition((float)(rand() %1280), (float)(rand() % 720));
         //Obj->SetRelativePosition(500, 200);
 
         if (Window)

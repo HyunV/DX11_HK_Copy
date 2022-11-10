@@ -117,7 +117,7 @@ bool CAnimationManager::CreateAnimationSequence2D(
 
 bool CAnimationManager::CreateAnimationSequence2DFullPath(
 	const std::string& Name, const std::string& TextureName,
-	const std::vector<const TCHAR*>& vecFullPath)
+	const std::vector<const TCHAR*>& vecFullPath, int LoopCount)
 {
 	CAnimationSequence2D* Sequence = FindAnimationSequence2D(Name);
 
@@ -127,6 +127,7 @@ bool CAnimationManager::CreateAnimationSequence2DFullPath(
 	Sequence = new CAnimationSequence2D;
 
 	Sequence->SetName(Name);
+	Sequence->SetLoopCount(LoopCount);
 
 	if (!Sequence->InitFullPath(TextureName, vecFullPath))
 	{

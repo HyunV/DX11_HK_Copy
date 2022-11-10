@@ -7,6 +7,7 @@
 #include "Editor/EditorInput.h"
 #include "Editor/EditorListBox.h"
 #include "Editor/EditorComboBox.h"
+#include "Editor/EditorButton.h"
 #include "ComponentWindow.h"
 #include "TransformWindow.h"
 #include "Editor/EditorGUIManager.h"
@@ -28,6 +29,15 @@ bool CObjectWindow::AddItem(CGameObject* Object, const std::string& Name, const 
 
 bool CObjectWindow::Init()
 {
+	CEditorButton* m_DeleteButton = CreateWidget<CEditorButton>("Delete Object");
+	m_DeleteButton->SetSizeX(150.f);
+	m_DeleteButton->SetClickCallback<CObjectWindow>(this, &CObjectWindow::DeleteButtonCallback);
+
+	m_SelectObjectInput = CreateWidget<CEditorInput>("Selected Object");
+	m_SelectObjectInput->ReadOnly(true);
+	m_SelectObjectInput->SetHideName("Selected Object");
+	m_SelectObjectInput->SetSizeX(150.f);
+
 	m_Tree = CreateWidget<CEditorTree<CGameObject*>>("ObjectTree");
 
 	m_Tree->SetHideName("ObjectTree");
@@ -59,6 +69,8 @@ void CObjectWindow::TreeCallback(CEditorTreeItem<CGameObject*>* Node, const std:
 	sprintf_s(Text, "%s\n", Item.c_str());
 
 	OutputDebugStringA(Text); //콘솔에 누른 오브젝트 이름 출력
+
+	m_SelectObjectInput->SetText(Text);
 	
 	//m_Tree->CreateWidget<CEditorPopup>(m_Tree->GetName(), "Popup");
 	
@@ -149,4 +161,25 @@ void CObjectWindow::TreeCallback(CEditorTreeItem<CGameObject*>* Node, const std:
 			}
 		}
 	}
+}
+
+void CObjectWindow::DeleteButtonCallback()
+{	
+	//루트는 지울 수 없다, //선택되어야한다.
+	std::string s = m_SelectObjectInput->GetText();
+
+	if (s == "Root\n" || s == "")
+		return;
+
+	//목록 먼저 지운다. 오브젝트랑 컴포넌트 목록 갱신
+	m_SelectObjectInput->SetText("");
+
+	std::string Name = m_SelectObject->GetName();
+	m_Tree->DeleteItem(Name);
+
+	//선택한 오브젝트를 삭제한다.
+	m_SelectObject->Destroy();
+
+	//지우고 나면 선택창을 비운다.
+	
 }

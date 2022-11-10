@@ -17,8 +17,9 @@
 #include "Window\SceneWindow.h"
 #include "Window\DetailWindow.h"
 #include "Window\MyImageWindow.h"
+#include "Window\MySequenceWindow.h"
 #include "Window\MyAnimationWindow.h"
-#include "Window\NMyAnimationWindow2.h"
+//#include "Window\NMyAnimationWindow2.h"
 #include "Window\SectionWindow.h"
 
 #include "Editor/EditorGUIManager.h"
@@ -70,7 +71,7 @@ bool CEditorManager::Init(HINSTANCE hInst)
     CEngine::SetWndProcCallback<CEditorManager>(this, &CEditorManager::WndProc);
 
     //#예제 출력# 테스트 윈도우 생성 (티모?)
-    CEditorGUIManager::GetInst()->CreateEditorWindow<CTestWindow>("TestWindow");
+    //CEditorGUIManager::GetInst()->CreateEditorWindow<CTestWindow>("TestWindow");
     
     //#예제 출력# 오브젝트 윈도우 생성
     CEditorGUIManager::GetInst()->CreateEditorWindow<CObjectWindow>("ObjectWindow"); 
@@ -93,12 +94,11 @@ bool CEditorManager::Init(HINSTANCE hInst)
     //#과제# 이미지 윈도우
     //CEditorGUIManager::GetInst()->CreateEditorWindow<CMyImageWindow>("MyImageWindow");
 
-    //#과제# 시퀀스 윈도우, 애니메이션 윈도우
+    //#과제# 시퀀스 윈도우, 애니메이션 윈도우   
+    CEditorGUIManager::GetInst()->CreateEditorWindow<CMySequenceWindow>("MySequenceWindow");
     CEditorGUIManager::GetInst()->CreateEditorWindow<CMyAnimationWindow>("MyAnimationWindow");
-    CEditorGUIManager::GetInst()->CreateEditorWindow<CNMyAnimationWindow2>("NMyAnimationWindow2");
+    //CEditorGUIManager::GetInst()->CreateEditorWindow<CNMyAnimationWindow2>("NMyAnimationWindow2");
 
-    //#제작# 콜라이더 섹션 윈도우
-    //CEditorGUIManager::GetInst()->CreateEditorWindow<CSectionWindow>("SectionWindow");
 
     // SceneInfo 생성 기본적으로 사용할 씬 등록
     CSceneManager::GetInst()->CreateSceneInfo<CEditorDefaultScene>();

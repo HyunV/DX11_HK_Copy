@@ -22,7 +22,7 @@ struct PS_OUTPUT_SINGLE
 	float4 Color : SV_TARGET; //렌더타겟은 백버퍼도 들고 있다.
 };
 
-//상수버퍼는 16바이트 단위로 맞춰야 한다.
+//★★ 상수버퍼는 16바이트 단위로 맞춰야 한다.
 cbuffer Transform : register(b0)
 {
 	matrix g_matWorld;
@@ -61,6 +61,8 @@ cbuffer Animation2D : register(b2)
     int g_Anim2DEnable;
     int g_Anim2DFrame;
     float3 g_Anim2DEmpty;
+    //===========================================================
+    //int g_Rotation; //반전 여부 테스트
 };
 
 #define Anim2D_Atlas 0
@@ -70,7 +72,10 @@ cbuffer Animation2D : register(b2)
 float2 UpdateAnimation2D(float2 UV)
 {
     if (g_Anim2DEnable == 0)
+    {
         return UV;
+    }
+        
 
     float2 Result = (float2) 0;
 
@@ -88,7 +93,10 @@ float2 UpdateAnimation2D(float2 UV)
     }
 
     else
+    {
         Result = UV;
+    }
+        
 
     return Result;
 }

@@ -72,6 +72,11 @@ public:
         return (int)m_vecTextureInfo.size();
     }
 
+    std::vector<TextureResourceInfo*> GetTextureInfo()
+    {
+        return m_vecTextureInfo;
+    }
+
 public:
     void SetScene(class CScene* Scene)
     {

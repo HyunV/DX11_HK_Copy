@@ -33,7 +33,7 @@ void CMyBullet::Start()
 bool CMyBullet::Init()
 {
 	CGameObject::Init();
-
+	SetLifeTime(0.3f);
 	m_Body = CreateComponent<CColliderSphere2D>("Body");
 	m_Sprite = CreateComponent<CSpriteComponent>("spritebullet");
 

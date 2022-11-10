@@ -194,7 +194,7 @@ bool CResourceManager::CreateAnimationSequence2D(const std::string& Name,
 
 bool CResourceManager::CreateAnimationSequence2DFullPath(
 	const std::string& Name, const std::string& TextureName, 
-	const std::vector<const TCHAR*>& vecFullPath)
+	const std::vector<const TCHAR*>& vecFullPath, int LoopCount)
 {
 	return m_AnimationManager->CreateAnimationSequence2DFullPath(Name, TextureName,
 		vecFullPath);

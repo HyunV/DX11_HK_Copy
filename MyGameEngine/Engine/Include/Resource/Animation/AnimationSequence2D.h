@@ -21,6 +21,8 @@ private:
     Animation2DFrameData m_StartEndPoint;
     int m_FrameCount;
 
+    int m_LoopCount; // 애니메이션 "반복"돌때 시작되는 위치
+
 public:
     EAnimation2DType GetAnim2DType()    const
     {
@@ -32,6 +34,19 @@ public:
         m_Scene = Scene;
     }
 
+    void SetLoopCount(int Count)
+    {
+        m_LoopCount = Count;
+    }
+
+    int GetLoopCount()
+    {
+        return m_LoopCount;
+    }
+    void SetAnimation2DType(EAnimation2DType Type)
+    {
+        m_Anim2DType = Type;
+    }
 public:
     class CTexture* GetTexture()    const
     {
@@ -46,6 +61,11 @@ public:
     int GetFrameCount() const
     {
         return (int)m_vecFrameData.size();
+    }
+
+    void SetFrameCount(int count)
+    {
+        m_FrameCount = count;
     }
 
 public:

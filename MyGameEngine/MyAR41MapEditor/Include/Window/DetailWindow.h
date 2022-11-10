@@ -14,7 +14,6 @@ protected:
 protected:
 	std::vector<class CComponentWidgetList*>	m_vecComponentWidgetList;
 	//std::vector<class CEditorWidget*>	m_vecSceneComponent;
-	//std::vector<class CEditorWidget*>	m_vecSpriteComponent;
 	//std::vector<class CEditorWidget*>	m_vecCameraComponent;
 	//std::vector<class CEditorWidget*>	m_vecTargetArmComponent;
 	//std::vector<class CEditorWidget*>	m_vecColliderComponent;

@@ -16,6 +16,7 @@ protected:
 private:
     CEditorTree<CGameObject*>* m_Tree;
     CSharedPtr<CGameObject> m_SelectObject;
+    class CEditorInput* m_SelectObjectInput;
 
 public:
     class CGameObject* GetSelectObject() const
@@ -32,5 +33,6 @@ public:
 
 private:
     void TreeCallback(CEditorTreeItem<CGameObject*>* Node, const std::string& Item);
+    void DeleteButtonCallback();
 };
 

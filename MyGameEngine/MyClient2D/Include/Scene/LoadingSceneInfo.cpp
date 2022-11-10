@@ -47,7 +47,7 @@ void CLoadingSceneInfo::Update(float DeltaTime)
 
 void CLoadingSceneInfo::SceneChangeComplete()
 {
-	// 로딩 스레드 생성
+	//// 로딩 스레드 생성
 	m_LoadingThread = CThreadManager::GetInst()->Create<CLoadingThread>("Loading");
 
 	m_LoadingThread->SetLoadingSceneFileName("Maintest3.scn");
@@ -58,4 +58,7 @@ void CLoadingSceneInfo::SceneChangeComplete()
 	m_LoadingThread->Start();
 
 	//CSceneManager::GetInst()->GetNextScene()->Load("Main");
+
+	//CSceneManager::GetInst()->CreateNextScene(true);
+	//CSceneManager::GetInst()->ChangeNextScene();
 }

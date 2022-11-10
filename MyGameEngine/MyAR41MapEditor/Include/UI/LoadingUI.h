@@ -18,6 +18,9 @@ protected:
 	CSharedPtr<class CUIProgressBar>	m_LoadingBar;
 
 public:
+	void SetLoadingPercent(float Percent);
+
+public:
 	virtual void Start();
 	virtual bool Init();
 	virtual void Update(float DeltaTime);

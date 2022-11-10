@@ -41,5 +41,18 @@ public:
 
 		return Widget;
 	}
+
+	template <typename WidgetType>
+	WidgetType* FindWidget(const std::string& Name)
+	{
+		size_t Size = m_vecWidget.size();
+
+		for (size_t i = 0; i < Size; i++)
+		{
+			if (m_vecWidget[i]->GetName() == Name)
+				return (WidgetType*)m_vecWidget[i];
+		}
+		return nullptr;
+	}
 };
 

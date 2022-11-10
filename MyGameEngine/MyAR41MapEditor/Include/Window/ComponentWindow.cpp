@@ -13,8 +13,8 @@
 #include "Component/SceneComponent.h"
 #include "DetailWindow.h"
 
-#include "MyImageWindow.h"
-#include "NMyAnimationWindow2.h"
+//#include "MyImageWindow.h"
+//#include "NMyAnimationWindow2.h"
 
 
 CComponentWindow::CComponentWindow()
@@ -103,20 +103,25 @@ void CComponentWindow::TreeCallback(CEditorTreeItem<class CComponent*>* Node, co
 
 		TransformWindow->SetSelectComponent(Component);
 
-		if (Component->GetParent())
-		{
+		//if (Component->GetParent())
+		//{
 			//부모에 세팅된 값을 띄워줌
-			TransformWindow->SetPos(Component->GetRelativePos());
-			TransformWindow->SetScale(Component->GetRelativeScale());
-			TransformWindow->SetRotation(Component->GetRelativeRot());
-		}
+			TransformWindow->SetRelativePos(Component->GetRelativePos());
+			TransformWindow->SetRelativeScale(Component->GetRelativeScale());
+			TransformWindow->SetRelativeRotation(Component->GetRelativeRot());
+		//}
 
-		else
-		{
+		//else
+		//{
 			//자식의 세팅된 값?
 			TransformWindow->SetPos(Component->GetWorldPos());
 			TransformWindow->SetScale(Component->GetWorldScale());
 			TransformWindow->SetRotation(Component->GetWorldRot());
-		}
+
+
+		//}
+
+			//피봇
+			TransformWindow->SetPivot(Component->GetPivot());
 	}
 }
