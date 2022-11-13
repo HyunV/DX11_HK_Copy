@@ -102,6 +102,12 @@ public:	// ===================== Animation =========================
 	void ReleaseAnimationSequence2D(const std::string& Name);
 	class CAnimation2DConstantBuffer* GetAnim2DConstantBuffer()	const;
 
+	//³» ÄÚµå
+	bool CreateAnimation2D(const std::string& Name);
+	CAnimation2D* FindAnimation2D(const std::string& Name);
+	void ReleaseAnimation2D(const std::string& Name);
+	std::unordered_map<std::string, CSharedPtr<CAnimation2D>>* GetMapAnimation2D();
+
 public:	// ============================ Sound ================================
 	bool CreateSoundChannel(const std::string& Name);
 	bool LoadSound(const std::string& GroupName, const std::string& Name,

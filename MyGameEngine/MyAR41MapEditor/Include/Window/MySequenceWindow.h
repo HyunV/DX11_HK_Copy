@@ -4,12 +4,14 @@ class CMySequenceWindow :
     public CEditorWindow
 {
     friend class CEditorGUIManager;
+    friend class CMyAnimationWindow;
 
 protected:
     CMySequenceWindow();
     virtual ~CMySequenceWindow();
 
 private:
+    class CMySequenceWindow* m_SeqWindow;
     class CAnimationSequence2D* m_Sequence;
 
     //필요한 변수들

@@ -63,12 +63,13 @@ bool CPathManager::Init()
 
 	m_mapPath.insert(std::make_pair(ROOT_PATH, Info));
 
-	AddPath(TEXTURE_PATH, TEXT("Texture/"));
-	AddPath(SHADER_PATH, TEXT("Shader/"));
-	AddPath(SOUND_PATH, TEXT("Sound/"));
-	AddPath(FONT_PATH, TEXT("Font/"));
-	AddPath(ANIMATION2D_PATH, TEXT("Animation2D/"));
-	AddPath(SCENE_PATH, TEXT("Scene/"));
+	AddPath(TEXTURE_PATH, TEXT("Texture\\"));
+	AddPath(SHADER_PATH, TEXT("Shader\\"));
+	AddPath(SOUND_PATH, TEXT("Sound\\"));
+	AddPath(FONT_PATH, TEXT("Font\\"));
+	AddPath(SEQUENCE2D_PATH, TEXT("Sequence\\"));
+	AddPath(ANIMATION2D_PATH, TEXT("Animation2D\\"));
+	AddPath(SCENE_PATH, TEXT("Scene\\"));
 
 	return true;
 }

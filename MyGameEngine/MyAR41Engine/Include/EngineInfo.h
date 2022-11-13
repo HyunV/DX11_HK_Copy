@@ -45,6 +45,7 @@ extern float g_DeltaTime; //전역변수 해놓은거 가져오는 extern
 #define	TEXTURE_PATH	"Texture"
 #define	SOUND_PATH		"Sound"
 #define	FONT_PATH		"Font"
+#define SEQUENCE2D_PATH "Sequence"
 #define	ANIMATION2D_PATH		"Animation2D"
 #define	SCENE_PATH		"Scene"
 

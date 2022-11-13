@@ -96,6 +96,7 @@ bool CEditorManager::Init(HINSTANCE hInst)
 
     //#과제# 시퀀스 윈도우, 애니메이션 윈도우   
     CEditorGUIManager::GetInst()->CreateEditorWindow<CMySequenceWindow>("MySequenceWindow");
+
     CEditorGUIManager::GetInst()->CreateEditorWindow<CMyAnimationWindow>("MyAnimationWindow");
     //CEditorGUIManager::GetInst()->CreateEditorWindow<CNMyAnimationWindow2>("NMyAnimationWindow2");
 

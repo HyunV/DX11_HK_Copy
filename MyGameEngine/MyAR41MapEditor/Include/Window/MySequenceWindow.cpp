@@ -156,6 +156,10 @@ bool CMySequenceWindow::Init()
 	m_Slide->SetBarMinRange(0);
 	m_Slide->SetBarMaxRange(0);
 	m_Slide->SetClickCallback<CMySequenceWindow>(this, &CMySequenceWindow::SliderCallback);
+
+	//CEditorButton* testbtn = CreateWidget<CEditorButton>("Test");
+	//testbtn->SetClickCallback(this, &CMySequenceWindow::ClearSetting);
+
 	return true;
 }
 
@@ -294,7 +298,7 @@ void CMySequenceWindow::SelectLoadSequenceCallback()
 	ofn.lpstrFilter = Filter;
 	ofn.lpstrFile = FullPath;
 	ofn.nMaxFile = 256;
-	ofn.lpstrInitialDir = CPathManager::GetInst()->FindPath(TEXTURE_PATH)->Path;
+	ofn.lpstrInitialDir = CPathManager::GetInst()->FindPath(SEQUENCE2D_PATH)->Path;
 	ofn.Flags = OFN_EXPLORER | OFN_ALLOWMULTISELECT;
 
 	//파일 열기
@@ -360,9 +364,17 @@ void CMySequenceWindow::SetList()
 
 void CMySequenceWindow::SetSlide(EImageType Type)
 {
+	TCHAR FileName[256] = {};
+	TCHAR Ext[256] = {}; //확장자 필터
+	memset(FileName, 0, sizeof(TCHAR) * 256);
+
+	_wsplitpath_s(m_vecFullPathFileName[0], 0, 0, 0, 0, FileName, 256, Ext, 256);
+
+	std::string s = TCHARToString(FileName);
+
 	//슬라이드 + 텍스처 세팅
-	CResourceManager::GetInst()->LoadTextureFullPath("PreviewTexture", m_vecFullPathFileName);
-	CTexture* Texture = CResourceManager::GetInst()->FindTexture("PreviewTexture");
+	CResourceManager::GetInst()->LoadTextureFullPath(s, m_vecFullPathFileName);
+	CTexture* Texture = CResourceManager::GetInst()->FindTexture(s);
 
 	m_PreviewImage->SetTexture(Texture);
 
@@ -576,9 +588,6 @@ void CMySequenceWindow::LoadSequence(class CAnimationSequence2D* Sequence)
 
 	SetList();
 	SetSlide(m_ImageType);
-
-	m_vecFrame;
-	m_vecFullPathFileName;
 	//
 }
 
@@ -612,13 +621,7 @@ void CMySequenceWindow::ClearSetting()
 {
 	StopButton();
 
-	//동적할당 전부 제거
-	for (int i = 0; i < m_vecFullPathFileName.size(); ++i)
-	{
-		SAFE_DELETE_ARRAY(m_vecFullPathFileName[i]);
-	}
-
-	m_vecFullPathFileName.clear();
+	
 
 	m_ImageType = EImageType::Atlas;
 
@@ -652,10 +655,20 @@ void CMySequenceWindow::ClearSetting()
 	m_Play = false;
 	m_Time = 0.f;
 
+	//CResourceManager::GetInst()->ReleaseTexture("PreviewTexture");
 	m_PreviewImage->SetTexture("DefaultUI");
-	CResourceManager::GetInst()->ReleaseTexture("PreviewTexture");
+	m_PreviewImage->SetImageStart(0.f, 0.f);
+	m_PreviewImage->SetImageEnd(100.f, 100.f);
 
 	m_Sequence = nullptr;
+
+	//동적할당 전부 제거
+	for (int i = 0; i < m_vecFullPathFileName.size(); ++i)
+	{
+		SAFE_DELETE_ARRAY(m_vecFullPathFileName[i]);
+	}
+	m_vecFullPathFileName.clear();
+
 }
 
 void CMySequenceWindow::SliderCallback()

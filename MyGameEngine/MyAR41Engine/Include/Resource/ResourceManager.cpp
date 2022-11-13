@@ -255,6 +255,26 @@ CAnimation2DConstantBuffer* CResourceManager::GetAnim2DConstantBuffer() const
 	return m_AnimationManager->GetAnim2DConstantBuffer();
 }
 
+bool CResourceManager::CreateAnimation2D(const std::string& Name)
+{
+	return m_AnimationManager->CreateAnimation2D(Name);
+}
+
+CAnimation2D* CResourceManager::FindAnimation2D(const std::string& Name)
+{
+	return m_AnimationManager->FindAnimation2D(Name);
+}
+
+void CResourceManager::ReleaseAnimation2D(const std::string& Name)
+{
+	m_AnimationManager->ReleaseAnimation2D(Name);
+}
+
+std::unordered_map<std::string, CSharedPtr<CAnimation2D>>* CResourceManager::GetMapAnimation2D()
+{
+	return m_AnimationManager->GetMapAnimation2D();
+}
+
 bool CResourceManager::CreateSoundChannel(const std::string& Name)
 {
 	return m_SoundManager->CreateSoundChannel(Name);

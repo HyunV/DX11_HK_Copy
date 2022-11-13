@@ -43,6 +43,12 @@ public:
 		return (int)m_vecItem.size();
 	}
 
+	void ClearSelectIndex()
+	{
+		m_Select = false;
+		m_SelectIndex = -1;
+	}
+
 public:
 	bool CheckItem(const std::string& Item) const
 	{

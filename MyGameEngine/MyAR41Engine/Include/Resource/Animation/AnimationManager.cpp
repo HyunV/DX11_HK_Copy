@@ -279,3 +279,37 @@ void CAnimationManager::ReleaseAnimationSequence2D(const std::string& Name)
 			m_mapSequence2D.erase(iter);
 	}
 }
+
+bool CAnimationManager::CreateAnimation2D(const std::string& Name)
+{
+	CAnimation2D* Anim = new CAnimation2D;
+
+	//잘못 지을 시 예외처리
+
+	Anim->SetName(Name);
+	Anim->m_ClassName = Name;
+
+	m_mapAnimation2D.insert(std::make_pair(Name, Anim));
+	return false;
+}
+
+CAnimation2D* CAnimationManager::FindAnimation2D(const std::string& Name)
+{
+	auto	iter = m_mapAnimation2D.find(Name);
+
+	if (iter == m_mapAnimation2D.end())
+		return nullptr;
+
+	return iter->second;
+}
+
+void CAnimationManager::ReleaseAnimation2D(const std::string& Name)
+{
+	auto	iter = m_mapAnimation2D.find(Name);
+
+	if (iter != m_mapAnimation2D.end())
+	{
+		if (iter->second->GetRefCount() == 1)
+			m_mapAnimation2D.erase(iter);
+	}
+}

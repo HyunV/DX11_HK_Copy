@@ -7,6 +7,7 @@ class CAnimation2D :
 {
     friend class CSpriteComponent;
     friend class CResourceManager;
+    friend class CAnimationManager;
     friend class CSceneManager;
     friend class CScene;
 

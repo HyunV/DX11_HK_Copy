@@ -39,6 +39,7 @@ void CEditorListBox::DeleteItem(const std::string& Item)
 		if (m_vecItem[i] == Item)
 		{
 			DeleteItem((int)i);
+			ClearSelectIndex();
 			break;
 		}
 	}
@@ -53,6 +54,8 @@ void CEditorListBox::DeleteItem(int Index)
 	iter = m_vecItemUTF8.begin() + Index;
 
 	m_vecItemUTF8.erase(iter);
+
+	ClearSelectIndex();
 }
 
 void CEditorListBox::Sort(bool _Sort)
