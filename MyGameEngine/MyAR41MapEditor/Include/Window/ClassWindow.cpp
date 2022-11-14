@@ -27,6 +27,8 @@
 #include "Component/ColliderSphere2D.h"
 #include "Component/ColliderPixel.h"
 
+#include "Component/TileMapComponent.h"
+
 #include "Engine.h"
 
 #include <time.h>
@@ -274,6 +276,11 @@ void CClassWindow::ComponentCreateCallback()
             ((CColliderPixel*)NewComponent)->SetInfoFullPath("test", FullPath);
         }        
     }
+    else if (m_SelectComponentItem == "TileMapComponent")
+    {
+        Name = "TileMapComponent(TileMapComponent)";
+        NewComponent = (CSceneComponent*)SelectObject->CreateComponent<CTileMapComponent>("TileMapComponent");
+    }
 
 
     //선택했던 컴포넌트 새로 만든 컴포넌트 추가
@@ -468,7 +475,8 @@ void CClassWindow::LoadComponentName()
             strcmp(Name, "ObjectComponent") == 0||
             strcmp(Name, "Collider") == 0 ||
             strcmp(Name, "Collider2D") == 0 ||
-            strcmp(Name, "Collider3D") == 0)
+            strcmp(Name, "Collider3D") == 0||
+            strcmp(Name, "Tile") == 0)
             continue;
 
         m_ComponentList->AddItem(Name);

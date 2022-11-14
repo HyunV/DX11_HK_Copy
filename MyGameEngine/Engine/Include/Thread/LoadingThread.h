@@ -3,6 +3,11 @@
 #include "Thread.h"
 #include "ThreadQueue.h"
 
+enum class ELoadingHeader
+{
+	LoadingRate
+};
+
 class CLoadingThread :
 	public CThread
 {
@@ -48,5 +53,8 @@ public:
 
 public:
 	virtual void Run();
+
+private:
+	void LoadingCallback(float Rate);
 };
 

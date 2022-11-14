@@ -86,6 +86,17 @@ CTexture* CSpriteComponent::GetTexture(int Index) const
 	return m_vecMaterial[0]->GetTexture(Index);
 }
 
+void CSpriteComponent::SetAnimationFile(const std::string& Name)
+{
+	CAnimation2D* Anim = CResourceManager::GetInst()->FindAnimation2D(Name);
+
+	if (Anim)
+	{
+		m_Animation = Anim->Clone();
+		m_Animation->m_Owner = this;
+	}
+}
+
 void CSpriteComponent::ClearAnimation()
 {
 	m_Animation = nullptr;

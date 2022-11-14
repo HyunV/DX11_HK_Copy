@@ -77,13 +77,12 @@ bool CEditorComboBox::Init()
 
 void CEditorComboBox::Render()
 {
-	ImGui::PushItemWidth(m_Size.x);  //사이즈 처리
+	ImGui::PushItemWidth(m_Size.x);
 
 	ImVec2	Size;
 	Size.x = m_Size.x;
 	Size.y = m_PageItemCount * ImGui::GetTextLineHeightWithSpacing();
 
-	//begincombo 함수로 처리
 	if (ImGui::BeginCombo(m_Name.c_str(), m_PrevViewNameUTF8.c_str(), m_Flag))
 	{
 		// 목록 출력
@@ -99,10 +98,14 @@ void CEditorComboBox::Render()
 			{
 				m_Select = true;
 
-				if (m_SelectIndex != (int)i && m_SelectCallback)
+				if (m_SelectIndex != (int)i)
 				{
 					m_SelectIndex = (int)i;
-					m_SelectCallback(m_SelectIndex, m_vecItem[i]);
+
+					if (m_SelectCallback)
+					{
+						m_SelectCallback(m_SelectIndex, m_vecItem[i]);
+					}
 				}
 
 				if (m_SelectPrevViewName)
@@ -119,5 +122,5 @@ void CEditorComboBox::Render()
 		ImGui::EndCombo();
 	}
 
-	ImGui::PopItemWidth(); //사이즈 처리 종료 후 팝
+	ImGui::PopItemWidth();
 }

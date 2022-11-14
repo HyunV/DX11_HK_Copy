@@ -41,6 +41,11 @@ public:
 	{
 		return m_SelectIndex;
 	}
+	
+	void SetSelect(int index)
+	{
+		m_SelectIndex = index;
+	}
 
 public:
 	void SetSelectPrevViewName(bool Enable)

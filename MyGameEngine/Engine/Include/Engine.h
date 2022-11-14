@@ -21,6 +21,8 @@ private:
 
 
 public:
+	float GetFPS() const;
+
 	static bool GetEditorMode()
 	{
 		return m_EditorMode;

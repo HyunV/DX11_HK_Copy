@@ -196,6 +196,18 @@
     <Filter Include="01. Manager\10. Thread">
       <UniqueIdentifier>{2680b9c1-411e-40a1-b705-1cacda7fb7e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Component\01. SceneComponent\01. Primitive\01. 2D">
+      <UniqueIdentifier>{f3130b61-0eb0-4af1-b306-52aace0c7d48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\02. Shader\04. StructuredBuffer">
+      <UniqueIdentifier>{7442c314-1d08-4b2d-b482-07712b3098ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\02. Shader\03. ConstantBuffer\06. TileMap">
+      <UniqueIdentifier>{16b65703-b0e7-4347-8e95-6446cf81dbd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Resource\02. Shader\02. ShaderClass\04. TileMap">
+      <UniqueIdentifier>{f8f83f6b-693d-4cb4-a74f-cddfc14e3bcc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineInfo.h">
@@ -585,6 +597,24 @@
     <ClInclude Include="Thread\Sync.h">
       <Filter>01. Manager\10. Thread</Filter>
     </ClInclude>
+    <ClInclude Include="Component\Tile.h">
+      <Filter>05. Component\01. SceneComponent\01. Primitive\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\TileMapComponent.h">
+      <Filter>05. Component\01. SceneComponent\01. Primitive\01. 2D</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\StructuredBuffer.h">
+      <Filter>02. Resource\02. Shader\04. StructuredBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\TileMapConstantBuffer.h">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\06. TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\TileMapShader.h">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\04. TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\TileMapBackShader.h">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\06. TileMap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -920,6 +950,24 @@
     <ClCompile Include="Thread\ThreadQueue.cpp">
       <Filter>01. Manager\10. Thread</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Tile.cpp">
+      <Filter>05. Component\01. SceneComponent\01. Primitive\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\TileMapComponent.cpp">
+      <Filter>05. Component\01. SceneComponent\01. Primitive\01. 2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\StructuredBuffer.cpp">
+      <Filter>02. Resource\02. Shader\04. StructuredBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\TileMapConstantBuffer.cpp">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\06. TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\TileMapShader.cpp">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\04. TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\TileMapBackShader.cpp">
+      <Filter>02. Resource\02. Shader\03. ConstantBuffer\06. TileMap</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Bin\Shader\Sprite.fx">
@@ -932,6 +980,9 @@
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\UI.fx">
+      <Filter>02. Resource\02. Shader\01. HLSL</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\TileMap.fx">
       <Filter>02. Resource\02. Shader\01. HLSL</Filter>
     </FxCompile>
   </ItemGroup>

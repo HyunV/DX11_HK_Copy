@@ -88,8 +88,9 @@ enum class ERenderStateType : unsigned char
 	End
 };
 
-enum class EAnimation2DType : unsigned int
+enum class EAnimation2DType : int
 {
+	None = -1,
 	Atlas,
 	Frame,
 	Array
@@ -191,5 +192,19 @@ enum class ESceneComponentType
 	Sphere2D,
 	Pixel,
 	Collider3D,
+	TileMap,
 	Max
+};
+
+enum class ETileShape
+{
+	Rect,
+	Isometric
+};
+
+enum class ETileOption
+{
+	None,
+	Wall,
+	End
 };

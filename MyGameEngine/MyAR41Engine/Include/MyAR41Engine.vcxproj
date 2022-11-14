@@ -36,6 +36,8 @@
     <ClInclude Include="Component\SceneComponent.h" />
     <ClInclude Include="Component\SpriteComponent.h" />
     <ClInclude Include="Component\TargetArm.h" />
+    <ClInclude Include="Component\Tile.h" />
+    <ClInclude Include="Component\TileMapComponent.h" />
     <ClInclude Include="Component\Transform.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="Editor\EditorButton.h" />
@@ -111,6 +113,10 @@
     <ClInclude Include="Resource\Shader\ShaderManager.h" />
     <ClInclude Include="Resource\Shader\SpriteColorShader.h" />
     <ClInclude Include="Resource\Shader\SpriteShader.h" />
+    <ClInclude Include="Resource\Shader\StructuredBuffer.h" />
+    <ClInclude Include="Resource\Shader\TileMapBackShader.h" />
+    <ClInclude Include="Resource\Shader\TileMapConstantBuffer.h" />
+    <ClInclude Include="Resource\Shader\TileMapShader.h" />
     <ClInclude Include="Resource\Shader\TransformConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\UIConstantBuffer.h" />
     <ClInclude Include="Resource\Shader\UIProgressBarConstantBuffer.h" />
@@ -167,6 +173,8 @@
     <ClCompile Include="Component\SceneComponent.cpp" />
     <ClCompile Include="Component\SpriteComponent.cpp" />
     <ClCompile Include="Component\TargetArm.cpp" />
+    <ClCompile Include="Component\Tile.cpp" />
+    <ClCompile Include="Component\TileMapComponent.cpp" />
     <ClCompile Include="Component\Transform.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="Editor\EditorButton.cpp" />
@@ -227,6 +235,10 @@
     <ClCompile Include="Resource\Shader\ShaderManager.cpp" />
     <ClCompile Include="Resource\Shader\SpriteColorShader.cpp" />
     <ClCompile Include="Resource\Shader\SpriteShader.cpp" />
+    <ClCompile Include="Resource\Shader\StructuredBuffer.cpp" />
+    <ClCompile Include="Resource\Shader\TileMapBackShader.cpp" />
+    <ClCompile Include="Resource\Shader\TileMapConstantBuffer.cpp" />
+    <ClCompile Include="Resource\Shader\TileMapShader.cpp" />
     <ClCompile Include="Resource\Shader\TransformConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\UIConstantBuffer.cpp" />
     <ClCompile Include="Resource\Shader\UIProgressBarConstantBuffer.cpp" />
@@ -315,6 +327,14 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SpriteColorVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\TileMap.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">TileMapVS</EntryPointName>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">TileMapVS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>

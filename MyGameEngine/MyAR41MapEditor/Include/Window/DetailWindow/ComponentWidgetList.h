@@ -16,5 +16,6 @@ protected:
 
 public:
 	virtual bool Init();
+	virtual void Render();
 };
 

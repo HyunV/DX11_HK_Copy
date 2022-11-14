@@ -16,9 +16,11 @@ private:
     class CMySequenceWindow* m_SeqWindow;
     //리소스 매니저 애니메이션
     std::unordered_map<std::string, CSharedPtr<CAnimation2D>>* m_mapAnimation2D;
+    class CAnimation2D* m_Animation;
     
     //애니메이션 데이터 담는 배열
-    std::vector<class CAnimation2DData*> m_Animation2DData; //세팅한 애니메이션 데이터를 담는 배열
+    //std::list<class CAnimation2DData*> m_Animation2DData; //세팅한 애니메이션 데이터를 담는 배열
+    
     //리스트로 만드는게 좋을듯
 
     //멤버변수
@@ -47,7 +49,7 @@ private:
     //멤버함수
     void ClearSetting();
     void SetComboBox();
-    //void SetList();
+    void ClearList();
 
     //콜백함수
     void ComboBoxCallback(int SelectIndex, const std::string& Item);

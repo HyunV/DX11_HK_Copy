@@ -41,7 +41,7 @@ void CDefaultSetting::CreateCDO()
 void CDefaultSetting::LoadResource()
 {
     LoadSequence();
-    //LoadAnimation();
+    LoadAnimation();
 
     //128 128
     CResourceManager::GetInst()->CreateAnimationSequence2D(
@@ -163,7 +163,7 @@ void CDefaultSetting::LoadAnimation()
     if (Info)
         strcpy_s(FullPath, Info->PathMultibyte);
 
-    strcat_s(FullPath, "AnimationData/");
+    strcat_s(FullPath, "Animation2D/");
 
     //시퀀스 폴더 내 있는 모든 파일 로드
     for (const auto& file : std::filesystem::directory_iterator(FullPath))
@@ -175,13 +175,25 @@ void CDefaultSetting::LoadAnimation()
         strcpy_s(MaxPath, file.path().generic_string().c_str());
         _splitpath_s(MaxPath, nullptr, 0, nullptr, 0, FileName, 64, Ext, _MAX_EXT);
 
+        if (strcmp(FileName, "imgui") == 0)
+        {
+            continue;
+        }
 
-        CAnimation2D* Anim = CAnimation2D::FindCDO("Animation2D");
+        //CAnimation2D* Anim = CAnimation2D::FindCDO("Animation2D");
         
         FILE* File = nullptr;
         fopen_s(&File, MaxPath, "rb");
+
+        CResourceManager::GetInst()->CreateAnimation2D(FileName);
+        CAnimation2D* Anim = CResourceManager::GetInst()->FindAnimation2D(FileName);
         
-        Anim->Load(File);
+
+        if (Anim)
+        {
+            Anim->Load(File);
+            Anim->SetName(FileName);
+        }
 
         fclose(File);
     }

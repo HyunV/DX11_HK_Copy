@@ -185,7 +185,9 @@ struct MaterialCBuffer
 	Vector4 SpecularColor;
 	Vector4 EmissiveColor;
 	float Opacity;
-	Vector3 Empty;
+	int	TextureType;
+	float TextureWidth;
+	float TextureHeight;
 };
 
 struct HierarchyName
@@ -340,4 +342,27 @@ struct ThreadSyncData
 	int	Header;
 	int	Size;
 	unsigned char Data[1024];
+};
+
+struct TileMapCBuffer
+{
+	Vector2	ImageSize;
+	Vector2	Start;
+	Vector2	End;
+	Vector2	TileSize;
+	Matrix	matWVP;
+	int		Frame;
+	Vector3	Empty;
+};
+
+struct TileInfo
+{
+	Matrix	matWVP;
+	Vector2	Start;
+	Vector2	End;
+	Vector4	TypeColor;
+	float	Opacity;
+	int		AnimationType;
+	int		Frame;
+	float	Empty;
 };

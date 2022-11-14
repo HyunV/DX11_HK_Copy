@@ -82,6 +82,7 @@ private:
 	CSceneViewport* m_Viewport;
 	std::list<CSharedPtr<class CGameObject>>	m_ObjList;
 	std::string	m_Name;
+	std::function<void(float)>	m_LoadingCallback;
 
 public:
 	void SetName(const std::string& Name)
@@ -172,6 +173,12 @@ public:
 			Obj->Start();
 
 		return Obj;
+	}
+
+	template <typename T>
+	void SetLoadingCallback(T* Obj, void(T::* Func)(float))
+	{
+		m_LoadingCallback = std::bind(Func, Obj, std::placeholders::_1);
 	}
 };
 

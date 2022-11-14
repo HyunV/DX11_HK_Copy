@@ -117,17 +117,16 @@ bool CPlayer2D::Init()
 	m_SpriteChild->SetInheritRotZ(true);
 
 
-
-	CAnimation2D* Anim = m_Sprite->SetAnimation<CAnimation2D>("PlayerAnim");
-
+	m_Sprite->SetAnimationFile("AnimationTest");
+	CAnimation2D* Anim = m_Sprite->GetAnimation();
+	//
+	//Anim->AddAnimation("Idle", "AtlasTest5");
+	//Anim->AddAnimation("Run", "FrameGrimTest3");
+	//
+	/*Anim->SetLoop("Idle", true);
+	Anim->SetLoop("Run", true);*/
 	
-	Anim->AddAnimation("Idle", "AtlasTest5");
-	Anim->AddAnimation("Run", "FrameGrimTest3");
-	
-	Anim->SetLoop("Idle", true);
-	Anim->SetLoop("Run", true);
-
-	Anim->SetCurrentAnimation("Idle");
+	Anim->SetCurrentAnimation("AtlasTest3");
 
 	
 	return true;
@@ -175,7 +174,7 @@ void CPlayer2D::MoveDown()
 void CPlayer2D::Rotation()
 {
 	m_Body->AddWorldRotationZ(360.f * g_DeltaTime);
-	m_Sprite->GetAnimation()->SetCurrentAnimation("Run");
+	m_Sprite->GetAnimation()->SetCurrentAnimation("AtlasTest4");
 	m_Sprite->SetRelativeScale(269.f * 0.5f, 475 * 0.5f);
 }
 

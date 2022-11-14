@@ -10,9 +10,15 @@ private:
 
 public:
 	bool Init();
+	bool Suspend(const std::string& Name);
+	bool Resume(const std::string& Name);
+	bool ReStart(const std::string& Name);
+	bool Delete(const std::string& Name);
+	bool Start(const std::string& Name);
 	CThread* FindThread(const std::string& Name);
 
 	bool CreateCriticalSection(const std::string& Name);
+	bool DeleteCriticalSection(const std::string& Name);
 	CRITICAL_SECTION* FindCriticalSection(const std::string& Name);
 
 public:

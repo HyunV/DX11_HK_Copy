@@ -26,9 +26,9 @@ public:
 
 public:
 	template <typename T>
-	void AddData(const T& Data, int Size)
+	void AddData(const T* Data, int Size)
 	{
-		memcpy(m_Buffer + m_Size, &Data, Size);
+		memcpy(m_Buffer + m_Size, Data, Size);
 		m_Size += Size;
 	}
 

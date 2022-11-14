@@ -6,6 +6,7 @@
 #include "Scene/SceneManager.h"
 #include "Scene/Scene.h"
 #include "../Scene/LoadingSceneInfo.h"
+#include "Engine.h"
 
 CStartSceneUI::CStartSceneUI()
 {
@@ -104,6 +105,10 @@ bool CStartSceneUI::Init()
 void CStartSceneUI::Update(float DeltaTime)
 {
     CUIWindow::Update(DeltaTime);
+
+    float FPS = CEngine::GetInst()->GetFPS();
+
+    m_Number->SetNumber((unsigned int)FPS);
 }
 
 void CStartSceneUI::PostUpdate(float DeltaTime)

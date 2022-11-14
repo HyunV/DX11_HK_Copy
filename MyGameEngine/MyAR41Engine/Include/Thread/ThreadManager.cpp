@@ -26,9 +26,10 @@ CThreadManager::~CThreadManager()
 
 		for (; iter != iterEnd; ++iter)
 		{
-			DeleteCriticalSection(iter->second); //생성한 크리티컬 섹션을 제거
+			// 전역함수를 호출하겠다는 의미이다.
+			::DeleteCriticalSection(iter->second);
 
-			SAFE_DELETE(iter->second); //동적할당한 객체를 제거
+			SAFE_DELETE(iter->second);
 		}
 
 		m_mapCriticalSection.clear();
@@ -39,6 +40,68 @@ bool CThreadManager::Init()
 {
 	// 로딩용 크리티컬 섹션 생성
 	CreateCriticalSection("Loading");
+
+	return true;
+}
+
+bool CThreadManager::Suspend(const std::string& Name)
+{
+	CThread* Thread = FindThread(Name);
+
+	if (!Thread)
+		return false;
+
+	Thread->Suspend();
+
+	return true;
+}
+
+bool CThreadManager::Resume(const std::string& Name)
+{
+	CThread* Thread = FindThread(Name);
+
+	if (!Thread)
+		return false;
+
+	Thread->Resume();
+
+	return true;
+}
+
+bool CThreadManager::ReStart(const std::string& Name)
+{
+	CThread* Thread = FindThread(Name);
+
+	if (!Thread)
+		return false;
+
+	Thread->ReStart();
+
+	return true;
+}
+
+bool CThreadManager::Delete(const std::string& Name)
+{
+	auto	iter = m_mapThread.find(Name);
+
+	if (iter == m_mapThread.end())
+		return false;
+
+	SAFE_DELETE(iter->second);
+
+	m_mapThread.erase(iter);
+
+	return true;
+}
+
+bool CThreadManager::Start(const std::string& Name)
+{
+	CThread* Thread = FindThread(Name);
+
+	if (!Thread)
+		return false;
+
+	Thread->Start();
 
 	return true;
 }
@@ -65,6 +128,22 @@ bool CThreadManager::CreateCriticalSection(const std::string& Name)
 	InitializeCriticalSection(Crt);
 
 	m_mapCriticalSection.insert(std::make_pair(Name, Crt));
+
+	return true;
+}
+
+bool CThreadManager::DeleteCriticalSection(const std::string& Name)
+{
+	auto	iter = m_mapCriticalSection.find(Name);
+
+	if (iter == m_mapCriticalSection.end())
+		return false;
+
+	::DeleteCriticalSection(iter->second);
+
+	SAFE_DELETE(iter->second);
+
+	m_mapCriticalSection.erase(iter);
 
 	return true;
 }

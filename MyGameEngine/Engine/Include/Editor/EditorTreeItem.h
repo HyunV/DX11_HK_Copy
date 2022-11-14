@@ -142,25 +142,6 @@ public:
 		return nullptr;
 	}
 
-	void DeleteItem(CEditorTreeItem<T>* TreeItem)
-	{
-		//부모: root, Find-> 게임오브젝트
-		CEditorTreeItem<T>* Find = TreeItem;
-		CEditorTreeItem<T>* Parent = Find->m_Parent; //루트
-		size_t Size = Parent->m_vecChild.size();
-
-		std::vector<CEditorTreeItem<T>*>	vecChildTemp;
-
-		for (size_t i = 0; i < Size; i++)
-		{
-			if (m_vecChild[i] == Find)
-				continue;
-
-			vecChildTemp.push_back(m_vecChild[i]);
-		}
-		Parent->m_vecChild = vecChildTemp;
-	}
-
 	void Clear()
 	{
 		size_t	Size = m_vecChild.size();
@@ -202,6 +183,8 @@ public:
 			//	ImGui::EndPopup();
 			//}
 		}
+
+
 
 		/*if (ImGui::BeginDragDropSource())
 		{

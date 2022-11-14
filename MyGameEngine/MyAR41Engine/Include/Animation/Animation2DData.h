@@ -22,6 +22,7 @@ struct Animation2DNotify
 class CAnimation2DData
 {
 	friend class CAnimation2D;
+	friend class CMyAnimationWindow;
 
 private:
 	CAnimation2DData();

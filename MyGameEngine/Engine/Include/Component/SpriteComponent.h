@@ -50,6 +50,7 @@ public:
 
     class CTexture* GetTexture(int Index = 0)    const;
 
+    void SetAnimationFile(const std::string& Name);
     void ClearAnimation();
 
 public:

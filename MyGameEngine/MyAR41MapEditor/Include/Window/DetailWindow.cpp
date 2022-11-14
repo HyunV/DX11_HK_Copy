@@ -11,6 +11,7 @@
 #include "Component/SpriteComponent.h"
 #include "Component/CameraComponent.h"
 #include "Component/TargetArm.h"
+#include "Component/TileMapComponent.h"
 #include "Engine.h"
 #include "PathManager.h"
 
@@ -19,7 +20,7 @@
 #include "Component/ColliderSphere2D.h"
 #include "Component/ColliderPixel.h"
 
-#include "NMyAnimationWindow2.h"
+
 #include "Editor/EditorGUIManager.h"
 
 #include "DetailWindow/CameraWidgetList.h"
@@ -32,6 +33,7 @@
 #include "DetailWindow/ColliderOBB2DWidgetList.h"
 #include "DetailWindow/ColliderPixelWidgetList.h"
 #include "DetailWindow/ColliderSphereWidgetList.h"
+#include "DetailWindow/TileMapWidgetList.h"
 
 CDetailWindow::CDetailWindow()
 {
@@ -88,6 +90,8 @@ void CDetailWindow::SetSelectComponent(CSceneComponent* Component)
 
 bool CDetailWindow::Init()
 {
+	m_vecComponentWidgetList.resize((size_t)ESceneComponentType::Max);
+
 	for (int i = 0; i < (int)ESceneComponentType::Max; ++i)
 	{
 		CreateEditorWidgetList((ESceneComponentType)i);
@@ -237,6 +241,15 @@ void CDetailWindow::ChangeWidget(CSceneComponent* Component)
 	//	else 
 	//		return;
 	}
+
+	else if (Component->GetComponentTypeName() == "TileMapComponent")
+	{
+		AddWidget(m_vecComponentWidgetList[(int)ESceneComponentType::TileMap]);
+
+		CTileMapWidgetList* TileMapWidget = (CTileMapWidgetList*)m_vecComponentWidgetList[(int)ESceneComponentType::TileMap];
+
+		TileMapWidget->SetTileMapComponent((CTileMapComponent*)Component);
+	}
 }
 
 void CDetailWindow::CreateEditorWidgetList(ESceneComponentType Type)
@@ -281,6 +294,9 @@ void CDetailWindow::CreateEditorWidgetList(ESceneComponentType Type)
 	case ESceneComponentType::Collider3D:
 		//WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("SceneComponent");
 		break;
+	case ESceneComponentType::TileMap:
+		WidgetList = CreateWidgetEmpty<CTileMapWidgetList>("TileMapComponent");
+		break;
 	}
 
 	if (!WidgetList)
@@ -288,7 +304,7 @@ void CDetailWindow::CreateEditorWidgetList(ESceneComponentType Type)
 
 	WidgetList->m_DetailWindow = this;
 
-	m_vecComponentWidgetList.push_back(WidgetList);
+	m_vecComponentWidgetList[(int)Type] = WidgetList;
 
 }
 

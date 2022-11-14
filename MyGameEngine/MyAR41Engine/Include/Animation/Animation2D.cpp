@@ -190,11 +190,12 @@ bool CAnimation2D::AddAnimation(const std::string& Name,
 	//,================================================================
 		
 	//스프라이트 컴포에 씬 얻고 애니메이션 시퀀스 불러옴
-	if (m_Owner->GetScene())
-		Sequence = m_Owner->GetScene()->GetResource()->FindAnimationSequence2D(SequenceName);
-
-	else
+	if(!m_Owner)
 		Sequence = CResourceManager::GetInst()->FindAnimationSequence2D(SequenceName);
+	else if(m_Owner->GetScene())
+		Sequence = m_Owner->GetScene()->GetResource()->FindAnimationSequence2D(SequenceName);
+	
+		
 
 	Anim = new CAnimation2DData;
 	
@@ -465,19 +466,28 @@ void CAnimation2D::SetShader()
 	Buffer->UpdateBuffer();
 }
 
-std::vector<std::string> CAnimation2D::GetAnimationList()
+std::list<CAnimation2DData*> CAnimation2D::GetAnimationList()
 {
 	auto iter = m_mapAnimation.begin();
 	auto iterEnd = m_mapAnimation.end();
-	std::vector<std::string> v;
+	std::list<CAnimation2DData*> List;
 	
 	for (; iter != iterEnd; ++iter)
 	{
-		std::string s = (*iter).first;
-		v.push_back(s);
+		List.push_back((*iter).second);
 	}
 	
-	return v;
+	return List;
+}
+
+void CAnimation2D::DeleteAnimation2DData(const std::string& Name)
+{
+	auto iter = m_mapAnimation.find(Name);
+
+	if (iter == m_mapAnimation.end())
+		return;
+
+	m_mapAnimation.erase(iter);
 }
 
 CAnimation2DData* CAnimation2D::FindAnimation(const std::string& Name)

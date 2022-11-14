@@ -22,10 +22,10 @@ public:
 	virtual void Render();
 
 public:
-	template <typename WidgetType>
-	WidgetType* CreateWidget(const std::string& Name, float Width = 100.f, float Height = 100.f)
+	template <typename T>
+	T* CreateWidget(const std::string& Name, float Width = 100.f, float Height = 100.f)
 	{
-		WidgetType* Widget = new WidgetType;
+		T* Widget = new T;
 
 		Widget->SetName(Name);
 		Widget->m_Owner = m_Owner;

@@ -261,7 +261,7 @@ void CNMyAnimationWindow2::LoadAnimationCallback()
 
 		//행동목록 받아오기
 		std::vector<std::string> v;
-		v = m_Animation->GetAnimationList();
+		//v = m_Animation->GetAnimationList();
 		for(int i = 0; i<v.size(); i++)
 		{
 			m_AniList->AddItem(v[i]);

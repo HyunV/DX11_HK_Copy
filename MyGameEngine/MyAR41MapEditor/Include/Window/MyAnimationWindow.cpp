@@ -41,7 +41,7 @@ bool CMyAnimationWindow::Init()
 	m_LoadAnimCombo->SetSelectPrevViewName(true);
 	m_LoadAnimCombo->SetHideName("Combo");
 	m_LoadAnimCombo->SetPrevViewName("애니메이션 선택");
-	m_LoadAnimCombo->AddItem("새로 만들기..");
+	m_LoadAnimCombo->AddItem("New Animation");
 	m_LoadAnimCombo->SetSelectCallback<CMyAnimationWindow>
 		(this, &CMyAnimationWindow::ComboBoxCallback);
 
@@ -72,9 +72,11 @@ bool CMyAnimationWindow::Init()
 
 	m_PlayTimeInput = CreateWidget<CEditorInput>("PlayTime");
 	m_PlayTimeInput->SetInputType(EImGuiInputType::Float);
+	m_PlayTimeInput->SetFloat(1.f);
 
 	m_PlayScaleInput = CreateWidget<CEditorInput>("PlayScale");
 	m_PlayScaleInput->SetInputType(EImGuiInputType::Float);
+	m_PlayScaleInput->SetFloat(1.f);
 
 	m_FrameTime = CreateWidget<CEditorInput>("FrameTime");
 	m_FrameTime->SetInputType(EImGuiInputType::Float);
@@ -110,10 +112,39 @@ bool CMyAnimationWindow::Init()
 void CMyAnimationWindow::Update(float DeltaTime)
 {
 	CEditorWindow::Update(DeltaTime);
+	
+	if (m_EventList->GetSelectIndex() > -1)
+	{
+		int index = m_EventList->GetSelectIndex();
+		std::string Item = m_EventList->GetItem(index);
+		CAnimation2DData* Data = m_Animation->FindAnimation(Item);
+
+		if (Data)
+		{
+			//OutputDebugStringA(Item.c_str());
+			Data->m_PlayTime = m_PlayTimeInput->GetFloat();
+			Data->m_FrameTime = m_FrameTime->GetFloat();
+			Data->m_PlayScale = m_PlayScaleInput->GetFloat();
+			Data->m_Loop = m_Loop->GetCheck();
+			Data->m_Reverse = m_Reverse->GetCheck();
+		}
+	}
+	
 }
 
 void CMyAnimationWindow::ClearSetting()
 {
+	m_Messege->SetText("");
+	//m_LoadAnimCombo->ResetSelectIndex();
+	//m_LoadAnimCombo->SetSelectPrevViewName(true);
+	//m_EventList->ClearSelectIndex();
+	m_PlayTimeInput->SetFloat(1.f);
+	m_PlayScaleInput->SetFloat(1.f);
+	m_FrameTime->SetFloat(0.f);
+	m_Loop->SetCheck(false);
+	m_Reverse->SetCheck(false);
+
+	//m_SaveAnimationInput->SetText("");
 
 }
 
@@ -121,7 +152,7 @@ void CMyAnimationWindow::SetComboBox()
 {
 	//맵 애니메이션 불러와주기
 
-	CResourceManager::GetInst()->CreateAnimation2D("test");
+	//CResourceManager::GetInst()->CreateAnimation2D("test");
 
 	auto iter = m_mapAnimation2D->begin();
 	auto iterEnd = m_mapAnimation2D->end();
@@ -130,27 +161,58 @@ void CMyAnimationWindow::SetComboBox()
 	{
 		m_LoadAnimCombo->AddItem(iter->first);
 	}
+
+
 }
 
-//void CMyAnimationWindow::SetList()
-//{
-//}
+void CMyAnimationWindow::ClearList()
+{
+
+}
 
 void CMyAnimationWindow::ComboBoxCallback(int SelectIndex, const std::string& Item)
 {
-	OutputDebugStringA(Item.c_str());
-	m_Messege->SetText(Item);
+	//OutputDebugStringA(Item.c_str());
+	//m_Messege->SetText(Item);
+
+	ClearSetting();
 
 	// if 새로 만들기
-	ClearSetting();
-	//애니메이션 임시 생성
+	if (!m_Animation && Item == "New Animation")
+	{
+		m_Animation = m_Animation->FindCDO("Animation2D");
+		m_Animation->SetName("Animation2D");
+	}
+		
+	else //기존에 있는 애니메이션들
+	{
+		m_Animation = CResourceManager::GetInst()->FindAnimation2D(Item);
+		m_SaveAnimationInput->SetText(Item.c_str());
 
-	//else find animation
-	m_SaveAnimationInput->SetText(Item.c_str());
+	}
+		
+	//리스트 클리어
+	m_EventList->Clear();
+
+	//리스트 세팅
+	if (!(m_Animation->GetName() == "Animation2D"))
+	{
+		//m_Animation2DData = m_Animation->GetAnimationList();
+		auto iter = m_Animation->m_mapAnimation.begin();
+		auto iterEnd = m_Animation->m_mapAnimation.end();
+
+		for(; iter != iterEnd; ++iter)
+		{
+			m_EventList->AddItem((*iter).first);
+		}
+	}
+		
+	
 }
 
 void CMyAnimationWindow::ListCallback(int SelectIndex, const std::string& Item)
 {
+	
 	//OutputDebugStringA(Item.c_str());
 	
 	//시퀀스 재생하기,
@@ -163,6 +225,15 @@ void CMyAnimationWindow::ListCallback(int SelectIndex, const std::string& Item)
 	}
 
 	//에니메이션 데이터 값 세팅하기
+	ClearSetting();
+	CAnimation2DData* Data = m_Animation->FindAnimation(Item);
+
+	m_PlayTimeInput->SetFloat(Data->m_PlayTime);
+	m_FrameTime->SetFloat(Data->m_FrameTime);
+	m_PlayScaleInput->SetFloat(Data->m_PlayScale);
+	m_Loop->SetCheck(Data->m_Loop);
+	m_Reverse->SetCheck(Data->m_Reverse);
+	
 
 }
 
@@ -203,7 +274,11 @@ void CMyAnimationWindow::LoadSqcBtnCallback()
 
 			std::string s = TCHARToString(FileName);
 			if (!m_EventList->CheckItem(s))
+			{
 				m_EventList->AddItem(s);
+				m_Animation->AddAnimation(s, s);
+			}
+				
 		}
 		else
 		{
@@ -223,8 +298,12 @@ void CMyAnimationWindow::LoadSqcBtnCallback()
 
 				//=============
 				std::string s2 = TCHARToString(FileName2);
-				if(!m_EventList->CheckItem(s2))
-					m_EventList->AddItem(s2);				
+				if (!m_EventList->CheckItem(s2))
+				{
+					m_EventList->AddItem(s2);
+					m_Animation->AddAnimation(s2, s2);
+				}
+					
 			}
 		}
 	}
@@ -233,11 +312,18 @@ void CMyAnimationWindow::LoadSqcBtnCallback()
 void CMyAnimationWindow::DeleteSqcBtnCallback()
 {
 	int index = m_EventList->GetSelectIndex();
+	std::string Item = m_EventList->GetSelectItem();
+	if (index == -1)
+	{
+		m_Messege->SetText("* 아이템이 선택되지 않았습니다.");
+		return;
+	}
 	m_EventList->DeleteItem(index);
 	m_SeqWindow->ClearSetting();
 	m_SelectedSqcText->SetText("");
-
+	
 	//애니메이션 데이터 리스트도 삭제
+	m_Animation->DeleteAnimation2DData(Item);
 }
 
 void CMyAnimationWindow::SaveBtnCallback()
@@ -248,18 +334,23 @@ void CMyAnimationWindow::SaveBtnCallback()
 		m_Messege->SetText("* 애니메이션 파일 이름을 지어주세요");
 		return;
 	}
-	//FILE* file = nullptr;
-	//char c[256] = {};
-	//strcat_s(c, CPathManager::GetInst()->FindPath(ROOT_PATH)->PathMultibyte);
-	//strcat_s(c, "Animation2D\\test");
 
-	//fopen_s(&file, c, "wb");
+	FILE* file;
+	char c[256] = {};
+	strcat_s(c, CPathManager::GetInst()->FindPath(ROOT_PATH)->PathMultibyte);
+	strcat_s(c, "Animation2D\\");
+	strcat_s(c, m_SaveAnimationInput->GetText());
 
-	//int a = 100;
+	fopen_s(&file, c, "wb");
 
-	//fwrite(&a, 4, 1, file);
+	m_Animation->Save(file);
 
-	//fclose(file);
+	if (file)
+	{
+		m_Messege->SetText("저장 완료!");
+	}
+
+	fclose(file);
 }
 
 const std::string CMyAnimationWindow::TCHARToString(const TCHAR* ptsz)

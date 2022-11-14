@@ -208,6 +208,7 @@
     <ClCompile Include="Window\DetailWindow\SceneComponentWidgetList.cpp" />
     <ClCompile Include="Window\DetailWindow\SpriteComponentWidgetList.cpp" />
     <ClCompile Include="Window\DetailWindow\TargetArmWidgetList.cpp" />
+    <ClCompile Include="Window\DetailWindow\TileMapWidgetList.cpp" />
     <ClCompile Include="Window\MyAnimationWindow.cpp" />
     <ClCompile Include="Window\MyImageWindow.cpp" />
     <ClCompile Include="Window\MySequenceWindow.cpp" />
@@ -245,6 +246,7 @@
     <ClInclude Include="Window\DetailWindow\SceneComponentWidgetList.h" />
     <ClInclude Include="Window\DetailWindow\SpriteComponentWidgetList.h" />
     <ClInclude Include="Window\DetailWindow\TargetArmWidgetList.h" />
+    <ClInclude Include="Window\DetailWindow\TileMapWidgetList.h" />
     <ClInclude Include="Window\MyAnimationWindow.h" />
     <ClInclude Include="Window\MyImageWindow.h" />
     <ClInclude Include="Window\MySequenceWindow.h" />

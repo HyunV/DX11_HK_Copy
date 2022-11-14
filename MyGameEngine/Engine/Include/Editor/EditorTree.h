@@ -157,12 +157,7 @@ public:
 
             Find->m_vecChild.clear();
 
-            Parent->DeleteItem(Find);
             SAFE_DELETE(Find);
-
-            //Parent->FindItem()
-            //SAFE_DELETE(Parent);
-            
         }
     }
 

@@ -10,6 +10,7 @@ class CAnimation2D :
     friend class CAnimationManager;
     friend class CSceneManager;
     friend class CScene;
+    friend class CMyAnimationWindow;
 
 protected:
     CAnimation2D();
@@ -80,9 +81,10 @@ public:
     virtual CAnimation2D* Clone();
     void SetShader();
     //³»ÇÔ¼ö
-    std::vector<std::string>GetAnimationList();
+    std::list<CAnimation2DData*>GetAnimationList();
+    void DeleteAnimation2DData(const std::string& Name);
 
-protected:
+public:
     CAnimation2DData* FindAnimation(const std::string& Name);
 
 public:

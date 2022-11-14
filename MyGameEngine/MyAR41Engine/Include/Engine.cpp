@@ -64,6 +64,11 @@ CEngine::~CEngine()
     CDevice::DestroyInst();
 }
 
+float CEngine::GetFPS() const
+{
+    return m_Timer->GetFPS();
+}
+
 bool CEngine::Init(HINSTANCE hInst, const TCHAR* Title, 
 	const TCHAR* ClassName, int IconID, int SmallIconID,
 	unsigned int WindowWidth, unsigned int WindowHeight,
@@ -90,6 +95,9 @@ bool CEngine::Init(HINSTANCE hInst, const TCHAR* Title,
     if (!CPathManager::GetInst()->Init())
         return false;
 
+    // 렌더링 관리자 초기화
+    if (!CRenderManager::GetInst()->Init())
+        return false;
 
     // Resource 관리자 초기화
     if (!CResourceManager::GetInst()->Init())
@@ -110,9 +118,6 @@ bool CEngine::Init(HINSTANCE hInst, const TCHAR* Title,
     }
 
 
-    // 렌더링 관리자 초기화
-    if (!CRenderManager::GetInst()->Init())
-        return false;
 
     // 스레드 관리자 초기화
     if (!CThreadManager::GetInst()->Init())
