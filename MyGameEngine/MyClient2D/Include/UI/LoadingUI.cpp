@@ -52,7 +52,7 @@ bool CLoadingUI::Init()
     m_LoadingBar->SetProgressBarMax(100.f);
     m_LoadingBar->SetValue(0.f);
     m_LoadingBar->SetBarDir(EProgressBarDir::RightToLeft);
-
+    
     return true;
 }
 

@@ -44,9 +44,9 @@ public:	// ===================== Mesh ========================= //리소스 매니저�
 
 public:	// ===================== Shader =========================
 	template <typename T>
-	bool CreateShader(const std::string& Name)
+	bool CreateShader(const std::string& Name, bool GlobalShader = false)
 	{
-		return m_ShaderManager->CreateShader<T>(Name);
+		return m_ShaderManager->CreateShader<T>(Name, GlobalShader);
 	}
 
 	class CColliderConstantBuffer* GetColliderCBuffer()	const;

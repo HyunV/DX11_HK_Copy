@@ -229,6 +229,29 @@ void CSceneCollision::CreateSection3D(int CountX, int CountY, int CountZ, const 
 
 void CSceneCollision::Save(FILE* File)
 {
+	/*
+std::vector<class CCollisionSection3D*>	vecSection;
+int		CountX;
+int		CountY;
+int		CountZ;
+int		Count;
+Vector3	WorldStart;
+Vector3	SectionSize;
+Vector3	WorldSize;
+*/
+/*
+std::vector<class CCollisionSection2D*>	vecSection;
+int		CountX;
+int		CountY;
+int		Count;
+Vector2	WorldStart;
+Vector2	SectionSize;
+Vector2	WorldSize;
+*/
+/*
+Section2D	m_Section2D;
+Section3D	m_Section3D;
+*/
 }
 
 void CSceneCollision::Load(FILE* File)

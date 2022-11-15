@@ -59,9 +59,9 @@ bool CEditorManager::Init(HINSTANCE hInst)
     CScene::AddSceneInfoCDO("EditorDefaultScene", Info);
 
     //========³» ÄÚµå===========================================
-    CSceneInfo* TestSceneInfo = new CEditorTestScene;
+    //CSceneInfo* TestSceneInfo = new CEditorTestScene;
 
-    CScene::AddSceneInfoCDO("EditorTestScene", TestSceneInfo);
+    //CScene::AddSceneInfoCDO("EditorTestScene", TestSceneInfo);
     //==========================================================
 
     CEngineShareSetting::Setting();

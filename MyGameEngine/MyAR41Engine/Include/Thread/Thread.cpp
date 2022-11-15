@@ -1,12 +1,19 @@
 #include "Thread.h"
+#include "Sync.h"
 
 CThread::CThread() :
-    m_Loop(false)
+    m_Loop(false),
+    m_Suspend(false)
 {
 }
 
 CThread::~CThread()
 {
+    //Stop();
+    
+    DeleteCriticalSection(&m_CRT);
+
+
 }
 
 void CThread::Suspend()
@@ -15,17 +22,28 @@ void CThread::Suspend()
     //* 스레드는 서스펜드 카운트라는걸 갖고 있어서 호출하면 1씩 늘어나는 방식
     //* 즉 일시정지를 호출하면 1씩 증가하고 재시작 같은걸 하면 1씩 감소하는 방식
     //* 일시정지를 연속으로 3번 호출하면 재시작도 3번 호출해주어야 다시 작동됨. 
+    CSync sync(&m_CRT);
+    
     SuspendThread(m_Thread);
+
+    m_Suspend = true;
 }
 
 void CThread::Resume()
 {
     //얘도 DWORD 반환으로 되어있어서 이 함수를 작동하면 서스펜드 카운트를 1 감소시킨값을 반환
-    ResumeThread(m_Thread);
+    CSync   sync(&m_CRT);
+
+    DWORD Count = ResumeThread(m_Thread);
+
+    if (Count > 0)
+        m_Suspend = false;
 }
 
 void CThread::ReStart()
 {
+    CSync   sync(&m_CRT);
+
     DWORD   Count = 0;
 
     do
@@ -33,6 +51,8 @@ void CThread::ReStart()
         //* 한번은 무조건 돌려야하니 do while
         Count = ResumeThread(m_Thread);
     } while (Count > 0);
+
+    m_Suspend = false;
 }
 
 void CThread::Stop()
@@ -41,6 +61,7 @@ void CThread::Stop()
     {
         m_Loop = false;
         Start(); //혹시 모르니 이벤트 부여
+        ReStart();
 
         // 스레드가 종료될때까지 기다린다. 종료도 이벤트라 맘대로 하면 안됨
         WaitForSingleObject(m_Thread, INFINITE);
@@ -59,6 +80,8 @@ bool CThread::Init()
 {
     //이벤트 동기화는 단순하게 신호가 있다, 없다로 판단함
     m_StartEvent = CreateEvent(nullptr, FALSE, FALSE, nullptr);
+
+    InitializeCriticalSection(&m_CRT);
 
     //스레드 함수에서 return 0을 반환 받으면 신호가 있는 상태가 됨(종료 이벤트)
     m_Thread = (HANDLE)_beginthreadex(nullptr, 0, CThread::ThreadFunction,

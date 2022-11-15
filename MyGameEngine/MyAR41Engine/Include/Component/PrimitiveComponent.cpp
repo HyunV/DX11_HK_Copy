@@ -95,7 +95,13 @@ void CPrimitiveComponent::SetMaterial(int Slot, CMaterial* Material)
 
 void CPrimitiveComponent::AddMaterial(const std::string& Name)
 {
-	CMaterial* Material = m_Scene->GetResource()->FindMaterial(Name);
+	CMaterial* Material = nullptr;
+
+	if (m_Scene)
+		Material = m_Scene->GetResource()->FindMaterial(Name);
+
+	else
+		Material = CResourceManager::GetInst()->FindMaterial(Name);
 
 	m_vecMaterial.push_back(Material->Clone());
 }

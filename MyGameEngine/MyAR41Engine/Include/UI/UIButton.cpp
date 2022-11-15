@@ -177,21 +177,21 @@ void CUIButton::SetSound(EButtonEventState State, const std::string& Name)
 bool CUIButton::SetSound(EButtonEventState State, const std::string& GroupName, const std::string& Name,
     bool Loop, const char* FileName, const std::string& PathName)
 {
-    if (m_Scene)
-    {
-        if (!m_Scene->GetResource()->LoadSound(GroupName, Name, Loop, FileName, PathName))
-            return false;
+    //if (m_Scene)
+    //{
+    //    if (!m_Scene->GetResource()->LoadSound(GroupName, Name, Loop, FileName, PathName))
+    //        return false;
 
-        m_Sound[(int)State] = m_Scene->GetResource()->FindSound(Name);
-    }
+    //    m_Sound[(int)State] = m_Scene->GetResource()->FindSound(Name);
+    //}
 
-    else
-    {
+    //else
+    //{
         if (!CResourceManager::GetInst()->LoadSound(GroupName, Name, Loop, FileName, PathName))
             return false;
 
         m_Sound[(int)State] = CResourceManager::GetInst()->FindSound(Name);
-    }
+   // }
 
     return true;
 }

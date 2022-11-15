@@ -208,6 +208,18 @@
     <Filter Include="02. Resource\02. Shader\02. ShaderClass\04. TileMap">
       <UniqueIdentifier>{f8f83f6b-693d-4cb4-a74f-cddfc14e3bcc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. Component\02. ObjectComponent\01. NavAgent">
+      <UniqueIdentifier>{ea508aa6-54b2-4673-9298-8881eecae7d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\10. Thread\01. Loading">
+      <UniqueIdentifier>{a7004c14-1797-4013-9f0e-f7f18788fa48}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Manager\10. Thread\02. Navigation">
+      <UniqueIdentifier>{52013695-4eef-4bd7-ac84-fd2bf261d52c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Scene\06. Navigation">
+      <UniqueIdentifier>{e06a685d-7db0-4d57-99ae-97958c1c7c9a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineInfo.h">
@@ -585,9 +597,6 @@
     <ClInclude Include="Thread\Thread.h">
       <Filter>01. Manager\10. Thread</Filter>
     </ClInclude>
-    <ClInclude Include="Thread\LoadingThread.h">
-      <Filter>01. Manager\10. Thread</Filter>
-    </ClInclude>
     <ClInclude Include="Thread\DataStream.h">
       <Filter>01. Manager\10. Thread</Filter>
     </ClInclude>
@@ -617,6 +626,21 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\NavigationAgent.h">
+      <Filter>05. Component\02. ObjectComponent\01. NavAgent</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\LoadingThread.h">
+      <Filter>01. Manager\10. Thread\01. Loading</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\NavigationThread.h">
+      <Filter>01. Manager\10. Thread\02. Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="Thread\Navigation.h">
+      <Filter>01. Manager\10. Thread\02. Navigation</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\NavigationManager.h">
+      <Filter>03. Scene\06. Navigation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -944,9 +968,6 @@
     <ClCompile Include="Thread\Thread.cpp">
       <Filter>01. Manager\10. Thread</Filter>
     </ClCompile>
-    <ClCompile Include="Thread\LoadingThread.cpp">
-      <Filter>01. Manager\10. Thread</Filter>
-    </ClCompile>
     <ClCompile Include="Thread\DataStream.cpp">
       <Filter>01. Manager\10. Thread</Filter>
     </ClCompile>
@@ -970,6 +991,21 @@
     </ClCompile>
     <ClCompile Include="Resource\Shader\TileMapBackShader.cpp">
       <Filter>02. Resource\02. Shader\03. ConstantBuffer\06. TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\NavigationAgent.cpp">
+      <Filter>05. Component\02. ObjectComponent\01. NavAgent</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\LoadingThread.cpp">
+      <Filter>01. Manager\10. Thread\01. Loading</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\NavigationThread.cpp">
+      <Filter>01. Manager\10. Thread\02. Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="Thread\Navigation.cpp">
+      <Filter>01. Manager\10. Thread\02. Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\NavigationManager.cpp">
+      <Filter>03. Scene\06. Navigation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

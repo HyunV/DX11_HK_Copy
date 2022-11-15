@@ -17,6 +17,8 @@ CStartSceneUI::CStartSceneUI(const CStartSceneUI& Window) :
     CUIWindow(Window)
 {
     m_Button = FindWidget<CUIButton>("Button");
+    m_Title = FindWidget<CUIText>("Title");
+    m_Number = FindWidget<CUINumber>("Number");
 }
 
 CStartSceneUI::~CStartSceneUI()
@@ -26,6 +28,9 @@ CStartSceneUI::~CStartSceneUI()
 void CStartSceneUI::Start()
 {
     CUIWindow::Start();
+
+    m_Button->SetCallback<CStartSceneUI>(EButtonEventState::Click,
+        this, &CStartSceneUI::StartButtonClick);
 }
 
 bool CStartSceneUI::Init()
@@ -142,7 +147,7 @@ void CStartSceneUI::Load(FILE* File)
 void CStartSceneUI::StartButtonClick()
 {
     // 로딩 Scene을 생성한다.
-    CSceneManager::GetInst()->CreateNextScene(true);
+    //CSceneManager::GetInst()->CreateNextScene(true);
 
-    CSceneManager::GetInst()->CreateSceneInfo<CLoadingSceneInfo>(false);
+    //CSceneManager::GetInst()->CreateSceneInfo<CLoadingSceneInfo>(false);
 }

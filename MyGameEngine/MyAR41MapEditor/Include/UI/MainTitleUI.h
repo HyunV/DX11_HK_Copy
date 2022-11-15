@@ -24,8 +24,6 @@ protected:
     CSharedPtr<class CUIButton>	m_ExitButton;
     
     CSharedPtr<class CUIImage> m_Cursor[4]; //커서 아이콘
-    
-    //CSharedPtr<class CUIImage> m_Test;
 
 
 public:

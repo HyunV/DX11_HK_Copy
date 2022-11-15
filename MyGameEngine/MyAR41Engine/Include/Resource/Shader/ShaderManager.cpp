@@ -23,21 +23,28 @@ CShaderManager::~CShaderManager()
 
 bool CShaderManager::Init()
 {
-	CreateShader<CSpriteColorShader>("SpriteColorShader");
+	CreateShader<CSpriteColorShader>("SpriteColorShader", true);
 
-	CreateShader<CSpriteShader>("SpriteShader");
 
-	CreateShader<CColliderShader>("ColliderShader");
+	CreateShader<CSpriteShader>("SpriteShader", true);
 
-	CreateShader<CColliderImageShader>("ColliderImageShader");
 
-	CreateShader<CUIShader>("UIShader");
+	CreateShader<CColliderShader>("ColliderShader", true);
 
-	CreateShader<CUIProgressBarShader>("UIProgressBarShader");
 
-	CreateShader<CTileMapShader>("TileMapShader");
+	CreateShader<CColliderImageShader>("ColliderImageShader", true);
 
-	CreateShader<CTileMapBackShader>("TileMapBackShader");
+
+	CreateShader<CUIShader>("UIShader", true);
+
+
+	CreateShader<CUIProgressBarShader>("UIProgressBarShader", true);
+
+
+	CreateShader<CTileMapShader>("TileMapShader", true);
+
+
+	CreateShader<CTileMapBackShader>("TileMapBackShader", true);
 
 	CreateConstantBuffer("Transform", sizeof(TransformCBuffer), 0);
 	CreateConstantBuffer("Material", sizeof(MaterialCBuffer), 1);

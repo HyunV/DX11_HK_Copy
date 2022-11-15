@@ -5,6 +5,7 @@
 #include "CameraManager.h"
 #include "SceneCollision.h"
 #include "SceneViewport.h"
+#include "NavigationManager.h"
 
 class CScene
 {
@@ -80,6 +81,7 @@ private:
 	CCameraManager* m_CameraManager;
 	CSceneCollision* m_CollisionManager;
 	CSceneViewport* m_Viewport;
+	CNavigationManager* m_NavManager;
 	std::list<CSharedPtr<class CGameObject>>	m_ObjList;
 	std::string	m_Name;
 	std::function<void(float)>	m_LoadingCallback;
@@ -120,6 +122,10 @@ public:
 		return m_Viewport;
 	}
 
+	CNavigationManager* GetNavigationManager()	const
+	{
+		return m_NavManager;
+	}
 
 public:
 	void Start();
@@ -129,6 +135,8 @@ public:
 	void Collision(float DeltaTime);
 	void Save(const char* FullPath);
 	void Load(const char* FullPath);
+	void Save(const char* FileName, const std::string& PathName);
+	void Load(const char* FileName, const std::string& PathName);
 	void GetAllGameObjectHierarchyName(std::vector<HierarchyObjectName>& vecName);
 
 public:

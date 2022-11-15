@@ -9,6 +9,7 @@ struct Vector2
 	Vector2();
 	Vector2(float _x, float _y);
 	Vector2(const Vector2& v);
+	Vector2(const struct Vector3& v);
 	Vector2(const DirectX::XMVECTOR& v);
 	//XMVECTOR 보면 __128 은 32비트 float 4개로 이루어짐 (SIMD 형태)
 
@@ -16,6 +17,7 @@ struct Vector2
 	Vector2& operator = (const Vector2& v);
 	Vector2& operator = (const DirectX::XMVECTOR& v);
 	Vector2& operator = (float f);
+	Vector2& operator = (const struct Vector3& v);
 
 	// operator ==, !=
 	bool operator == (const Vector2& v)	const;

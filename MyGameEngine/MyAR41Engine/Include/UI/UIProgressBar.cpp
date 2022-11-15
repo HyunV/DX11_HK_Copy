@@ -192,12 +192,6 @@ void CUIProgressBar::AddValue(float Value)
 void CUIProgressBar::Start()
 {
     CUIWidget::Start();
-}
-
-bool CUIProgressBar::Init()
-{
-    if (!CUIWidget::Init())
-        return false;
 
     if (m_Scene)
     {
@@ -208,6 +202,12 @@ bool CUIProgressBar::Init()
     {
         m_BarShader = CResourceManager::GetInst()->FindShader("UIProgressBarShader");
     }
+}
+
+bool CUIProgressBar::Init()
+{
+    if (!CUIWidget::Init())
+        return false;
 
     return true;
 }

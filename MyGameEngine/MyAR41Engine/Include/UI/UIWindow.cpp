@@ -206,6 +206,13 @@ void CUIWindow::Load(FILE* File)
 			m_vecWidget[i]->Load(File);
 		}
 	}
+
+	size_t	Size = m_vecWidget.size();
+
+	for (size_t i = 0; i < Size; ++i)
+	{
+		m_vecWidget[i]->m_Scene = m_Scene;
+	}
 }
 
 CUIWidget* CUIWindow::CollisionMouse(const Vector2& MousePos)

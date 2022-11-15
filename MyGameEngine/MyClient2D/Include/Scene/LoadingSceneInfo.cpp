@@ -3,6 +3,7 @@
 #include "Scene/Scene.h"
 #include "Scene/SceneViewport.h"
 #include "../UI/LoadingUI.h"
+#include "../UI/MyLoadingUI.h"
 #include "Thread/ThreadManager.h"
 #include "Thread/LoadingThread.h"
 #include "Thread/ThreadQueue.h"
@@ -18,7 +19,8 @@ CLoadingSceneInfo::~CLoadingSceneInfo()
 
 bool CLoadingSceneInfo::Init()
 {
-	m_Owner->GetViewport()->CreateUIWindow<CLoadingUI>("LoadingUI");
+	//m_Owner->GetViewport()->CreateUIWindow<CLoadingUI>("LoadingUI");
+	m_Owner->GetViewport()->CreateUIWindow<CMyLoadingUI>("MyLoadingUI");
 
 	return true;
 }
@@ -50,7 +52,7 @@ void CLoadingSceneInfo::SceneChangeComplete()
 	//// 로딩 스레드 생성
 	m_LoadingThread = CThreadManager::GetInst()->Create<CLoadingThread>("Loading");
 
-	m_LoadingThread->SetLoadingSceneFileName("Maintest3.scn");
+	m_LoadingThread->SetLoadingSceneFileName("Test11152.scn");
 	//m_LoadingThread->SetLoadingScenePathName(SCENE_PATH);
 
 	m_LoadingQueue = m_LoadingThread->GetQueue();

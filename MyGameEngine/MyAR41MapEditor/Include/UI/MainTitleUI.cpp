@@ -2,6 +2,7 @@
 #include "UI/UIButton.h"
 #include "UI/UIText.h"
 #include "UI/UIImage.h"
+#include "UI/UINumber.h"
 
 #include "Scene/SceneManager.h"
 #include "Scene/Scene.h"
@@ -27,11 +28,20 @@ CMainTitleUI::~CMainTitleUI()
 void CMainTitleUI::Start()
 {
 	CUIWindow::Start();
+
+	m_StartButton->SetCallback<CMainTitleUI>(EButtonEventState::Click,
+		this, &CMainTitleUI::StartButtonClick);
+
+	//CResourceManager::GetInst()->LoadSound("BGM", "MainTitle", true, "Nightmare King Grimm - S87-168 Nightmare Grimm.wav");
+	CResourceManager::GetInst()->LoadSound("BGM", "MainTitle", true, "Main/Main menu theme - Title.wav");
+	CResourceManager::GetInst()->SoundPlay("MainTitle");
 }
 
 bool CMainTitleUI::Init()
 {
 	CUIWindow::Init();
+
+
 
 	m_Back = CreateWidget<CUIImage>("Back");
 	m_Back->SetSize(1280.f, 720.f);
@@ -63,16 +73,17 @@ bool CMainTitleUI::Init()
 	m_StartTitle->SetTint(255, 255, 255, 255);
 	m_StartTitle->SetAlignH(Text_Align_H::Center);
 
-	m_StartButton = CreateWidget<CUIButton>("StartButton");
+	m_StartButton = CreateWidget<CUIButton>("Button");
 
 	m_StartButton->SetSize(105.f, 40.f);
 	m_StartButton->SetPos(585.f, 210.f);
-	//m_StartButton->SetTexture(EButtonState::Normal, "StartButton", TEXT("Start.png"));
-	m_StartButton->SetCallback<CMainTitleUI>(EButtonEventState::Click,
-		this, &CMainTitleUI::StartButtonClick);
+	m_StartButton->SetTexture(EButtonState::Normal, "StartButton", TEXT("Start.png"));
+	m_StartButton->SetTexture(EButtonState::Hovered, "StartButton", TEXT("Start.png"));
+	m_StartButton->SetTexture(EButtonState::Click, "StartButton", TEXT("Start.png"));
+
 	m_StartButton->SetOpacity(0.f);
-	//m_StartButton->SetCallback<CMainTitleUI>(EButtonEventState::Hovered,
-	//	this, &CMainTitleUI::StartMouseHold);
+	m_StartButton->SetSound(EButtonEventState::Hovered, "UI", "BtnHovered", false, "Main/ui_change_selection.wav");
+	m_StartButton->SetSound(EButtonEventState::Click, "UI", "BtnClick", false, "Main/ui_button_confirm.wav");
 
 	m_ExitTitle = CreateWidget<CUIText>("EndTitle");
 
@@ -92,10 +103,9 @@ bool CMainTitleUI::Init()
 	//m_ExitButton->SetTexture(EButtonState::Normal, "ExitButton", TEXT("Start.png"));
 	m_ExitButton->SetOpacity(0.f);
 	m_ExitButton->SetCallback<CMainTitleUI>(EButtonEventState::Click,
-		this, &CMainTitleUI::StartButtonClick);
-
-	//m_ExitButton->SetCallback<CMainTitleUI>(EButtonEventState::Hovered,
-	//	this, &CMainTitleUI::ExitMouseHold);
+		this, &CMainTitleUI::ExitButtonClick);
+	m_ExitButton->SetSound(EButtonEventState::Hovered, "UI", "BtnHovered", false, "Main/ui_change_selection.wav");
+	m_ExitButton->SetSound(EButtonEventState::Click, "UI", "BtnClick", false, "Main/ui_button_confirm.wav");
 	
 	for (int i = 0; i < 4; i++)
 	{
@@ -169,9 +179,17 @@ void CMainTitleUI::Load(FILE* File)
 void CMainTitleUI::StartButtonClick()
 {
 	OutputDebugStringA("Main Test");
+
+	//CSceneManager::GetInst()->CreateNextScene(true);
+	//CSceneManager::GetInst()->ChangeNextScene();
+
+	CSceneManager::GetInst()->CreateNextScene(true);
+	CSceneManager::GetInst()->CreateSceneInfo<CLoadingSceneInfo>(false);
 }
 
 void CMainTitleUI::ExitButtonClick()
 {
 	OutputDebugStringA("Exit");
+	CResourceManager::GetInst()->SoundStop("MainTitle");
+
 }

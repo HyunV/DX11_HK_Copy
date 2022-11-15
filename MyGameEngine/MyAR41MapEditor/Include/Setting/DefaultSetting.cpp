@@ -2,7 +2,7 @@
 #include "../GameObject/Player2D.h"
 #include "../GameObject/Monster.h"
 #include "../GameObject/MyBullet.h"
-//#include "../UI/StartSceneUI.h"
+#include "../UI/StartSceneUI.h"
 #include "../UI/MainTitleUI.h"
 #include "Scene/Scene.h"
 #include "Input.h"
@@ -31,12 +31,11 @@ void CDefaultSetting::Init()
 
 void CDefaultSetting::CreateCDO()
 {    
-
     CScene::CreateObjectCDO<CPlayer2D>("Player2D");
     CScene::CreateObjectCDO<CMonster>("Monster");
     CScene::CreateObjectCDO<CMyBullet>("MyBullet");
     
-    //CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
+    CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
     CScene::CreateUIWindowCDO<CMainTitleUI>("MainTitleUI");
 }
 
@@ -45,45 +44,47 @@ void CDefaultSetting::LoadResource()
     LoadSequence();
     LoadAnimation();
 
+    //CResourceManager::GetInst()->LoadSound("UI", "hasaki", false, "63.mp3");
+
     //128 128
-    CResourceManager::GetInst()->CreateAnimationSequence2D(
-        "PlayerIdle", "PlayerSprite", TEXT("Player.png"));
+    //CResourceManager::GetInst()->CreateAnimationSequence2D(
+    //    "PlayerIdle", "PlayerSprite", TEXT("Player.png"));
 
-    //플레이어 대기모션 사진 구간을 나눠서 애니메이션 처리
-    for (int i = 0; i < 14; ++i)
-    {
-        CResourceManager::GetInst()->AddAnimationSequence2DFrame("PlayerIdle",
-            Vector2(i * 45.f, 60.f), Vector2((i + 1) * 45.f, 120.f));
-    }
+    ////플레이어 대기모션 사진 구간을 나눠서 애니메이션 처리
+    //for (int i = 0; i < 14; ++i)
+    //{
+    //    CResourceManager::GetInst()->AddAnimationSequence2DFrame("PlayerIdle",
+    //        Vector2(i * 45.f, 60.f), Vector2((i + 1) * 45.f, 120.f));
+    //}
 
-    //낱장단위 이미지를 처리
-    std::vector<const TCHAR*>   vecFileName;
+    ////낱장단위 이미지를 처리
+    //std::vector<const TCHAR*>   vecFileName;
 
-    for (int i = 1; i <= 89; ++i)
-    {
-        TCHAR* FileName = new TCHAR[MAX_PATH];
+    //for (int i = 1; i <= 89; ++i)
+    //{
+    //    TCHAR* FileName = new TCHAR[MAX_PATH];
 
-        memset(FileName, 0, sizeof(TCHAR) * MAX_PATH);
+    //    memset(FileName, 0, sizeof(TCHAR) * MAX_PATH);
 
-        wsprintf(FileName, TEXT("Explosion/Explosion%d.png"), i);
+    //    wsprintf(FileName, TEXT("Explosion/Explosion%d.png"), i);
 
-        vecFileName.push_back(FileName);
-    }
+    //    vecFileName.push_back(FileName);
+    //}
 
-    vecFileName;
+    //vecFileName;
 
-    CResourceManager::GetInst()->CreateAnimationSequence2D(
-        "PlayerRun", "Explosion", vecFileName);
+    //CResourceManager::GetInst()->CreateAnimationSequence2D(
+    //    "PlayerRun", "Explosion", vecFileName);
 
-    CResourceManager::GetInst()->AddAnimationSequence2DFrameAll("PlayerRun",
-        89, Vector2(0.f, 0.f), Vector2(320.f, 240.f));
+    //CResourceManager::GetInst()->AddAnimationSequence2DFrameAll("PlayerRun",
+    //    89, Vector2(0.f, 0.f), Vector2(320.f, 240.f));
 
-    for (int i = 0; i <= 88; ++i)
-    {
-        SAFE_DELETE_ARRAY(vecFileName[i]);
-    }
+    //for (int i = 0; i <= 88; ++i)
+    //{
+    //    SAFE_DELETE_ARRAY(vecFileName[i]);
+    //}
 
-    vecFileName.clear();
+    //vecFileName.clear();
 }
 
 void CDefaultSetting::SetInput()
