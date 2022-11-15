@@ -123,6 +123,7 @@ bool CInput::Init(HINSTANCE hInst, HWND hWnd)
 		if (!InitDirectInput())
 			return false;
 	}
+	
 
 	m_Ctrl = false;
 	m_Alt = false;

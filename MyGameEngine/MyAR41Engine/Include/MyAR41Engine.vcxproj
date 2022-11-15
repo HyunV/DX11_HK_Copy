@@ -89,6 +89,7 @@
     <ClInclude Include="Render\RenderManager.h" />
     <ClInclude Include="Render\RenderState.h" />
     <ClInclude Include="Render\RenderStateManager.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Resource\Animation\AnimationManager.h" />
     <ClInclude Include="Resource\Animation\AnimationSequence2D.h" />
     <ClInclude Include="Resource\Font\Font.h" />
@@ -358,6 +359,9 @@
     <None Include="fmod_dsp.cs" />
     <None Include="fmod_errors.cs" />
     <None Include="Resource\Texture\DirectXTex.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MyAR41Engine.rc" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

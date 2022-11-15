@@ -48,8 +48,8 @@ bool CEditorManager::Init(HINSTANCE hInst)
     //에디터 모드 켜주기
     CEngine::GetInst()->EnableEditor();
 
-    if (!CEngine::GetInst()->Init(hInst, TEXT("Editor"), TEXT("Editor"), IDI_ICON1,
-        IDI_ICON1, 1280, 720, 1280, 720, true, IDR_MENU1))
+    if (!CEngine::GetInst()->Init(hInst, TEXT("Editor"), TEXT("Editor"), IDI_ICON2,
+        IDI_ICON2, 1280, 720, 1280, 720, true, IDI_ICON2))
     {
         return false;
     }

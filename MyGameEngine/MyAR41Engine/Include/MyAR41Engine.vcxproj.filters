@@ -615,6 +615,9 @@
     <ClInclude Include="Resource\Shader\TileMapBackShader.h">
       <Filter>02. Resource\02. Shader\03. ConstantBuffer\06. TileMap</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -999,5 +1002,10 @@
     <None Include="fmod_errors.cs">
       <Filter>02. Resource\06. Sound\01. FMOD</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MyAR41Engine.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

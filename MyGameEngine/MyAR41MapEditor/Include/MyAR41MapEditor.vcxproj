@@ -262,7 +262,12 @@
     <ResourceCompile Include="MyAR41MapEditor.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="icon1.ico" />
+    <Image Include="..\Bin\Texture\HollowKnight\MainTitle\Cursor.png" />
+    <Image Include="..\Bin\Texture\HollowKnight\MainTitle\hollow_knight_0_6.ico" />
+    <Image Include="..\Bin\Texture\HollowKnight\MainTitle\hollow_knight_0_8.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Bin\Texture\cursor.cur" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

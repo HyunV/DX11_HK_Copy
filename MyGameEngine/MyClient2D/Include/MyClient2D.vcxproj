@@ -179,12 +179,15 @@
     <ClInclude Include="Setting\DefaultSetting.h" />
     <ClInclude Include="Setting\EngineShareSetting.h" />
     <ClInclude Include="UI\LoadingUI.h" />
+    <ClInclude Include="UI\MainTitleUI.h" />
     <ClInclude Include="UI\StartSceneUI.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyClient2D.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Bin\Texture\HollowKnight\MainTitle\hollow_knight_0_6.ico" />
+    <Image Include="..\Bin\Texture\HollowKnight\MainTitle\hollow_knight_0_8.ico" />
     <Image Include="icon1.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -198,7 +201,11 @@
     <ClCompile Include="Setting\DefaultSetting.cpp" />
     <ClCompile Include="Setting\EngineShareSetting.cpp" />
     <ClCompile Include="UI\LoadingUI.cpp" />
+    <ClCompile Include="UI\MainTitleUI.cpp" />
     <ClCompile Include="UI\StartSceneUI.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Bin\Texture\cursor.cur" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

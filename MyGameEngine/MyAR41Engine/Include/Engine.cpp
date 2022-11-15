@@ -9,6 +9,7 @@
 #include "Editor/EditorGUIManager.h"
 #include "CollisionManager.h"
 #include "Thread/ThreadManager.h"
+#include "resource.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -276,10 +277,11 @@ void CEngine::Register(const TCHAR* ClassName, int IconID, int SmallIconID, int 
     wcex.hInstance = m_hInst;
 
     // 실행파일에 사용할 아이콘을 등록한다.
-    wcex.hIcon = LoadIcon(m_hInst, MAKEINTRESOURCE(IconID));
+    wcex.hIcon = LoadIcon(m_hInst, MAKEINTRESOURCE(IDI_ICON1));
 
     // 마우스 커서 모양을 결정한다.
-    wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
+
+    wcex.hCursor = LoadCursor(wcex.hInstance, MAKEINTRESOURCE(IDC_CURSOR1));
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
 
     // 메뉴를 사용할지 말지를 결정한다.
@@ -294,7 +296,7 @@ void CEngine::Register(const TCHAR* ClassName, int IconID, int SmallIconID, int 
     wcex.lpszClassName = ClassName;
 
     // 윈도우창 좌상단에 표시할 작은 아이콘을 등록한다.
-    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(SmallIconID));
+    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_ICON2));
 
     RegisterClassExW(&wcex);
 
