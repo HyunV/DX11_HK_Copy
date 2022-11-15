@@ -41,6 +41,10 @@ public:
     {
         m_State = Enable ? EButtonState::Normal : EButtonState::Disable;
     }
+    bool GetMouseHovered()
+    {
+        return m_MouseHovered;
+    }
 
     void SetTexture(EButtonState State, CTexture* Texture);
     bool SetTexture(EButtonState State, const std::string& Name, const TCHAR* FileName,

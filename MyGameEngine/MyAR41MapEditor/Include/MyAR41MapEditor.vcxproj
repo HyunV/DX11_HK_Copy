@@ -193,6 +193,7 @@
     <ClCompile Include="Setting\DefaultSetting.cpp" />
     <ClCompile Include="Setting\EngineShareSetting.cpp" />
     <ClCompile Include="UI\LoadingUI.cpp" />
+    <ClCompile Include="UI\MainTitleUI.cpp" />
     <ClCompile Include="UI\StartSceneUI.cpp" />
     <ClCompile Include="Window\ClassWindow.cpp" />
     <ClCompile Include="Window\ComponentWindow.cpp" />
@@ -231,6 +232,7 @@
     <ClInclude Include="Setting\DefaultSetting.h" />
     <ClInclude Include="Setting\EngineShareSetting.h" />
     <ClInclude Include="UI\LoadingUI.h" />
+    <ClInclude Include="UI\MainTitleUI.h" />
     <ClInclude Include="UI\StartSceneUI.h" />
     <ClInclude Include="Window\ClassWindow.h" />
     <ClInclude Include="Window\ComponentWindow.h" />

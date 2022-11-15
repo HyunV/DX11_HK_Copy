@@ -504,8 +504,8 @@ void CMySequenceWindow::SaveSequence()
 
 	if (m_Sequence)
 		CResourceManager::GetInst()->ReleaseAnimationSequence2D(FileName);
-	else
-		return;
+	//else
+	//	return;
 
 	//시퀀스 만들어놓음
 	CreateSequence(m_ImageType);

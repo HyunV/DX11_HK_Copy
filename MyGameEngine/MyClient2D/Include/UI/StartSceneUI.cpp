@@ -57,7 +57,7 @@ bool CStartSceneUI::Init()
     m_Title->SetPos(200.f, 500.f);
 
     m_Title->SetFontSize(50.f);
-    m_Title->SetText(TEXT("망나니의 대모험"));
+    m_Title->SetText(TEXT("망나니의 대모험 ABCDEF 123456"));
     m_Title->SetColor(255, 255, 0);
     m_Title->SetTransparency(true);
     m_Title->SetOpacity(0.8f);

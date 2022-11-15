@@ -10,10 +10,10 @@ CUIButton::CUIButton() :
     m_MouseHovered(false)
 {
     m_WidgetTypeName = "UIButton";
-    SetImageTint(EButtonState::Normal, 200, 200, 200, 255);
-    SetImageTint(EButtonState::Hovered, 255, 255, 255, 255);
-    SetImageTint(EButtonState::Click, 150, 150, 150, 255);
-    SetImageTint(EButtonState::Disable, 100, 100, 100, 255);
+    //SetImageTint(EButtonState::Normal, 200, 200, 200, 255);
+    //SetImageTint(EButtonState::Hovered, 255, 255, 255, 255);
+    SetImageTint(EButtonState::Click, 150, 150, 150, 0);
+    //SetImageTint(EButtonState::Disable, 100, 100, 100, 255);
 }
 
 CUIButton::CUIButton(const CUIButton& Button) :

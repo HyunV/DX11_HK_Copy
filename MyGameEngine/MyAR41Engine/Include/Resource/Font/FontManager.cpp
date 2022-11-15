@@ -27,9 +27,19 @@ bool CFontManager::Init()
         (IUnknown**)&m_WriteFactory)))
         return false;
 
-    CreateFontCollection("Default", TEXT("NotoSansKR-Regular.otf"));
+    //CreateFontCollection("Default", TEXT("NotoSansKR-Regular.otf"));
 
+    //LoadFont("Default", GetFontFaceName("Default"), 600, 20.f, TEXT("ko"));
+
+    /*CreateFontCollection("Default", TEXT("04b03.ttf"));
+    LoadFont("Default", GetFontFaceName("Default"), 600, 20.f, TEXT("ko"));*/
+
+    CreateFontCollection("Default", TEXT("NotoSerifKR-VF.ttf"));
     LoadFont("Default", GetFontFaceName("Default"), 600, 20.f, TEXT("ko"));
+
+   
+    //CreateFontCollection("Default", TEXT("GyeonggiCheonnyeonBatangBold.ttf"));
+    //LoadFont("Default", GetFontFaceName("Default"), 600, 20.f, TEXT("ko"));
 
     return true;
 }

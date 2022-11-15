@@ -2,7 +2,8 @@
 #include "../GameObject/Player2D.h"
 #include "../GameObject/Monster.h"
 #include "../GameObject/MyBullet.h"
-#include "../UI/StartSceneUI.h"
+//#include "../UI/StartSceneUI.h"
+#include "../UI/MainTitleUI.h"
 #include "Scene/Scene.h"
 #include "Input.h"
 #include "CollisionManager.h"
@@ -35,7 +36,8 @@ void CDefaultSetting::CreateCDO()
     CScene::CreateObjectCDO<CMonster>("Monster");
     CScene::CreateObjectCDO<CMyBullet>("MyBullet");
     
-    CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
+    //CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
+    CScene::CreateUIWindowCDO<CMainTitleUI>("MainTitleUI");
 }
 
 void CDefaultSetting::LoadResource()

@@ -117,7 +117,7 @@ bool CPlayer2D::Init()
 	m_SpriteChild->SetInheritRotZ(true);
 
 
-	m_Sprite->SetAnimationFile("AnimationTest");
+	m_Sprite->SetAnimationFile("MainSystemUI");
 	CAnimation2D* Anim = m_Sprite->GetAnimation();
 	//
 	//Anim->AddAnimation("Idle", "AtlasTest5");
@@ -126,7 +126,7 @@ bool CPlayer2D::Init()
 	/*Anim->SetLoop("Idle", true);
 	Anim->SetLoop("Run", true);*/
 	
-	Anim->SetCurrentAnimation("AtlasTest3");
+	Anim->SetCurrentAnimation("Loading");
 
 	
 	return true;
@@ -174,7 +174,7 @@ void CPlayer2D::MoveDown()
 void CPlayer2D::Rotation()
 {
 	m_Body->AddWorldRotationZ(360.f * g_DeltaTime);
-	m_Sprite->GetAnimation()->SetCurrentAnimation("AtlasTest4");
+	m_Sprite->GetAnimation()->SetCurrentAnimation("CursorDown");
 	m_Sprite->SetRelativeScale(269.f * 0.5f, 475 * 0.5f);
 }
 

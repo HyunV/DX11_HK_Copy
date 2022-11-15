@@ -53,7 +53,7 @@ public:
         return m_Texture;
     }
 
-    const Animation2DFrameData& GetFrameData(int Index) const
+    Animation2DFrameData& GetFrameData(int Index)
     {
         return m_vecFrameData[Index];
     }
