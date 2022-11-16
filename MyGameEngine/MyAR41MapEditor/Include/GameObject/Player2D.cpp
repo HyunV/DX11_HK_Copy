@@ -79,7 +79,7 @@ bool CPlayer2D::Init()
 
 	m_Sprite->AddChild(m_RightChild);
 
-	m_Sprite->GetMaterial(0)->SetBaseColorUnsignedChar(255, 255, 0, 255);
+	m_Sprite->GetMaterial(0)->SetBaseColorUnsignedChar(255, 0, 0, 255);
 
 	m_Sprite->AddChild(m_Arm);
 	m_Arm->AddChild(m_Camera);
@@ -99,7 +99,8 @@ bool CPlayer2D::Init()
 	m_Sprite->SetPivot(0.5f, 0.5f);
 	m_Sprite->SetInheritRotZ(true);
 	m_Sprite->SetTexture("Grim", TEXT("Nightmare Grimm Anim/002.Idle/002-03-062.png"));
-	m_Sprite->SetRelativeScale(259.f*0.5, 436.f*0.5);
+	//m_Sprite->SetRelativeScale(259.f*0.5, 436.f*0.5);
+	m_Sprite->SetRelativeScale(102.f, 106.f);
 	//m_Sprite->SetRelativeRotationZ(30.f);
 
 	CMaterial* Material = m_Sprite->GetMaterial(0);
@@ -108,17 +109,22 @@ bool CPlayer2D::Init()
 	
 	//Material->SetRenderState("DepthDisable");
 
-	m_RightChild->SetRelativePosition(150.f, 0.f);
+	m_RightChild->SetRelativePosition(0.f, 0.f);
 	m_RightChild->SetInheritRotZ(true);
 
 	m_SpriteChild->SetRelativeScale(50.f, 50.f);
-	m_SpriteChild->SetRelativePosition(100.f, 0.f);
+	m_SpriteChild->SetRelativePosition(0.f, 0.f);
 	m_SpriteChild->SetPivot(0.5f, 0.5f);
 	m_SpriteChild->SetInheritRotZ(true);
 
+	//m_SpriteChild->SetAnimationFile("MainSystemUI");
+	//m_SpriteChild->GetMaterial(0)->SetBaseColorUnsignedChar(250, 250, 250, 255);
+	//m_SpriteChild->SetRelativeScale(60.f, 60.f);
+	//CAnimation2D* Anims = m_SpriteChild->GetAnimation();
+	//Anims->SetCurrentAnimation("Flame");
 
-	m_Sprite->SetAnimationFile("MainSystemUI");
-	CAnimation2D* Anim = m_Sprite->GetAnimation();
+	//m_Sprite->SetAnimationFile("MainSystemUI");
+	//CAnimation2D* Anim = m_Sprite->GetAnimation();
 	//
 	//Anim->AddAnimation("Idle", "AtlasTest5");
 	//Anim->AddAnimation("Run", "FrameGrimTest3");
@@ -126,7 +132,8 @@ bool CPlayer2D::Init()
 	/*Anim->SetLoop("Idle", true);
 	Anim->SetLoop("Run", true);*/
 	
-	Anim->SetCurrentAnimation("Loading");
+	//Anim->SetCurrentAnimation("Flame");
+	//Anim->SetLoop("Flame", true);
 
 	
 	return true;
@@ -174,7 +181,7 @@ void CPlayer2D::MoveDown()
 void CPlayer2D::Rotation()
 {
 	m_Body->AddWorldRotationZ(360.f * g_DeltaTime);
-	m_Sprite->GetAnimation()->SetCurrentAnimation("CursorDown");
+	//m_Sprite->GetAnimation()->SetCurrentAnimation("Loading");
 	m_Sprite->SetRelativeScale(269.f * 0.5f, 475 * 0.5f);
 }
 

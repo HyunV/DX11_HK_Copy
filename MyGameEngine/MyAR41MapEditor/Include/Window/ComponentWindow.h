@@ -14,7 +14,7 @@ protected:
 private:
     CEditorTree<class CComponent*>* m_Tree;
     CSharedPtr<class CComponent>    m_SelectComponent;
-    CEditorText* m_Text;
+    class CEditorText* m_Text;
 
 public:
     class CComponent* GetSelectComponent() const
@@ -34,4 +34,3 @@ public:
 private:
     void TreeCallback(CEditorTreeItem<class CComponent*>* Node, const std::string& Item);
 };
-

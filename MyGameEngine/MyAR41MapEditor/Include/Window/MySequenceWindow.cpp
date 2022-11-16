@@ -382,6 +382,8 @@ void CMySequenceWindow::SetSlide(EImageType Type)
 	int count = (int)m_vecFullPathFileName.size();
 
 	//count = (int)m_vecFrame.size();
+
+	//아틀라스
 	if (Texture)
 	{
 		if (!m_Sequence)

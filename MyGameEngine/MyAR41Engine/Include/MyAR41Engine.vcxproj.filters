@@ -642,6 +642,9 @@
     <ClInclude Include="Scene\NavigationManager.h">
       <Filter>03. Scene\06. Navigation</Filter>
     </ClInclude>
+    <ClInclude Include="UI\UIImageBlack.h">
+      <Filter>09. UI\02. Widget</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -1006,6 +1009,9 @@
     </ClCompile>
     <ClCompile Include="Scene\NavigationManager.cpp">
       <Filter>03. Scene\06. Navigation</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIImageBlack.cpp">
+      <Filter>09. UI\02. Widget</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -18,8 +18,8 @@ CEditorDefaultScene::~CEditorDefaultScene()
 
 bool CEditorDefaultScene::Init()
 {
-    //m_Owner->GetViewport()->CreateUIWindow<CStartSceneUI>("StartSceneUI");
-    m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
+    m_Owner->GetViewport()->CreateUIWindow<CStartSceneUI>("StartSceneUI");
+    //m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
 
     //CMonster* Monster = m_Owner->CreateObject<CMonster>("Monster");
     //CPlayer2D* Player = m_Owner->CreateObject<CPlayer2D>("Player2D");

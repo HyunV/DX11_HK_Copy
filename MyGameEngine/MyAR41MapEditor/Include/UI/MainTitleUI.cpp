@@ -3,6 +3,7 @@
 #include "UI/UIText.h"
 #include "UI/UIImage.h"
 #include "UI/UINumber.h"
+#include "UI/UIImageBlack.h"
 
 #include "Scene/SceneManager.h"
 #include "Scene/Scene.h"
@@ -18,7 +19,21 @@ CMainTitleUI::CMainTitleUI()
 CMainTitleUI::CMainTitleUI(const CMainTitleUI& Window)	:
 	CUIWindow(Window)
 {
+	
+	m_Back = FindWidget<CUIImage>("Back");
+	m_Logo = FindWidget<CUIImage>("Logo");
+	m_Dev = FindWidget<CUIImage>("Dev");
+
+	m_StartTitle = FindWidget<CUIText>("StartTitle");
+	m_ExitTitle = FindWidget<CUIText>("EndTitle");
+
 	m_StartButton = FindWidget<CUIButton>("Button");
+	m_ExitButton = FindWidget<CUIButton>("ExitButton");
+	
+	m_Cursor[0] = FindWidget<CUIImage>("Cursor0");
+	m_Cursor[1] = FindWidget<CUIImage>("Cursor1");
+	m_Cursor[2] = FindWidget<CUIImage>("Cursor2");
+	m_Cursor[3] = FindWidget<CUIImage>("Cursor3");
 }
 
 CMainTitleUI::~CMainTitleUI()
@@ -32,6 +47,9 @@ void CMainTitleUI::Start()
 	m_StartButton->SetCallback<CMainTitleUI>(EButtonEventState::Click,
 		this, &CMainTitleUI::StartButtonClick);
 
+	m_ExitButton->SetCallback<CMainTitleUI>(EButtonEventState::Click,
+		this, &CMainTitleUI::ExitButtonClick);
+
 	//CResourceManager::GetInst()->LoadSound("BGM", "MainTitle", true, "Nightmare King Grimm - S87-168 Nightmare Grimm.wav");
 	CResourceManager::GetInst()->LoadSound("BGM", "MainTitle", true, "Main/Main menu theme - Title.wav");
 	CResourceManager::GetInst()->SoundPlay("MainTitle");
@@ -41,8 +59,6 @@ bool CMainTitleUI::Init()
 {
 	CUIWindow::Init();
 
-
-
 	m_Back = CreateWidget<CUIImage>("Back");
 	m_Back->SetSize(1280.f, 720.f);
 	m_Back->SetTexture("MainTitleBack", TEXT("HollowKnight/MainTitle/Voidheart_menu_BG.png"));
@@ -51,7 +67,7 @@ bool CMainTitleUI::Init()
 	m_Logo->SetSize(841.f, 324.f);
 	m_Logo->SetPivot(0.5f, 0.5f);
 	m_Logo->SetPos(640.f, 500.f);
-	m_Logo->SetTexture("MainTitleLoge", TEXT("HollowKnight/MainTitle/TitleLight896350.png"));
+	m_Logo->SetTexture("MainTitleLogo", TEXT("HollowKnight/MainTitle/TitleLight896350.png"));
 	m_Logo->SetImageTint(255, 255, 255, 255);
 	
 	m_Dev = CreateWidget <CUIImage>("Dev");
@@ -102,19 +118,25 @@ bool CMainTitleUI::Init()
 	m_ExitButton->SetPos(585.f, 110.f);
 	//m_ExitButton->SetTexture(EButtonState::Normal, "ExitButton", TEXT("Start.png"));
 	m_ExitButton->SetOpacity(0.f);
-	m_ExitButton->SetCallback<CMainTitleUI>(EButtonEventState::Click,
-		this, &CMainTitleUI::ExitButtonClick);
+
 	m_ExitButton->SetSound(EButtonEventState::Hovered, "UI", "BtnHovered", false, "Main/ui_change_selection.wav");
 	m_ExitButton->SetSound(EButtonEventState::Click, "UI", "BtnClick", false, "Main/ui_button_confirm.wav");
 	
 	for (int i = 0; i < 4; i++)
 	{
-		std::string s = "Cursor";
-		s += i;
-		m_Cursor[i] = CreateWidget<CUIImage>(s);
+		char c[256] = "Cursor";
+		char num[32] = {};
+		_itoa_s(i, num, 10);
+
+		strcat_s(c, num);
+		//std::string s = "Cursor";
+
+		//s += i;
+
+		m_Cursor[i] = CreateWidget<CUIImage>(c);
 		m_Cursor[i]->SetSize(49.5f, 36.f);
 		m_Cursor[i]->SetPivot(0.5f, 0.5f);
-		m_Cursor[i]->SetTexture(s, TEXT("HollowKnight/MainTitle/Pointer Down_000.png"));
+		m_Cursor[i]->SetTexture("Cursor", TEXT("HollowKnight/MainTitle/Pointer Down_000.png"));
 	}
 
 	m_Cursor[0]->SetPos(550.f, 230.f);
@@ -125,6 +147,8 @@ bool CMainTitleUI::Init()
 	m_Cursor[3]->SetPos(720.f, 130.f);
 	m_Cursor[3]->SetAngle(180.f);
 
+	CUImageBlack* black = CreateWidget<CUImageBlack>("black");
+	black->StartFade(EFade::FadeIn, 5.f);
 	return true;
 }
 
@@ -174,6 +198,7 @@ void CMainTitleUI::Load(FILE* File)
 
 	//±¸Çö
 	m_StartButton = FindWidget<CUIButton>("Button");
+
 }
 
 void CMainTitleUI::StartButtonClick()

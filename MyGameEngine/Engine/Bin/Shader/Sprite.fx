@@ -94,13 +94,7 @@ VS_OUTPUT_UV SpriteVS(VS_INPUT_UV input)
 	VS_OUTPUT_UV output = (VS_OUTPUT_UV) 0;
 
 	//인풋: TEXCOORD, Pos로 구성(pos는 LB쪽으로 그리는 위치)
-	
-	//=======================원본코드
-	//float3 Pos = input.Pos - g_Pivot * g_MeshSize;
-	//==============================
 	float3 Pos = input.Pos - g_Pivot * g_MeshSize;
-	//Pos.x += 0.5f;
-	//==========================================
 
 	// mul : 행렬 곱. g_matWVP 는 World * View * Proj 이므로 정점을 여기에 곱하게 되면
 	// 투영 공간으로 변환된 정점의 위치가 나온다.
@@ -109,7 +103,7 @@ VS_OUTPUT_UV SpriteVS(VS_INPUT_UV input)
 	output.UV = UpdateAnimation2D(input.UV);
 
 	//이미지 회전 여부
-	//output.UV.x = 1 - input.UV.x;
+	output.UV.x = 1 - input.UV.x;
 	
 	return output;
 }

@@ -180,6 +180,7 @@
     <ClInclude Include="Setting\EngineShareSetting.h" />
     <ClInclude Include="UI\LoadingUI.h" />
     <ClInclude Include="UI\MainTitleUI.h" />
+    <ClInclude Include="UI\MyLoadingUI.h" />
     <ClInclude Include="UI\StartSceneUI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -202,6 +203,7 @@
     <ClCompile Include="Setting\EngineShareSetting.cpp" />
     <ClCompile Include="UI\LoadingUI.cpp" />
     <ClCompile Include="UI\MainTitleUI.cpp" />
+    <ClCompile Include="UI\MyLoadingUI.cpp" />
     <ClCompile Include="UI\StartSceneUI.cpp" />
   </ItemGroup>
   <ItemGroup>

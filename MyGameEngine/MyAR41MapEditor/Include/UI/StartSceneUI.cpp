@@ -63,9 +63,11 @@ bool CStartSceneUI::Init()
 
     m_Title->SetFontSize(50.f);
     m_Title->SetText(TEXT("¸Á³ª´ÏÀÇ ´ë¸ðÇè ABCDEF 123456"));
-    m_Title->SetColor(255, 255, 0);
-    m_Title->SetTransparency(true);
-    m_Title->SetOpacity(0.8f);
+    //m_Title->SetColor(255, 255, 0);
+    //m_Title->SetColor(83, 45, 0);
+    m_Title->SetColor(254, 254, 254);
+    //m_Title->SetTransparency(true);
+    //m_Title->SetOpacity(0.8f);
 
     m_Title->SetShadowEnable(true);
     m_Title->SetShadowColor(128, 128, 128);
@@ -150,4 +152,8 @@ void CStartSceneUI::StartButtonClick()
     //CSceneManager::GetInst()->CreateNextScene(true);
 
     //CSceneManager::GetInst()->CreateSceneInfo<CLoadingSceneInfo>(false);
+
+    //ºó ¾À »ý¼º
+    CSceneManager::GetInst()->CreateNextScene(true);
+    CSceneManager::GetInst()->ChangeNextScene();
 }

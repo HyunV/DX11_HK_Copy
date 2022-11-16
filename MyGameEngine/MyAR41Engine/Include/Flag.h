@@ -208,3 +208,12 @@ enum class ETileOption
 	Wall,
 	End
 };
+
+//³» ÄÚµå
+enum class EFade
+{
+	None,
+	FadeIn,
+	FadeOut,
+	NoEffect,
+};
