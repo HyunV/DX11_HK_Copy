@@ -14,6 +14,8 @@
 #include "Resource/Material/Material.h"
 #include "Animation/Animation2D.h"
 
+#include "Engine.h"
+
 
 CPlayer2D::CPlayer2D()
 {
@@ -30,7 +32,7 @@ CPlayer2D::CPlayer2D(const CPlayer2D& Obj) :
 	m_SpriteChild = (CSpriteComponent*)FindComponent("spriteChild");
 	m_Camera = (CCameraComponent*)FindComponent("Camera");
 	m_Arm = (CTargetArm*)FindComponent("Arm");
-	m_Body = (CColliderOBB2D*)FindComponent("Body");
+	m_Body = (CColliderBox2D*)FindComponent("Body");
 }
 
 CPlayer2D::~CPlayer2D()
@@ -68,8 +70,8 @@ bool CPlayer2D::Init()
 	m_SpriteChild = CreateComponent<CSpriteComponent>("spriteChild");
 	m_Camera = CreateComponent<CCameraComponent>("Camera");
 	m_Arm = CreateComponent<CTargetArm>("Arm");
-	m_Body = CreateComponent<CColliderOBB2D>("Body");
-	m_Body->SetBoxHalfSize(250.f, 250.f);
+	m_Body = CreateComponent<CColliderBox2D>("Body");
+	m_Body->SetBoxSize(100.f, 100.f);
 
 	SetRootComponent(m_Body);
 
@@ -79,7 +81,7 @@ bool CPlayer2D::Init()
 
 	m_Sprite->AddChild(m_RightChild);
 
-	m_Sprite->GetMaterial(0)->SetBaseColorUnsignedChar(255, 0, 0, 255);
+	//m_Sprite->GetMaterial(0)->SetBaseColorUnsignedChar(255, 0, 0, 255); //ÄÃ·¯
 
 	m_Sprite->AddChild(m_Arm);
 	m_Arm->AddChild(m_Camera);
@@ -94,6 +96,7 @@ bool CPlayer2D::Init()
 	m_RightChild->AddChild(m_SpriteChild);
 
 	m_Body->SetWorldPosition(500.f, 500.f);
+	m_Body->SetCollisionCallback(ECollision_Result::Collision, this, &CPlayer2D::CollisionBegin);
 
 	m_Sprite->SetRelativeScale(100.f, 100.f);
 	m_Sprite->SetPivot(0.5f, 0.5f);
@@ -105,7 +108,7 @@ bool CPlayer2D::Init()
 
 	CMaterial* Material = m_Sprite->GetMaterial(0);
 
-	Material->SetOpacity(0.5f);
+	//Material->SetOpacity(0.5f);
 	
 	//Material->SetRenderState("DepthDisable");
 
@@ -120,11 +123,12 @@ bool CPlayer2D::Init()
 	//m_SpriteChild->SetAnimationFile("MainSystemUI");
 	//m_SpriteChild->GetMaterial(0)->SetBaseColorUnsignedChar(250, 250, 250, 255);
 	//m_SpriteChild->SetRelativeScale(60.f, 60.f);
+	// 
 	//CAnimation2D* Anims = m_SpriteChild->GetAnimation();
 	//Anims->SetCurrentAnimation("Flame");
 
-	//m_Sprite->SetAnimationFile("MainSystemUI");
-	//CAnimation2D* Anim = m_Sprite->GetAnimation();
+	m_Sprite->SetAnimationFile("AnimationTest");
+	CAnimation2D* Anim = m_Sprite->GetAnimation();
 	//
 	//Anim->AddAnimation("Idle", "AtlasTest5");
 	//Anim->AddAnimation("Run", "FrameGrimTest3");
@@ -132,16 +136,27 @@ bool CPlayer2D::Init()
 	/*Anim->SetLoop("Idle", true);
 	Anim->SetLoop("Run", true);*/
 	
-	//Anim->SetCurrentAnimation("Flame");
+	Anim->SetCurrentAnimation("AtlasTest3");
+	Anim->SetLoop("AtlasTest3", true);
+	m_Sprite->SetTextureReverse(true);
+
+	//Anim->TextureReverse(true);
 	//Anim->SetLoop("Flame", true);
 
-	
+	m_TimeTest = 0;
 	return true;
 }
 
 void CPlayer2D::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
+
+	//m_TimeTest += DeltaTime;
+	//if (m_TimeTest > 1.f)
+	//{
+	//	float Fps = CEngine::GetInst()->GetFPS();
+	//	m_TimeTest = 0;
+	//}
 
 	//m_Sprite->AddRelativeRotationZ(180.f * DeltaTime);
 
@@ -171,11 +186,17 @@ void CPlayer2D::Load(FILE* File)
 void CPlayer2D::MoveUp()
 {
 	m_Body->AddWorldPosition(m_Body->GetWorldAxis(AXIS_Y) * 300.f * g_DeltaTime);
+	m_Sprite->SetTextureReverse(true);
+	m_SpriteChild->SetTextureReverse(true);
+	m_Sprite->GetAnimation()->SetCurrentAnimation("KnightDashTest");
 }
 
 void CPlayer2D::MoveDown()
 {
 	m_Body->AddWorldPosition(m_Body->GetWorldAxis(AXIS_Y) * -300.f * g_DeltaTime);
+	m_Sprite->SetTextureReverse(false);
+	m_SpriteChild->SetTextureReverse(false);
+	m_Sprite->GetAnimation()->SetCurrentAnimation("KnightDashTest");
 }
 
 void CPlayer2D::Rotation()
@@ -216,4 +237,14 @@ void CPlayer2D::Fire()
 
 	//Bullet2->SetCollisionProfileName("PlayerAttack");
 	//Bullet3->SetCollisionProfileName("PlayerAttack");
+}
+
+void CPlayer2D::CollisionBegin(const CollisionResult& Result)
+{
+	OutputDebugStringA(Result.Src->GetName().c_str());
+	OutputDebugStringA(Result.Dest->GetName().c_str());
+	
+	float a = Result.HitPoint.x;
+	float b = Result.HitPoint.y;
+	float c = Result.HitPoint.z;
 }

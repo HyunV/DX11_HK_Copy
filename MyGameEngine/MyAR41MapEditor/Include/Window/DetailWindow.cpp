@@ -185,6 +185,11 @@ void CDetailWindow::ChangeWidget(CSceneComponent* Component)
 		Component->GetComponentTypeName() == "ColliderPixel")
 	{
 		OutputDebugStringA("콜라이더");
+		AddWidget(m_vecComponentWidgetList[(int)ESceneComponentType::Box2D]);
+
+		CColliderBox2DWidgetList* Collider2DWidgetList = ((CColliderBox2DWidgetList*)m_vecComponentWidgetList[(int)ESceneComponentType::Box2D]);
+
+		Collider2DWidgetList->SetColliderBox2D((CColliderBox2D*)Component);
 		//AddWidget(m_vecComponentWidgetList[(int)ESceneComponentType::OBB2D]);
 		//((CColliderWidgetList*)m_vecComponentWidgetList[(int)ESceneComponentType::OBB2D])->SetColliderContent((CCollider2D*)Component);
 	//	size_t	Size = m_vecColliderComponent.size();
@@ -274,13 +279,13 @@ void CDetailWindow::CreateEditorWidgetList(ESceneComponentType Type)
 		WidgetList = CreateWidgetEmpty<CTargetArmWidgetList>("TargetArmComponent");
 		break;
 	case ESceneComponentType::Collider:
-		//WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("Notuse");
+		WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("Notuse");
 		break;
 	case ESceneComponentType::Collider2D:
-		//WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("Notuse2");
+		WidgetList = CreateWidgetEmpty<CSceneComponentWidgetList>("Notuse2");
 		break;
 	case ESceneComponentType::Box2D:
-		//WidgetList = CreateWidgetEmpty<CColliderBox2DWidgetList>("ColliderBox2DComponent");
+		WidgetList = CreateWidgetEmpty<CColliderBox2DWidgetList>("ColliderBox2D");
 		break;
 	case ESceneComponentType::OBB2D:
 		//WidgetList = CreateWidgetEmpty<CColliderOBB2DWidgetList>("ColliderOBB2DComponent");

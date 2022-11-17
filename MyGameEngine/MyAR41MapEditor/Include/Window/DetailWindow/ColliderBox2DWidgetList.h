@@ -11,5 +11,24 @@ class CColliderBox2DWidgetList :
 protected:
     CColliderBox2DWidgetList();
     ~CColliderBox2DWidgetList();
+
+    class CColliderBox2D* m_Collider;
+    
+    class CEditorText* m_Name;
+    class CEditorComboBox* m_Combo;
+    class CEditorInput* m_InputX;
+    class CEditorInput* m_InputY;
+    //¹öÆ°
+
+public:
+    void SetColliderBox2D(class CColliderBox2D* ColliderComponent);
+
+public:
+    virtual bool Init();
+
+private:
+    void ColliderSettingClick();
+
+    //void ComboBoxCallback(int SelectIndex, const std::string& Item);
 };
 

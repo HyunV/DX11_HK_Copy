@@ -53,6 +53,9 @@ public:
     void SetAnimationFile(const std::string& Name);
     void ClearAnimation();
 
+    //³» ÄÚµå
+    void SetTextureReverse(bool Enable);
+
 public:
     virtual void Start();
     virtual bool Init();

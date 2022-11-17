@@ -102,9 +102,14 @@ VS_OUTPUT_UV SpriteVS(VS_INPUT_UV input)
 	
 	output.UV = UpdateAnimation2D(input.UV);
 
-	//이미지 회전 여부
-	output.UV.x = 1 - input.UV.x;
+	//이미지 회전 여부 내 코드
+	//output.UV.x = 1 - input.UV.x;
+	if(g_SpriteReverse == 1)
+    {
+       output.UV.x = 1 - output.UV.x;
+    }
 	
+	//================
 	return output;
 }
 

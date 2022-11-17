@@ -45,5 +45,16 @@ public:
 	{
 		m_BufferData.Anim2DFrame = Frame;
 	}
+	
+	// 내 코드
+	void SetSpriteReverse(bool Enable)
+	{
+		m_BufferData.SpriteReverse = Enable ? 1 : 0;
+	}
+
+	void SetAnim2DReverse(bool Enable) //현재안씀
+	{
+		m_BufferData.Anim2DReverse = Enable ? 1 : 0;
+	}
 };
 

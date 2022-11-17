@@ -103,6 +103,12 @@ void CSpriteComponent::ClearAnimation()
 	SetTextureFrameIndex(0);
 }
 
+void CSpriteComponent::SetTextureReverse(bool Enable)
+{
+	CAnimation2DConstantBuffer* Buffer = CResourceManager::GetInst()->GetAnim2DConstantBuffer();
+		Buffer->SetSpriteReverse(Enable);
+}
+
 void CSpriteComponent::Start()
 {
 	CPrimitiveComponent::Start();
@@ -144,11 +150,11 @@ void CSpriteComponent::Render()
 	else
 	{
 		CAnimation2DConstantBuffer* Buffer = CResourceManager::GetInst()->GetAnim2DConstantBuffer();
-
 		Buffer->SetAnim2DEnable(false);
 
 		Buffer->UpdateBuffer();
 	}
+
 	CPrimitiveComponent::Render();
 }
 

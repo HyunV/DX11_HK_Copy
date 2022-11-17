@@ -4,7 +4,7 @@
 
 class CCollisionManager
 {
-private:
+public:
 	std::unordered_map<std::string, CollisionProfile*>	m_mapProfile;
 	std::vector<CollisionChannel*>	m_vecChannel;
 

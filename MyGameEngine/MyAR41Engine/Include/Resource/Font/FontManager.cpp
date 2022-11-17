@@ -195,10 +195,10 @@ unsigned int CFontManager::CreateFontColorKey(float r, float g, float b, float a
 {
     unsigned char _r, _g, _b, _a;
 
-    _r = (unsigned char)r * 255;
-    _g = (unsigned char)g * 255;
-    _b = (unsigned char)b * 255;
-    _a = (unsigned char)a * 255;
+    _r = (unsigned char)(r * 255);
+    _g = (unsigned char)(g * 255);
+    _b = (unsigned char)(b * 255);
+    _a = (unsigned char)(a * 255);
 
     unsigned int Key = 0;
 
@@ -220,10 +220,10 @@ unsigned int CFontManager::CreateFontColorKey(const Vector4& Color)
 {
     unsigned char _r, _g, _b, _a;
 
-    _r = (unsigned char)Color.x * 255;
-    _g = (unsigned char)Color.y * 255;
-    _b = (unsigned char)Color.z * 255;
-    _a = (unsigned char)Color.w * 255;
+    _r = (unsigned char)(Color.x * 255);
+    _g = (unsigned char)(Color.y * 255);
+    _b = (unsigned char)(Color.z * 255);
+    _a = (unsigned char)(Color.w * 255);
 
     unsigned int Key = 0;
 

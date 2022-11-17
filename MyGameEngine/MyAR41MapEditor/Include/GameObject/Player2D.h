@@ -18,7 +18,10 @@ private:
 	CSharedPtr<class CSpriteComponent>	m_SpriteChild;
 	CSharedPtr<class CCameraComponent>	m_Camera;
 	CSharedPtr<class CTargetArm>	m_Arm;
-	CSharedPtr<class CColliderOBB2D>	m_Body;
+	//CSharedPtr<class CColliderOBB2D>	m_Body;
+	CSharedPtr<class CColliderBox2D> m_Body;
+
+	float m_TimeTest;
 
 public:
 	virtual void Start();
@@ -35,5 +38,7 @@ public:
 	void Rotation();
 	void RotationInv();
 	void Fire();
+
+	void CollisionBegin(const CollisionResult& Result);
 };
 

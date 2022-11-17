@@ -105,11 +105,16 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->CreateChannel("PlayerAttack", ECollision_Interaction::Collision);
     CCollisionManager::GetInst()->CreateChannel("Monster", ECollision_Interaction::Collision);
     CCollisionManager::GetInst()->CreateChannel("MonsterAttack", ECollision_Interaction::Collision);
+    CCollisionManager::GetInst()->CreateChannel("Wall", ECollision_Interaction::Collision);
 
     CCollisionManager::GetInst()->CreateProfile("Player", "Player", true);
     CCollisionManager::GetInst()->CreateProfile("PlayerAttack", "PlayerAttack", true);
     CCollisionManager::GetInst()->CreateProfile("Monster", "Monster", true);
     CCollisionManager::GetInst()->CreateProfile("MonsterAttack", "MonsterAttack", true);
+    CCollisionManager::GetInst()->CreateProfile("Wall", "Wall", true);
+
+    CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "Player", ECollision_Interaction::Collision);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Player", "Wall", ECollision_Interaction::Collision);
 
     CCollisionManager::GetInst()->SetCollisionInteraction("Player", "PlayerAttack", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("Player", "Player", ECollision_Interaction::Ignore);
