@@ -18,6 +18,8 @@
 #include "../UI/UIWindow.h"
 #include "../PathManager.h"
 
+#include "../Component/GravityAgent.h"
+
 std::unordered_map<std::string, CSceneInfo*> CScene::m_mapSceneInfoCDO;
 
 CScene::CScene() :
@@ -153,7 +155,11 @@ void CScene::CreateCDO()
 
 	CComponent::AddComponentCDO("NavigationAgent", ComCDO);
 
+	ComCDO = new CGravityAgent;
 
+	ComCDO->Init();
+
+	CComponent::AddComponentCDO("GravityAgent", ComCDO);
 
 	// ==================== Animation ====================
 	CAnimation2D* AnimCDO = new CAnimation2D;

@@ -93,10 +93,16 @@ void CDefaultSetting::SetInput()
     CInput::GetInst()->AddBindKey("Rotation", 'D');
     CInput::GetInst()->AddBindKey("RotationInv", 'A');
 
+    CInput::GetInst()->AddBindKey("Left", VK_LEFT);
+    CInput::GetInst()->AddBindKey("Right", VK_RIGHT);
+    CInput::GetInst()->AddBindKey("UP", VK_UP);
+    CInput::GetInst()->AddBindKey("Down", VK_DOWN);
+
     CInput::GetInst()->AddBindKey("MoveUp", 'W');
     CInput::GetInst()->AddBindKey("MoveDown", 'S');
 
-    CInput::GetInst()->AddBindKey("Fire", VK_SPACE);
+    CInput::GetInst()->AddBindKey("Space", VK_SPACE);
+    CInput::GetInst()->AddBindKey("Shift", VK_SHIFT);
 }
 
 void CDefaultSetting::SetCollision()

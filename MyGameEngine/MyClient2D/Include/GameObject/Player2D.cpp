@@ -14,6 +14,8 @@
 #include "Resource/Material/Material.h"
 #include "Animation/Animation2D.h"
 
+#include "Component/GravityAgent.h"
+
 #include "Engine.h"
 
 
@@ -33,6 +35,7 @@ CPlayer2D::CPlayer2D(const CPlayer2D& Obj) :
 	m_Camera = (CCameraComponent*)FindComponent("Camera");
 	m_Arm = (CTargetArm*)FindComponent("Arm");
 	m_Body = (CColliderBox2D*)FindComponent("Body");
+	m_GravityAgent = (CGravityAgent*)FindComponent("GravityAgent");
 }
 
 CPlayer2D::~CPlayer2D()
@@ -56,8 +59,17 @@ void CPlayer2D::Start()
 	CInput::GetInst()->AddBindFunction<CPlayer2D>("MoveDown", Input_Type::Push,
 		this, &CPlayer2D::MoveDown, m_Scene);
 
+	CInput::GetInst()->AddBindFunction<CPlayer2D>("Left", Input_Type::Push, this, 
+		&CPlayer2D::LeftMove, m_Scene);
+
+	CInput::GetInst()->AddBindFunction<CPlayer2D>("Right", Input_Type::Push, this,
+		&CPlayer2D::RightMove, m_Scene);
+
+	CInput::GetInst()->AddBindFunction<CPlayer2D>("Space", Input_Type::Push, this,
+		&CPlayer2D::Jump, m_Scene);
+
 	//Ãß°¡
-	CInput::GetInst()->AddBindFunction<CPlayer2D>("Fire", Input_Type::Down, this,
+	CInput::GetInst()->AddBindFunction<CPlayer2D>("Shift", Input_Type::Down, this,
 		&CPlayer2D::Fire, m_Scene);
 }
 
@@ -72,6 +84,7 @@ bool CPlayer2D::Init()
 	m_Arm = CreateComponent<CTargetArm>("Arm");
 	m_Body = CreateComponent<CColliderBox2D>("Body");
 	m_Body->SetBoxSize(100.f, 100.f);
+	m_GravityAgent = CreateComponent<CGravityAgent>("GravityAgent");
 
 	SetRootComponent(m_Body);
 
@@ -143,6 +156,12 @@ bool CPlayer2D::Init()
 	//Anim->TextureReverse(true);
 	//Anim->SetLoop("Flame", true);
 
+	m_GravityAgent->SetPhysicsSimulate(false);
+	//m_GravityAgent->SetJumpVelocity(60.f);
+
+	m_GravityAgent->SetPhysicsSimulate(true);
+	m_GravityAgent->SetJumpVelocity(60.f);
+
 	m_TimeTest = 0;
 	return true;
 }
@@ -211,11 +230,26 @@ void CPlayer2D::RotationInv()
 	m_Body->AddWorldRotationZ(-360.f * g_DeltaTime);
 }
 
+void CPlayer2D::LeftMove()
+{
+	m_Body->AddWorldPosition(m_Body->GetWorldAxis(AXIS_X) * -300.f * g_DeltaTime);
+}
+
+void CPlayer2D::RightMove()
+{
+	m_Body->AddWorldPosition(m_Body->GetWorldAxis(AXIS_X) * 300.f * g_DeltaTime);	
+}
+
+void CPlayer2D::Jump()
+{
+	m_GravityAgent->Jump();
+}
+
 void CPlayer2D::Fire()
 {
-	CMyBullet* Bullet = m_Scene->CreateObject<CMyBullet>("MyBullet");
-	Bullet->SetWorldPosition(GetWorldPos());
-	Bullet->SetWorldRotation(GetWorldRot());
+	//CMyBullet* Bullet = m_Scene->CreateObject<CMyBullet>("MyBullet");
+	//Bullet->SetWorldPosition(GetWorldPos());
+	//Bullet->SetWorldRotation(GetWorldRot());
 
 	//m_Sprite->GetAnimation()->SetCurrentAnimation("Idle");
 	//m_Sprite->SetRelativeScale(259.f * 0.5f, 436 * 0.5f);
@@ -233,10 +267,12 @@ void CPlayer2D::Fire()
 
 	//Bullet->SetWorldPosition(GetWorldPos());
 	//Bullet->SetWorldRotation(GetWorldRot());
-	Bullet->SetCollisionProfileName("PlayerAttack");
+	//Bullet->SetCollisionProfileName("PlayerAttack");
 
 	//Bullet2->SetCollisionProfileName("PlayerAttack");
 	//Bullet3->SetCollisionProfileName("PlayerAttack");
+	m_GravityAgent->SetPhysicsSimulate(true);
+	m_GravityAgent->SetJumpVelocity(60.f);
 }
 
 void CPlayer2D::CollisionBegin(const CollisionResult& Result)
@@ -247,4 +283,7 @@ void CPlayer2D::CollisionBegin(const CollisionResult& Result)
 	float a = Result.HitPoint.x;
 	float b = Result.HitPoint.y;
 	float c = Result.HitPoint.z;
+
+	//this->AddWorldPositionY(1.f);
+	m_GravityAgent->SetPhysicsSimulate(false);
 }

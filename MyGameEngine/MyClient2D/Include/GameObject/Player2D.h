@@ -20,6 +20,7 @@ private:
 	CSharedPtr<class CTargetArm>	m_Arm;
 	//CSharedPtr<class CColliderOBB2D>	m_Body;
 	CSharedPtr<class CColliderBox2D> m_Body;
+	CSharedPtr<class CGravityAgent> m_GravityAgent;
 
 	float m_TimeTest;
 
@@ -37,6 +38,9 @@ public:
 	void MoveDown();
 	void Rotation();
 	void RotationInv();
+	void LeftMove();
+	void RightMove();
+	void Jump();
 	void Fire();
 
 	void CollisionBegin(const CollisionResult& Result);

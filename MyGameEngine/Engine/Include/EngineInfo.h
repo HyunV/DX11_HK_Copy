@@ -2,6 +2,8 @@
 
 #define DIRECTINPUT_VERSION 0x0800
 
+#define GRAVITY 9.8f
+
 #include <Windows.h>
 #include <vector>
 #include <list>
