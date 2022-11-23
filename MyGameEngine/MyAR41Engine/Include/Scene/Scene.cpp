@@ -24,7 +24,16 @@ std::unordered_map<std::string, CSceneInfo*> CScene::m_mapSceneInfoCDO;
 
 CScene::CScene() :
 	m_Change(false),
-	m_Start(false)
+	m_Start(false),
+	m_SceneInfo(nullptr),
+	m_Resource(nullptr),
+	m_CameraManager(nullptr),
+	m_CollisionManager(nullptr),
+	m_Viewport(nullptr),
+	m_NavManager(nullptr),
+	m_Name("Scene"),
+	m_LoadingCallback(nullptr)
+
 {
 	m_Name = "Scene";
 
@@ -348,10 +357,10 @@ void CScene::Load(const char* FullPath)
 	fread(&Length, 4, 1, File);
 	fread(Name, 1, Length, File);
 
-	LoadSize += 4 + Length;
+	//LoadSize += 4 + Length;
 
-	if (m_LoadingCallback)
-		m_LoadingCallback(LoadSize / (float)FileSize);
+	//if (m_LoadingCallback)
+	//	m_LoadingCallback(LoadSize / (float)FileSize);
 
 	m_Name = Name;
 
@@ -362,10 +371,10 @@ void CScene::Load(const char* FullPath)
 	fread(&Length, 4, 1, File);
 	fread(SceneInfoName, 1, Length, File);
 
-	LoadSize += 4 + Length;
+	//LoadSize += 4 + Length;
 
-	if (m_LoadingCallback)
-		m_LoadingCallback(LoadSize / (float)FileSize);
+	//if (m_LoadingCallback)
+	//	m_LoadingCallback(LoadSize / (float)FileSize);
 
 	SAFE_DELETE(m_SceneInfo);
 
@@ -382,83 +391,83 @@ void CScene::Load(const char* FullPath)
 
 	m_SceneInfo->Load(File);
 
-	int	NextPos = (int)ftell(File);
+	//int	NextPos = (int)ftell(File);
 
-	int	CurLoadSize = NextPos - CurPos;
+	//int	CurLoadSize = NextPos - CurPos;
 
-	if (CurLoadSize > 0)
-	{
-		LoadSize += CurLoadSize;
+	//if (CurLoadSize > 0)
+	//{
+	//	LoadSize += CurLoadSize;
 
-		if (m_LoadingCallback)
-			m_LoadingCallback(LoadSize / (float)FileSize);
-	}
+	//	if (m_LoadingCallback)
+	//		m_LoadingCallback(LoadSize / (float)FileSize);
+	//}
 
-	CurPos = NextPos;
+	//CurPos = NextPos;
 
 	m_CameraManager->m_Owner = this;
 	m_CameraManager->Load(File);
 
-	NextPos = (int)ftell(File);
+	//NextPos = (int)ftell(File);
 
-	CurLoadSize = NextPos - CurPos;
+	//CurLoadSize = NextPos - CurPos;
 
-	if (CurLoadSize > 0)
-	{
-		LoadSize += CurLoadSize;
+	//if (CurLoadSize > 0)
+	//{
+	//	LoadSize += CurLoadSize;
 
-		if (m_LoadingCallback)
-			m_LoadingCallback(LoadSize / (float)FileSize);
-	}
+	//	if (m_LoadingCallback)
+	//		m_LoadingCallback(LoadSize / (float)FileSize);
+	//}
 
-	CurPos = NextPos;
+	//CurPos = NextPos;
 
 	m_CollisionManager->m_Owner = this;
 	m_CollisionManager->Load(File);
 
-	NextPos = (int)ftell(File);
+	//NextPos = (int)ftell(File);
 
-	CurLoadSize = NextPos - CurPos;
+	//CurLoadSize = NextPos - CurPos;
 
-	if (CurLoadSize > 0)
-	{
-		LoadSize += CurLoadSize;
+	//if (CurLoadSize > 0)
+	//{
+	//	LoadSize += CurLoadSize;
 
-		if (m_LoadingCallback)
-			m_LoadingCallback(LoadSize / (float)FileSize);
-	}
+	//	if (m_LoadingCallback)
+	//		m_LoadingCallback(LoadSize / (float)FileSize);
+	//}
 
-	CurPos = NextPos;
+	//CurPos = NextPos;
 
 	m_Viewport->m_Owner = this;
 	m_Viewport->Load(File);
 
-	NextPos = (int)ftell(File);
+	//NextPos = (int)ftell(File);
 
-	CurLoadSize = NextPos - CurPos;
+	//CurLoadSize = NextPos - CurPos;
 
-	if (CurLoadSize > 0)
-	{
-		LoadSize += CurLoadSize;
+	//if (CurLoadSize > 0)
+	//{
+	//	LoadSize += CurLoadSize;
 
-		if (m_LoadingCallback)
-			m_LoadingCallback(LoadSize / (float)FileSize);
-	}
+	//	if (m_LoadingCallback)
+	//		m_LoadingCallback(LoadSize / (float)FileSize);
+	//}
 
-	CurPos = NextPos;
+	//CurPos = NextPos;
 
 	int	ObjCount = 0;
 
 	fread(&ObjCount, 4, 1, File);
 
-	LoadSize += 4;
+	//LoadSize += 4;
 
-	NextPos += 4;
+	//NextPos += 4;
 
-	if (m_LoadingCallback)
-		m_LoadingCallback(LoadSize / (float)FileSize);
+	//if (m_LoadingCallback)
+	//	m_LoadingCallback(LoadSize / (float)FileSize);
 
-	CurPos = NextPos;
+	//CurPos = NextPos;
 	
 	for (int i = 0; i < ObjCount; ++i)
 	{
@@ -469,13 +478,13 @@ void CScene::Load(const char* FullPath)
 		fread(&Length, 4, 1, File);
 		fread(ObjClassTypeName, 1, Length, File);
 
-		LoadSize += 4 + Length;
-		NextPos += 4 + Length;
+		//LoadSize += 4 + Length;
+		//NextPos += 4 + Length;
 
-		if (m_LoadingCallback)
-			m_LoadingCallback(LoadSize / (float)FileSize);
+		//if (m_LoadingCallback)
+		//	m_LoadingCallback(LoadSize / (float)FileSize);
 
-		CurPos = NextPos;
+		//CurPos = NextPos;
 
 		CGameObject* ObjCDO = CGameObject::FindCDO(ObjClassTypeName);
 
@@ -485,19 +494,19 @@ void CScene::Load(const char* FullPath)
 
 		NewObj->Load(File);
 
-		NextPos = (int)ftell(File);
+		//NextPos = (int)ftell(File);
 
-		CurLoadSize = NextPos - CurPos;
+		//CurLoadSize = NextPos - CurPos;
 
-		if (CurLoadSize > 0)
-		{
-			LoadSize += CurLoadSize;
+		//if (CurLoadSize > 0)
+		//{
+		//	LoadSize += CurLoadSize;
 
-			if (m_LoadingCallback)
-				m_LoadingCallback(LoadSize / (float)FileSize);
-		}
+		//	if (m_LoadingCallback)
+		//		m_LoadingCallback(LoadSize / (float)FileSize);
+		//}
 
-		CurPos = NextPos;
+		//CurPos = NextPos;
 
 		m_ObjList.push_back(NewObj);
 	}

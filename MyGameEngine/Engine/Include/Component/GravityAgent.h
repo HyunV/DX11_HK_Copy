@@ -15,19 +15,25 @@ protected:
 private:
 	CSharedPtr<class CSceneComponent> m_UpdateComponent; //중력 적용할 컴포넌트 (오브젝트는 플레이어랑 몬스터만 쓸듯)
 
-	CSharedPtr<class CCollider2D> m_Wall; //현재 씬에서 충돌할 Box 콜라이더를 받음
 	CSharedPtr<class CCollider2D> m_Body; //벽과 부딫히는 콜라이더
-
+	CSharedPtr<class CCollider2D> m_Wall; //현재 씬에서 충돌할 Box 콜라이더를 받음
+	
 	//=====================
 	Vector2     m_Pos;
 	Vector2     m_PrevPos;
 	Vector2     m_Move;
-	Vector2     m_BodySize;// 충돌체의 Size;
-	Vector2     m_BodyPivot;// 충돌체의 Pivot;
-	//========================
 
+	Vector2     m_BodySize;// 충돌체의 Size;
+	//Vector2     m_BodyPivot;// 충돌체의 Pivot;
+	Box2DInfo	m_BodyInfo; 
+
+	Vector2		m_WallSize;
+	Box2DInfo	m_WallInfo; //벽 좌표
+	//========================
+public:
 	//[중력 소스] 중력 관련 
 	bool		m_PhysicsSimulate; //물리시뮬레이션 작동 시킬것인지 여부
+
 	bool		m_Ground;	// 땅을 밟고 있는 상태인지 아닌지
 	float		m_GravityAccel;
 	float		m_FallTime; //물체가 떨어지는 시간(몇 초동안 떨어지냐)
@@ -37,6 +43,9 @@ private:
 	bool		m_SideWallCheck;
 	bool		m_Start;
 	int			m_JumpCount;
+
+	bool		m_FallingStart;
+	bool		m_SideWallCollision;
 
 public:
 	//[내비 소스]
@@ -75,9 +84,37 @@ public:
 		m_JumpVelocity = JumpVelocity;
 	}
 
+	bool GetJump()
+	{
+		return m_Jump;
+	}
+
+	bool GetFalling()
+	{
+		return m_FallingStart;
+	}
+
+	bool GetSideWallCheck()
+	{
+		return m_SideWallCollision;
+	}
+
 public:
 	void Jump()
 	{
+		if (m_JumpCount == 2)
+			return;
+			
+		else if (m_JumpCount == 1)
+		{
+			SetJumpVelocity(1.3f);
+			m_FallTime = 0.f;
+			m_FallStartY = m_Pos.y-200.f;
+			
+		}
+
+		++m_JumpCount;
+
 		if (!m_Jump)
 		{
 			m_Jump = true;
@@ -86,6 +123,7 @@ public:
 
 			m_FallTime = 0.f;
 			m_FallStartY = m_UpdateComponent->GetWorldPos().y;
+			SetJumpVelocity(1.8f);
 		}
 	}
 

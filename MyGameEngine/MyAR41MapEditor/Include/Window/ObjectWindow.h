@@ -15,7 +15,8 @@ protected:
 
 private:
     CEditorTree<CGameObject*>* m_Tree;
-    CSharedPtr<CGameObject> m_SelectObject;
+    //CSharedPtr<CGameObject> m_SelectObject;
+    class CGameObject* m_SelectObject;
     class CEditorInput* m_SelectObjectInput;
 
 public:

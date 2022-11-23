@@ -651,6 +651,9 @@
     <ClInclude Include="Component\GravityAgent.h">
       <Filter>05. Component\02. ObjectComponent\02. GravityAgent</Filter>
     </ClInclude>
+    <ClInclude Include="Component\MapComponent.h">
+      <Filter>05. Component\01. SceneComponent\01. Primitive</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -1021,6 +1024,9 @@
     </ClCompile>
     <ClCompile Include="Component\GravityAgent.cpp">
       <Filter>05. Component\02. ObjectComponent\02. GravityAgent</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\MapComponent.cpp">
+      <Filter>05. Component\01. SceneComponent\01. Primitive</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

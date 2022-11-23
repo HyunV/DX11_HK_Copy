@@ -23,6 +23,8 @@ void CColliderBox2DWidgetList::SetColliderBox2D(CColliderBox2D* ColliderComponen
 
 	std::string ChannelName = m_Collider->GetCollisionProfile()->Name;
 	m_Name->SetText("Box2D Profile: " + ChannelName);
+	std::string ColliderName = m_Collider->GetName();
+	m_ComponentName->SetText(ColliderName.c_str());
 
 	//std::vector<CollisionChannel*> v = CCollisionManager::GetInst()->m_vecChannel;
 	//for (int i = 0; i < v.size(); i++)
@@ -69,6 +71,8 @@ bool CColliderBox2DWidgetList::Init()
 	m_Name = CreateWidget<CEditorText>("Name");
 	m_Name->SetText("Collider Box2D");
 
+	m_ComponentName = CreateWidget<CEditorInput>("ComponentName");
+
 	m_Combo = CreateWidget<CEditorComboBox>("Profile");
 	m_Combo->SetHideName("Profile");
 	m_Combo->SetPrevViewName("Profiles");
@@ -97,9 +101,15 @@ void CColliderBox2DWidgetList::ColliderSettingClick()
 {
 	m_Collider->SetBoxSize(m_InputX->GetFloat(), m_InputY->GetFloat());
 
-	std::string Profile = m_Combo->GetSelectItem();
-	m_Collider->SetCollisionProfile(Profile);
-	m_Name->SetText("Box2D Profile: " + Profile);
+	m_Collider->SetName(m_ComponentName->GetTextUTF8());
+		
+	if (!(m_Combo->GetSelectIndex() == -1))
+	{
+		std::string Profile = m_Combo->GetSelectItem();
+		m_Collider->SetCollisionProfile(Profile);
+		m_Name->SetText("Box2D Profile: " + Profile);
+	}
+
 
 }
 

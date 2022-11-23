@@ -14,6 +14,10 @@ protected:
 public:
 	class CSpriteComponent* m_Sprite;
 
+	//렌더레이어 콤보박스
+	class CEditorComboBox* m_LayerCombo;
+
+
 	//애니메이션
 	class CEditorInput* m_PlayTime;
 	class CEditorInput* m_PlayScale;

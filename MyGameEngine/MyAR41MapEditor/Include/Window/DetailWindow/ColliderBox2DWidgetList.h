@@ -18,6 +18,7 @@ protected:
     class CEditorComboBox* m_Combo;
     class CEditorInput* m_InputX;
     class CEditorInput* m_InputY;
+    class CEditorInput* m_ComponentName;
     //¹öÆ°
 
 public:

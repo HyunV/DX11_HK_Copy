@@ -2,6 +2,12 @@
 #include "../GameObject/Player2D.h"
 #include "../GameObject/Monster.h"
 #include "../GameObject/MyBullet.h"
+#include "../GameObject/Door.h"
+#include "../GameObject/Brum.h"
+#include "../GameObject/ElderBugNPC.h"
+#include "../GameObject/Hornet.h"
+#include "../GameObject/Sly.h"
+#include "../GameObject/GlobalWall.h"
 #include "../UI/StartSceneUI.h"
 #include "../UI/MainTitleUI.h"
 #include "Scene/Scene.h"
@@ -34,6 +40,13 @@ void CDefaultSetting::CreateCDO()
     CScene::CreateObjectCDO<CPlayer2D>("Player2D");
     CScene::CreateObjectCDO<CMonster>("Monster");
     CScene::CreateObjectCDO<CMyBullet>("MyBullet");
+    CScene::CreateObjectCDO<CDoor>("Door");
+    CScene::CreateObjectCDO<CBrum>("Brum");
+    CScene::CreateObjectCDO<CElderBugNPC>("ElderBugNPC");
+    CScene::CreateObjectCDO<CHornet>("Hornet");
+    CScene::CreateObjectCDO<CSly>("Sly");
+    CScene::CreateObjectCDO<CGlobalWall>("GlobalWall");
+    
     
     CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
     CScene::CreateUIWindowCDO<CMainTitleUI>("MainTitleUI");
@@ -92,17 +105,23 @@ void CDefaultSetting::SetInput()
     // 키 등록
     CInput::GetInst()->AddBindKey("Rotation", 'D');
     CInput::GetInst()->AddBindKey("RotationInv", 'A');
-
-    CInput::GetInst()->AddBindKey("Left", VK_LEFT);
-    CInput::GetInst()->AddBindKey("Right", VK_RIGHT);
-    CInput::GetInst()->AddBindKey("UP", VK_UP);
-    CInput::GetInst()->AddBindKey("Down", VK_DOWN);
-
     CInput::GetInst()->AddBindKey("MoveUp", 'W');
     CInput::GetInst()->AddBindKey("MoveDown", 'S');
 
-    CInput::GetInst()->AddBindKey("Space", VK_SPACE);
+    CInput::GetInst()->AddBindKey("Left", VK_LEFT);
+    CInput::GetInst()->AddBindKey("Right", VK_RIGHT);
+    CInput::GetInst()->AddBindKey("Up", VK_UP);
+    CInput::GetInst()->AddBindKey("Down", VK_DOWN);
+
+    CInput::GetInst()->AddBindKey("Z", 'Z'); //에너지
+    CInput::GetInst()->AddBindKey("X", 'X'); //점프
+    CInput::GetInst()->AddBindKey("C", 'C'); //공격
+    CInput::GetInst()->AddBindKey("Space", VK_SPACE); //차지
+
+    
     CInput::GetInst()->AddBindKey("Shift", VK_SHIFT);
+
+
 }
 
 void CDefaultSetting::SetCollision()
@@ -111,16 +130,39 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->CreateChannel("PlayerAttack", ECollision_Interaction::Collision);
     CCollisionManager::GetInst()->CreateChannel("Monster", ECollision_Interaction::Collision);
     CCollisionManager::GetInst()->CreateChannel("MonsterAttack", ECollision_Interaction::Collision);
-    CCollisionManager::GetInst()->CreateChannel("Wall", ECollision_Interaction::Collision);
+    CCollisionManager::GetInst()->CreateChannel("Wall", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->CreateChannel("Door", ECollision_Interaction::Collision);
+    CCollisionManager::GetInst()->CreateChannel("NPC", ECollision_Interaction::Ignore);
 
     CCollisionManager::GetInst()->CreateProfile("Player", "Player", true);
     CCollisionManager::GetInst()->CreateProfile("PlayerAttack", "PlayerAttack", true);
     CCollisionManager::GetInst()->CreateProfile("Monster", "Monster", true);
     CCollisionManager::GetInst()->CreateProfile("MonsterAttack", "MonsterAttack", true);
     CCollisionManager::GetInst()->CreateProfile("Wall", "Wall", true);
+    CCollisionManager::GetInst()->CreateProfile("Door", "Door", true);
+    CCollisionManager::GetInst()->CreateProfile("NPC", "NPC", true);
 
-    CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "Player", ECollision_Interaction::Collision);
-    CCollisionManager::GetInst()->SetCollisionInteraction("Player", "Wall", ECollision_Interaction::Collision);
+    //NPC
+    CCollisionManager::GetInst()->SetCollisionInteraction("NPC", "NPC", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "NPC", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("NPC", "Wall", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("NPC", "Door", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Door", "NPC", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Player", "NPC", ECollision_Interaction::Collision);
+    CCollisionManager::GetInst()->SetCollisionInteraction("NPC", "Player", ECollision_Interaction::Collision);
+
+    //Wall
+    CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "Player", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Player", "Wall", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "Mouse", ECollision_Interaction::Collision);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Mouse", "Wall", ECollision_Interaction::Collision);
+
+    //Door
+    CCollisionManager::GetInst()->SetCollisionInteraction("Door", "Player", ECollision_Interaction::Collision);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Player", "Door", ECollision_Interaction::Collision);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Player", "Wall", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Door", "Wall", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "Door", ECollision_Interaction::Ignore);
 
     CCollisionManager::GetInst()->SetCollisionInteraction("Player", "PlayerAttack", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("Player", "Player", ECollision_Interaction::Ignore);

@@ -105,8 +105,9 @@ void CSpriteComponent::ClearAnimation()
 
 void CSpriteComponent::SetTextureReverse(bool Enable)
 {
-	CAnimation2DConstantBuffer* Buffer = CResourceManager::GetInst()->GetAnim2DConstantBuffer();
-		Buffer->SetSpriteReverse(Enable);
+	m_TextureReverse = Enable;
+	//CAnimation2DConstantBuffer* Buffer = CResourceManager::GetInst()->GetAnim2DConstantBuffer();
+	//	Buffer->SetSpriteReverse(Enable);
 }
 
 void CSpriteComponent::Start()
@@ -145,13 +146,13 @@ void CSpriteComponent::PostUpdate(float DeltaTime)
 void CSpriteComponent::Render()
 {
 	if (m_Animation)
-		m_Animation->SetShader();
+		m_Animation->SetShader(m_TextureReverse);
 
 	else
 	{
 		CAnimation2DConstantBuffer* Buffer = CResourceManager::GetInst()->GetAnim2DConstantBuffer();
 		Buffer->SetAnim2DEnable(false);
-
+		Buffer->SetSpriteReverse(m_TextureReverse);
 		Buffer->UpdateBuffer();
 	}
 
@@ -176,12 +177,17 @@ void CSpriteComponent::Save(FILE* File)
 
 	if (m_Animation)
 	{
-		int	Length = (int)m_Animation->m_ClassName.length();
+		int	Length = (int)m_Animation->m_Name.length();
 
 		fwrite(&Length, 4, 1, File);
-		fwrite(m_Animation->m_ClassName.c_str(), 1, Length, File);
+		fwrite(m_Animation->m_Name.c_str(), 1, Length, File);
 
-		m_Animation->Save(File);
+		//int	Length = (int)m_Animation->m_ClassName.length();
+
+		//fwrite(&Length, 4, 1, File);
+		//fwrite(m_Animation->m_ClassName.c_str(), 1, Length, File);
+
+		//m_Animation->Save(File);
 	}
 }
 
@@ -201,12 +207,13 @@ void CSpriteComponent::Load(FILE* File)
 		fread(&Length, 4, 1, File);
 		fread(ClassName, 1, Length, File);
 
-		CAnimation2D* CDO = CAnimation2D::FindCDO(ClassName);
+		//CAnimation2D* CDO = CAnimation2D::FindCDO(ClassName);
 
-		m_Animation = CDO->Clone();
+		//m_Animation = CDO->Clone();
+		m_Animation = CResourceManager::GetInst()->FindAnimation2D(ClassName);
 
 		m_Animation->m_Owner = this;
 
-		m_Animation->Load(File);
+		//m_Animation->Load(File);
 	}
 }

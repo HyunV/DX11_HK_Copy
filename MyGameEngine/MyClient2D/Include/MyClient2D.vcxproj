@@ -170,9 +170,15 @@
   <ItemGroup>
     <ClInclude Include="Client.h" />
     <ClInclude Include="ClientManager.h" />
+    <ClInclude Include="GameObject\Brum.h" />
+    <ClInclude Include="GameObject\Door.h" />
+    <ClInclude Include="GameObject\ElderBugNPC.h" />
+    <ClInclude Include="GameObject\GlobalWall.h" />
+    <ClInclude Include="GameObject\Hornet.h" />
     <ClInclude Include="GameObject\Monster.h" />
     <ClInclude Include="GameObject\MyBullet.h" />
     <ClInclude Include="GameObject\Player2D.h" />
+    <ClInclude Include="GameObject\Sly.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene\LoadingSceneInfo.h" />
     <ClInclude Include="Scene\MainSceneInfo.h" />
@@ -193,9 +199,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ClientManager.cpp" />
+    <ClCompile Include="GameObject\Brum.cpp" />
+    <ClCompile Include="GameObject\Door.cpp" />
+    <ClCompile Include="GameObject\ElderBugNPC.cpp" />
+    <ClCompile Include="GameObject\GlobalWall.cpp" />
+    <ClCompile Include="GameObject\Hornet.cpp" />
     <ClCompile Include="GameObject\Monster.cpp" />
     <ClCompile Include="GameObject\MyBullet.cpp" />
     <ClCompile Include="GameObject\Player2D.cpp" />
+    <ClCompile Include="GameObject\Sly.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene\LoadingSceneInfo.cpp" />
     <ClCompile Include="Scene\MainSceneInfo.cpp" />

@@ -176,10 +176,21 @@ void CObjectWindow::DeleteButtonCallback()
 
 	std::string Name = m_SelectObject->GetName();
 	m_Tree->DeleteItem(Name);
-
+	//m_Tree->Clear();
+	//m_Tree->
 	//선택한 오브젝트를 삭제한다.
-	m_SelectObject->Destroy();
+	//m_SelectObject->Destroy();
+
+	
+	
+	
+	
 
 	//지우고 나면 선택창을 비운다.
+
+	CComponentWindow* ComponentWindow = CEditorGUIManager::GetInst()->FindEditorWindow<CComponentWindow>("ComponentWindow");
+
+	ComponentWindow->ClearSelect();
+	ComponentWindow->Clear();
 	
 }

@@ -21,7 +21,8 @@ CInput::CInput() :
 	m_Mouse(nullptr),
 	m_KeyArray{},
 	m_MouseState{},
-	m_CollisionWidget(false)
+	m_CollisionWidget(false),
+	m_LockKey(false)
 {
 }
 
@@ -214,6 +215,9 @@ void CInput::UpdateMouse(float DeltaTime)
 
 void CInput::UpdateKeyState(float DeltaTime)
 {
+	if (m_LockKey)
+		return;
+
 	switch (m_InputSystem)
 	{
 	case InputSystem_Type::DInput:

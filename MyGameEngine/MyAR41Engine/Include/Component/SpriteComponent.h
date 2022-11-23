@@ -15,6 +15,7 @@ protected:
 
 protected:
     CSharedPtr<CAnimation2D> m_Animation;
+    bool m_TextureReverse;
 
 public:
     std::string GetAnimationName()  const

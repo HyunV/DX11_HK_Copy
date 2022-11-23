@@ -4,6 +4,8 @@
 
 #define GRAVITY 9.8f
 
+#define g_SCALE 0.7f
+
 #include <Windows.h>
 #include <vector>
 #include <list>
@@ -40,6 +42,7 @@
 #pragma comment(lib, "../Bin/fmod64_vc.lib")
 
 extern float g_DeltaTime; //전역변수 해놓은거 가져오는 extern
+extern float g_Scale;
 
 //경로 관련 매크로
 #define ROOT_PATH		"Root"

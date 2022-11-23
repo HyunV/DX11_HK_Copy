@@ -170,6 +170,7 @@ bool CSpriteComponentWidgetList::Init()
 		(this, &CSpriteComponentWidgetList::OpacityCallback);
 
 
+	//m_Sprite->SetRenderLayerName
 	//프로그래스 바로 조절
 
 	//===========현재 미구현 머테리얼

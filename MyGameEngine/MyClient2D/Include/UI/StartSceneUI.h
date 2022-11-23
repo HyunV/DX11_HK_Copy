@@ -17,6 +17,9 @@ protected:
 	CSharedPtr<class CUIProgressBar>	m_ProgressBar;
 	CSharedPtr<class CUINumber>	m_Number;
 
+	CSharedPtr<class CUINumber>	m_MousePosX;
+	CSharedPtr<class CUINumber>	m_MousePosY;
+
 public:
 	virtual void Start();
 	virtual bool Init();

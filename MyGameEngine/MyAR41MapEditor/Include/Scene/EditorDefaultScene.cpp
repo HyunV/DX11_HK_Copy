@@ -6,6 +6,7 @@
 
 #include "../GameObject/Monster.h"
 #include "../GameObject/Player2D.h"
+#include "../GameObject/GlobalWall.h"
 
 CEditorDefaultScene::CEditorDefaultScene()
 {
@@ -22,7 +23,8 @@ bool CEditorDefaultScene::Init()
     //m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
 
     //CMonster* Monster = m_Owner->CreateObject<CMonster>("Monster");
-    //CPlayer2D* Player = m_Owner->CreateObject<CPlayer2D>("Player2D");
+    CGlobalWall* GlobalWall = m_Owner->CreateObject<CGlobalWall>("GlobalWall");
+    CPlayer2D* Player = m_Owner->CreateObject<CPlayer2D>("Player2D");
 
     return true;
 }

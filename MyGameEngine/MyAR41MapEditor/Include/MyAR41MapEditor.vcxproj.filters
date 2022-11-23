@@ -37,6 +37,9 @@
     <Filter Include="03. Window\01. DetailWindow\01. Collider2D">
       <UniqueIdentifier>{878d52c5-ac69-494d-a2aa-6ebdc76ee8b4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObject\02. NPCS">
+      <UniqueIdentifier>{ffed47a6-6c3e-4485-82c9-c422a30f1e61}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -149,6 +152,24 @@
     </ClCompile>
     <ClCompile Include="UI\MyLoadingUI.cpp">
       <Filter>05. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Door.cpp">
+      <Filter>04. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\ElderBugNPC.cpp">
+      <Filter>04. GameObject\02. NPCS</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Brum.cpp">
+      <Filter>04. GameObject\02. NPCS</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Hornet.cpp">
+      <Filter>04. GameObject\02. NPCS</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Sly.cpp">
+      <Filter>04. GameObject\02. NPCS</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\GlobalWall.cpp">
+      <Filter>04. GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +286,24 @@
     </ClInclude>
     <ClInclude Include="UI\MyLoadingUI.h">
       <Filter>05. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Door.h">
+      <Filter>04. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\ElderBugNPC.h">
+      <Filter>04. GameObject\02. NPCS</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Brum.h">
+      <Filter>04. GameObject\02. NPCS</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Hornet.h">
+      <Filter>04. GameObject\02. NPCS</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Sly.h">
+      <Filter>04. GameObject\02. NPCS</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\GlobalWall.h">
+      <Filter>04. GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

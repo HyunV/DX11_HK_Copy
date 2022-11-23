@@ -15,6 +15,13 @@
 #include "../GameObject\Player2D.h"
 #include "../GameObject\MyBullet.h"
 #include "../GameObject\Monster.h"
+#include "../GameObject\Door.h"
+#include "../GameObject\Brum.h"
+#include "../GameObject\ElderBugNPC.h"
+#include "../GameObject\Hornet.h"
+#include "../GameObject\Sly.h"
+#include "../GameObject\GlobalWall.h"
+
 #include "ObjectWindow.h"
 #include "ComponentWindow.h"
 #include "Editor/EditorGUIManager.h"
@@ -165,16 +172,34 @@ void CClassWindow::ObjectCreateCallback()
     }
 
     if (m_SelectObjectItem == "GameObject")
-        Obj = Scene->CreateObject<CGameObject>(m_SelectObjectItem+strNum);
+        Obj = Scene->CreateObject<CGameObject>(m_SelectObjectItem + strNum);
 
     else if (m_SelectObjectItem == "Player2D")
-        Obj = Scene->CreateObject<CPlayer2D>(m_SelectObjectItem+strNum);
+        Obj = Scene->CreateObject<CPlayer2D>(m_SelectObjectItem + strNum);
 
     else if (m_SelectObjectItem == "MyBullet")
-        Obj = Scene->CreateObject<CMyBullet>(m_SelectObjectItem+strNum);
+        Obj = Scene->CreateObject<CMyBullet>(m_SelectObjectItem + strNum);
 
     else if (m_SelectObjectItem == "Monster")
-        Obj = Scene->CreateObject<CMonster>(m_SelectObjectItem+strNum);
+        Obj = Scene->CreateObject<CMonster>(m_SelectObjectItem + strNum);
+
+    else if (m_SelectObjectItem == "Door")
+        Obj = Scene->CreateObject<CDoor>(m_SelectObjectItem + strNum);
+
+    else if (m_SelectObjectItem == "Brum")
+        Obj = Scene->CreateObject<CBrum>(m_SelectObjectItem + strNum);
+
+    else if (m_SelectObjectItem == "ElderBugNPC")
+        Obj = Scene->CreateObject<CElderBugNPC>(m_SelectObjectItem + strNum);
+
+    else if (m_SelectObjectItem == "Hornet")
+        Obj = Scene->CreateObject<CHornet>(m_SelectObjectItem + strNum);
+
+    else if (m_SelectObjectItem == "Sly")
+        Obj = Scene->CreateObject<CSly>(m_SelectObjectItem + strNum);
+
+    else if (m_SelectObjectItem == "GlobalWall")
+        Obj = Scene->CreateObject<CGlobalWall>(m_SelectObjectItem + strNum);
 
     if (Window)
     {

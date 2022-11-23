@@ -17,8 +17,8 @@ CMonster::CMonster()
 CMonster::CMonster(const CMonster& Obj) :
 	CGameObject(Obj)
 {
-	//m_Body = (CColliderPixel*)FindComponent("Body");
-	//m_Sprite = (CSpriteComponent*)FindComponent("Sprite");
+	m_Body = (CColliderBox2D*)FindComponent("Body");
+	m_Sprite = (CSpriteComponent*)FindComponent("Sprite");
 }
 
 CMonster::~CMonster()
@@ -42,18 +42,25 @@ bool CMonster::Init()
 
 	m_Body = CreateComponent<CColliderBox2D>("Body");
 	m_Sprite = CreateComponent<CSpriteComponent>("Sprite");
+	SetRootComponent(m_Body);
 
+	m_Body->SetWorldPosition(100.f, 100.f);
 	m_Body->SetBoxSize(500.f, 500.f);
+	m_Body->AddChild(m_Sprite);
+	m_Sprite->SetTexture("tm", TEXT("teemo.png"));
+	m_Sprite->SetWorldScale(200.f, 200.f);
+
+
 	//m_Sprite->AddChild(m_Sprite);
 	//m_Body->AddChild(m_Sprite);
-
+	
 	//m_Body->SetCollisionProfile("Monster");
 
 	//m_Sprite->SetPivot(0.5f, 0.5f);
-	m_Sprite->SetRelativeScale(100.f, 100.f);
-	m_Sprite->SetTexture("t", TEXT("teemo.png"));
+	//m_Sprite->SetRelativeScale(100.f, 100.f);
+	
 	//m_Sprite->SetRelativePosition(300.f, 300.f);
-	m_Sprite->SetWorldPosition(500.f, 500.f);
+	//m_Sprite->SetWorldPosition(100.f, 100.f);
 	//m_Body->SetWorldPosition(500.f, 600.f);
 
 	//m_Sprite->SetWorldPositionZ(0.5f);
@@ -66,8 +73,7 @@ bool CMonster::Init()
 	//m_Body->SetCollisionProfile("Monster");
 	//m_Body->SetBoxSize(300.f, 300.f);
 	//m_Body->SetPivot(0.f, 0.f);
-	m_Sprite->AddChild(m_Body);
-
+	
 	return true;
 }
 

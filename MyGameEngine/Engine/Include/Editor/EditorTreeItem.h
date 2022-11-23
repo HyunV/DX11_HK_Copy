@@ -148,6 +148,7 @@ public:
 
 		for (size_t i = 0; i < Size; ++i)
 		{
+			//m_vecChild.clear();
 			m_vecChild[i]->Clear();
 			SAFE_DELETE(m_vecChild[i]);
 		}
@@ -219,6 +220,7 @@ public:
 		//선택한 트리 아이템과 받아온 문자열 가지고 바인드함수
 		m_SelectCallback = std::bind(Func, Obj, std::placeholders::_1, std::placeholders::_2);
 	}
+
 public:
 	template <typename WidgetType>
 	WidgetType* CreateWidget(const std::string& Name, float Width = 100.f, float Height = 100.f)

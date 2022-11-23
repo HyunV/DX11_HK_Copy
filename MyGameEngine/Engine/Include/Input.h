@@ -95,6 +95,9 @@ private:
 	bool	m_ShowCursor;
 	bool	m_CollisionWidget;
 
+	//³» ÄÚµå
+	bool m_LockKey;
+
 public:
 	bool GetMouseLDown()	const
 	{
@@ -124,6 +127,10 @@ public:
 	const Vector2& GetMouseMove()	const
 	{
 		return m_MouseMove;
+	}
+	void SetLockKey(bool Enable)
+	{
+		m_LockKey = Enable;
 	}
 
 public:

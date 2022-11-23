@@ -422,7 +422,7 @@ CAnimation2D* CAnimation2D::Clone()
 	return new CAnimation2D(*this);
 }
 
-void CAnimation2D::SetShader()
+void CAnimation2D::SetShader(bool TextureReverse)
 {
 	if (!m_CurAnimation || !m_CurAnimation->m_Sequence ||
 		!m_CurAnimation->m_Sequence->GetTexture())
@@ -434,6 +434,8 @@ void CAnimation2D::SetShader()
 
 	EAnimation2DType	Type = m_CurAnimation->m_Sequence->GetAnim2DType();
 
+	Buffer->SetSpriteReverse(TextureReverse);
+	
 	if (Type == EAnimation2DType::Atlas)
 	{
 		Buffer->SetImageSize((float)m_CurAnimation->m_Sequence->GetTexture()->GetWidth(),

@@ -83,6 +83,8 @@ private:
 	CSceneViewport* m_Viewport;
 	CNavigationManager* m_NavManager;
 	std::list<CSharedPtr<class CGameObject>>	m_ObjList;
+	CSharedPtr<class CGameObject> m_Player;
+
 	std::string	m_Name;
 	std::function<void(float)>	m_LoadingCallback;
 
@@ -125,6 +127,10 @@ public:
 	CNavigationManager* GetNavigationManager()	const
 	{
 		return m_NavManager;
+	}
+	CGameObject* GetPlayer() const
+	{
+		return m_Player;
 	}
 
 public:

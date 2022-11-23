@@ -7,6 +7,7 @@
 #include "Scene/Scene.h"
 #include "../Scene/LoadingSceneInfo.h"
 #include "Engine.h"
+#include "Input.h"
 
 CStartSceneUI::CStartSceneUI()
 {
@@ -19,6 +20,9 @@ CStartSceneUI::CStartSceneUI(const CStartSceneUI& Window) :
     m_Button = FindWidget<CUIButton>("Button");
     m_Title = FindWidget<CUIText>("Title");
     m_Number = FindWidget<CUINumber>("Number");
+
+    m_MousePosX = FindWidget<CUINumber>("MouseX");
+    m_MousePosY = FindWidget<CUINumber>("MouseY");
 }
 
 CStartSceneUI::~CStartSceneUI()
@@ -106,6 +110,33 @@ bool CStartSceneUI::Init()
         m_Number->AddFrameData(Vector2(i * 46.4f, 0.f), Vector2((i + 1) * 46.4f, 68.5f));
     }
 
+    CUIText* Text = CreateWidget<CUIText>("MousePos");
+    Text->SetFontSize(14.f);
+    Text->SetSize(100.f, 30.f);
+    Text->SetPos(1000.f, 650.f);
+    Text->SetText(TEXT("Mouse Pos"));
+    Text->SetColor(0, 0, 255);
+    Text->SetAlignH(Text_Align_H::Right);
+
+
+    m_MousePosX = CreateWidget<CUINumber>("MouseX");
+    m_MousePosX->SetTexture("Number", TEXT("Number.png"));
+    for (int i = 0; i < 10; ++i)
+    {
+        m_MousePosX->AddFrameData(Vector2(i * 46.4f, 0.f), Vector2((i + 1) * 46.4f, 68.5f));
+    }
+    m_MousePosX->SetPos(1100.f, 660.f);
+    m_MousePosX->SetSize(10.f, 15.f);
+
+    m_MousePosY = CreateWidget<CUINumber>("MouseY");
+    m_MousePosY->SetTexture("Number", TEXT("Number.png"));
+    for (int i = 0; i < 10; ++i)
+    {
+        m_MousePosY->AddFrameData(Vector2(i * 46.4f, 0.f), Vector2((i + 1) * 46.4f, 68.5f));
+    }
+    m_MousePosY->SetPos(1100.f, 640.f);
+    m_MousePosY->SetSize(10.f, 15.f);
+    
     return true;
 }
 
@@ -116,6 +147,12 @@ void CStartSceneUI::Update(float DeltaTime)
     float FPS = CEngine::GetInst()->GetFPS();
 
     m_Number->SetNumber((unsigned int)FPS);
+    Vector2 v1 = CInput::GetInst()->GetMousePos();
+    //Vector2 v2 = CInput::GetInst()->ComputeWorldMousePos();
+
+    m_MousePosX->SetNumber((unsigned int)v1.x);
+    m_MousePosY->SetNumber((unsigned int)v1.y);
+
 }
 
 void CStartSceneUI::PostUpdate(float DeltaTime)

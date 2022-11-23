@@ -16,6 +16,7 @@
 #pragma comment(lib, "dxguid.lib")
 
 float g_DeltaTime;
+float g_Scale = 0.7f;
 
 std::function<bool(HWND, UINT, WPARAM, LPARAM)> CEngine::m_WndProcFunc;
 
@@ -29,6 +30,7 @@ CEngine::CEngine() :
 	m_hWnd(0),
     m_WindowRS{},
     m_ClearColor{0.7f, 0.7f, 0.7f, 0.f}
+    //m_ClearColor{1.f,1.f,1.f,1.f}
     //m_ClearColor{0.f, 0.f, 0.f, 0.f}
 {
     /*

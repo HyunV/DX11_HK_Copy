@@ -79,7 +79,7 @@ public:
     virtual void Save(FILE* File);
     virtual void Load(FILE* File);
     virtual CAnimation2D* Clone();
-    void SetShader();
+    void SetShader(bool TextureReverse);
     //³»ÇÔ¼ö
     std::list<CAnimation2DData*>GetAnimationList();
     void DeleteAnimation2DData(const std::string& Name);

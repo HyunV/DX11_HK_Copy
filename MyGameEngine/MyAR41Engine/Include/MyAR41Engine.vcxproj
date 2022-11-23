@@ -32,6 +32,7 @@
     <ClInclude Include="Component\ColliderSphere2D.h" />
     <ClInclude Include="Component\Component.h" />
     <ClInclude Include="Component\GravityAgent.h" />
+    <ClInclude Include="Component\MapComponent.h" />
     <ClInclude Include="Component\NavigationAgent.h" />
     <ClInclude Include="Component\ObjectComponent.h" />
     <ClInclude Include="Component\PrimitiveComponent.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Component\ColliderSphere2D.cpp" />
     <ClCompile Include="Component\Component.cpp" />
     <ClCompile Include="Component\GravityAgent.cpp" />
+    <ClCompile Include="Component\MapComponent.cpp" />
     <ClCompile Include="Component\NavigationAgent.cpp" />
     <ClCompile Include="Component\ObjectComponent.cpp" />
     <ClCompile Include="Component\PrimitiveComponent.cpp" />

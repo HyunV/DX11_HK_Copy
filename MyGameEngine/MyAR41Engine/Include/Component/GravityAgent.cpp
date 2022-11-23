@@ -51,11 +51,39 @@ void CGravityAgent::SetUpdateComponent(CSceneComponent* Component)
 void CGravityAgent::CheckMoveRight()
 {
 	//TODO
+	float PosX = m_Pos.x + (m_BodySize.x * 0.5f); //오른쪽 좌표
+
+	//float WallLeft = m_WallInfo.Left; // 0
+	//float WallTop = m_WallInfo.Top; // 720
+	//float WallRight = m_WallInfo.Right; // 1280
+	//float WallBottom = m_WallInfo.Bottom; //0
+
+	if ((int)PosX >= (int)m_WallInfo.Right)
+	{
+		m_SideWallCollision = true;
+		m_UpdateComponent->SetWorldPositionX(m_WallInfo.Right - (m_BodySize.x*0.5f));
+	}
+	else
+		m_SideWallCollision = false;
 }
 
 void CGravityAgent::CheckMoveLeft()
 {
-	//TODO
+	//TODO	
+	float PosX = m_Pos.x - (m_BodySize.x * 0.5f); //왼쪽 좌표
+
+	//float WallLeft = m_WallInfo.Left; // 0
+	//float WallTop = m_WallInfo.Top; // 720
+	//float WallRight = m_WallInfo.Right; // 1280
+	//float WallBottom = m_WallInfo.Bottom; //0
+
+	if ((int)PosX <= (int)m_WallInfo.Left)
+	{
+		m_SideWallCollision = true;
+		m_UpdateComponent->SetWorldPositionX(m_WallInfo.Left + (m_BodySize.x * 0.5f));
+	}
+	else
+		m_SideWallCollision = false;
 }
 
 void CGravityAgent::Destroy()
@@ -71,6 +99,32 @@ void CGravityAgent::Start()
 		m_UpdateComponent = m_Owner->GetRootComponent();
 
 	//TODO
+	//충돌 비교할 재료 들고오기
+	
+	//둘 다 콜라이더 박스로 사용
+	//콜라이더는 가운데 피봇
+
+	//씬에 있는 콜라이더 가져오기
+	if (m_Scene)
+		m_Wall = (CCollider2D*)(m_Scene->FindObject("GlobalWall")->FindComponent("GlobalWall"));
+	if (m_Wall)
+	{
+		m_WallSize = ((CColliderBox2D*)m_Wall.Get())->GetBoxSize();
+		m_WallInfo = ((CColliderBox2D*)m_Wall.Get())->GetInfo();
+	}
+		
+	//주체
+	m_Body = (CCollider2D*)m_Owner->FindComponent("Body");
+
+	if (m_Body)
+	{
+		m_BodySize = ((CColliderBox2D*)m_Body.Get())->GetBoxSize();
+		m_BodyInfo = ((CColliderBox2D*)m_Body.Get())->GetInfo();
+
+		m_Pos = m_Body->GetWorldPos(); 
+		m_Pos.y = m_Pos.y - (m_BodySize.y * 0.5f); //Center 기준에서 하단 피봇으로 바꿔줌
+		m_PrevPos = m_Pos;		
+	}
 }
 
 bool CGravityAgent::Init()
@@ -102,11 +156,11 @@ void CGravityAgent::Update(float DeltaTime)
 			float Velocity = 0.f;
 
 			if (m_Jump)
-				Velocity = m_JumpVelocity * m_FallTime;
+				Velocity = m_JumpVelocity;
 				
 			//중력 식
-			//float PosY = m_FallStartY - (Velocity - 0.5f * GRAVITY * m_FallTime * m_FallTime);
-			m_UpdateComponent->SetWorldPositionY(m_FallStartY + (Velocity - 0.5f * GRAVITY * m_FallTime * m_FallTime));
+			float PosY = (Velocity - 0.5f * GRAVITY * m_FallTime * m_FallTime);
+			m_UpdateComponent->AddWorldPosition(0, PosY);
 		}
 	}
 }
@@ -116,127 +170,75 @@ void CGravityAgent::PostUpdate(float DeltaTime)
 	CObjectComponent::PostUpdate(DeltaTime);
 
 	//TODO
-    m_Pos = m_Body->GetWorldPos();
-    m_Move = m_Pos - m_PrevPos;
+	m_Pos = m_Body->GetWorldPos();
+	m_Pos.y = m_Pos.y - (m_BodySize.y * 0.5f);
+    m_Move.x = m_Pos.x - m_PrevPos.x; //이동 거리
+	m_Move.y = m_Pos.y + m_PrevPos.y;
 
-    //if (m_UpdateComponent && m_TileMap)
-    //{
-    //    if (m_Move.x != 0.f && m_SideWallCheck)
-    //    {
-    //        // 오른쪽으로 이동할때
-    //        if (m_Move.x > 0.f)
-    //        {
-    //            CheckMoveRight();
-    //        }
+	if (m_Pos.y < m_PrevPos.y)
+	{
+		m_FallingStart = true;
+	}
 
-    //        // 왼쪽으로 이동할때
-    //        else
-    //        {
-    //            CheckMoveLeft();
-    //        }
-    //    }
-
-        // 바닥에 착지시킨다.
-	// 바닥에 착지시킨다.
-		if (m_PhysicsSimulate && m_Move.y >= 0.f)
+	if (m_UpdateComponent && m_Wall)
+	{
+		if (m_Move.x != 0.f && m_SideWallCheck)
 		{
-			//CTileMap* TileMap = m_Scene->GetTileMap();
-
-			float	PrevBottom = m_PrevPos.y + (1.f - m_BodyPivot.y) * m_BodySize.y;
-			float	CurBottom = m_Pos.y + (1.f - m_BodyPivot.y) * m_BodySize.y;
-
-			float	PrevLeft = m_PrevPos.x - m_BodyPivot.x * m_BodySize.x;
-			float	CurLeft = m_Pos.x - m_BodyPivot.x * m_BodySize.x;
-
-			float	PrevRight = m_PrevPos.x + (1.f - m_BodyPivot.x) * m_BodySize.x;
-			float	CurRight = m_Pos.x + (1.f - m_BodyPivot.x) * m_BodySize.x;
-
-			float ResultLeft = PrevLeft < CurLeft ? PrevLeft : CurLeft;
-			float ResultRight = PrevRight > CurRight ? PrevRight : CurRight;
-			float ResultTop = PrevBottom < CurBottom ? PrevBottom : CurBottom;
-			float ResultBottom = PrevBottom > CurBottom ? PrevBottom : CurBottom;
-
-			int LeftIndex = TileMap->GetTileOriginIndexX(ResultLeft);
-			int RightIndex = TileMap->GetTileOriginIndexX(ResultRight);
-			int TopIndex = TileMap->GetTileOriginIndexY(ResultTop);
-			int BottomIndex = TileMap->GetTileOriginIndexY(ResultBottom);
-
-			LeftIndex = LeftIndex < 0 ? 0 : LeftIndex;
-			TopIndex = TopIndex < 0 ? 0 : TopIndex;
-			RightIndex = RightIndex > TileMap->GetCountX() - 1 ? TileMap->GetCountX() - 1 : RightIndex;
-			BottomIndex = BottomIndex > TileMap->GetCountY() - 1 ? TileMap->GetCountY() - 1 : BottomIndex;
-
-			if (LeftIndex <= TileMap->GetCountX() - 1 && TopIndex <= TileMap->GetCountY() - 1 &&
-				RightIndex >= 0 && BottomIndex >= 0)
+			// 오른쪽으로 이동할때
+			if (m_Move.x > 0.f)
 			{
-				bool	Check = false;
+				CheckMoveRight();				
+			}
 
-				// 위에서 아래로 차례로 검사를 해나간다.
-				// 아래에서부터 하게 되면 위에 벽이 있을 경우 무시하고 처리되버릴 수도 있기 때문이다.
-				for (int i = TopIndex; i <= BottomIndex; ++i)
-				{
-					for (int j = LeftIndex; j <= RightIndex; ++j)
-					{
-						CTile* Tile = TileMap->GetTile(j, i);
-
-						if (!Tile)
-							continue;
-
-						/*if (Tile->GetPos().y < PrevBottom)
-							continue;*/
-
-							// 현재 타일이 이동불가 타일일 경우 바닥을 밟았다는 것이다.
-						if (Tile->GetOption() == ETile_Option::ImpossibleToMove)
-						{
-							Check = true;
-							m_FallTime = 0.f;
-
-							m_JumpCount = 0;
-
-							// 현재 타일의 Top을 이 오브젝트의 Bottom값으로 지정한다.
-							m_Pos.y = Tile->GetPos().y - (1.f - m_Pivot.y) * m_Size.y;
-							m_Ground = true;
-							m_Jump = false;
-							break;
-						}
-					}
-
-					if (Check)
-						break;
-				}
-
-				// 바닥이 없을 경우
-				if (!Check)
-				{
-					// 땅을 밟고 있던 상태라면 이제 떨어지는 상태가 될것이다.
-					if (m_Ground)
-					{
-						m_FallTime = 0.f;
-						m_FallStartY = m_Pos.y;
-					}
-
-					m_Ground = false;
-				}
+			// 왼쪽으로 이동할때
+			else
+			{
+				CheckMoveLeft();
 			}
 		}
+	}
+	//바닥에 착지시킨다.
+		//&& m_Move.y <= 0.f
+		if (m_PhysicsSimulate)
+		{			
+			//float   PrevBottom = m_PrevPos.y;
+			//float   CurBottom = m_Pos.y;
+			//float Bottom = m_Pos.y;
+
+			//발 밑 좌표와 부딫힐 때
+
+			bool check = false;
+			
+			//땅에 닿을 때
+			if ((int)m_Pos.y <= (int)m_WallInfo.Bottom)
+			{
+				check = true;
+				m_FallTime = 0.f;
+				m_JumpCount = 0;
+				
+				m_Owner->SetWorldPositionY(m_WallInfo.Bottom + (m_BodySize.y * 0.5f));
+				m_Ground = true;
+				m_FallingStart = false;
+				m_Jump = false;
+			}
+
+			//바닥이 없을 경우
+			if (!check)
+			{
+				if (m_Ground)
+				{
+				    m_FallTime = 0.f;
+					m_FallStartY = m_Pos.y;
+				}
+				m_Ground = false;
+			}
+		}
+		m_PrevPos = m_Pos;
 }
 
 void CGravityAgent::Render()
 {
     CObjectComponent::Render();
-}
-
-CGravityAgent* CGravityAgent::Clone() const
-{
-    return new CGravityAgent(*this);
-
-
-
-}
-
-void CGravityAgent::Render()
-{
-	CObjectComponent::Render();
 }
 
 CGravityAgent* CGravityAgent::Clone() const

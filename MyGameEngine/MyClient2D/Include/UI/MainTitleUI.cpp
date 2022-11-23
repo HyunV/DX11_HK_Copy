@@ -8,6 +8,7 @@
 #include "Scene/SceneManager.h"
 #include "Scene/Scene.h"
 #include "../Scene/LoadingSceneInfo.h"
+#include "PathManager.h"
 //#include "Resource/ResourceManager.h"
 //#include "Animation/AnimationSequence2D.h"
 
@@ -53,6 +54,9 @@ void CMainTitleUI::Start()
 	//CResourceManager::GetInst()->LoadSound("BGM", "MainTitle", true, "Nightmare King Grimm - S87-168 Nightmare Grimm.wav");
 	CResourceManager::GetInst()->LoadSound("BGM", "MainTitle", true, "Main/Main menu theme - Title.wav");
 	CResourceManager::GetInst()->SoundPlay("MainTitle");
+
+	CUImageBlack* black = CreateWidget<CUImageBlack>("black");
+	black->StartFade(EFade::FadeIn, 5.f);
 }
 
 bool CMainTitleUI::Init()
@@ -147,8 +151,7 @@ bool CMainTitleUI::Init()
 	m_Cursor[3]->SetPos(720.f, 130.f);
 	m_Cursor[3]->SetAngle(180.f);
 
-	CUImageBlack* black = CreateWidget<CUImageBlack>("black");
-	black->StartFade(EFade::FadeIn, 5.f);
+
 	return true;
 }
 
@@ -203,13 +206,25 @@ void CMainTitleUI::Load(FILE* File)
 
 void CMainTitleUI::StartButtonClick()
 {
-	OutputDebugStringA("Main Test");
+
+	CResourceManager::GetInst()->SoundStop("MainTitle");
 
 	//CSceneManager::GetInst()->CreateNextScene(true);
-	//CSceneManager::GetInst()->ChangeNextScene();
+	//CSceneManager::GetInst()->CreateSceneInfo<CLoadingSceneInfo>(false);
 
-	CSceneManager::GetInst()->CreateNextScene(true);
-	CSceneManager::GetInst()->CreateSceneInfo<CLoadingSceneInfo>(false);
+	CSceneManager::GetInst()->CreateNextScene();
+
+	char Name[256] = {};
+	const PathInfo* Path = CPathManager::GetInst()->FindPath(SCENE_PATH);
+	strcat_s(Name, Path->PathMultibyte);
+	strcat_s(Name, "Door2");
+	strcat_s(Name, ".scn");
+
+	CScene* NextScene = CSceneManager::GetInst()->GetNextScene();
+	NextScene->Load(Name);
+
+	CSceneManager::GetInst()->ChangeNextScene();
+	
 }
 
 void CMainTitleUI::ExitButtonClick()

@@ -1,5 +1,6 @@
 #pragma once
 #include "Editor\EditorWindow.h"
+#include "Animation\Animation2D.h"
 //#include "Animation\Animation2DData.h"
 
 class CMyAnimationWindow :

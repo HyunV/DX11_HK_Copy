@@ -1,0 +1,29 @@
+001Idle		349 186 t 9
+002Walk		349 186 t 7
+003Dash		349 186 f 12
+004DashEffect	401 217 f 8
+005-0Jump		349 186 f 12
+005-1AirBone	349 186 t 3
+006DoubleJump	349 186 f 8
+007DoubleJumpEffect 383 356 f 8
+008LandOn		349 186 f 3
+009Slash		349 186 f 15
+010SlashAlt		349 186 f 15
+011SlashEffect	349 186 f 6
+012SlashEffectAlt	349 186 f 6
+013UpSlash		349 186 f 15
+014UpSlashEffect	169 192 f 6
+015DownSlash	349 186 f 15
+016DownSlashEffect182 209 f 6
+017FireBall		349 186 f 6
+018ChargeOnKnight349 186 t 5
+019ChargeEffect	205 155 t 9
+020EnterTheKnight 349 186 f 10
+021WallSlide		349 186 t 4
+022Stun		349 186 f 1
+023Death		349 186 t 4
+024Prostrate		349 186 f 1
+025ProstrateRise	349 186 f 21
+026ShadowDash	349 186 f 11
+027ShadowDashEffect 342 175 f 13
+028FireBallShadow	349 186 f 6

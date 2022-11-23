@@ -324,6 +324,9 @@ void CUIProgressBar::Render()
 
     m_AnimCBuffer->UpdateBuffer();
 
+    if(!m_BarShader)
+        m_BarShader = CResourceManager::GetInst()->FindShader("UIProgressBarShader");
+
     m_BarShader->SetShader();
 
     m_Mesh->Render();

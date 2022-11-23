@@ -36,6 +36,23 @@ CColliderBox2D::~CColliderBox2D()
 void CColliderBox2D::Start()
 {
 	CCollider2D::Start();
+
+	Vector2	Size = m_BoxSize;
+	Size.x *= GetWorldScale().x;
+	Size.y *= GetWorldScale().y;
+	//Size.x *= GetRelativeScale().x;
+	//Size.y *= GetRelativeScale().x;
+
+	m_Min.x = GetWorldPos().x - Size.x * 0.5f;
+	m_Min.y = GetWorldPos().y - Size.y * 0.5f;
+
+	m_Max.x = m_Min.x + Size.x;
+	m_Max.y = m_Min.y + Size.y;
+
+	m_Info.Left = m_Min.x;
+	m_Info.Bottom = m_Min.y;
+	m_Info.Right = m_Max.x;
+	m_Info.Top = m_Max.y;
 }
 
 bool CColliderBox2D::Init()
@@ -66,7 +83,7 @@ void CColliderBox2D::PostUpdate(float DeltaTime)
 	Size.y *= GetWorldScale().y;
 	//Size.x *= GetRelativeScale().x;
 	//Size.y *= GetRelativeScale().x;
-	Size;
+	
 	m_Min.x = GetWorldPos().x - Size.x * 0.5f;
 	m_Min.y = GetWorldPos().y - Size.y * 0.5f;
 
@@ -121,6 +138,7 @@ void CColliderBox2D::Save(FILE* File)
 	CCollider2D::Save(File);
 
 	fwrite(&m_BoxSize, sizeof(Vector2), 1, File);
+	fwrite(&m_Info, sizeof(Box2DInfo), 1, File);
 }
 
 void CColliderBox2D::Load(FILE* File)
@@ -128,6 +146,7 @@ void CColliderBox2D::Load(FILE* File)
 	CCollider2D::Load(File);
 
 	fread(&m_BoxSize, sizeof(Vector2), 1, File);
+	fread(&m_Info, sizeof(Box2DInfo), 1, File);
 
 	if (CEngine::GetEditorMode())
 	{

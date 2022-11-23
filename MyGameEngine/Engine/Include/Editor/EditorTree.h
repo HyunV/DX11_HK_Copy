@@ -148,14 +148,29 @@ public:
         // 루트가 아닐 경우
         else
         {
-            size_t	Size = Find->m_vecChild.size();
+            //size_t	Size = Find->m_vecChild.size();
 
-            for (size_t i = 1; i < Size; ++i)
-            {
-                Parent->m_vecChild.push_back(Find->m_vecChild[i]);
-            }
+            //for (size_t i = 1; i < Size; ++i)
+            //{
+            //    Parent->m_vecChild.push_back(Find->m_vecChild[i]);
+            //}
 
-            Find->m_vecChild.clear();
+            //Find->m_vecChild.clear();
+
+            
+            
+            //내 코드
+            // 
+            //CEditorTreeItem<T>* Find = m_Root->FindItem(Name);
+            //size_t Size = m_Root->m_vecChild.size();
+            //for (size_t i = 1; i < Size; ++i)
+            //{
+            //    //m_vecChild[i].er
+            //}
+
+
+
+
 
             SAFE_DELETE(Find);
         }
