@@ -104,10 +104,10 @@ VS_OUTPUT_UV SpriteVS(VS_INPUT_UV input)
 
 	//이미지 회전 여부 내 코드
 	//output.UV.x = 1 - input.UV.x;
-	if(g_SpriteReverse == 1)
-    {
-       output.UV.x = 1 - output.UV.x;
-    }
+    //if (g_SpriteReverse == 1)
+    //{
+    //    output.UV.x = 1.f - output.UV.x;
+    //}
 	
 	//================
 	return output;
@@ -116,6 +116,7 @@ VS_OUTPUT_UV SpriteVS(VS_INPUT_UV input)
 PS_OUTPUT_SINGLE SpritePS(VS_OUTPUT_UV input)
 {
 	PS_OUTPUT_SINGLE output = (PS_OUTPUT_SINGLE) 0;
+	
 
 	float4 TextureColor = g_BaseTexture.Sample(g_PointSmp, input.UV);
 

@@ -38,6 +38,10 @@ public:
     {
         return m_Animation;
     }
+    bool GetTextureReverse()
+    {
+        return m_TextureReverse;
+    }
 
 public:
     bool SetTexture(class CTexture* Texture);

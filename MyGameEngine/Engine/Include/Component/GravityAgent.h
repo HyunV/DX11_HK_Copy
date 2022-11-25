@@ -83,6 +83,10 @@ public:
 	{
 		m_JumpVelocity = JumpVelocity;
 	}
+	void SetFallTime(float FallTime)
+	{
+		m_FallTime = FallTime;
+	}
 
 	bool GetJump()
 	{
@@ -98,6 +102,7 @@ public:
 	{
 		return m_SideWallCollision;
 	}
+	
 
 public:
 	void Jump()

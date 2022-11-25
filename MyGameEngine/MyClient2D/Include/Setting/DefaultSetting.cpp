@@ -110,12 +110,13 @@ void CDefaultSetting::SetInput()
 
     CInput::GetInst()->AddBindKey("Left", VK_LEFT);
     CInput::GetInst()->AddBindKey("Right", VK_RIGHT);
-    CInput::GetInst()->AddBindKey("Up", VK_UP);
-    CInput::GetInst()->AddBindKey("Down", VK_DOWN);
+    CInput::GetInst()->AddBindKey("Up", VK_UP); //입장
+    CInput::GetInst()->AddBindKey("Down", VK_DOWN); //없음
 
-    CInput::GetInst()->AddBindKey("Z", 'Z'); //에너지
-    CInput::GetInst()->AddBindKey("X", 'X'); //점프
-    CInput::GetInst()->AddBindKey("C", 'C'); //공격
+    CInput::GetInst()->AddBindKey("Z", 'Z'); //점프
+    CInput::GetInst()->AddBindKey("X", 'X'); //공격
+    CInput::GetInst()->AddBindKey("C", 'C'); //대시
+    CInput::GetInst()->AddBindKey("V", 'V'); //에너지파
     CInput::GetInst()->AddBindKey("Space", VK_SPACE); //차지
 
     
@@ -170,6 +171,8 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "Player", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "MonsterAttack", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "PlayerAttack", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "Wall", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "PlayerAttack", ECollision_Interaction::Ignore);
 
     CCollisionManager::GetInst()->SetCollisionInteraction("Monster", "MonsterAttack", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("Monster", "Monster", ECollision_Interaction::Ignore);

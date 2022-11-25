@@ -110,10 +110,19 @@ bool CRenderManager::Init()
 	if (!m_RenderStateManager->Init())
 		return false;
 
-	CreateLayer("Default", 1);
+	//★ 숫자가 작을수록 우선순위 높음
 	CreateLayer("Back", 0);
+	CreateLayer("Default", 1);
+	CreateLayer("Effect", 2);
+	CreateLayer("Player", 3);
+	CreateLayer("BackEffect", 4);
 
 	SetLayerAlphaBlend("Default");
+	SetLayerAlphaBlend("Back");
+	SetLayerAlphaBlend("Effect");
+	SetLayerAlphaBlend("Player");
+	SetLayerAlphaBlend("BackEffect");
+	
 
 	m_AlphaBlend = m_RenderStateManager->FindRenderState<CBlendState>("AlphaBlend");
 	m_DepthDisable = m_RenderStateManager->FindRenderState<CDepthStencilState>("DepthDisable");
