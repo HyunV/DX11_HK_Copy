@@ -10,6 +10,7 @@
 #include "../GameObject/GlobalWall.h"
 #include "../UI/StartSceneUI.h"
 #include "../UI/MainTitleUI.h"
+#include "../UI/PlayerHUD.h"
 #include "Scene/Scene.h"
 #include "Input.h"
 #include "CollisionManager.h"
@@ -50,6 +51,7 @@ void CDefaultSetting::CreateCDO()
     
     CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
     CScene::CreateUIWindowCDO<CMainTitleUI>("MainTitleUI");
+    CScene::CreateUIWidgetCDO<CPlayerHUD>("PlayerHUD");
 }
 
 void CDefaultSetting::LoadResource()
@@ -107,6 +109,8 @@ void CDefaultSetting::SetInput()
     CInput::GetInst()->AddBindKey("RotationInv", 'A');
     CInput::GetInst()->AddBindKey("MoveUp", 'W');
     CInput::GetInst()->AddBindKey("MoveDown", 'S');
+
+    CInput::GetInst()->AddBindKey("Q", 'Q');
 
     CInput::GetInst()->AddBindKey("Left", VK_LEFT);
     CInput::GetInst()->AddBindKey("Right", VK_RIGHT);

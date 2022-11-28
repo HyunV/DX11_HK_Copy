@@ -28,4 +28,12 @@
 027ShadowDashEffect 342 175 f 13
 028FireBallShadow	349 186 f 6
 029FireEffect		306 289 f 8
-030FireShadowEffect	306 289 f 6
+030FireShadow	306 289 f 6
+
+031DashEnd		349 186 f 4
+032ChargeStart	349 186 f 3
+033SlashFEffect	349 186 f 7
+034SlashFEffectAlt	349 186 f 7
+035UpSlashFEffect	169 192 f 7
+036DownSlashFEffect 182 209 f 7
+

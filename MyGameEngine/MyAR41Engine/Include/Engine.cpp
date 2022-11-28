@@ -29,9 +29,9 @@ CEngine::CEngine() :
 	m_hInst(0),
 	m_hWnd(0),
     m_WindowRS{},
-    //m_ClearColor{0.7f, 0.7f, 0.7f, 0.f}
+    m_ClearColor{0.7f, 0.7f, 0.7f, 0.f}
     //m_ClearColor{1.f,1.f,1.f,1.f}
-    m_ClearColor{0.f, 0.f, 0.f, 0.f}
+    //m_ClearColor{0.f, 0.f, 0.f, 0.f}
 {
     /*
     _CrtSetDbgFlag : 디버그 모드로 실행 시 릭 발생시 번호를 남겨준다.

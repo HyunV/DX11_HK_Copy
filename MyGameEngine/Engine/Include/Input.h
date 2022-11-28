@@ -14,10 +14,10 @@ enum class InputSystem_Type
 
 enum class Input_Type
 {
-	Down,
-	Push,
-	Up,
-	End
+	Down, //누르기 시작
+	Push, //꾹눌림
+	Up,	  // 뗄때
+	End		//
 };
 
 struct KeyState

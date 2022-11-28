@@ -372,6 +372,8 @@ void CMySequenceWindow::SetSlide(EImageType Type)
 
 	std::string s = TCHARToString(FileName);
 
+	m_SequenceName->SetText(s.c_str());
+
 	//슬라이드 + 텍스처 세팅
 	CResourceManager::GetInst()->LoadTextureFullPath(s, m_vecFullPathFileName);
 	CTexture* Texture = CResourceManager::GetInst()->FindTexture(s);

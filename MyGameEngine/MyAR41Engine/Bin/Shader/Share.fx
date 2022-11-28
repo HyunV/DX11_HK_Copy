@@ -54,6 +54,7 @@ SamplerState g_AnisotropicSmp : register(s2);
 
 Texture2D g_BaseTexture : register(t0);
 
+
 cbuffer Animation2D : register(b2)
 {
     float g_Anim2DImageWidth;

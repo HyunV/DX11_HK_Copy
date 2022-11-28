@@ -92,8 +92,8 @@ bool CStartSceneUI::Init()
 
     m_ProgressBar->SetProgressBarMin(0.f);
     m_ProgressBar->SetProgressBarMax(100.f);
-    m_ProgressBar->SetValue(80.f);
-    m_ProgressBar->SetBarDir(EProgressBarDir::BottomToTop);
+    m_ProgressBar->SetValue(50.f);
+    m_ProgressBar->SetBarDir(EProgressBarDir::RightToLeft);
 
     //³Ñ¹öÀ§Á¬
     m_Number = CreateWidget<CUINumber>("Number");

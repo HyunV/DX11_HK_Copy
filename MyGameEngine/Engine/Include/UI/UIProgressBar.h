@@ -52,6 +52,10 @@ public:
         m_BarDir = Dir;
     }
 
+    UIWidgetImageInfo* GetTextureInfo(EProgressBarTextureType Type)
+    {
+        return &m_TextureInfo[(int)Type];
+    }
 public:
     virtual void Start();
     virtual bool Init();

@@ -33,7 +33,7 @@ void CMyBullet::Start()
 bool CMyBullet::Init()
 {
 	CGameObject::Init();
-	SetLifeTime(0.3f);
+	SetLifeTime(0.7f);
 	m_Body = CreateComponent<CColliderSphere2D>("Body");
 	m_Sprite = CreateComponent<CSpriteComponent>("spritebullet");
 
@@ -51,7 +51,7 @@ bool CMyBullet::Init()
 void CMyBullet::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
-	AddWorldPosition(GetWorldAxis(AXIS_X) * 500.f * DeltaTime);
+	AddWorldPosition(GetWorldAxis(AXIS_X) * 2500.f * DeltaTime);
 }
 
 void CMyBullet::PostUpdate(float DeltaTime)

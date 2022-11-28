@@ -55,6 +55,7 @@ VS_OUTPUT_UV UIVS(VS_INPUT_UV input)
 
 PS_OUTPUT_SINGLE UIPS(VS_OUTPUT_UV input)
 {
+    //BarBack 받으면  연산,(
     PS_OUTPUT_SINGLE output = (PS_OUTPUT_SINGLE)0;
 
     if (g_UITextureEnable)
@@ -65,14 +66,11 @@ PS_OUTPUT_SINGLE UIPS(VS_OUTPUT_UV input)
 
         output.Color.a = TextureColor.a * g_UIOpacity;
     }
-
     else
     {
         output.Color.rgb = g_UITint.rgb;
         output.Color.a = g_UITint.a * g_UIOpacity;
-
     }
-
     return output;
 }
 

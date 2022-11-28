@@ -201,6 +201,7 @@
     <ClCompile Include="UI\LoadingUI.cpp" />
     <ClCompile Include="UI\MainTitleUI.cpp" />
     <ClCompile Include="UI\MyLoadingUI.cpp" />
+    <ClCompile Include="UI\PlayerHUD.cpp" />
     <ClCompile Include="UI\StartSceneUI.cpp" />
     <ClCompile Include="Window\ClassWindow.cpp" />
     <ClCompile Include="Window\ComponentWindow.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="UI\LoadingUI.h" />
     <ClInclude Include="UI\MainTitleUI.h" />
     <ClInclude Include="UI\MyLoadingUI.h" />
+    <ClInclude Include="UI\PlayerHUD.h" />
     <ClInclude Include="UI\StartSceneUI.h" />
     <ClInclude Include="Window\ClassWindow.h" />
     <ClInclude Include="Window\ComponentWindow.h" />

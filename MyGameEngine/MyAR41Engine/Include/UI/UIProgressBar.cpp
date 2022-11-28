@@ -330,6 +330,8 @@ void CUIProgressBar::Render()
     m_BarShader->SetShader();
 
     m_Mesh->Render();
+
+    //CUIWidget::Render();
 }
 
 CUIProgressBar* CUIProgressBar::Clone()
