@@ -53,6 +53,7 @@ SamplerState g_LinearSmp : register(s1);
 SamplerState g_AnisotropicSmp : register(s2);
 
 Texture2D g_BaseTexture : register(t0);
+//Texture2D g_BaseTexture2 : register(t1);
 
 
 cbuffer Animation2D : register(b2)

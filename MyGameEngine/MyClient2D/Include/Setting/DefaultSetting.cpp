@@ -8,6 +8,8 @@
 #include "../GameObject/Hornet.h"
 #include "../GameObject/Sly.h"
 #include "../GameObject/GlobalWall.h"
+#include "../GameObject/Zombie.h"
+#include "../GameObject/Zombie2.h"
 #include "../UI/StartSceneUI.h"
 #include "../UI/MainTitleUI.h"
 #include "../UI/PlayerHUD.h"
@@ -47,6 +49,8 @@ void CDefaultSetting::CreateCDO()
     CScene::CreateObjectCDO<CHornet>("Hornet");
     CScene::CreateObjectCDO<CSly>("Sly");
     CScene::CreateObjectCDO<CGlobalWall>("GlobalWall");
+    CScene::CreateObjectCDO<CZombie>("Zombie");
+    CScene::CreateObjectCDO<CZombie2>("Zombie2");
     
     
     CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
@@ -58,7 +62,7 @@ void CDefaultSetting::LoadResource()
 {
     LoadSequence();
     LoadAnimation();
-
+    CResourceManager::GetInst()->LoadTexture("BarShade", TEXT("HollowKnight/HUD/HUD Cln_264.png"));
     //CResourceManager::GetInst()->LoadSound("UI", "hasaki", false, "63.mp3");
 
     //128 128
@@ -138,6 +142,7 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->CreateChannel("Wall", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->CreateChannel("Door", ECollision_Interaction::Collision);
     CCollisionManager::GetInst()->CreateChannel("NPC", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->CreateChannel("MonsterSight", ECollision_Interaction::Ignore);
 
     CCollisionManager::GetInst()->CreateProfile("Player", "Player", true);
     CCollisionManager::GetInst()->CreateProfile("PlayerAttack", "PlayerAttack", true);
@@ -146,6 +151,7 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->CreateProfile("Wall", "Wall", true);
     CCollisionManager::GetInst()->CreateProfile("Door", "Door", true);
     CCollisionManager::GetInst()->CreateProfile("NPC", "NPC", true);
+    CCollisionManager::GetInst()->CreateProfile("MonsterSight", "MonsterSight", true);
 
     //NPC
     CCollisionManager::GetInst()->SetCollisionInteraction("NPC", "NPC", ECollision_Interaction::Ignore);
@@ -178,12 +184,25 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "Wall", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "PlayerAttack", ECollision_Interaction::Ignore);
 
+    //몬스터
     CCollisionManager::GetInst()->SetCollisionInteraction("Monster", "MonsterAttack", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("Monster", "Monster", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "Monster", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Monster", "Wall", ECollision_Interaction::Ignore);
 
     CCollisionManager::GetInst()->SetCollisionInteraction("MonsterAttack", "Monster", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("MonsterAttack", "MonsterAttack", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("MonsterAttack", "PlayerAttack", ECollision_Interaction::Ignore);
+
+    //몬스터 시야
+    CCollisionManager::GetInst()->SetCollisionInteraction("MonsterSight", "Monster", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("MonsterSight", "MonsterSight", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Monster", "MonsterSight", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("MonsterSight", "Player", ECollision_Interaction::Collision);
+    CCollisionManager::GetInst()->SetCollisionInteraction("MonsterSight", "Wall", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "MonsterSight", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("MonsterSight", "PlayerAttack", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "MonsterSight", ECollision_Interaction::Ignore);
 }
 
 void CDefaultSetting::LoadSequence()

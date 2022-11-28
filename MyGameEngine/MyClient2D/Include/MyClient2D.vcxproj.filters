@@ -90,6 +90,15 @@
     <ClInclude Include="GameObject\GlobalWall.h">
       <Filter>03. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="UI\PlayerHUD.h">
+      <Filter>05. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Zombie.h">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Zombie2.h">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyClient2D.rc">
@@ -163,6 +172,15 @@
       <Filter>03. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\GlobalWall.cpp">
+      <Filter>03. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\PlayerHUD.cpp">
+      <Filter>05. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Zombie.cpp">
+      <Filter>03. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Zombie2.cpp">
       <Filter>03. GameObject</Filter>
     </ClCompile>
   </ItemGroup>

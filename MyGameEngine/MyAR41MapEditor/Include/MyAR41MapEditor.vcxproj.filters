@@ -40,6 +40,9 @@
     <Filter Include="04. GameObject\02. NPCS">
       <UniqueIdentifier>{ffed47a6-6c3e-4485-82c9-c422a30f1e61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. GameObject\01. Monster">
+      <UniqueIdentifier>{e8b5a650-ec47-4723-b46f-bbee4fc02a4e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -173,6 +176,12 @@
     </ClCompile>
     <ClCompile Include="UI\PlayerHUD.cpp">
       <Filter>05. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Zombie.cpp">
+      <Filter>04. GameObject\01. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Zombie2.cpp">
+      <Filter>04. GameObject\01. Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -310,6 +319,12 @@
     </ClInclude>
     <ClInclude Include="UI\PlayerHUD.h">
       <Filter>05. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Zombie.h">
+      <Filter>04. GameObject\01. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Zombie2.h">
+      <Filter>04. GameObject\01. Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

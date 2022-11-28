@@ -307,6 +307,9 @@ void CUIProgressBar::Render()
         else
         {
             m_TextureInfo[(int)EProgressBarTextureType::Bar].Texture->SetShader(0, (int)EShaderBufferType::Pixel, 0);
+            
+            //CTexture* Texture = CResourceManager::GetInst()->FindTexture("BarShade");
+            //Texture->SetShader(1, (int)EShaderBufferType::Pixel, 0);
             m_AnimCBuffer->SetAnim2DEnable(false);
         }
     }
@@ -330,8 +333,6 @@ void CUIProgressBar::Render()
     m_BarShader->SetShader();
 
     m_Mesh->Render();
-
-    //CUIWidget::Render();
 }
 
 CUIProgressBar* CUIProgressBar::Clone()

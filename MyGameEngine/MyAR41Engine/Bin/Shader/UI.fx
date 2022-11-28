@@ -60,8 +60,12 @@ PS_OUTPUT_SINGLE UIPS(VS_OUTPUT_UV input)
 
     if (g_UITextureEnable)
     {
-        float4 TextureColor = g_BaseTexture.Sample(g_PointSmp, input.UV);
-
+        float4 TextureColor = g_BaseTexture.Sample(g_PointSmp, input.UV); //
+        //float4 TextureColor2 = g_BaseTexture2.Sample(g_PointSmp, input.UV); //백으로 쓸 이미지
+        //if (TextureColor2.a == 0.f)
+        //{
+        //    discard;
+        //}
         output.Color.rgb = TextureColor.rgb * g_UITint.rgb;
 
         output.Color.a = TextureColor.a * g_UIOpacity;
@@ -78,7 +82,7 @@ PS_OUTPUT_SINGLE UIPS(VS_OUTPUT_UV input)
 
 #define ProgressBar_RightToLeft 0
 #define ProgressBar_LeftToRight 1
-#define ProgressBar_TopToBottom 2
+#define ProgressBar_TopToBottom 2 //
 #define ProgressBar_BottomToTop 3
 
 float2 UpdateProgressBarAnimation2D(float2 UV)
@@ -130,6 +134,7 @@ float2 UpdateProgressBarAnimation2D(float2 UV)
 
     else
     {
+        //여기
         Result = UV;
 
         // 오른쪽 -> 왼쪽
@@ -174,7 +179,6 @@ VS_OUTPUT_UV ProgressBarVS(VS_INPUT_UV input)
 
     float2 Pos = input.Pos.xy;
     float2 UV = input.UV;
-
 
     // 오른쪽 -> 왼쪽
     if (g_ProgressBarDir == ProgressBar_RightToLeft)

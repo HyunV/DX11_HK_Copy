@@ -1,0 +1,21 @@
+37 zombie basic 1
+57 zombie basic 6
+
+#Zombie
+
+Zombie_001_Idle 	239 219 t 6
+Zombie_002_Walk 	239 219 t 7
+Zombie_003_TurnOn 	239 219 f 2
+Zombie_004_Attack 	239 219 f 5
+Zombie_005_Attacking 239 219 f 1
+Zombie_006_Death 	239 219 f 1
+
+
+# Zombie2
+
+Zombie2_001_Idle 	239 219 t 6
+Zombie2_002_Walk	239 219 t 7
+Zombie2_003_TurnOn	239 219 f 2
+Zombie2_004_Jump	239 219 f 11
+Zombie2_005_Attack	239 219 f 2
+Zombie2_006_Death	239 219 f 1

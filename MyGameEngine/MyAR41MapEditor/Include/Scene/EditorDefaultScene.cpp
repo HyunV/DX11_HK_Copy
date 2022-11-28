@@ -20,7 +20,7 @@ CEditorDefaultScene::~CEditorDefaultScene()
 
 bool CEditorDefaultScene::Init()
 {
-    m_Owner->GetViewport()->CreateUIWindow<CStartSceneUI>("StartSceneUI");
+    //m_Owner->GetViewport()->CreateUIWindow<CStartSceneUI>("StartSceneUI");
     //m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
     m_Owner->GetViewport()->CreateUIWindow<CPlayerHUD>("PlayerHUD");
 

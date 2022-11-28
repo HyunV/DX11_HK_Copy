@@ -192,6 +192,8 @@
     <ClCompile Include="GameObject\MyBullet.cpp" />
     <ClCompile Include="GameObject\Player2D.cpp" />
     <ClCompile Include="GameObject\Sly.cpp" />
+    <ClCompile Include="GameObject\Zombie.cpp" />
+    <ClCompile Include="GameObject\Zombie2.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene\EditorDefaultScene.cpp" />
     <ClCompile Include="Scene\EditorTestScene.cpp" />
@@ -239,6 +241,8 @@
     <ClInclude Include="GameObject\MyBullet.h" />
     <ClInclude Include="GameObject\Player2D.h" />
     <ClInclude Include="GameObject\Sly.h" />
+    <ClInclude Include="GameObject\Zombie.h" />
+    <ClInclude Include="GameObject\Zombie2.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Scene\EditorDefaultScene.h" />
     <ClInclude Include="Scene\EditorTestScene.h" />

@@ -31,7 +31,7 @@ bool CPlayerHUD::Init()
 	m_Bar->SetPos(100.f, 100.f);
 	m_Bar->SetSize(124.f, 124.f);
 
-	m_Bar->SetImageTint(EProgressBarTextureType::Back, 0, 0, 0, 255);
+	m_Bar->SetImageTint(EProgressBarTextureType::Back, 0, 0, 255, 255);
 	m_Bar->SetImageTint(EProgressBarTextureType::Bar, 255, 255, 255, 255);
 
 	m_Bar->SetTexture(EProgressBarTextureType::Back, "HUDBack",
@@ -42,7 +42,7 @@ bool CPlayerHUD::Init()
 
 	m_Bar->SetProgressBarMin(0.f);
 	m_Bar->SetProgressBarMax(100.f);
-	m_Bar->SetValue(50.f);
+	m_Bar->SetValue(100.f);
 	m_Bar->SetBarDir(EProgressBarDir::TopToBottom);
 	
 	return true;
@@ -51,6 +51,11 @@ bool CPlayerHUD::Init()
 void CPlayerHUD::Update(float DeltaTime)
 {
 	CUIWindow::Update(DeltaTime);
+	//m_Count += DeltaTime * 10.f;
+	//if (m_Count > 100.f)
+	//	m_Count = 0;
+	//
+	//m_Bar->SetValue((int)m_Count);
 }
 
 void CPlayerHUD::PostUpdate(float DeltaTime)
