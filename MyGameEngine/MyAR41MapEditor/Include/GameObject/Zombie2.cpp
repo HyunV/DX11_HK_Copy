@@ -1,4 +1,10 @@
 #include "Zombie2.h"
+#include "Component/SpriteComponent.h"
+#include "Component/ColliderBox2D.h"
+#include "Scene/Scene.h"
+#include "Animation/Animation2D.h"
+#include "Component/GravityAgent.h"
+#include <time.h>
 
 CZombie2::CZombie2()
 {

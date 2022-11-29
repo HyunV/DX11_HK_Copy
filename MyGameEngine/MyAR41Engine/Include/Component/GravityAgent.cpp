@@ -98,6 +98,8 @@ void CGravityAgent::Start()
 	if (!m_UpdateComponent)
 		m_UpdateComponent = m_Owner->GetRootComponent();
 
+	//!!주의, 오브젝트에 중력 적용하려면 루트를 콜라이더로 만들기
+	std::string OwnerName = m_UpdateComponent->GetName();
 	//TODO
 	//충돌 비교할 재료 들고오기
 	
@@ -114,7 +116,7 @@ void CGravityAgent::Start()
 	}
 		
 	//주체
-	m_Body = (CCollider2D*)m_Owner->FindComponent("Body");
+	m_Body = (CCollider2D*)m_Owner->FindComponent(OwnerName);
 
 	if (m_Body)
 	{
@@ -131,6 +133,8 @@ bool CGravityAgent::Init()
 {
 	if (!CObjectComponent::Init())
 		return false;
+
+
 
 	return true;
 }

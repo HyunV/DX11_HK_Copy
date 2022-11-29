@@ -44,6 +44,12 @@ private:
 	//
 	float m_Time;
 
+	float MaterialChangeTime; //피격시 색 변하는 시간
+
+public:
+	//체력
+	int m_HP;
+
 public:
 	virtual void Start();
 	virtual bool Init();
@@ -64,8 +70,10 @@ private:
 
 	void ChangeDir();
 
+	void CreateGio();
 private:
 	void CollisionBegin(const CollisionResult& Result);
+	void CollisionEnd(const CollisionResult& Result);
 	void SightCollisionBegin(const CollisionResult& Result);
 };
 

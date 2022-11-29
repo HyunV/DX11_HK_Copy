@@ -102,7 +102,6 @@ public:
 	{
 		return m_SideWallCollision;
 	}
-	
 
 public:
 	void Jump()
@@ -132,6 +131,22 @@ public:
 		}
 	}
 
+	void MiniJump()
+	{
+		SetJumpVelocity(1.3f);
+		m_JumpCount = 1;
+		m_FallTime = 0.f;
+	}
+
+	void ObjectJump()
+	{
+		m_Jump = true;
+		m_Ground = false;
+		m_PhysicsSimulate = true;
+
+		m_FallTime = 0.f;
+		m_FallStartY = m_UpdateComponent->GetWorldPos().y;
+	}
 
 private:
 	void CheckMoveRight();

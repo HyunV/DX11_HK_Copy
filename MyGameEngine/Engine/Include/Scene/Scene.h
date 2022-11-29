@@ -6,6 +6,7 @@
 #include "SceneCollision.h"
 #include "SceneViewport.h"
 #include "NavigationManager.h"
+#include "../GameObject/GameObject.h"
 
 class CScene
 {
@@ -131,6 +132,10 @@ public:
 	CGameObject* GetPlayer() const
 	{
 		return m_Player;
+	}
+	void SetPlayer(CGameObject* Obj)
+	{
+		m_Player = Obj;
 	}
 
 public:

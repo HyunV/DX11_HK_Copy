@@ -27,6 +27,6 @@ bool CEditorDefaultScene::Init()
     //CMonster* Monster = m_Owner->CreateObject<CMonster>("Monster");
     CGlobalWall* GlobalWall = m_Owner->CreateObject<CGlobalWall>("GlobalWall");
     CPlayer2D* Player = m_Owner->CreateObject<CPlayer2D>("Player2D");
-
+    m_Owner->SetPlayer((CGameObject*)Player);
     return true;
 }

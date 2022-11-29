@@ -10,6 +10,7 @@
 #include "../GameObject/GlobalWall.h"
 #include "../GameObject/Zombie.h"
 #include "../GameObject/Zombie2.h"
+#include "../GameObject/Effect.h"
 #include "../UI/StartSceneUI.h"
 #include "../UI/MainTitleUI.h"
 #include "../UI/PlayerHUD.h"
@@ -51,6 +52,7 @@ void CDefaultSetting::CreateCDO()
     CScene::CreateObjectCDO<CGlobalWall>("GlobalWall");
     CScene::CreateObjectCDO<CZombie>("Zombie");
     CScene::CreateObjectCDO<CZombie2>("Zombie2");
+    CScene::CreateObjectCDO<CEffect>("Effect");
     
     
     CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
@@ -143,6 +145,7 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->CreateChannel("Door", ECollision_Interaction::Collision);
     CCollisionManager::GetInst()->CreateChannel("NPC", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->CreateChannel("MonsterSight", ECollision_Interaction::Ignore);
+    //CCollisionManager::GetInst()->CreateChannel("Gio", ECollision_Interaction::Ignore);
 
     CCollisionManager::GetInst()->CreateProfile("Player", "Player", true);
     CCollisionManager::GetInst()->CreateProfile("PlayerAttack", "PlayerAttack", true);
@@ -152,6 +155,7 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->CreateProfile("Door", "Door", true);
     CCollisionManager::GetInst()->CreateProfile("NPC", "NPC", true);
     CCollisionManager::GetInst()->CreateProfile("MonsterSight", "MonsterSight", true);
+    //CCollisionManager::GetInst()->CreateProfile("Gio", "Gio", true);
 
     //NPC
     CCollisionManager::GetInst()->SetCollisionInteraction("NPC", "NPC", ECollision_Interaction::Ignore);
@@ -203,6 +207,9 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "MonsterSight", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("MonsterSight", "PlayerAttack", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "MonsterSight", ECollision_Interaction::Ignore);
+
+    //Áö¿À(µ·)
+
 }
 
 void CDefaultSetting::LoadSequence()

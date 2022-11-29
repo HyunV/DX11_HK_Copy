@@ -4,6 +4,7 @@
 #include "Scene/Scene.h"
 #include "Animation/Animation2D.h"
 #include "Component/GravityAgent.h"
+#include "Gio.h"
 #include <time.h>
 
 CZombie::CZombie()
@@ -39,6 +40,9 @@ void CZombie::Start()
 
     m_Sight->SetCollisionCallback(ECollision_Result::Collision, this, &CZombie::SightCollisionBegin);
 
+    m_Body->SetCollisionCallback(ECollision_Result::Collision, this, &CZombie::CollisionBegin);
+    m_Body->SetCollisionCallback(ECollision_Result::Release, this, &CZombie::CollisionEnd);
+
     SkillCoolDownInfo Attack = {};
     Attack.CoolDown = 1.f;
     m_vecCoolDown.push_back(Attack);
@@ -51,7 +55,7 @@ bool CZombie::Init()
     m_Body = CreateComponent<CColliderBox2D>("ZombieBody");
     m_Sight = CreateComponent<CColliderBox2D>("ZombieSight");
     m_Sprite = CreateComponent<CSpriteComponent>("ZombieSprite");    
-    m_Body->SetName("Body");
+   // m_Body->SetName("Body");
     m_GravityAgent = CreateComponent<CGravityAgent>("ZombieGravityAgent");
     //애니메이션
     m_Sprite->SetAnimationFile("Zombie");
@@ -71,8 +75,12 @@ bool CZombie::Init()
     m_Sight->SetBoxSize(90.f, 90.f);
     m_Sight->SetCollisionProfile("MonsterSight");
 
+    m_GravityAgent->SetJumpVelocity(1.f);
+    m_GravityAgent->SetGravityAccel(1.f);
     m_GravityAgent->SetPhysicsSimulate(true);
     m_CurState = EMonsterState::Idle;
+
+    m_HP = 3;
     return true;
 }
 
@@ -81,6 +89,20 @@ void CZombie::Update(float DeltaTime)
     CGameObject::Update(DeltaTime);
 
     CheckDir();
+
+    //히트 머테리얼
+    if (MaterialChangeTime >= 1.f)
+    {
+        MaterialChangeTime += DeltaTime;
+
+        if (MaterialChangeTime >= 1.1f)
+        {
+            m_Sprite->GetMaterial(0)->SetBaseColor(1.f, 1.f, 1.f, 1.f);
+            m_Sprite->GetMaterial(0)->SetOpacity(1.f);
+            MaterialChangeTime = 0.f;
+        }
+
+    }
     
     //쿨타임 돌리기
     size_t	Size = m_vecCoolDown.size();
@@ -118,12 +140,28 @@ void CZombie::Update(float DeltaTime)
         m_Body->AddWorldPosition(m_Body->GetWorldAxis(AXIS_X) * m_Dir * 1000.f * g_DeltaTime);
         break;
     case CZombie::EMonsterState::Death:
+        if(m_GravityAgent->GetJump())
+            m_Body->AddWorldPosition(m_Body->GetWorldAxis(AXIS_X) * m_Dir * 80.f * g_DeltaTime);
+        
+        m_Time += DeltaTime;
+        //죽으면 시간을 200초로 돌려놓고 멈춤. 그리고 3초 뒤
+        if (m_Time >= 203.f) 
+        {
+            float Opa = m_Sprite->GetMaterial(0)->GetOpacity();
+            Opa -= DeltaTime;
+            m_Sprite->GetMaterial(0)->SetOpacity(Opa);
+
+            if (Opa <= 0.f)
+                Destroy();
+        }
         break;
     default:
         break;
     }
 
-    m_Time -= DeltaTime;
+    if(m_CurState != EMonsterState::Death)
+        m_Time -= DeltaTime;
+    
     SetCurAnim(m_CurState);
 }
 
@@ -157,6 +195,8 @@ void CZombie::SpriteAnimationSetting()
     float x = 239.f * g_SCALE;
     float y = 219.f * g_SCALE;
     m_Sprite->SetWorldScale(x, y);
+    m_Sprite->SetRenderLayerName("Player");
+    m_Sprite->GetMaterial(0)->SetRenderState("DepthDisable");
     //m_Sprite->SetTextureReverse(true);
 }
 
@@ -224,8 +264,72 @@ void CZombie::ChangeDir()
     m_Sight->SetRelativePosition(-90.f *m_Dir, 0.f);
 }
 
+void CZombie::CreateGio()
+{
+    CScene* Scene = this->GetScene();
+
+    int Count = (rand() % 5)+1;
+
+    for (int i = 0; i < Count; i++)
+    {
+        OutputDebugStringA("코인생성");
+        CGio* Gio = Scene->CreateObject<CGio>("Gio");
+        Gio->SetWorldPosition(this->GetWorldPos());
+
+        int Dir = rand() % 2;
+        float x = 1.f;
+        if (Dir == 0)
+            x = -1.f;
+
+        Gio->SetDir(x);
+
+        int Range = (rand() + 300) % 300;
+        Gio->SetRange((float)Range);
+    }
+}
+
 void CZombie::CollisionBegin(const CollisionResult& Result)
 {
+    std::string dest = Result.Dest->GetName();
+    //std::string dest = Result.Dest->GetCollisionProfile()->Name;
+    //CGameObject* Obj = Result.Dest->GetOwner();
+    //Vector3 v = Obj->GetWorldPos();
+
+    //공격 당하는 충돌일 시
+    if (dest == "PlayerAttack" || dest == "PlayerBullet")
+    {
+        int Damage = 0;
+        if (dest == "PlayerAttack")
+            Damage = 1;
+        else if (dest == "PlayerBullet")
+            Damage = 3;
+
+        OutputDebugStringA("좀비 맞음!");
+
+        //색 변화 머테리얼
+        m_Sprite->GetMaterial(0)->SetOpacity(0.7f);
+        m_Sprite->GetMaterial(0)->SetBaseColor(255, 255, 255, 255);
+        MaterialChangeTime = 1.f;
+
+        //hp 감소
+        m_HP -= Damage;
+        if (m_HP <= 0)
+        {
+            OutputDebugStringA("좀비 사망");
+            m_GravityAgent->ObjectJump();
+            m_CurState = EMonsterState::Death;
+            m_Body->SetEnable(false);
+            m_Sight->SetEnable(false);
+            m_Time = 200.f;
+
+            CreateGio();
+        }
+    }
+}
+
+void CZombie::CollisionEnd(const CollisionResult& Result)
+{
+    OutputDebugStringA("좀비 돌아옴");
 }
 
 void CZombie::SightCollisionBegin(const CollisionResult& Result)

@@ -183,12 +183,18 @@
     <ClCompile Include="GameObject\Zombie2.cpp">
       <Filter>04. GameObject\01. Monster</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject\Effect.cpp">
+      <Filter>04. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\PlayerAttack.cpp">
+      <Filter>04. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Gio.cpp">
+      <Filter>04. GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Editor.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="EditorManager.h">
@@ -325,6 +331,18 @@
     </ClInclude>
     <ClInclude Include="GameObject\Zombie2.h">
       <Filter>04. GameObject\01. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Editor.h">
+      <Filter>04. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Effect.h">
+      <Filter>04. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\PlayerAttack.h">
+      <Filter>04. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Gio.h">
+      <Filter>04. GameObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

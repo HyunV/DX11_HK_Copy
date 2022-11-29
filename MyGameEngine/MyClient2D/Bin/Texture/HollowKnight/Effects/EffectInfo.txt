@@ -1,0 +1,9 @@
+PlayerHitEffect 699 140 f 3
+SwordEffect 219 106 f 3
+
+DarkBallShoot 504 157 t 4
+FireBallEffect 349 186 f 8
+FireBallShoot 317 143 t 3
+
+GetGioEffect 43 104 f 4
+Gio 		   30 30 t 8

@@ -10,6 +10,8 @@
 #include "Scene/CameraManager.h"
 #include "Device.h"
 #include "MyBullet.h"
+#include "PlayerAttack.h"
+#include "Effect.h"
 #include "Resource/Material/Material.h"
 #include "Animation/Animation2D.h"
 
@@ -158,6 +160,30 @@ void CPlayer2D::Update(float DeltaTime)
 	CGameObject::Update(DeltaTime);
 
 	CheckDir(); //방향
+	//무적 여부
+	if (m_InfiniteMod)
+	{
+		m_InfiniteTime -= DeltaTime;
+
+		if (m_Opacity)
+		{
+			m_Sprite->GetMaterial(0)->SetOpacity(0.5f);
+			m_Opacity = false;
+		}
+		else
+		{
+			m_Sprite->GetMaterial(0)->SetOpacity(1.f);
+			m_Opacity = true;
+		}
+
+		if (m_InfiniteTime <= 0.f)
+		{
+			m_InfiniteMod = false;
+			m_Sprite->GetMaterial(0)->SetOpacity(1.f);
+			SetNextState();
+		}
+	}
+
 	//쿨타임 돌리기
 	size_t	Size = m_vecCoolDown.size();
 
@@ -181,6 +207,7 @@ void CPlayer2D::Update(float DeltaTime)
 		{
 			ChargeOff();
 			OutputDebugStringA("차징캔슬");
+			
 		}		
 	}
 
@@ -188,6 +215,7 @@ void CPlayer2D::Update(float DeltaTime)
 	{
 	case CPlayer2D::EPlayerStates::Idle:
 		m_DashCount = 0;
+		m_KeyLock = false;
 		break;
 	case CPlayer2D::EPlayerStates::Walk:
 	{
@@ -345,6 +373,9 @@ void CPlayer2D::RightMove()
 void CPlayer2D::Jump()
 {
 	OutputDebugStringA("점프");
+	if (m_CurState == EPlayerStates::Stun)
+		return;
+
 	if (!m_KeyLock)
 	{
 		if (m_Jumping == 1)
@@ -387,11 +418,16 @@ void CPlayer2D::Fire()
 	m_GravityAgent->SetPhysicsSimulate(false);
 
 	//탄 생성
-	CMyBullet* Bullet2 = m_Scene->CreateObject<CMyBullet>("MyBullet2");
-	Bullet2->SetWorldPosition(m_Sprite->GetWorldPos());
+	CMyBullet* Bullet = m_Scene->CreateObject<CMyBullet>("MyBullet");
+	Bullet->SetWorldPosition(m_Sprite->GetWorldPos());
 	//Bullet2->AddWorldRotationZ(m_Angle * g_DeltaTime);
-	Bullet2->SetWorldRotationZ(m_Angle);
-	Bullet2->SetCollisionProfileName("PlayerAttack");
+	Bullet->SetWorldRotationZ(m_Angle);
+	Bullet->SetDirection(m_Dir);
+		
+	Bullet->SetCollisionProfileName("PlayerAttack");
+
+	if (m_Advance)
+		Bullet->DarkBallMod();
 
 	//이펙트
 	SetAttackMotion(m_CurState);
@@ -490,9 +526,10 @@ void CPlayer2D::Attack()
 
 			SetAttackMotion(m_CurState);
 		}
-		//이펙트
-		m_AttackSprite->SetEnable(true);
+		m_AttackSprite->SetEnable(true);	
 	}
+	//콜라이더
+	CreateHitCollider(m_CurState);
 }
 
 void CPlayer2D::Charge()
@@ -524,6 +561,9 @@ void CPlayer2D::ChargeOff()
 	m_ChargeStart = false;
 	m_ChargingTime = 0;
 	m_ChargeSprite->SetEnable(false);
+	CResourceManager::GetInst()->SoundStop("HeroCharge");
+	
+
 }
 
 void CPlayer2D::Q()
@@ -532,14 +572,22 @@ void CPlayer2D::Q()
 	{
 		OutputDebugStringA("강화모드 해제");
 		m_Advance = false;
+		InfiniteMod(0.1f);
 	}
 		
 	else
 	{
 		OutputDebugStringA("강화모드 활성화");
+		InfiniteMod(999999.f);
 		m_Advance = true;
 	}
 		
+}
+
+void CPlayer2D::InfiniteMod(float Time)
+{
+	m_InfiniteMod = true;
+	m_InfiniteTime = Time;
 }
 
 void CPlayer2D::DashEffectEnd()
@@ -568,12 +616,49 @@ void CPlayer2D::FireEffectEnd()
 
 void CPlayer2D::CollisionBegin(const CollisionResult& Result)
 {
+	std::string dest = Result.Dest->GetCollisionProfile()->Name;
+
+	if (dest == "Monster" || dest == "MonsterAttack")
+	{
+		OutputDebugStringA("플레이어 데미지!");
+		if (m_InfiniteMod)
+			return;
+
+
+
+		CEffect* Effect = m_Scene->CreateObject<CEffect>("HitEffect");
+		Effect->SetLifeTime(0.5f);
+		Effect->SetWorldPosition(this->GetWorldPos());
+		Effect->SetWorldScale(699.f, 140.f);
+
+		std::string s = "PlayerHitEffect";
+		Effect->SetCurAnimation(s, 5.f);
+
+
+		m_GravityAgent->SetJumpVelocity(0.8f);
+		m_GravityAgent->ObjectJump();
+
+		m_KeyLock = false;
+		m_CurState = EPlayerStates::Stun;
+
+		InfiniteMod();
+	}
+	else if (dest == "Gio")
+	{
+		CEffect* Effect = m_Scene->CreateObject<CEffect>("GetGioEffect");
+		Effect->SetLifeTime(0.2f);
+		Effect->SetWorldPosition(this->GetWorldPos());
+		Effect->SetPivot(0.5f, 0.5f);
+		Effect->SetWorldScale(43.f * 2.f, 104.f *2.f);
+
+		std::string s = "GetGioEffect";
+		Effect->SetCurAnimation(s, 3.f);
+
+		//지오 ++;
+	}
 	//OutputDebugStringA(Result.Src->GetName().c_str());
 	//OutputDebugStringA(Result.Dest->GetName().c_str());
-	//
-	//float a = Result.HitPoint.x;
-	//float b = Result.HitPoint.y;
-	//float c = Result.HitPoint.z;
+
 
 	//CSceneManager::GetInst()->CreateNextScene();
 
@@ -1014,14 +1099,13 @@ void CPlayer2D::SetAttackMotion(EPlayerStates State)
 		else
 			m_AttackSprite->GetAnimation()->SetCurrentAnimation("011SlashEffect");
 
-
 		break;
 	case CPlayer2D::EPlayerStates::UpSlash:
 		if(m_Advance)
 			m_UpAttackSprite->GetAnimation()->SetCurrentAnimation("035UpSlashFEffect");
 		else
 			m_UpAttackSprite->GetAnimation()->SetCurrentAnimation("014UpSlashEffect");
-
+		
 		break;
 	case CPlayer2D::EPlayerStates::DownSlash:
 		if(m_Advance)
@@ -1042,8 +1126,43 @@ void CPlayer2D::SetAttackMotion(EPlayerStates State)
 			m_DashSprite->GetAnimation()->SetCurrentAnimation("027ShadowDashEffect");
 		else
 			m_DashSprite->GetAnimation()->SetCurrentAnimation("004DashEffect");
-		break;
-		
-		
+		break;	
 	}
+
+}
+
+void CPlayer2D::CreateHitCollider(EPlayerStates State)
+{
+	CPlayerAttack* AttackCollider = m_Scene->CreateObject<CPlayerAttack>("PlayerAttack");
+
+	Vector3 v;
+
+	switch (m_CurState)
+	{
+	case CPlayer2D::EPlayerStates::Slash:
+		v = m_AttackSprite->GetWorldPos();
+		v.x += 100 * m_Dir;
+		m_DownAttack = false;
+		break;
+	case CPlayer2D::EPlayerStates::DoubleSlash:
+		v = m_AttackSprite->GetWorldPos();
+		v.x += 100 * m_Dir;
+		m_DownAttack = false;
+		break;
+	case CPlayer2D::EPlayerStates::UpSlash:
+		v = m_UpAttackSprite->GetWorldPos();
+		v.y += 50.f;
+		m_DownAttack = false;
+		break;
+
+	case CPlayer2D::EPlayerStates::DownSlash:
+		v = m_DownAttackSprite->GetWorldPos();
+		v.y -= 50.f;
+		m_DownAttack = true;
+		break;
+	default:
+		return;
+		break;
+	}
+	AttackCollider->SetWorldPosition(v);
 }

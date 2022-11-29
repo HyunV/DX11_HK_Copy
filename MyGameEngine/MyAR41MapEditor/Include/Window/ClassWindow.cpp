@@ -23,6 +23,7 @@
 #include "../GameObject\GlobalWall.h"
 #include "../GameObject/Zombie.h"
 #include "../GameObject/Zombie2.h"
+#include "../GameObject/Effect.h"
 
 #include "ObjectWindow.h"
 #include "ComponentWindow.h"
@@ -206,7 +207,8 @@ void CClassWindow::ObjectCreateCallback()
         Obj = Scene->CreateObject<CZombie>(m_SelectObjectItem + strNum);
     else if (m_SelectObjectItem == "Zombie2")
         Obj = Scene->CreateObject<CZombie2>(m_SelectObjectItem + strNum);
-
+    else if (m_SelectObjectItem == "Effect")
+        Obj = Scene->CreateObject<CEffect>(m_SelectObjectItem + strNum);
 
     if (Window)
     {

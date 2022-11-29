@@ -102,7 +102,11 @@ public:
 	{
 		return m_SideWallCollision;
 	}
-	
+
+	void SetOwnerCollider(CCollider2D* Collider)
+	{
+		m_Body = Collider;
+	}
 
 public:
 	void Jump()
@@ -132,6 +136,22 @@ public:
 		}
 	}
 
+	void MiniJump()
+	{
+		SetJumpVelocity(1.3f);
+		m_JumpCount = 1;
+		m_FallTime = 0.f;
+	}
+
+	void ObjectJump()
+	{
+		m_Jump = true;
+		m_Ground = false;
+		m_PhysicsSimulate = true;
+
+		m_FallTime = 0.f;
+		m_FallStartY = m_UpdateComponent->GetWorldPos().y;
+	}
 
 private:
 	void CheckMoveRight();

@@ -66,7 +66,7 @@ private:
 	
 	CSharedPtr<class CAnimation2D> m_Anim; //애니메이션
 	
-private:
+public:
 	//이동관련
 	Vector3 m_PrevPos; //Move 값 판별하기 위한 prevPos
 	bool m_UpKey;
@@ -93,8 +93,30 @@ private:
 	bool m_ChargeStart;
 	float m_ChargingTime; //체력회복할때 쓰는 계수
 
+	//무적 관련
+	bool m_InfiniteMod;
+	bool m_Opacity;
+	float m_InfiniteTime;
+
 
 	bool m_Advance; //스킬강화(임시)
+public:
+	bool GetDownAttackEnable()
+	{
+		return m_DownAttack;
+	}
+	void SetDownAttackEnable(bool Enable)
+	{
+		m_DownAttack = Enable;
+	}
+	 CGravityAgent* GetGravityAgent()
+	{
+		 return m_GravityAgent;
+	}
+	 void ResetDoubleJumping()
+	 {
+		 m_Jumping = 1;
+	 }
 
 private:
 	std::vector<SkillCoolDownInfo> m_vecCoolDown;
@@ -128,8 +150,6 @@ private:
 	void LeftMove();
 	void RightMove();
 	void Jump();
-	void JumpEnd();
-	void LandOff();
 	void Fire();
 	void Dash();
 	void DashEnd();
@@ -140,6 +160,7 @@ private:
 
 	//임시테스트
 	void Q();
+	void InfiniteMod(float Time = 1.f);
 
 private:
 	//애니메이션 이펙트 관련함수
@@ -161,6 +182,7 @@ private:
 	void SetNextState(); //다음 모션 판단 함수
 	void SetAttackMotion(EPlayerStates State); //공격 이펙트 함수
 
+	void CreateHitCollider(EPlayerStates State);
 private:
 	void CollisionBegin(const CollisionResult& Result);
 };
