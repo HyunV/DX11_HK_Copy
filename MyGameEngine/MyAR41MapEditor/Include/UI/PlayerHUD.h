@@ -14,11 +14,14 @@ protected:
 protected:
     //체력바
     //NPC 대화상자
-    CSharedPtr<class CUIProgressBar> m_Bar;
-    //CSharedPtr<class CUIImage> m_Life;
-    //CSharedPtr<class CUIText> m_GioCount;
+    //CSharedPtr<class CUIImage> m_Frame;
+    //CSharedPtr<class CUIProgressBar> m_Bar;
+    
+    CSharedPtr<class CUIText> m_GioCount;
     //CSharedPtr<class CUIImage> m_GioImage;
-    CSharedPtr<class CUIImage> TitleShade;
+    //CSharedPtr<class CUIImage> TitleShade;
+    //CSharedPtr<class CUIImage> m_Life[8];
+    std::vector<CSharedPtr<class CUIImage>> m_vecLife;
 
     float m_Count;
 public:
@@ -31,5 +34,11 @@ public:
     virtual void Save(FILE* File);
     virtual void Load(FILE* File);
 
+public:
+    void SetHealth();
+    void HealthMaxUp();
+    void HealthBreak();
+    void SetEmptyHealth();
+    void HealthRefill();
 };
 

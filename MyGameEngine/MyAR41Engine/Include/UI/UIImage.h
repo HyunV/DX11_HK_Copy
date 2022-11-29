@@ -15,6 +15,19 @@ protected:
 
 protected:
     UIWidgetImageInfo   m_TextureInfo;
+    bool m_StartAnimation;
+
+public:
+    void AnimationEnable(bool Enable, int StartFrame = 0)
+    {
+        m_StartAnimation = Enable;
+        m_TextureInfo.Frame = StartFrame;
+        if (StartFrame == 0)
+        {
+            m_TextureInfo.Time = 0.f;
+        }
+    }
+    //void Clear
 
 public:
     void SetTexture(CTexture* Texture);
