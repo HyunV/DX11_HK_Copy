@@ -3,9 +3,7 @@
 #include "../GameObject/GameObject.h"
 #include "../Scene/Scene.h"
 #include "ColliderBox2D.h"
-#include "ColliderOBB2D.h"
 #include "ColliderSphere2D.h"
-//#include "ColliderPixel.h"
 
 
 CGravityAgent::CGravityAgent()	:
@@ -50,18 +48,17 @@ void CGravityAgent::SetUpdateComponent(CSceneComponent* Component)
 
 void CGravityAgent::CheckMoveRight()
 {
-	//TODO
-	float PosX = m_Pos.x + (m_BodySize.x * 0.5f); //오른쪽 좌표
-
 	//float WallLeft = m_WallInfo.Left; // 0
 	//float WallTop = m_WallInfo.Top; // 720
 	//float WallRight = m_WallInfo.Right; // 1280
 	//float WallBottom = m_WallInfo.Bottom; //0
+	//TODO
+	float PosX = m_Pos.x + (m_BodySize.x * 0.5f); //오른쪽 좌표
 
 	if ((int)PosX >= (int)m_WallInfo.Right)
 	{
+		m_UpdateComponent->SetWorldPositionX(m_WallInfo.Right - (m_BodySize.x * 0.5f));
 		m_SideWallCollision = true;
-		m_UpdateComponent->SetWorldPositionX(m_WallInfo.Right - (m_BodySize.x*0.5f));
 	}
 	else
 		m_SideWallCollision = false;
@@ -72,18 +69,14 @@ void CGravityAgent::CheckMoveLeft()
 	//TODO	
 	float PosX = m_Pos.x - (m_BodySize.x * 0.5f); //왼쪽 좌표
 
-	//float WallLeft = m_WallInfo.Left; // 0
-	//float WallTop = m_WallInfo.Top; // 720
-	//float WallRight = m_WallInfo.Right; // 1280
-	//float WallBottom = m_WallInfo.Bottom; //0
-
 	if ((int)PosX <= (int)m_WallInfo.Left)
 	{
-		m_SideWallCollision = true;
 		m_UpdateComponent->SetWorldPositionX(m_WallInfo.Left + (m_BodySize.x * 0.5f));
+		m_SideWallCollision = true;
 	}
 	else
 		m_SideWallCollision = false;
+		
 }
 
 void CGravityAgent::Destroy()
@@ -98,13 +91,13 @@ void CGravityAgent::Start()
 	if (!m_UpdateComponent)
 		m_UpdateComponent = m_Owner->GetRootComponent();
 
-	//!!주의, 오브젝트에 중력 적용하려면 루트를 콜라이더로 만들기
+	//!!주의, 오브젝트에 중력 적용하려면 루트컴포넌트를 콜라이더로 만들기
 	std::string OwnerName = m_UpdateComponent->GetName();
 	//TODO
 	//충돌 비교할 재료 들고오기
 	
 	//둘 다 콜라이더 박스로 사용
-	//콜라이더는 가운데 피봇
+	//** 콜라이더는 가운데 피봇
 
 	//씬에 있는 콜라이더 가져오기
 	if (m_Scene)
@@ -127,14 +120,15 @@ void CGravityAgent::Start()
 		m_Pos.y = m_Pos.y - (m_BodySize.y * 0.5f); //Center 기준에서 하단 피봇으로 바꿔줌
 		m_PrevPos = m_Pos;		
 	}
+
+	//맨 처음 FallStartY 세팅해주기
+	SetFallStartY(m_Pos.y);
 }
 
 bool CGravityAgent::Init()
 {
 	if (!CObjectComponent::Init())
 		return false;
-
-
 
 	return true;
 }
@@ -160,11 +154,14 @@ void CGravityAgent::Update(float DeltaTime)
 			float Velocity = 0.f;
 
 			if (m_Jump)
-				Velocity = m_JumpVelocity;
+				Velocity = m_JumpVelocity * m_FallTime;
 				
 			//중력 식
-			float PosY = (Velocity - 0.5f * GRAVITY * m_FallTime * m_FallTime);
-			m_UpdateComponent->AddWorldPosition(0, PosY);
+			float Gravity = (Velocity - 0.5f * GRAVITY * m_FallTime * m_FallTime);
+
+			float Y = m_FallStartY + Gravity; //현재 떨어지는 위치
+
+				m_UpdateComponent->SetWorldPositionY(Y);
 		}
 	}
 }
@@ -175,46 +172,33 @@ void CGravityAgent::PostUpdate(float DeltaTime)
 
 	//TODO
 	m_Pos = m_Body->GetWorldPos();
-	m_Pos.y = m_Pos.y - (m_BodySize.y * 0.5f);
-    m_Move.x = m_Pos.x - m_PrevPos.x; //이동 거리
-	m_Move.y = m_Pos.y + m_PrevPos.y;
+	m_Pos.y = m_Pos.y;
+    m_Move = m_Pos - m_PrevPos; //이동 거리
+	//m_Move.y는 떨어지기 시작하면 음수가 나옴 
 
-	if (m_Pos.y < m_PrevPos.y)
-	{
+	//현재 y가 이전 y의 위치보다 값이 작아지면(떨이지기 시작했다는 의미)
+	if (m_Move.y < 0)
 		m_FallingStart = true;
-	}
 
+	//벽체크
 	if (m_UpdateComponent && m_Wall)
 	{
 		if (m_Move.x != 0.f && m_SideWallCheck)
 		{
-			// 오른쪽으로 이동할때
 			if (m_Move.x > 0.f)
-			{
 				CheckMoveRight();				
-			}
-
-			// 왼쪽으로 이동할때
 			else
-			{
 				CheckMoveLeft();
-			}
 		}
 	}
-	//바닥에 착지시킨다.
-		//&& m_Move.y <= 0.f
-		if (m_PhysicsSimulate)
+		//바닥에 착지시킨다.
+
+		if (m_PhysicsSimulate && m_Move.y <= 0.f)
 		{			
-			//float   PrevBottom = m_PrevPos.y;
-			//float   CurBottom = m_Pos.y;
-			//float Bottom = m_Pos.y;
-
-			//발 밑 좌표와 부딫힐 때
-
-			bool check = false;
-			
+			bool check = false;			
 			//땅에 닿을 때
-			if ((int)m_Pos.y <= (int)m_WallInfo.Bottom)
+			float Y = m_Pos.y - (m_BodySize.y * 0.5f);
+			if ((int)Y <= (int)m_WallInfo.Bottom)
 			{
 				check = true;
 				m_FallTime = 0.f;
@@ -231,7 +215,7 @@ void CGravityAgent::PostUpdate(float DeltaTime)
 			{
 				if (m_Ground)
 				{
-				    m_FallTime = 0.f;
+					m_FallTime = 0.f;
 					m_FallStartY = m_Pos.y;
 				}
 				m_Ground = false;
@@ -265,10 +249,12 @@ void CGravityAgent::Save(FILE* File)
   bool   m_SideWallCheck;
  */
 
- //int Length = (int)m_UpdateComponent->GetName().length();
- //fwrite(&Length, sizeof(int), 1, File);
+	int Length = (int)m_UpdateComponent->GetName().length();
+	fwrite(&Length, sizeof(int), 1, File);
 
- //fwrite(m_UpdateComponent->GetName().c_str(), 1, Length, File);
+	fwrite(m_UpdateComponent->GetName().c_str(), 1, Length, File);
+
+
 
  //fwrite(&m_PhysicsSimulate, sizeof(bool), 1, File);
  //fwrite(&m_Ground, sizeof(bool), 1, File);
@@ -285,15 +271,21 @@ void CGravityAgent::Load(FILE* File)
 {
 	CObjectComponent::Load(File);
 
-	//int Length = 0;
-	//fread(&Length, sizeof(int), 1, File);
 
-	//char   ComponentName[256] = {};
-	//fread(ComponentName, 1, Length, File);
+	//CGravityAgent* agent = (CGravityAgent*)(m_Scene->FindObject("Player2D")->FindComponent("GravityAgent"));
+	
+	//int a = 0;
+	int Length = 0;
+	fread(&Length, sizeof(int), 1, File);
 
-	//CSceneComponent* UpdateComponent = (CSceneComponent*)m_Owner->FindComponent(ComponentName);
-	//SetUpdateComponent(UpdateComponent);
+	char   ComponentName[256] = {};
+	fread(ComponentName, 1, Length, File);
 
+
+	CSceneComponent* UpdateComponent = (CSceneComponent*)m_Owner->FindComponent(ComponentName);
+	SetUpdateComponent(UpdateComponent);
+
+	Start();
 	//fread(&m_PhysicsSimulate, sizeof(bool), 1, File);
 	//fread(&m_Ground, sizeof(bool), 1, File);
 	//fread(&m_GravityAccel, sizeof(float), 1, File);

@@ -83,7 +83,7 @@ public:
     //³»ÇÔ¼ö
     std::list<CAnimation2DData*>GetAnimationList();
     void DeleteAnimation2DData(const std::string& Name);
-
+    void ClearAllNotify();
 public:
     CAnimation2DData* FindAnimation(const std::string& Name);
 

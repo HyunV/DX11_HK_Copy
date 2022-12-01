@@ -35,6 +35,8 @@ bool CPlayerAttack::Init()
 	m_Body->SetCollisionCallback(ECollision_Result::Collision, 
 		this, &CPlayerAttack::CollisionBegin);
 	m_LifeTime = 0.2f;
+
+	CResourceManager::GetInst()->LoadSound("Effect", "HitAttack", false, "Enemy/enemy_damage.wav");
 	return true;
 }
 
@@ -51,24 +53,26 @@ CPlayerAttack* CPlayerAttack::Clone() const
 void CPlayerAttack::CollisionBegin(const CollisionResult& Result)
 {
 	//평타 공격이 맞았다는 의미
-	CScene* Scene = CSceneManager::GetInst()->GetScene();
-	CPlayer2D* Player = (CPlayer2D*)(Scene->GetPlayer());
+	//CScene* Scene = CSceneManager::GetInst()->GetScene();
+	//CPlayer2D* Player = (CPlayer2D*)(Scene->GetPlayer());
 
-	if (Player->GetDownAttackEnable())
-	{
-		OutputDebugStringA("하단공격");
-		Player->GetGravityAgent()->MiniJump();
-		Player->ResetDoubleJumping();
-		Player->m_DashCount = 0;
-	}
+	//if (Player->GetDownAttackEnable())
+	//{
+	//	OutputDebugStringA("하단공격");
+	//	Player->GetGravityAgent()->MiniJump();
+	//	Player->ResetDoubleJumping();
+	//	Player->m_DashCount = 0;
+	//}
 
-	CEffect* Effect = Scene->CreateObject<CEffect>("SwordEffect");
-	Effect->SetLifeTime(0.1f);
-	Effect->SetWorldPosition(this->GetWorldPos());
-	Effect->SetWorldScale(219.f*2.f, 106.f*2.f);
-	
-	std::string s = "SwordEffect";
-	Effect->SetCurAnimation(s, 5.f);
+	//CEffect* Effect = Scene->CreateObject<CEffect>("SwordEffect");
+	//Effect->SetLifeTime(0.1f);
+	//Effect->SetWorldPosition(this->GetWorldPos());
+	//Effect->SetWorldScale(219.f*2.f, 106.f*2.f);
+	//
+	//std::string s = "SwordEffect";
+	//Effect->SetCurAnimation(s, 5.f);
+
+	//CResourceManager::GetInst()->SoundPlay("HitAttack");
 
 	Destroy();
 }

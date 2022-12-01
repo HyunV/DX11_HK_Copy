@@ -654,6 +654,9 @@
     <ClInclude Include="Component\MapComponent.h">
       <Filter>05. Component\01. SceneComponent\01. Primitive</Filter>
     </ClInclude>
+    <ClInclude Include="MyGameManager.h">
+      <Filter>01. Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -1027,6 +1030,9 @@
     </ClCompile>
     <ClCompile Include="Component\MapComponent.cpp">
       <Filter>05. Component\01. SceneComponent\01. Primitive</Filter>
+    </ClCompile>
+    <ClCompile Include="MyGameManager.cpp">
+      <Filter>01. Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -19,7 +19,6 @@ private:
     float m_Dir;
     float m_Range;
     float m_Time;
-
 public:
     CGravityAgent* GetGravity()
     {
@@ -35,6 +34,8 @@ public:
     {
         m_Range = Range;
     }
+    void JumpGio();
+    void SetGravityPosGio(float Y);
 
 public:
     virtual void Start();

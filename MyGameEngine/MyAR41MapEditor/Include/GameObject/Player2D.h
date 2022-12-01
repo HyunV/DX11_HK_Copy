@@ -6,6 +6,7 @@ class CPlayer2D :
 	public CGameObject
 {
 	friend class CScene;
+	friend class CPlayerHUD;
 
 protected:
 	CPlayer2D();
@@ -64,8 +65,13 @@ private:
 
 	CSharedPtr<class CGravityAgent> m_GravityAgent; //중력 컴포넌트
 	
-	CSharedPtr<class CAnimation2D> m_Anim; //애니메이션
-	
+	class CAnimation2D* m_Anim; //애니메이션
+
+public:
+	int m_HP;
+	int m_MaxHP;
+	int m_Gio;
+
 public:
 	//이동관련
 	Vector3 m_PrevPos; //Move 값 판별하기 위한 prevPos
@@ -98,6 +104,14 @@ public:
 	bool m_Opacity;
 	float m_InfiniteTime;
 
+	struct AdvanceSkill
+	{
+		bool AdvAttack;
+		bool AdvFire;
+		bool AdvDash;
+		bool AdvHP;
+	};
+
 
 	bool m_Advance; //스킬강화(임시)
 public:
@@ -117,6 +131,10 @@ public:
 	 {
 		 m_Jumping = 1;
 	 }
+	 void AddGio(int Count)
+	 {
+		 m_Gio += Count;
+	 }
 
 private:
 	std::vector<SkillCoolDownInfo> m_vecCoolDown;
@@ -126,9 +144,15 @@ private:
 		v[2] = DoubleAttack
 		v[3] = Fire
 	*/
-
 	EPlayerStates m_CurState; //현재 상태
 	EPlayerStates m_PrevState;//이전 상태
+
+private:
+	void SetInputKey();
+	void SetAnimation();
+	void SetSounds();
+	void SpriteAnimationSetting();
+	void SetCurAnim(EPlayerStates State);
 
 public:
 	virtual void Start();
@@ -168,14 +192,6 @@ private:
 	void DoubleJumpEffectEnd();
 	void AttackEffectEnd();
 	void FireEffectEnd();
-	
-private:
-	void SetInputKey();
-	void SetAnimation();
-	void SetSounds();
-	void SpriteAnimationSetting();
-	void SetCurAnim(EPlayerStates State);
-	
 
 	void CheckDir(); //방향 판단 함수
 	void SetReverse(bool Enable); //멤버들 반전여부

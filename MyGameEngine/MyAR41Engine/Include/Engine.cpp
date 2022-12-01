@@ -10,6 +10,7 @@
 #include "CollisionManager.h"
 #include "Thread/ThreadManager.h"
 #include "resource.h"
+#include "MyGameManager.h"
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
@@ -66,6 +67,8 @@ CEngine::~CEngine()
     SAFE_DELETE(m_Timer);
 
     CDevice::DestroyInst();
+
+    CMyGameManager::DestroyInst();
 }
 
 float CEngine::GetFPS() const
@@ -132,6 +135,8 @@ bool CEngine::Init(HINSTANCE hInst, const TCHAR* Title,
     if (!CSceneManager::GetInst()->Init())
         return false;
 
+    if (!CMyGameManager::GetInst()->Init())
+        return false;
 
 
     m_Timer = new CTimer;

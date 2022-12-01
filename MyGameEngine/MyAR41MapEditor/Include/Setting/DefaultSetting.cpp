@@ -57,7 +57,7 @@ void CDefaultSetting::CreateCDO()
     
     CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
     CScene::CreateUIWindowCDO<CMainTitleUI>("MainTitleUI");
-    CScene::CreateUIWidgetCDO<CPlayerHUD>("PlayerHUD");
+    CScene::CreateUIWindowCDO<CPlayerHUD>("PlayerHUD");
 }
 
 void CDefaultSetting::LoadResource()

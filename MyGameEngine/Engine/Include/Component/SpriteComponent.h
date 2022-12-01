@@ -13,7 +13,7 @@ protected:
     CSpriteComponent(const CSpriteComponent& component);
     virtual ~CSpriteComponent();
 
-protected:
+public:
     CSharedPtr<CAnimation2D> m_Animation;
     bool m_TextureReverse;
 

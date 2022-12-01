@@ -17,7 +17,6 @@ private:
 	CSharedPtr<class CGravityAgent> m_GravityAgent; //중력 컴포넌트
 	CSharedPtr<class CAnimation2D> m_Anim; //애니메이션
 
-	//SightCollider
 	struct SkillCoolDownInfo
 	{
 		float	CoolDown;
@@ -41,15 +40,17 @@ private:
 	float m_Dir;
 	float m_Angle;
 
-	//
-	float m_Time;
-
+	float m_Time; //행동 변화 확인 용 변수(사망 시 멈추고 200으로 고정)
 	float MaterialChangeTime; //피격시 색 변하는 시간
 
 public:
 	//체력
-	int m_HP;
-
+	int m_HP; //init에서 세팅
+private:
+	//Init 혹은 Start에서 수행하는 리소스 세팅 함수
+	void SetSounds();
+	void SpriteAnimationSetting();
+	void SetAnimation(); //애니메이션 스케일, 펑션
 public:
 	virtual void Start();
 	virtual bool Init();
@@ -60,20 +61,15 @@ private:
 	//모션들
 	void Attack();
 private:
-	void SetSounds();
-	void SpriteAnimationSetting();
-	void SetAnimation(); //애니메이션 스케일, 펑션
+	//업데이트 관련 함수
+	void CheckDir(); //방향 세팅 함수
+	void SetCurAnim(EMonsterState State); //애니메이션, 사운드, 시간 세팅 함수
 
-	void CheckDir();
-	void SetNextState();
-	void SetCurAnim(EMonsterState State);
+	void ChangeDir(); //애니메이션 방향전환 end함수
 
-	void ChangeDir();
-
-	void CreateGio();
+	void CreateGio(); //사망시 돈 생성하는 함수
 private:
 	void CollisionBegin(const CollisionResult& Result);
-	void CollisionEnd(const CollisionResult& Result);
 	void SightCollisionBegin(const CollisionResult& Result);
 };
 

@@ -8,6 +8,7 @@
 #include "../Scene/LoadingSceneInfo.h"
 #include "Engine.h"
 #include "Input.h"
+#include "../GameObject/Player2D.h"
 
 CStartSceneUI::CStartSceneUI()
 {
@@ -150,8 +151,13 @@ void CStartSceneUI::Update(float DeltaTime)
     Vector2 v1 = CInput::GetInst()->GetMousePos();
     //Vector2 v2 = CInput::GetInst()->ComputeWorldMousePos();
 
-    m_MousePosX->SetNumber((unsigned int)v1.x);
-    m_MousePosY->SetNumber((unsigned int)v1.y);
+    //m_MousePosX->SetNumber((unsigned int)v1.x);
+    //m_MousePosY->SetNumber((unsigned int)v1.y);
+
+    //Vector3 v = m_Scene->GetPlayer()->GetWorldPos();
+
+    //m_MousePosX->SetNumber((unsigned int)v.x);
+    //m_MousePosY->SetNumber((unsigned int)v.y);
 
 }
 
@@ -193,4 +199,7 @@ void CStartSceneUI::StartButtonClick()
     //ºó ¾À »ý¼º
     CSceneManager::GetInst()->CreateNextScene(true);
     CSceneManager::GetInst()->ChangeNextScene();
+    CScene* Scene = CSceneManager::GetInst()->GetScene();
+
+    int a = 0;
 }

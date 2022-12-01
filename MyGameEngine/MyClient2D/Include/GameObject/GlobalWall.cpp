@@ -28,7 +28,7 @@ bool CGlobalWall::Init()
 	SetRootComponent(m_Wall);
 	m_Wall->SetCollisionProfile("Wall");
 
-	//m_Wall->SetWorldPosition(640.f, 480.f);
+	m_Wall->SetWorldPosition(640.f, 1000.f);
 	//m_Wall->SetBoxSize(2560.f, 1440.f);
 	m_Wall->SetBoxSize(1100.f, 500.f);
 	return true;

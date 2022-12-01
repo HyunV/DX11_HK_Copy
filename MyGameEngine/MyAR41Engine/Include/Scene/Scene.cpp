@@ -15,6 +15,9 @@
 #include "../Animation/Animation2D.h"
 #include "../UI/UIButton.h"
 #include "../UI/UIImage.h"
+#include "../UI/UINumber.h"
+#include "../UI/UIProgressBar.h"
+#include "../UI/UIText.h"
 #include "../UI/UIWindow.h"
 #include "../PathManager.h"
 
@@ -78,12 +81,24 @@ CScene::~CScene()
 {
 	CInput::GetInst()->ClearCallback(this);
 
+	//auto	iter = m_ObjList.begin();
+	//auto	iterEnd = m_ObjList.end();
+	//for (; iter != iterEnd; ++iter)
+	//{
+	//	SAFE_DELETE(*iter);
+	//}
+	//m_ObjList.clear();
+
 	SAFE_DELETE(m_NavManager);
 	SAFE_DELETE(m_Viewport);
 	SAFE_DELETE(m_CollisionManager);
 	SAFE_DELETE(m_CameraManager);
 	SAFE_DELETE(m_Resource);
 	SAFE_DELETE(m_SceneInfo);
+
+	m_ObjList;
+
+	int a = 0;
 }
 
 void CScene::CreateCDO()
@@ -195,6 +210,24 @@ void CScene::CreateCDO()
 	UIWidgetCDO->Init();
 
 	CUIWidget::AddUIWidgetCDO("UIImage", UIWidgetCDO);
+
+	UIWidgetCDO = new CUINumber;
+
+	UIWidgetCDO->Init();
+
+	CUIWidget::AddUIWidgetCDO("UINumber", UIWidgetCDO);
+
+	UIWidgetCDO = new CUIProgressBar;
+
+	UIWidgetCDO->Init();
+
+	CUIWidget::AddUIWidgetCDO("UIProgressBar", UIWidgetCDO);
+
+	UIWidgetCDO = new CUIText;
+
+	UIWidgetCDO->Init();
+
+	CUIWidget::AddUIWidgetCDO("UIText", UIWidgetCDO);
 }
 
 void CScene::Start()

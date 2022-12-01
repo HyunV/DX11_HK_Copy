@@ -492,6 +492,32 @@ void CAnimation2D::DeleteAnimation2DData(const std::string& Name)
 	m_mapAnimation.erase(iter);
 }
 
+void CAnimation2D::ClearAllNotify()
+{
+	size_t cursize =m_CurAnimation->m_vecNotify.size();
+
+	for (size_t i = 0; i < cursize; ++i)
+	{
+		SAFE_DELETE(m_CurAnimation->m_vecNotify[i]);
+	}
+	m_CurAnimation->m_vecNotify.clear();
+
+	auto iter = m_mapAnimation.begin();
+	auto iterEnd = m_mapAnimation.end();
+
+	for (; iter != iterEnd; iter++)
+	{
+		CAnimation2DData* data = iter->second;
+		size_t size = data->m_vecNotify.size();
+
+		for (size_t i = 0; i < size; ++i)
+		{
+			SAFE_DELETE(data->m_vecNotify[i]);
+		}
+		data->m_vecNotify.clear();
+	}
+}
+
 CAnimation2DData* CAnimation2D::FindAnimation(const std::string& Name)
 {
 	auto	iter = m_mapAnimation.find(Name);

@@ -21,8 +21,8 @@ protected:
     //CSharedPtr<class CUIImage> m_GioImage;
     //CSharedPtr<class CUIImage> TitleShade;
     //CSharedPtr<class CUIImage> m_Life[8];
-    std::vector<CSharedPtr<class CUIImage>> m_vecLife;
-
+    //std::vector<CSharedPtr<class CUIImage>> m_vecLife;
+    class CPlayer2D* m_Player;
     float m_Count;
 public:
     virtual void Start();

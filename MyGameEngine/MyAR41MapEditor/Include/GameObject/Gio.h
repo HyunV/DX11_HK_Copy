@@ -34,6 +34,8 @@ public:
     {
         m_Range = Range;
     }
+    void JumpGio();
+    void SetGravityPosGio(float Y);
 
 public:
     virtual void Start();

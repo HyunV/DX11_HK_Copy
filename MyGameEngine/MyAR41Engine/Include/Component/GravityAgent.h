@@ -19,33 +19,31 @@ private:
 	CSharedPtr<class CCollider2D> m_Wall; //현재 씬에서 충돌할 Box 콜라이더를 받음
 	
 	//=====================
-	Vector2     m_Pos;
-	Vector2     m_PrevPos;
-	Vector2     m_Move;
+	Vector2     m_Pos;	// 물체의 현재 좌표
+	Vector2     m_PrevPos;// 물체의 이전 좌표
+	Vector2     m_Move;	//m_Pos - m_PrevPos 뺀 이동벡터
 
-	Vector2     m_BodySize;// 충돌체의 Size;
-	//Vector2     m_BodyPivot;// 충돌체의 Pivot;
-	Box2DInfo	m_BodyInfo; 
+	Vector2     m_BodySize;// 떨어지는 물체의 Size;
+	Box2DInfo	m_BodyInfo;  //떨어지는 물체의 LTRB좌표
 
-	Vector2		m_WallSize;
-	Box2DInfo	m_WallInfo; //벽 좌표
+	Vector2		m_WallSize; // 벽 Size
+	Box2DInfo	m_WallInfo; //벽 LTRB좌표
 	//========================
 public:
 	//[중력 소스] 중력 관련 
 	bool		m_PhysicsSimulate; //물리시뮬레이션 작동 시킬것인지 여부
 
 	bool		m_Ground;	// 땅을 밟고 있는 상태인지 아닌지
-	float		m_GravityAccel;
+	float		m_GravityAccel; //떨어지는 가속도
 	float		m_FallTime; //물체가 떨어지는 시간(몇 초동안 떨어지냐)
 	float		m_FallStartY; //어느 지점에서 y축으 로 떨어지고 있냐
-	bool		m_Jump;
+	bool		m_Jump;		//점프 여부
 	float		m_JumpVelocity; //점프 속도
-	bool		m_SideWallCheck;
-	bool		m_Start;
-	int			m_JumpCount;
+	bool		m_SideWallCheck; //좌우 벽 체크 할 것인지의 여부		
+	int			m_JumpCount; //점프 횟수
 
-	bool		m_FallingStart;
-	bool		m_SideWallCollision;
+	bool		m_FallingStart; //물체가 떨어지기 시작할때 true
+	bool		m_SideWallCollision;//벽 체크,
 
 public:
 	//[내비 소스]
@@ -102,8 +100,14 @@ public:
 	{
 		return m_SideWallCollision;
 	}
+	void SetPosY(float PosY)
+	{
+		m_Pos = PosY;
+		m_PrevPos = PosY;
+	}
 
 public:
+	//플레이어 점프
 	void Jump()
 	{
 		if (m_JumpCount == 2)
@@ -111,9 +115,9 @@ public:
 			
 		else if (m_JumpCount == 1)
 		{
-			SetJumpVelocity(1.3f);
+			SetJumpVelocity(60.f);
 			m_FallTime = 0.f;
-			m_FallStartY = m_Pos.y-200.f;
+			m_FallStartY = m_Pos.y;
 			
 		}
 
@@ -121,21 +125,23 @@ public:
 
 		if (!m_Jump)
 		{
+			SetJumpVelocity(80.f);
 			m_Jump = true;
 			m_Ground = false;
 			m_PhysicsSimulate = true;
 
 			m_FallTime = 0.f;
-			m_FallStartY = m_UpdateComponent->GetWorldPos().y;
-			SetJumpVelocity(1.8f);
+			m_FallStartY = m_Pos.y;		
 		}
 	}
 
+	//플레이어 점프
 	void MiniJump()
 	{
-		SetJumpVelocity(1.3f);
+		SetJumpVelocity(40.f);
 		m_JumpCount = 1;
 		m_FallTime = 0.f;
+		m_FallStartY = m_Pos.y;
 	}
 
 	void ObjectJump()
@@ -145,7 +151,15 @@ public:
 		m_PhysicsSimulate = true;
 
 		m_FallTime = 0.f;
-		m_FallStartY = m_UpdateComponent->GetWorldPos().y;
+		m_FallStartY = m_Pos.y;
+	}
+
+	//강제로 추락
+	void FallingStartOn(float PosY)
+	{
+		m_FallingStart = true;
+		m_FallStartY = PosY;
+		m_JumpVelocity = 0.f;
 	}
 
 private:
@@ -162,6 +176,5 @@ public:
 	virtual CGravityAgent* Clone()    const;
 	virtual void Save(FILE* File);
 	virtual void Load(FILE* File);
-
 };
 
