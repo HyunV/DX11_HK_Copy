@@ -12,6 +12,7 @@
 #include "MyBullet.h"
 #include "PlayerAttack.h"
 #include "Effect.h"
+#include "Door.h"
 #include "Resource/Material/Material.h"
 #include "Animation/Animation2D.h"
 
@@ -141,6 +142,8 @@ void CPlayer2D::SetAnimation()
 
 	m_Anim->SetPlayScale("032ChargeStart", 2.f);
 	m_Anim->SetCurrentEndFunction("032ChargeStart", this, &CPlayer2D::Charging);
+
+	m_Anim->SetCurrentEndFunction("020EnterTheKnight", this, &CPlayer2D::EnterRoomEnd);
 
 	//=========================이펙트
 	//더블점프
@@ -423,6 +426,7 @@ void CPlayer2D::Start()
 
 	m_Body->SetCollisionCallback(ECollision_Result::Collision,
 		this, &CPlayer2D::CollisionBegin); //콜라이더 세팅
+	m_Body->SetCollisionCallback(ECollision_Result::Release, this, &CPlayer2D::CollisionEnd);
 
 	SetSounds();
 	SpriteAnimationSetting();
@@ -527,15 +531,18 @@ void CPlayer2D::Update(float DeltaTime)
 	{
 		m_InfiniteTime -= DeltaTime;
 
-		if (m_Opacity)
+		if (m_flick)
 		{
-			m_Sprite->GetMaterial(0)->SetOpacity(0.5f);
-			m_Opacity = false;
-		}
-		else
-		{
-			m_Sprite->GetMaterial(0)->SetOpacity(1.f);
-			m_Opacity = true;
+			if (m_Opacity)
+			{
+				m_Sprite->GetMaterial(0)->SetOpacity(0.5f);
+				m_Opacity = false;
+			}
+			else
+			{
+				m_Sprite->GetMaterial(0)->SetOpacity(1.f);
+				m_Opacity = true;
+			}
 		}
 
 		if (m_InfiniteTime <= 0.f)
@@ -694,6 +701,9 @@ void CPlayer2D::Load(FILE* File)
 
 void CPlayer2D::UpKey()
 {
+	if (m_CollisionDoor)
+		EnterRoomStart();
+
 	m_UpKey = true;
 }
 
@@ -809,6 +819,9 @@ void CPlayer2D::Fire()
 void CPlayer2D::Dash()
 {
 	OutputDebugStringA("대시 시작");
+
+	if (m_KeyLock)
+		return;
 	//////////////////////////////////////////////////////////////
 	//m_GravityAgent->SetPhysicsSimulate(true);
 
@@ -965,16 +978,32 @@ void CPlayer2D::ChargeOff()
 	m_ChargeStart = false;
 	m_ChargingTime = 0;
 	m_ChargeSprite->SetEnable(false);
-	CResourceManager::GetInst()->SoundStop("HeroCharge");
-	
+	CResourceManager::GetInst()->SoundStop("HeroCharge");	
+}
 
+void CPlayer2D::EnterRoomStart()
+{
+	if (m_DoorName == "")
+		return;
+
+	m_Body->SetEnable(false);	
+	m_CurState = EPlayerStates::Enter;
+	m_KeyLock = true;
+	InfiniteMod(3.f, false);
+
+}
+
+void CPlayer2D::EnterRoomEnd()
+{
+	m_CurState = EPlayerStates::Idle;
+	m_Doorptr->ChangeScene(m_DoorName);
 }
 
 void CPlayer2D::Q()
 {
 	if (m_Advance)
 	{
-		OutputDebugStringA("강화모드 해제");
+		//OutputDebugStringA("강화모드 해제");
 		m_Advance = false;
 		InfiniteMod(0.1f);
 		
@@ -982,7 +1011,7 @@ void CPlayer2D::Q()
 		
 	else
 	{
-		OutputDebugStringA("강화모드 활성화");
+		//OutputDebugStringA("강화모드 활성화");
 		InfiniteMod(999999.f);
 		m_Advance = true;
 
@@ -991,8 +1020,9 @@ void CPlayer2D::Q()
 		
 }
 
-void CPlayer2D::InfiniteMod(float Time)
+void CPlayer2D::InfiniteMod(float Time, bool flick)
 {
+	m_flick = flick;
 	m_InfiniteMod = true;
 	m_InfiniteTime = Time;
 }
@@ -1064,33 +1094,20 @@ void CPlayer2D::CollisionBegin(const CollisionResult& Result)
 
 		//지오 ++;
 	}
-	//OutputDebugStringA(Result.Src->GetName().c_str());
-	//OutputDebugStringA(Result.Dest->GetName().c_str());
+	else if (dest == "Door")
+	{
+		m_CollisionDoor = true;
+		m_Doorptr = (CDoor*)(Result.Dest->GetOwner());
+		m_DoorName = Result.Dest->GetName();
+	}
+}
 
+void CPlayer2D::CollisionEnd(const CollisionResult& Result)
+{
+	std::string dest = Result.Dest->GetCollisionProfile()->Name;
 
-	//CSceneManager::GetInst()->CreateNextScene();
-
-	//char Name[256] = {};
-	//const PathInfo* Path = CPathManager::GetInst()->FindPath(SCENE_PATH);
-	//strcat_s(Name, Path->PathMultibyte);
-	//strcat_s(Name, "HollowScene6.scn");
-	//CScene* NextScene = CSceneManager::GetInst()->GetNextScene();
-	//NextScene->Load(Name);
-
-	//CSceneManager::GetInst()->CreateNextScene(true);
-	//CSceneManager::GetInst()->ChangeNextScene();
-
-	//Result.Dest.
-
-
-
-	//m_GravityAgent->m_FallTime = 0.f;
-	//m_GravityAgent->m_JumpCount = 0;
-	//m_GravityAgent->m_Ground = true;
-	//m_GravityAgent->m_Jump = false;
-	//m_GravityAgent->SetPhysicsSimulate(false);
-
-	//this->AddWorldPositionY(100.f);
+	if(dest == "Door")
+		m_CollisionDoor = false;
 }
 
 

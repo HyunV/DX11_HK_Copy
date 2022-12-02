@@ -103,6 +103,12 @@ public:
 	bool m_InfiniteMod;
 	bool m_Opacity;
 	float m_InfiniteTime;
+	bool m_flick; //깜빡이
+
+	//문 이동 관련
+	bool m_CollisionDoor;
+	class CDoor* m_Doorptr;
+	std::string m_DoorName;
 
 	struct AdvanceSkill
 	{
@@ -111,6 +117,7 @@ public:
 		bool AdvDash;
 		bool AdvHP;
 	};
+
 
 
 	bool m_Advance; //스킬강화(임시)
@@ -182,9 +189,11 @@ private:
 	void Charging();
 	void ChargeOff();
 
+	void EnterRoomStart();
+	void EnterRoomEnd();
 	//임시테스트
 	void Q();
-	void InfiniteMod(float Time = 1.f);
+	void InfiniteMod(float Time = 1.f, bool flick = true);
 
 private:
 	//애니메이션 이펙트 관련함수
@@ -201,5 +210,6 @@ private:
 	void CreateHitCollider(EPlayerStates State);
 private:
 	void CollisionBegin(const CollisionResult& Result);
+	void CollisionEnd(const CollisionResult& Result);
 };
 

@@ -3,6 +3,7 @@
 #include "Component/ColliderBox2D.h"
 #include "Scene/SceneManager.h"
 #include "PathManager.h"
+#include "Player2D.h"
 
 CDoor::CDoor()
 {
@@ -64,19 +65,55 @@ void CDoor::Load(FILE* File)
 	CGameObject::Load(File);
 }
 
-void CDoor::CollisionBegin(const CollisionResult& Result)
+void CDoor::ChangeScene(std::string& SceneName)
 {
-	OutputDebugStringA(Result.Src->GetName().c_str()); //door2
-	OutputDebugStringA(Result.Dest->GetName().c_str());
-
-	std::string SceneName = Result.Src->GetName();
-
+	/*
+		01.TOWN
+		02.ARENA
+		03.SHOP
+		04.BOSS
+	*/
 	CSceneManager::GetInst()->CreateNextScene();
+
+	std::string Map = "";
+
+	if (SceneName == "TownToArena")
+	{
+		m_DoorName = EDoorName::TownToArena;
+		Map = "02.ARENA";
+	}
+	else if (SceneName == "TownToShop")
+	{
+		m_DoorName = EDoorName::TownToShop;
+		Map = "03.SHOP";
+	}
+	else if (SceneName == "TownToBoss")
+	{
+		m_DoorName = EDoorName::TownToBoss;
+		Map = "04.BOSS";
+	}
+	else if (SceneName == "ArenaToTown")
+	{
+		m_DoorName = EDoorName::ArenaToTown;
+		Map = "01.TOWN";
+	}
+	else if (SceneName == "ShopToTown")
+	{
+		m_DoorName = EDoorName::ShopToTown;
+		Map = "01.TOWN";
+	}
+	else if (SceneName == "BossToTown")
+	{
+		m_DoorName = EDoorName::BossToTown;
+		Map = "01.TOWN";
+	}
+	else
+		return;
 
 	char Name[256] = {};
 	const PathInfo* Path = CPathManager::GetInst()->FindPath(SCENE_PATH);
 	strcat_s(Name, Path->PathMultibyte);
-	strcat_s(Name, SceneName.c_str());
+	strcat_s(Name, Map.c_str());
 	strcat_s(Name, ".scn");
 
 	CScene* NextScene = CSceneManager::GetInst()->GetNextScene();
@@ -84,4 +121,49 @@ void CDoor::CollisionBegin(const CollisionResult& Result)
 
 	CSceneManager::GetInst()->ChangeNextScene();
 
+	SetPlayer(m_DoorName);
+}
+
+void CDoor::SetPlayer(EDoorName DoorName)
+{
+	CScene* Scene = CSceneManager::GetInst()->GetNextScene();
+	CPlayer2D* Player = (CPlayer2D*)(Scene->FindObject("Player2D"));
+
+	switch (DoorName)
+	{
+	case CDoor::EDoorName::None:
+		break;
+	case CDoor::EDoorName::TownToArena:
+		break;
+	case CDoor::EDoorName::TownToShop:
+		break;
+	case CDoor::EDoorName::TownToBoss:
+		Player->SetWorldPositionX(1500.f);
+		break;
+	case CDoor::EDoorName::ArenaToTown:
+		break;
+	case CDoor::EDoorName::ShopToTown:
+		break;
+	case CDoor::EDoorName::BossToTown:
+		break;
+	default:
+		break;
+	}
+}
+
+void CDoor::CollisionBegin(const CollisionResult& Result)
+{
+	//Src 이름 받아와서 그 씬으로 체인지
+	//Dest는 플레이어
+	OutputDebugStringA(Result.Src->GetName().c_str()); //door2
+	OutputDebugStringA(Result.Dest->GetName().c_str());
+
+	std::string s = Result.Dest->GetOwner()->GetName();
+
+	if (s == "Player2D")
+	{
+		//CPlayer2D* Player = (CPlayer2D*)(Result.Dest->GetOwner());
+		//std::string SceneName = Result.Src->GetName();
+		//ChangeScene(SceneName);
+	}
 }

@@ -165,6 +165,7 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->SetCollisionInteraction("Door", "NPC", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("Player", "NPC", ECollision_Interaction::Collision);
     CCollisionManager::GetInst()->SetCollisionInteraction("NPC", "Player", ECollision_Interaction::Collision);
+    CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "NPC", ECollision_Interaction::Ignore);
 
     //Wall
     CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "Player", ECollision_Interaction::Ignore);
@@ -178,6 +179,7 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->SetCollisionInteraction("Player", "Wall", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("Door", "Wall", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "Door", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Door", "Door", ECollision_Interaction::Ignore);
 
     CCollisionManager::GetInst()->SetCollisionInteraction("Player", "PlayerAttack", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("Player", "Player", ECollision_Interaction::Ignore);
@@ -187,6 +189,8 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "PlayerAttack", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "Wall", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "PlayerAttack", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "Door", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Door", "PlayerAttack", ECollision_Interaction::Ignore);
 
     //몬스터
     CCollisionManager::GetInst()->SetCollisionInteraction("Monster", "MonsterAttack", ECollision_Interaction::Ignore);
@@ -197,6 +201,7 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->SetCollisionInteraction("MonsterAttack", "Monster", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("MonsterAttack", "MonsterAttack", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("MonsterAttack", "PlayerAttack", ECollision_Interaction::Ignore);
+
 
     //몬스터 시야
     CCollisionManager::GetInst()->SetCollisionInteraction("MonsterSight", "Monster", ECollision_Interaction::Ignore);

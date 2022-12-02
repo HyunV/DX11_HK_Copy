@@ -5,6 +5,17 @@ class CDoor :
 {
     friend class CScene;
 
+    enum class EDoorName
+    {
+        None,
+        TownToArena,
+        TownToShop,
+        TownToBoss,
+        ArenaToTown,     
+        ShopToTown,
+        BossToTown,
+    };
+
 protected:
     CDoor();
     CDoor(const CDoor& Obj);
@@ -12,6 +23,8 @@ protected:
 
 private:
     CSharedPtr<class CColliderBox2D> m_Body;
+    //Body의 이름을 받아서 Enum
+    EDoorName m_DoorName;
 
 public:
     virtual void Start();
@@ -21,6 +34,10 @@ public:
     virtual CDoor* Clone()    const;
     virtual void Save(FILE* File);
     virtual void Load(FILE* File);
+
+public:
+    void ChangeScene(std::string& Name);
+    void SetPlayer(EDoorName DoorName);
 
 public:
     void CollisionBegin(const CollisionResult& Result);

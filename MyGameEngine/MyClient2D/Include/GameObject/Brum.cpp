@@ -99,7 +99,7 @@ void CBrum::CollisionBegin(const CollisionResult& Result)
 	}
 
 	CAnimation2D* Anim = m_Sprite->GetAnimation();
-	Anim->SetCurrentAnimation("HornetIdle");
+	//Anim->SetCurrentAnimation("HornetIdle");
 }
 
 void CBrum::CollisionEnd(const CollisionResult& Result)

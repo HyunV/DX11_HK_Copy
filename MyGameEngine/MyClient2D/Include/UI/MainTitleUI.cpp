@@ -218,7 +218,7 @@ void CMainTitleUI::StartButtonClick()
 	char Name[256] = {};
 	const PathInfo* Path = CPathManager::GetInst()->FindPath(SCENE_PATH);
 	strcat_s(Name, Path->PathMultibyte);
-	strcat_s(Name, "TEST12012");
+	strcat_s(Name, "01.TOWN");
 	strcat_s(Name, ".scn");
 
 	CScene* NextScene = CSceneManager::GetInst()->GetNextScene();
