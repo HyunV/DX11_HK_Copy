@@ -108,6 +108,9 @@
     <ClInclude Include="GameObject\Gio.h">
       <Filter>03. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject\MonGenerator.h">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyClient2D.rc">
@@ -199,6 +202,9 @@
       <Filter>03. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\Gio.cpp">
+      <Filter>03. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\MonGenerator.cpp">
       <Filter>03. GameObject</Filter>
     </ClCompile>
   </ItemGroup>

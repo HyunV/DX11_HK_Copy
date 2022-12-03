@@ -15,6 +15,7 @@
 #include "Door.h"
 #include "Resource/Material/Material.h"
 #include "Animation/Animation2D.h"
+#include "../UI/PlayerHUD.h"
 
 #include "Component/GravityAgent.h"
 
@@ -55,6 +56,22 @@ CPlayer2D::CPlayer2D(const CPlayer2D& Obj) :
 CPlayer2D::~CPlayer2D()
 {
 	m_Anim->ClearAllNotify();
+}
+
+void CPlayer2D::SetProstrate()
+{
+	m_Prostrate = true;
+	m_CurState = EPlayerStates::Prostrate;
+}
+
+void CPlayer2D::CheckProstrate()
+{
+	if (m_Prostrate)
+	{
+		m_KeyLock = true;
+		m_CurState = EPlayerStates::ProstrateRise;
+	}
+	return;
 }
 
 void CPlayer2D::SetInputKey()
@@ -145,6 +162,12 @@ void CPlayer2D::SetAnimation()
 
 	m_Anim->SetCurrentEndFunction("020EnterTheKnight", this, &CPlayer2D::EnterRoomEnd);
 
+	m_Anim->SetCurrentEndFunction("023Death", this, &CPlayer2D::Death);
+
+	m_Anim->SetCurrentEndFunction("037Death2", this, &CPlayer2D::DeathEnd);
+
+	m_Anim->SetCurrentEndFunction("025ProstrateRise", this, &CPlayer2D::SetNextState);
+
 	//=========================이펙트
 	//더블점프
 
@@ -204,13 +227,12 @@ void CPlayer2D::SetSounds()
 	CResourceManager::GetInst()->LoadSound("Effect", "HeroJump", false, "TheKnight/hero_jump.wav");
 	CResourceManager::GetInst()->LoadSound("Effect", "HeroCharge", true, "TheKnight/hero_nail_art_charge_initiate.wav");
 	CResourceManager::GetInst()->LoadSound("Effect", "HeroLandSoft", false, "TheKnight/hero_land_soft.wav");
-	CResourceManager::GetInst()->LoadSound("Effect", "HeroParry", false, "TheKnight/hero_parry.wav");
 	CResourceManager::GetInst()->LoadSound("Effect", "HeroWalk", true, "TheKnight/hero_run_footsteps_stone.wav");
 	CResourceManager::GetInst()->LoadSound("Effect", "HeroWings", false, "TheKnight/hero_wings.wav");
 	CResourceManager::GetInst()->LoadSound("Effect", "Herosword1", false, "TheKnight/sword_4.wav");
 	CResourceManager::GetInst()->LoadSound("Effect", "Herosword2", false, "TheKnight/sword_5.wav");
-
-
+	CResourceManager::GetInst()->LoadSound("Effect", "HeroRefill", false, "Main/ui_button_confirm.wav");
+	
 }
 
 void CPlayer2D::SpriteAnimationSetting()
@@ -396,6 +418,14 @@ void CPlayer2D::SetCurAnim(EPlayerStates State)
 		break;
 	case CPlayer2D::EPlayerStates::Death:
 		m_Anim->SetCurrentAnimation("023Death");
+		m_CurState = EPlayerStates::Death;
+		m_GravityAgent->SetPhysicsSimulate(false);
+		m_KeyLock = true;
+		m_Body->SetEnable(false);
+		//CResourceManager::GetInst()->SoundPlay("HeroDeath");
+		break;
+	case CPlayer2D::EPlayerStates::DeathEnd:
+		m_Anim->SetCurrentAnimation("037Death2");
 		CResourceManager::GetInst()->SoundPlay("HeroDeath");
 		break;
 	case CPlayer2D::EPlayerStates::Prostrate:
@@ -447,7 +477,7 @@ void CPlayer2D::Start()
 	m_vecCoolDown.push_back(DoubleAttack);
 
 	SkillCoolDownInfo Fire = {};
-	Fire.CoolDown = 0.3f;
+	Fire.CoolDown = 3.f;
 	m_vecCoolDown.push_back(Fire);
 
 
@@ -456,6 +486,9 @@ void CPlayer2D::Start()
 	m_GravityAgent->SetJumpVelocity(80.f);
 	m_GravityAgent->SetGravityAccel(18.f);
 	m_GravityAgent->SetSideWallCheck(true);
+
+	SetProstrate();
+
 }
 
 bool CPlayer2D::Init()
@@ -504,9 +537,10 @@ bool CPlayer2D::Init()
 	//Arm
 	Resolution RS = CDevice::GetInst()->GetResolution();
 
-	float Width = (float)RS.Width / 2.f;
-	float Height = (float)RS.Height / 2.f;
+	float Width = (float)RS.Width / 2.f; // 640
+	float Height = (float)((RS.Height / 2.f)); //360B
 
+	//m_Arm->SetTargetOffset(Vector3(-Width, -175.f, 0.f));
 	m_Arm->SetTargetOffset(Vector3(-Width, -Height, 0.f));
 
 	//m_Sprite->SetInheritRotZ(true);
@@ -524,8 +558,17 @@ bool CPlayer2D::Init()
 void CPlayer2D::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
-
+	
 	CheckDir(); //방향
+
+	//카메라 세팅
+	Vector3 BodyPos = m_Body->GetWorldPos();
+
+	if (BodyPos.y < 300.f)
+		m_Camera->SetWorldPositionY(-175.f);
+
+
+
 	//무적 여부
 	if (m_InfiniteMod)
 	{
@@ -576,8 +619,7 @@ void CPlayer2D::Update(float DeltaTime)
 		if (AnimName != "018ChargeOnKnight")
 		{
 			ChargeOff();
-			OutputDebugStringA("차징캔슬");
-			
+			OutputDebugStringA("차징캔슬");			
 		}		
 	}
 
@@ -638,6 +680,14 @@ void CPlayer2D::Update(float DeltaTime)
 		{
 		if (m_ChargeStart)
 			m_ChargingTime += g_DeltaTime;
+
+		if (m_ChargingTime >= 1.f)
+		{
+			CPlayerHUD* HUD = (CPlayerHUD*)(m_Scene->GetViewport()->FindUIWindow<CPlayerHUD>("PlayerHUD"));
+			HUD->CreateRefillHeart();
+			m_ChargingTime = 0.f;
+			CreateChargeEffect();
+		}
 		}
 		break;
 	case CPlayer2D::EPlayerStates::Enter:
@@ -650,7 +700,37 @@ void CPlayer2D::Update(float DeltaTime)
 		}
 		break;
 	case CPlayer2D::EPlayerStates::Death:
+		m_GravityAgent->SetPhysicsSimulate(false);
 		break;
+	case CPlayer2D::EPlayerStates::DeathEnd:
+	{
+		if(!(m_Gio == 0))
+		--m_Gio;
+
+		float Opa = m_Sprite->GetMaterial(0)->GetOpacity();
+		Opa -= DeltaTime;
+		m_Sprite->GetMaterial(0)->SetOpacity(Opa);
+		if (Opa <= 0.f)
+		{
+			////마을 귀환
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			/////
+		}
+		break;
+	}
 	case CPlayer2D::EPlayerStates::Prostrate:
 		break;
 	case CPlayer2D::EPlayerStates::ProstrateRise:
@@ -701,6 +781,8 @@ void CPlayer2D::Load(FILE* File)
 
 void CPlayer2D::UpKey()
 {
+	CheckProstrate();
+
 	if (m_CollisionDoor)
 		EnterRoomStart();
 
@@ -709,6 +791,8 @@ void CPlayer2D::UpKey()
 
 void CPlayer2D::DownKey()
 {
+	CheckProstrate();
+
 	m_DownKey = true;
 }
 
@@ -733,6 +817,8 @@ void CPlayer2D::Move()
 
 void CPlayer2D::LeftMove()
 {
+	CheckProstrate();
+
 	if (!m_KeyLock)
 	{
 		SetReverse(false);
@@ -743,6 +829,8 @@ void CPlayer2D::LeftMove()
 
 void CPlayer2D::RightMove()
 {
+	CheckProstrate();
+
 	if (!m_KeyLock)
 	{
 		SetReverse(true);
@@ -753,6 +841,8 @@ void CPlayer2D::RightMove()
 
 void CPlayer2D::Jump()
 {
+	CheckProstrate();
+
 	OutputDebugStringA("점프");
 
 	if (m_CurState == EPlayerStates::Stun)
@@ -785,6 +875,8 @@ void CPlayer2D::Jump()
 
 void CPlayer2D::Fire()
 {
+	CheckProstrate();
+
 	OutputDebugStringA("마관광살포");
 
 	if (m_KeyLock || m_vecCoolDown[3].CoolDownEnable)
@@ -792,7 +884,7 @@ void CPlayer2D::Fire()
 
 	//쿨타임 0.5초
 	m_vecCoolDown[3].CoolDownEnable = true;
-	m_vecCoolDown[3].CoolDown = 0.3f;
+	m_vecCoolDown[3].CoolDown = 3.f;
 
 	m_CurState = EPlayerStates::FireBall;
 	m_KeyLock = true;
@@ -818,6 +910,8 @@ void CPlayer2D::Fire()
 
 void CPlayer2D::Dash()
 {
+	CheckProstrate();
+
 	OutputDebugStringA("대시 시작");
 
 	if (m_KeyLock)
@@ -855,31 +949,14 @@ void CPlayer2D::DashEnd()
 {
 	OutputDebugStringA("대시 끝");
 	
-	//if (this->GetRefCount() != 1)
-	//{
-	//	int a = 0;
-	//	return;
-	//}
-	//int arc = this->GetRefCount();
 	m_Scene;
 	int ace = 0;
 	
 	CScene* Scene = CSceneManager::GetInst()->GetScene();
-	//int ad = this->GetRefCount();
 	CPlayer2D* Player = (CPlayer2D*)Scene->FindObject("Player2D");
 	this;
 	int a = 0;
-	//int pl = Player->GetRefCount();
-	//int a = 0;
-	//CGameObject* ObjCDO = FindCDO("Player2D");
-	//if (!ObjCDO)
-	//	return;
 
-	//CGravityAgent* Agent = (CGravityAgent*)(Player->FindComponent("GravityAgent"));
-	//m_GravityAgent = Agent;
-	int af = 0;
-
-	///////////////////////////////////////////////////////////////////
 	m_KeyLock = false;
 	m_GravityAgent->SetPhysicsSimulate(true);
 	
@@ -887,7 +964,6 @@ void CPlayer2D::DashEnd()
 	m_GravityAgent->SetFallTime(0.f);
 	float fallY = (m_Body->GetWorldPos().y);
 	m_GravityAgent->FallingStartOn(fallY);
-
 
 	//다음 모션
 	if (!m_Jumping)
@@ -900,6 +976,8 @@ void CPlayer2D::DashEnd()
 
 void CPlayer2D::Attack()
 {
+	CheckProstrate();
+
 	if (m_vecCoolDown[1].CoolDownEnable || m_KeyLock)
 		return;
 
@@ -950,7 +1028,9 @@ void CPlayer2D::Attack()
 }
 
 void CPlayer2D::Charge()
-{		
+{
+	CheckProstrate();
+
 	if (m_Jumping == 0 && !m_KeyLock && m_CurState == EPlayerStates::Idle)
 	{	
 		OutputDebugStringA("차징 시작");
@@ -967,7 +1047,6 @@ void CPlayer2D::Charging()
 		m_Anim->GetCurrentAnimationName("TheKnight");
 		m_ChargeSprite->SetEnable(true);
 		m_ChargeSprite->GetAnimation()->SetCurrentAnimation("019ChargeEffect");	
-		
 		//사운드
 		CResourceManager::GetInst()->SoundPlay("HeroCharge");
 	}	
@@ -979,6 +1058,17 @@ void CPlayer2D::ChargeOff()
 	m_ChargingTime = 0;
 	m_ChargeSprite->SetEnable(false);
 	CResourceManager::GetInst()->SoundStop("HeroCharge");	
+}
+
+void CPlayer2D::Death()
+{
+	m_CurState = EPlayerStates::DeathEnd;
+	m_Anim->SetCurrentAnimation("037Death2");
+}
+
+void CPlayer2D::DeathEnd()
+{
+	
 }
 
 void CPlayer2D::EnterRoomStart()
@@ -1016,6 +1106,10 @@ void CPlayer2D::Q()
 		m_Advance = true;
 
 		m_GravityAgent->SetPhysicsSimulate(true);
+		CPlayerHUD* HUD = (CPlayerHUD*)(m_Scene->GetViewport()->FindUIWindow<CPlayerHUD>("PlayerHUD"));
+		//HUD->CreateBreakHeart();
+		//HUD->UpgradeMaxHeart();
+		
 	}
 		
 }
@@ -1060,8 +1154,13 @@ void CPlayer2D::CollisionBegin(const CollisionResult& Result)
 		OutputDebugStringA("플레이어 데미지!");
 		if (m_InfiniteMod)
 			return;
-
-
+		//=======================================================================
+		m_HP--;
+		
+		CPlayerHUD* HUD = (CPlayerHUD*)(m_Scene->GetViewport()->FindUIWindow<CPlayerHUD>("PlayerHUD"));
+		HUD->CreateBreakHeart();
+		HUD->DeleteHeart();
+		
 
 		CEffect* Effect = m_Scene->CreateObject<CEffect>("HitEffect");
 		Effect->SetLifeTime(0.5f);
@@ -1071,7 +1170,7 @@ void CPlayer2D::CollisionBegin(const CollisionResult& Result)
 		std::string s = "PlayerHitEffect";
 		Effect->SetCurAnimation(s, 5.f);
 
-
+		m_GravityAgent->SetPhysicsSimulate(true);
 		m_GravityAgent->SetJumpVelocity(40.f);
 		m_GravityAgent->ObjectJump();
 
@@ -1080,6 +1179,16 @@ void CPlayer2D::CollisionBegin(const CollisionResult& Result)
 
 		InfiniteMod();
 		m_Body->SetEnable(false);
+
+		//사망
+		if (m_HP <= 0)
+		{
+			m_CurState = EPlayerStates::Death;
+			m_GravityAgent->SetPhysicsSimulate(false);
+			m_KeyLock = true;
+			m_Body->SetEnable(false);
+			InfiniteMod(999.f, false);
+		}
 	}
 	else if (dest == "Gio")
 	{
@@ -1141,6 +1250,8 @@ void CPlayer2D::SetReverse(bool Enable)
 
 void CPlayer2D::SetNextState()
 {
+	m_Prostrate = false;
+
 	if (m_Jumping)
 		m_CurState = EPlayerStates::Fall;	
 	else
@@ -1233,4 +1344,18 @@ void CPlayer2D::CreateHitCollider(EPlayerStates State)
 		break;
 	}
 	AttackCollider->SetWorldPosition(v);
+}
+
+void CPlayer2D::CreateChargeEffect()
+{
+	CEffect* Effect = m_Scene->CreateObject<CEffect>("ChargeEffect");
+	Effect->SetLifeTime(0.5f);
+	Effect->SetWorldPosition(this->GetWorldPos());
+	Effect->AddWorldPositionY(-25.f);
+	Effect->SetWorldScale(314.f, 315.f);
+
+	std::string s = "RefillEffect";
+	Effect->SetCurAnimation(s, 5.f);
+
+	CResourceManager::GetInst()->SoundPlay("HeroRefill");
 }

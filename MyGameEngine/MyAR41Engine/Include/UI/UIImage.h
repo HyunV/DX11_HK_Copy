@@ -16,6 +16,7 @@ protected:
 protected:
     UIWidgetImageInfo   m_TextureInfo;
     bool m_StartAnimation;
+    bool m_Destroy;
 
 public:
     void AnimationEnable(bool Enable, int StartFrame = 0)
@@ -27,7 +28,10 @@ public:
             m_TextureInfo.Time = 0.f;
         }
     }
-    //void Clear
+    void SetDestroy(bool Enable)
+        {
+            m_Destroy = Enable;
+        }
 
 public:
     void SetTexture(CTexture* Texture);

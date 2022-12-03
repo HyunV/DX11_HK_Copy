@@ -4,6 +4,7 @@
 #include "Component/ColliderSphere2D.h" 
 #include "Scene/SceneManager.h"
 #include "Effect.h"
+#include "Component/GravityAgent.h"
 
 CPlayerAttack::CPlayerAttack()
 {

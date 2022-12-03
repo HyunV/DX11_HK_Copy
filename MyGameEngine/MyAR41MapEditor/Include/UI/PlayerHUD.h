@@ -12,18 +12,17 @@ protected:
     virtual ~CPlayerHUD();
 
 protected:
-    //체력바
     //NPC 대화상자
-    //CSharedPtr<class CUIImage> m_Frame;
-    //CSharedPtr<class CUIProgressBar> m_Bar;
-    
+    CSharedPtr<class CUIImage> m_Mask;    
     CSharedPtr<class CUIText> m_GioCount;
-    //CSharedPtr<class CUIImage> m_GioImage;
-    //CSharedPtr<class CUIImage> TitleShade;
-    //CSharedPtr<class CUIImage> m_Life[8];
-    //std::vector<CSharedPtr<class CUIImage>> m_vecLife;
+    
+    std::stack<class CUIImage*> m_LifeStack;
+    std::vector<class CUIImage*> m_EmptyLife;
+    class CUIImage* m_LifeEffect;
+    int m_LifeCount;
+    
     class CPlayer2D* m_Player;
-    float m_Count;
+
 public:
     virtual void Start();
     virtual bool Init();
@@ -35,10 +34,15 @@ public:
     virtual void Load(FILE* File);
 
 public:
-    void SetHealth();
-    void HealthMaxUp();
-    void HealthBreak();
-    void SetEmptyHealth();
-    void HealthRefill();
+    void CreateHeart(int count);
+    
+    void CreateEmptyHeart();
+
+    void CreateBreakHeart();
+
+    void CreateRefillHeart();
+
+    void DeleteHeart();
+    void UpgradeMaxHeart();
 };
 

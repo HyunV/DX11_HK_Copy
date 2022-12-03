@@ -36,6 +36,11 @@ public:
 	{
 		m_TargetOffset = Vector3(x, y, z);
 	}
+	void SetTargetOffsetX(float x)
+	{
+		m_TargetOffset.x = x;
+	}
+
 
 public:
 	virtual void Destroy();

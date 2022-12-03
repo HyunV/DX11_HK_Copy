@@ -171,7 +171,12 @@ void CUIImage::Update(float DeltaTime)
             ++m_TextureInfo.Frame;
 
             if (m_TextureInfo.Frame == m_TextureInfo.vecFrameData.size())
+            {
+                if (m_Destroy)
+                    this->Destroy();
+                else
                 m_TextureInfo.Frame = 0;
+            }                
         }
     }
 

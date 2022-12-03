@@ -7,3 +7,4 @@ FireBallShoot 317 143 t 3
 
 GetGioEffect 43 104 f 4
 Gio 		   30 30 t 8
+RefillEffect   313 314 f 5

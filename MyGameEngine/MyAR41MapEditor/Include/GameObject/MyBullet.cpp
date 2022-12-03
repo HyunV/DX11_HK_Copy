@@ -90,7 +90,11 @@ void CMyBullet::Update(float DeltaTime)
 	//AddWorldPosition(GetWorldAxis(AXIS_X) * 100.f * DeltaTime);
 
 	if (m_Gravity->GetSideWallCheck())
+	{
 		HitBall();
+		Destroy();
+	}
+		
 }
 
 void CMyBullet::PostUpdate(float DeltaTime)
@@ -130,8 +134,8 @@ void CMyBullet::HitBall()
 	std::string s = "FireBallEffect";
 	Effect->SetCurAnimation(s, 5.f);
 
-	OutputDebugStringA("Äç");
-	Destroy();
+	if (!m_BallMod)
+		Destroy();
 }
 
 void CMyBullet::CollisionBullet(const CollisionResult& result)

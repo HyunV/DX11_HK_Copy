@@ -64,13 +64,12 @@ private:
 	//모션들
 	void Attack(); //점프 공격
 	void JumpEnd();
+public:
+	void ChangeDir(); //애니메이션 방향전환 end함수
 
 	//업데이트 관련 함수
 	void CheckDir(); //방향 세팅 함수
 	void SetCurAnim(EMonsterState State); //애니메이션, 사운드, 시간 세팅 함수
-
-	void ChangeDir(); //애니메이션 방향전환 end함수
-
 	void CreateGio(); //사망시 돈 생성하는 함수
 private:
 	void CollisionBegin(const CollisionResult& Result);

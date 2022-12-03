@@ -33,6 +33,7 @@ private:
 		Enter,
 		Stun,
 		Death,
+		DeathEnd,
 		Prostrate,
 		ProstrateRise,
 		WallSlide,
@@ -118,7 +119,7 @@ public:
 		bool AdvHP;
 	};
 
-
+	bool m_Prostrate;
 
 	bool m_Advance; //스킬강화(임시)
 public:
@@ -142,6 +143,9 @@ public:
 	 {
 		 m_Gio += Count;
 	 }
+	 void SetProstrate();
+	 void CheckProstrate();
+	 void ProstrateEnd();
 
 private:
 	std::vector<SkillCoolDownInfo> m_vecCoolDown;
@@ -189,6 +193,9 @@ private:
 	void Charging();
 	void ChargeOff();
 
+	void Death();
+	void DeathEnd();
+
 	void EnterRoomStart();
 	void EnterRoomEnd();
 	//임시테스트
@@ -208,6 +215,7 @@ private:
 	void SetAttackMotion(EPlayerStates State); //공격 이펙트 함수
 
 	void CreateHitCollider(EPlayerStates State);
+	void CreateChargeEffect();
 private:
 	void CollisionBegin(const CollisionResult& Result);
 	void CollisionEnd(const CollisionResult& Result);

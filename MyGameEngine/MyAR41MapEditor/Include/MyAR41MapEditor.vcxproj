@@ -190,6 +190,7 @@
     <ClCompile Include="GameObject\Gio.cpp" />
     <ClCompile Include="GameObject\GlobalWall.cpp" />
     <ClCompile Include="GameObject\Hornet.cpp" />
+    <ClCompile Include="GameObject\MonGenerator.cpp" />
     <ClCompile Include="GameObject\Monster.cpp" />
     <ClCompile Include="GameObject\MyBullet.cpp" />
     <ClCompile Include="GameObject\Player2D.cpp" />
@@ -242,6 +243,7 @@
     <ClInclude Include="GameObject\Gio.h" />
     <ClInclude Include="GameObject\GlobalWall.h" />
     <ClInclude Include="GameObject\Hornet.h" />
+    <ClInclude Include="GameObject\MonGenerator.h" />
     <ClInclude Include="GameObject\Monster.h" />
     <ClInclude Include="GameObject\MyBullet.h" />
     <ClInclude Include="GameObject\Player2D.h" />

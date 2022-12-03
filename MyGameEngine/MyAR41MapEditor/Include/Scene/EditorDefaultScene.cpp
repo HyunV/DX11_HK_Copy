@@ -23,17 +23,14 @@ CEditorDefaultScene::~CEditorDefaultScene()
 bool CEditorDefaultScene::Init()
 {
     //m_Owner->GetViewport()->CreateUIWindow<CStartSceneUI>("StartSceneUI");
-    m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
-    //m_Owner->GetViewport()->CreateUIWindow<CPlayerHUD>("PlayerHUD");
+    //m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
+    m_Owner->GetViewport()->CreateUIWindow<CPlayerHUD>("PlayerHUD");
 
     //CMonster* Monster = m_Owner->CreateObject<CMonster>("Monster");
-    //CGlobalWall* GlobalWall = m_Owner->CreateObject<CGlobalWall>("GlobalWall");
-    //GlobalWall->SetWorldPosition(640.f, 360.f);
-    //GlobalWall->SetWorldScale(100.f, 700.f);
-    //CPlayer2D* Player = m_Owner->CreateObject<CPlayer2D>("Player");
+    CGlobalWall* GlobalWall = m_Owner->CreateObject<CGlobalWall>("GlobalWall");
+    CPlayer2D* Player = m_Owner->CreateObject<CPlayer2D>("Player2D");
     //Player->SetWorldPosition(0.f, 1000.f);
     //CZombie* Zombie = m_Owner->CreateObject<CZombie>("Zombie");
     //CZombie2* Zombie2 = m_Owner->CreateObject<CZombie2>("Zombie2");
-    //m_Owner->SetPlayer((CGameObject*)Player);
     return true;
 }

@@ -4,6 +4,7 @@
 #include "Scene/SceneManager.h"
 #include "PathManager.h"
 #include "Player2D.h"
+#include "MonGenerator.h"
 
 CDoor::CDoor()
 {
@@ -134,6 +135,11 @@ void CDoor::SetPlayer(EDoorName DoorName)
 	case CDoor::EDoorName::None:
 		break;
 	case CDoor::EDoorName::TownToArena:
+	{
+		CMonGenerator* Gen = (CMonGenerator*)(Scene->FindObject("MonGenerator"));
+		Gen->StartGenerate(true);
+	}
+		
 		break;
 	case CDoor::EDoorName::TownToShop:
 		break;

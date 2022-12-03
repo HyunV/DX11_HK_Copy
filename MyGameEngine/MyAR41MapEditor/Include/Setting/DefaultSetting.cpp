@@ -11,6 +11,7 @@
 #include "../GameObject/Zombie.h"
 #include "../GameObject/Zombie2.h"
 #include "../GameObject/Effect.h"
+#include "../GameObject/MonGenerator.h"
 #include "../UI/StartSceneUI.h"
 #include "../UI/MainTitleUI.h"
 #include "../UI/PlayerHUD.h"
@@ -53,6 +54,7 @@ void CDefaultSetting::CreateCDO()
     CScene::CreateObjectCDO<CZombie>("Zombie");
     CScene::CreateObjectCDO<CZombie2>("Zombie2");
     CScene::CreateObjectCDO<CEffect>("Effect");
+    CScene::CreateObjectCDO<CMonGenerator>("MonGenerator");
     
     
     CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
@@ -212,6 +214,7 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "MonsterSight", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("MonsterSight", "PlayerAttack", ECollision_Interaction::Ignore);
     CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "MonsterSight", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("MonsterSight", "Door", ECollision_Interaction::Ignore);
 
     //Áö¿À(µ·)
 

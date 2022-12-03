@@ -36,4 +36,5 @@
 034SlashFEffectAlt	349 186 f 7
 035UpSlashFEffect	169 192 f 7
 036DownSlashFEffect 182 209 f 7
+037Death2		349 186 f 18
 

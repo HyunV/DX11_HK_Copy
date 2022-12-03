@@ -105,6 +105,14 @@ public:
 		m_Pos = PosY;
 		m_PrevPos = PosY;
 	}
+	Vector2 GetWallSize()
+	{
+		return m_WallSize;
+	}
+	Box2DInfo GetWallInfo()
+	{
+		return m_WallInfo;
+	}
 
 public:
 	//플레이어 점프
