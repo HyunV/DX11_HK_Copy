@@ -5,6 +5,8 @@
 #include "PathManager.h"
 #include "Player2D.h"
 #include "MonGenerator.h"
+#include "MyGameManager.h"
+#include "../UI/PlayerHUD.h"
 
 CDoor::CDoor()
 {
@@ -117,6 +119,8 @@ void CDoor::ChangeScene(std::string& SceneName)
 	strcat_s(Name, Map.c_str());
 	strcat_s(Name, ".scn");
 
+
+	//¾À·Îµå
 	CScene* NextScene = CSceneManager::GetInst()->GetNextScene();
 	NextScene->Load(Name);
 
@@ -129,6 +133,16 @@ void CDoor::SetPlayer(EDoorName DoorName)
 {
 	CScene* Scene = CSceneManager::GetInst()->GetNextScene();
 	CPlayer2D* Player = (CPlayer2D*)(Scene->FindObject("Player2D"));
+
+	PlayerInfo Info = CMyGameManager::GetInst()->GetPlayerInfo();
+	
+	Player->m_MaxHP = Info.MaxHP;
+	Player->m_HP = Info.HP;
+	Player->m_Gio = Info.Gio;
+
+	//CPlayerHUD* HUD = Scene->GetViewport()->FindUIWindow<CPlayerHUD>("PlayerHUD");
+	//HUD->CreateEmptyHeart();
+	//HUD->CreateHeart(Player->m_HP);
 
 	switch (DoorName)
 	{
@@ -144,9 +158,10 @@ void CDoor::SetPlayer(EDoorName DoorName)
 	case CDoor::EDoorName::TownToShop:
 		break;
 	case CDoor::EDoorName::TownToBoss:
-		Player->SetWorldPositionX(1500.f);
+		//Player->SetWorldPositionX(1500.f);
 		break;
 	case CDoor::EDoorName::ArenaToTown:
+		Player->SetProstrate();
 		break;
 	case CDoor::EDoorName::ShopToTown:
 		break;

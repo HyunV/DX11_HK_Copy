@@ -178,6 +178,10 @@ public:
     {
         m_Opacity = Opacity;
     }
+    void SubtractOpacity(float num)
+    {
+        m_Opacity -= num;
+    }
 
     void SetAngle(float Angle)
     {

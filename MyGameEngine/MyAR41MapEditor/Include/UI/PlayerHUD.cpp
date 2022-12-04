@@ -4,6 +4,7 @@
 #include "UI/UIImage.h"
 #include "../GameObject/Player2D.h"
 #include "Scene/SceneManager.h"
+#include "UI/UIImageBlack.h"
 
 #include "Scene/Scene.h"
 CPlayerHUD::CPlayerHUD()
@@ -21,14 +22,19 @@ CPlayerHUD::CPlayerHUD(const CPlayerHUD& Window)	:
 
 CPlayerHUD::~CPlayerHUD()
 {
+
 }
 
 void CPlayerHUD::Start()
 {
 	CUIWindow::Start();
+	m_Name = "PlayerHUD";
 	m_Player = (CPlayer2D*)(CSceneManager::GetInst()->GetScene()->FindObject("Player2D"));
-	CreateEmptyHeart();
-	CreateHeart(m_Player->m_HP);
+	
+	//CreateEmptyHeart();
+	//CreateHeart(m_Player->m_HP);
+
+	CreateFadeUI(EFade::FadeIn, 1.f);
 }
 
 bool CPlayerHUD::Init()
@@ -208,4 +214,10 @@ void CPlayerHUD::UpgradeMaxHeart()
 
 	if(m_LifeStack.size()<= 8)
 		CreateHeart(3);
+}
+
+void CPlayerHUD::CreateFadeUI(EFade Fade, float PlayTime)
+{
+	CUImageBlack* Black = CreateWidget<CUImageBlack>("Fade");
+	Black->StartFade(Fade, PlayTime);
 }

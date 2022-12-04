@@ -3,23 +3,13 @@
 #include "../Scene/Scene.h"
 #include "../Scene/SceneResource.h"
 
-CUImageBlack::CUImageBlack()	:
-	m_check(false),
-	m_Fade(EFade::None),
-	m_Time(0.f),
-	m_Count(0.f),
-	m_Scale(1.f)
+CUImageBlack::CUImageBlack()
 {
 	m_WidgetTypeName = "UIImageBlack";
 }
 
 CUImageBlack::CUImageBlack(const CUImageBlack& Image)	:
-	CUIImage(Image),
-	m_check(false),
-	m_Fade(EFade::None),
-	m_Time(0.f),
-	m_Count(0.f),
-	m_Scale(1.f)
+	CUIImage(Image)
 {
 	m_TextureInfo = Image.m_TextureInfo;
 }
@@ -29,7 +19,7 @@ CUImageBlack::~CUImageBlack()
 
 }
 
-void CUImageBlack::StartFade(EFade Fade, float Time)
+void CUImageBlack::StartFade(EFade FadeType, float PlayTime)
 {
 	//Fade 효과 
 	//현재 페이드인, none만 구현
@@ -38,13 +28,24 @@ void CUImageBlack::StartFade(EFade Fade, float Time)
 	None, 효과 없음
 	FadeIn, //검은 화면에서 밝아지는것
 	FadeOut, //점점 어두워지는것
-	NoEffect,
 	*/
-	this->SetOpacity(1.f);
+	switch (FadeType)
+	{
+	case EFade::FadeIn:
+		m_FadeType = EFade::FadeIn;
+		this->SetOpacity(1.f);
+		break;
+	case EFade::FadeOut:
+		m_FadeType = EFade::FadeOut;
+		this->SetOpacity(0.f);
+		break;
+	default:
+		return;
+		break;
+	}
 	
-	m_Fade = Fade;
-	m_Time = Time;
-
+	m_PlayTime = PlayTime;
+	m_Time = 0.f;
 	m_check = true;
 }
 
@@ -60,7 +61,6 @@ bool CUImageBlack::Init()
 	this->SetTexture("BlackLayer", TEXT("HollowKnight/MainTitle/BlackLayer.png"));
 	this->SetSize(1280.f, 720.f);
 	//Opacity 1: 투명도 0  // 0:투명도 100
-
 	return true;
 }
 
@@ -70,20 +70,24 @@ void CUImageBlack::Update(float DeltaTime)
 	
 	if (m_check)
 	{
-		float Per = (m_Time / 100.f); // 0.05 초 가 지날때마다 1 증가
-
-		m_Count += DeltaTime;
-		if (m_Count > Per)
+		m_Time += DeltaTime;
+		float num = (1.f / m_PlayTime);
+		float Opa = GetOpacity();
+		Opa -= DeltaTime;
+		
+		switch (m_FadeType)
 		{
-
+		case EFade::FadeIn: //opacity 1 -> 0
+				this->SetOpacity(Opa);
+			break;
+		case EFade::FadeOut: //opacity 0 -> 1
+			this->SetOpacity(m_Time / m_PlayTime);
+			break;
+		default:
+			break;
 		}
-
-		this->m_Opacity -= Per;
-		if(m_Count > m_Time)
-		{	
-			if(this->m_Opacity == 0.f)
-				this->Destroy();
-		}	
+		if (m_Time >= m_PlayTime)
+			this->Destroy();
 	}
 }
 
@@ -100,14 +104,4 @@ void CUImageBlack::Render()
 CUImageBlack* CUImageBlack::Clone()
 {
 	return new CUImageBlack(*this);
-}
-
-void CUImageBlack::Save(FILE* File)
-{
-	CUIImage::Save(File);
-}
-
-void CUImageBlack::Load(FILE* File)
-{
-	CUIImage::Load(File);
 }

@@ -379,3 +379,17 @@ struct TileInfo
 	int		Frame;
 	float	Empty;
 };
+
+struct PlayerInfo
+{
+	int MaxHP;
+	int HP;
+	int Gio;
+
+	PlayerInfo() :
+		MaxHP(5),
+		HP(5),
+		Gio(0)
+	{
+	}
+};

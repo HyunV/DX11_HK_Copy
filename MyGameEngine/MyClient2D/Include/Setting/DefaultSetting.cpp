@@ -12,6 +12,7 @@
 #include "../GameObject/Zombie2.h"
 #include "../GameObject/Effect.h"
 #include "../GameObject/MonGenerator.h"
+#include "../GameObject/BackLayerObject.h"
 #include "../UI/StartSceneUI.h"
 #include "../UI/MainTitleUI.h"
 #include "../UI/PlayerHUD.h"
@@ -55,6 +56,7 @@ void CDefaultSetting::CreateCDO()
     CScene::CreateObjectCDO<CZombie2>("Zombie2");
     CScene::CreateObjectCDO<CEffect>("Effect");
     CScene::CreateObjectCDO<CMonGenerator>("MonGenerator");
+    CScene::CreateObjectCDO<CBackLayerObject>("BackLayerObject");
     
     
     CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
@@ -295,10 +297,7 @@ void CDefaultSetting::LoadAnimation()
         fclose(File);
     }
 
-    
-
-    
-
+   
     //fopen_s(&File, "dd", )
     
     //Anim->Load();

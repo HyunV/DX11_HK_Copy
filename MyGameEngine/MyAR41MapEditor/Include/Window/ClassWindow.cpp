@@ -25,6 +25,7 @@
 #include "../GameObject/Zombie2.h"
 #include "../GameObject/Effect.h"
 #include "../GameObject/MonGenerator.h"
+#include "../GameObject/BackLayerObject.h"
 
 #include "ObjectWindow.h"
 #include "ComponentWindow.h"
@@ -212,6 +213,8 @@ void CClassWindow::ObjectCreateCallback()
         Obj = Scene->CreateObject<CEffect>(m_SelectObjectItem + strNum);
     else if (m_SelectObjectItem == "MonGenerator")
         Obj = Scene->CreateObject<CMonGenerator>(m_SelectObjectItem + strNum);
+    else if (m_SelectObjectItem == "BackLayerObject")
+        Obj = Scene->CreateObject<CBackLayerObject>(m_SelectObjectItem + strNum);
 
     if (Window)
     {

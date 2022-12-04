@@ -183,6 +183,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="EditorManager.cpp" />
+    <ClCompile Include="GameObject\BackLayerObject.cpp" />
     <ClCompile Include="GameObject\Brum.cpp" />
     <ClCompile Include="GameObject\Door.cpp" />
     <ClCompile Include="GameObject\Effect.cpp" />
@@ -236,6 +237,7 @@
   <ItemGroup>
     <ClInclude Include="Editor.h" />
     <ClInclude Include="EditorManager.h" />
+    <ClInclude Include="GameObject\BackLayerObject.h" />
     <ClInclude Include="GameObject\Brum.h" />
     <ClInclude Include="GameObject\Door.h" />
     <ClInclude Include="GameObject\Effect.h" />

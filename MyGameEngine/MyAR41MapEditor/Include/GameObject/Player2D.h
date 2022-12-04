@@ -145,7 +145,6 @@ public:
 	 }
 	 void SetProstrate();
 	 void CheckProstrate();
-	 void ProstrateEnd();
 
 private:
 	std::vector<SkillCoolDownInfo> m_vecCoolDown;
@@ -198,6 +197,7 @@ private:
 
 	void EnterRoomStart();
 	void EnterRoomEnd();
+
 	//임시테스트
 	void Q();
 	void InfiniteMod(float Time = 1.f, bool flick = true);
@@ -216,6 +216,11 @@ private:
 
 	void CreateHitCollider(EPlayerStates State);
 	void CreateChargeEffect();
+
+public:
+	void importToGameManager();
+	void ReturnToTown();
+
 private:
 	void CollisionBegin(const CollisionResult& Result);
 	void CollisionEnd(const CollisionResult& Result);

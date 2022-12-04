@@ -16,6 +16,7 @@
 #include "Resource/Material/Material.h"
 #include "Animation/Animation2D.h"
 #include "../UI/PlayerHUD.h"
+#include "MyGameManager.h"
 
 #include "Component/GravityAgent.h"
 
@@ -480,15 +481,20 @@ void CPlayer2D::Start()
 	Fire.CoolDown = 3.f;
 	m_vecCoolDown.push_back(Fire);
 
-
 	//중력 에이전트
 	m_GravityAgent->SetPhysicsSimulate(false);
 	m_GravityAgent->SetJumpVelocity(80.f);
 	m_GravityAgent->SetGravityAccel(18.f);
 	m_GravityAgent->SetSideWallCheck(true);
 
-	SetProstrate();
+	//m_HP = CMyGameManager::GetInst()->GetPlayerInfo().HP;
 
+	//CPlayerHUD* HUD = m_Scene->GetViewport()->FindUIWindow<CPlayerHUD>("PlayerHUD");
+
+	PlayerInfo Info = CMyGameManager::GetInst()->GetPlayerInfo();
+	m_HP = Info.HP;
+	m_MaxHP = Info.MaxHP;
+	m_Gio = Info.Gio;
 }
 
 bool CPlayer2D::Init()
@@ -683,10 +689,14 @@ void CPlayer2D::Update(float DeltaTime)
 
 		if (m_ChargingTime >= 1.f)
 		{
-			CPlayerHUD* HUD = (CPlayerHUD*)(m_Scene->GetViewport()->FindUIWindow<CPlayerHUD>("PlayerHUD"));
-			HUD->CreateRefillHeart();
-			m_ChargingTime = 0.f;
-			CreateChargeEffect();
+			if (m_HP < m_MaxHP)
+			{
+				CPlayerHUD* HUD = (CPlayerHUD*)(m_Scene->GetViewport()->FindUIWindow<CPlayerHUD>("PlayerHUD"));
+				HUD->CreateRefillHeart();
+				m_HP++;
+				m_ChargingTime = 0.f;
+				CreateChargeEffect();
+			}
 		}
 		}
 		break;
@@ -713,20 +723,7 @@ void CPlayer2D::Update(float DeltaTime)
 		if (Opa <= 0.f)
 		{
 			////마을 귀환
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+			ReturnToTown();
 			/////
 		}
 		break;
@@ -1086,6 +1083,7 @@ void CPlayer2D::EnterRoomStart()
 void CPlayer2D::EnterRoomEnd()
 {
 	m_CurState = EPlayerStates::Idle;
+	CMyGameManager::GetInst()->SetPlayerInfo(m_MaxHP, m_HP, m_Gio);
 	m_Doorptr->ChangeScene(m_DoorName);
 }
 
@@ -1358,4 +1356,28 @@ void CPlayer2D::CreateChargeEffect()
 	Effect->SetCurAnimation(s, 5.f);
 
 	CResourceManager::GetInst()->SoundPlay("HeroRefill");
+}
+
+void CPlayer2D::importToGameManager()
+{
+	//CMyGameManager::GetInst()->
+}
+
+void CPlayer2D::ReturnToTown()
+{
+	CSceneManager::GetInst()->CreateNextScene();
+
+	char Name[256] = {};
+	const PathInfo* Path = CPathManager::GetInst()->FindPath(SCENE_PATH);
+	strcat_s(Name, Path->PathMultibyte);
+	strcat_s(Name, "01.TOWN");
+	strcat_s(Name, ".scn");
+
+	CScene* NextScene = CSceneManager::GetInst()->GetNextScene();
+	NextScene->Load(Name);
+
+	CSceneManager::GetInst()->ChangeNextScene();
+	CPlayer2D* Player = (CPlayer2D*)(NextScene->FindObject("Player2D"));
+	Player->SetProstrate();
+	CMyGameManager::GetInst()->SetPlayerInfo(m_MaxHP, m_MaxHP, 0);
 }

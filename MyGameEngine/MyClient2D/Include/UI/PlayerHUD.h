@@ -44,5 +44,7 @@ public:
 
     void DeleteHeart();
     void UpgradeMaxHeart();
+
+    void CreateFadeUI(EFade Fade, float PlayTime);
 };
 

@@ -14,14 +14,15 @@ protected:
     virtual ~CUImageBlack();
 
 private:
-    bool m_check;
-    EFade m_Fade;
+    bool m_check; //시작 했을때  true
+    float m_PlayTime; //몇 초동안 점점 밝아질것인가
     float m_Time;
-    float m_Count;
-    float m_Scale;
+
+    EFade m_FadeType;
+
 
 public:
-    void StartFade(EFade Fade, float Time);
+    void StartFade(EFade FadeType, float PlayTime = 1.f);
 
 public:
     virtual void Start();
@@ -30,7 +31,5 @@ public:
     virtual void PostUpdate(float DeltaTime);
     virtual void Render();
     virtual CUImageBlack* Clone();
-    virtual void Save(FILE* File);
-    virtual void Load(FILE* File);
 };
 

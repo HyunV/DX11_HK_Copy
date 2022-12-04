@@ -10,6 +10,10 @@ private:
 	class CSharedPtr<CGameObject> m_Player;
 	class CSharedPtr<CUIWindow> m_HUDWindow;
 	//플레이어 저장
+
+	
+	PlayerInfo m_PlayerInfo;
+
 	//HUD 저장
 
 	//상인 물건 저장
@@ -34,6 +38,15 @@ public:
 	}
 public:
 	bool Init();
+public:
+	void SetPlayerInfo(int MaxHP, int HP, int Gio);
+
+	PlayerInfo GetPlayerInfo()
+	{
+		return m_PlayerInfo;
+	}
+
+	void CreateFadeUI(EFade Fade);
 
 	DECLARE_SINGLE(CMyGameManager)
 };

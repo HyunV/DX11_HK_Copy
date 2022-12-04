@@ -10,6 +10,7 @@
 #include "../GameObject/GlobalWall.h"
 #include "../GameObject/Zombie.h"
 #include "../GameObject/Zombie2.h"
+#include "PathManager.h"
 
 CEditorDefaultScene::CEditorDefaultScene()
 {
@@ -23,12 +24,28 @@ CEditorDefaultScene::~CEditorDefaultScene()
 bool CEditorDefaultScene::Init()
 {
     //m_Owner->GetViewport()->CreateUIWindow<CStartSceneUI>("StartSceneUI");
-    //m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
-    m_Owner->GetViewport()->CreateUIWindow<CPlayerHUD>("PlayerHUD");
+    m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
+    //m_Owner->GetViewport()->CreateUIWindow<CPlayerHUD>("PlayerHUD");
+
+
+    //씬 파일로드용===================================
+    
+    //char Name[256] = {};
+    //const PathInfo* Path = CPathManager::GetInst()->FindPath(SCENE_PATH);
+    //strcat_s(Name, Path->PathMultibyte);
+    //strcat_s(Name, "01.TOWN");
+    //strcat_s(Name, ".scn");
+
+    //m_Owner->Load(Name);
+    
+    //=====================================================
+
+    
 
     //CMonster* Monster = m_Owner->CreateObject<CMonster>("Monster");
-    CGlobalWall* GlobalWall = m_Owner->CreateObject<CGlobalWall>("GlobalWall");
-    CPlayer2D* Player = m_Owner->CreateObject<CPlayer2D>("Player2D");
+    //CGlobalWall* GlobalWall = m_Owner->CreateObject<CGlobalWall>("GlobalWall");
+    //CPlayer2D* Player = m_Owner->CreateObject<CPlayer2D>("Player2D");
+    // 
     //Player->SetWorldPosition(0.f, 1000.f);
     //CZombie* Zombie = m_Owner->CreateObject<CZombie>("Zombie");
     //CZombie2* Zombie2 = m_Owner->CreateObject<CZombie2>("Zombie2");
