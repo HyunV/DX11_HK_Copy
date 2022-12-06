@@ -40,6 +40,7 @@ CMainTitleUI::CMainTitleUI(const CMainTitleUI& Window)	:
 
 CMainTitleUI::~CMainTitleUI()
 {
+	CResourceManager::GetInst()->SoundStop("MainTitle");
 }
 
 void CMainTitleUI::Start()
@@ -230,9 +231,7 @@ void CMainTitleUI::StartButtonClick()
 
 void CMainTitleUI::ExitButtonClick()
 {
-	OutputDebugStringA("Exit");
-	CResourceManager::GetInst()->SoundStop("MainTitle");
-	
+	OutputDebugStringA("Exit");	
 	DestroyWindow(CEngine::GetInst()->GetWindowHandle());
 
 }

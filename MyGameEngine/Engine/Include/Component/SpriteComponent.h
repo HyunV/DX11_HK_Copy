@@ -13,7 +13,7 @@ protected:
     CSpriteComponent(const CSpriteComponent& component);
     virtual ~CSpriteComponent();
 
-public:
+protected:
     CSharedPtr<CAnimation2D> m_Animation;
     bool m_TextureReverse;
 
@@ -60,7 +60,7 @@ public:
 
     //³» ÄÚµå
     void SetTextureReverse(bool Enable);
-
+    void UptoZ();
 public:
     virtual void Start();
     virtual bool Init();

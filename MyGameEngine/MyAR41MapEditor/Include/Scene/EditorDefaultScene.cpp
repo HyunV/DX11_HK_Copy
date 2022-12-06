@@ -4,6 +4,7 @@
 #include "../UI/StartSceneUI.h"
 #include "../UI/MainTitleUI.h"
 #include "../UI/PlayerHUD.h"
+#include "../UI/MessageBoxUI.h"
 
 #include "../GameObject/Monster.h"
 #include "../GameObject/Player2D.h"
@@ -26,14 +27,14 @@ bool CEditorDefaultScene::Init()
     //m_Owner->GetViewport()->CreateUIWindow<CStartSceneUI>("StartSceneUI");
     m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
     //m_Owner->GetViewport()->CreateUIWindow<CPlayerHUD>("PlayerHUD");
-
+    //m_Owner->GetViewport()->CreateUIWindow<CMessageBoxUI>("MessageBoxUI");
 
     //씬 파일로드용===================================
     
     //char Name[256] = {};
     //const PathInfo* Path = CPathManager::GetInst()->FindPath(SCENE_PATH);
     //strcat_s(Name, Path->PathMultibyte);
-    //strcat_s(Name, "01.TOWN");
+    //strcat_s(Name, "04.BOSS");
     //strcat_s(Name, ".scn");
 
     //m_Owner->Load(Name);

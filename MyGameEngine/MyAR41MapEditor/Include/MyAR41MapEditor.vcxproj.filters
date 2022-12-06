@@ -198,6 +198,9 @@
     <ClCompile Include="GameObject\BackLayerObject.cpp">
       <Filter>04. GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="UI\MessageBoxUI.cpp">
+      <Filter>05. UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -355,6 +358,9 @@
     </ClInclude>
     <ClInclude Include="GameObject\BackLayerObject.h">
       <Filter>04. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\MessageBoxUI.h">
+      <Filter>05. UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

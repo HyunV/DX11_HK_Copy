@@ -60,7 +60,7 @@ public:
 
     //³» ÄÚµå
     void SetTextureReverse(bool Enable);
-
+    void UptoZ();
 public:
     virtual void Start();
     virtual bool Init();

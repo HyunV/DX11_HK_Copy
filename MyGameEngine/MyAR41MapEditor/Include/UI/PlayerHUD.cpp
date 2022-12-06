@@ -34,6 +34,8 @@ void CPlayerHUD::Start()
 	//CreateEmptyHeart();
 	//CreateHeart(m_Player->m_HP);
 
+
+	///////////////////////////////////////
 	CreateFadeUI(EFade::FadeIn, 1.f);
 }
 
@@ -74,10 +76,24 @@ void CPlayerHUD::Update(float DeltaTime)
 {
 	CUIWindow::Update(DeltaTime);
 
-	//게이지
 	float percent = m_Player->m_vecCoolDown[3].CoolDown / 3.f;
-	if(!(percent == 1.f))
-		m_Mask->SetOpacity(1.f-percent);
+	bool Enable = m_Player->m_vecCoolDown[3].CoolDownEnable;
+	if (Enable)
+	{
+		if (!(percent == 1.f))
+			m_Mask->SetOpacity(1.f - percent);
+		
+		if (percent - DeltaTime <= 0.f)
+		{
+			CreateChargeOnEffect();
+			m_Player->m_vecCoolDown[3].CoolDownEnable = false;
+		}			
+	}
+		
+
+	
+
+
 
 	//지오
 	int Gio = m_Player->m_Gio;
@@ -195,6 +211,23 @@ void CPlayerHUD::CreateRefillHeart()
 	RefillHeart->SetDestroy(true);
 	RefillHeart->SetPlayTime(100.f);
 	RefillHeart->SetPlayScale(1.f);
+}
+
+void CPlayerHUD::CreateChargeOnEffect()
+{
+	CUIImage* ChargeOnEffect = CreateWidget<CUIImage>("ChargeOnEffect");
+
+	ChargeOnEffect->SetSize(160.f * g_SCALE, 154.f * g_SCALE);
+
+	ChargeOnEffect->SetPos(47.f, 580.f);
+	ChargeOnEffect->SetTexture("ChargeOnEffect", TEXT("HollowKnight/HUD/ChargeOn.png"));
+	for (int i = 0; i < 6; i++)
+		ChargeOnEffect->AddFrameData(Vector2(i * 160.f, 0.f), Vector2((i + 1) * 160.f, 154.f));
+
+	ChargeOnEffect->SetOpacity(0.9f);
+	ChargeOnEffect->SetDestroy(true);
+	ChargeOnEffect->SetPlayTime(300.f);
+	ChargeOnEffect->SetPlayScale(1.f);
 }
 
 void CPlayerHUD::DeleteHeart()

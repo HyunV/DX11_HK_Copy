@@ -332,5 +332,9 @@ public:
 	void ComputeWorld();	// World정보를 계산한다.
 	void Save(FILE* File);
 	void Load(FILE* File);
+
+public:
+	bool m_UptoZ;
+	void UptoZ();
 };
 

@@ -29,7 +29,7 @@ bool CGlobalWall::Init()
 	m_Wall->SetCollisionProfile("Wall");
 
 	m_Wall->SetWorldPosition(640.f, 360.f);
-	m_Wall->SetBoxSize(1280.f, 720.f);
+	m_Wall->SetBoxSize(1920.f, 720.f);
 	return true;
 }
 

@@ -23,9 +23,13 @@ protected:
 
 private:
     CSharedPtr<class CColliderBox2D> m_Body;
+    CSharedPtr<class CSpriteComponent>	m_InBox;
+    CSharedPtr<class CSpriteComponent>	m_DoorImage;
     //Body의 이름을 받아서 Enum
     EDoorName m_DoorName;
-
+public:
+    void SetEnableBox(bool Enable);
+    void SetDoorSpriteEnable(bool Enable);
 public:
     virtual void Start();
     virtual bool Init();
@@ -38,6 +42,7 @@ public:
 public:
     void ChangeScene(std::string& Name);
     void SetPlayer(EDoorName DoorName);
+    
 
 public:
     void CollisionBegin(const CollisionResult& Result);

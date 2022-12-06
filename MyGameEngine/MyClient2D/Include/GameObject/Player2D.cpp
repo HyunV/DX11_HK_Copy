@@ -232,8 +232,7 @@ void CPlayer2D::SetSounds()
 	CResourceManager::GetInst()->LoadSound("Effect", "HeroWings", false, "TheKnight/hero_wings.wav");
 	CResourceManager::GetInst()->LoadSound("Effect", "Herosword1", false, "TheKnight/sword_4.wav");
 	CResourceManager::GetInst()->LoadSound("Effect", "Herosword2", false, "TheKnight/sword_5.wav");
-	CResourceManager::GetInst()->LoadSound("Effect", "HeroRefill", false, "Main/ui_button_confirm.wav");
-	
+	CResourceManager::GetInst()->LoadSound("Effect", "HeroRefill", false, "Main/ui_button_confirm.wav");	
 }
 
 void CPlayer2D::SpriteAnimationSetting()
@@ -242,12 +241,30 @@ void CPlayer2D::SpriteAnimationSetting()
 	m_Sprite->SetRenderLayerName("Player");
 	m_Sprite->SetPivot(0.5f, 0.4f);
 	//m_Sprite->GetMaterial(0)->SetRenderState("DepthDisable");
+	//m_Sprite->GetMaterial(0)->SetRenderState("DepthLessEqual");
 
 	float x = 349.f * g_SCALE;
 	float y = 186.f * g_SCALE;
 	m_Sprite->SetWorldScale(x, y);
 
 	m_Sprite->SetTextureReverse(true);
+
+	m_DoubleJumpSprite->SetPivot(0.5f, 0.4f);
+
+	float JumpX = 383.f * g_SCALE;
+	float JumpY = 356.f * g_SCALE;
+
+	m_DoubleJumpSprite->SetWorldScale(JumpX, JumpY);
+	m_DoubleJumpSprite->SetAnimationFile("TheKnight");
+	//m_DoubleJumpSprite->GetMaterial(0)->SetShader("TileMapBackShader");
+	//m_DoubleJumpSprite->GetMaterial(0)->SetRenderState("DepthLessEqual");
+	m_DoubleJumpSprite->SetRenderLayerName("Effect");
+	//m_DoubleJumpSprite->GetMaterial(0)->SetShader("SpriteShader");
+	//m_DoubleJumpSprite->GetMaterial(0)->SetShader("TileMapShader");
+	m_DoubleJumpSprite->GetMaterial(0)->SetRenderState("DepthDisable");
+	m_DoubleJumpSprite->SetTextureReverse(true);
+	m_DoubleJumpSprite->SetEnable(false);
+	m_DoubleJumpSprite->UptoZ();
 
 	//================이펙트 세팅
 	m_DashSprite->SetPivot(0.5f, 0.4f);
@@ -258,22 +275,9 @@ void CPlayer2D::SpriteAnimationSetting()
 	m_DashSprite->SetWorldScale(DashX, DashY);
 	m_DashSprite->SetAnimationFile("TheKnight");
 	m_DashSprite->SetRelativePosition(0, -20.f);
-	m_DashSprite->GetMaterial(0)->SetRenderState("DepthDisable");
 	m_DashSprite->SetTextureReverse(false);
-	m_DashSprite->SetRenderLayerName("BackEffect");
+	m_DashSprite->SetRenderLayerName("Effect");
 	m_DashSprite->SetEnable(false);
-
-	m_DoubleJumpSprite->SetPivot(0.5f, 0.4f);
-
-	float JumpX = 383.f * g_SCALE;
-	float JumpY = 356.f * g_SCALE;
-
-	m_DoubleJumpSprite->SetWorldScale(JumpX, JumpY);
-	m_DoubleJumpSprite->SetAnimationFile("TheKnight");
-	m_DoubleJumpSprite->GetMaterial(0)->SetRenderState("DepthDisable");
-	m_DoubleJumpSprite->SetTextureReverse(true);
-	m_DoubleJumpSprite->SetEnable(false);
-	//m_EffectSprite->SetRenderLayerName("Effect");
 
 	m_AttackSprite->SetPivot(0.5f, 0.4f);
 
@@ -285,7 +289,6 @@ void CPlayer2D::SpriteAnimationSetting()
 	m_AttackSprite->SetRenderLayerName("Effect");
 	m_AttackSprite->SetTextureReverse(true);
 	m_AttackSprite->SetEnable(false);
-
 
 	//윗공
 	m_UpAttackSprite->SetPivot(0.5f, 0.4f);
@@ -441,6 +444,12 @@ void CPlayer2D::SetCurAnim(EPlayerStates State)
 	case CPlayer2D::EPlayerStates::DashEndGround:
 		m_Anim->SetCurrentAnimation("031DashEnd");
 		break;
+	case CPlayer2D::EPlayerStates::LookUp:
+		m_Anim->SetCurrentAnimation("038LookUp");
+		break;
+	case CPlayer2D::EPlayerStates::RoarLock:
+		m_Anim->SetCurrentAnimation("039RoarLock");
+		break;
 	default:
 		m_Anim->SetCurrentAnimation("001Idle");
 		break;
@@ -482,7 +491,7 @@ void CPlayer2D::Start()
 	m_vecCoolDown.push_back(Fire);
 
 	//중력 에이전트
-	m_GravityAgent->SetPhysicsSimulate(false);
+	m_GravityAgent->SetPhysicsSimulate(true);
 	m_GravityAgent->SetJumpVelocity(80.f);
 	m_GravityAgent->SetGravityAccel(18.f);
 	m_GravityAgent->SetSideWallCheck(true);
@@ -495,6 +504,8 @@ void CPlayer2D::Start()
 	m_HP = Info.HP;
 	m_MaxHP = Info.MaxHP;
 	m_Gio = Info.Gio;
+
+	m_DoubleJumpSprite->UptoZ();
 }
 
 bool CPlayer2D::Init()
@@ -571,9 +582,8 @@ void CPlayer2D::Update(float DeltaTime)
 	Vector3 BodyPos = m_Body->GetWorldPos();
 
 	if (BodyPos.y < 300.f)
-		m_Camera->SetWorldPositionY(-175.f);
-
-
+		m_Camera->SetWorldPositionY(-60.f);
+		//m_Camera->SetWorldPositionY(-175.f);
 
 	//무적 여부
 	if (m_InfiniteMod)
@@ -613,7 +623,11 @@ void CPlayer2D::Update(float DeltaTime)
 			m_vecCoolDown[i].CoolDown -= DeltaTime;
 
 			if (m_vecCoolDown[i].CoolDown <= 0.f)
+			{
+				m_vecCoolDown[i].CoolDown = 0.f;
 				m_vecCoolDown[i].CoolDownEnable = false;
+			}
+				
 		}
 	}
 
@@ -633,7 +647,7 @@ void CPlayer2D::Update(float DeltaTime)
 	{
 	case CPlayer2D::EPlayerStates::Idle:
 		m_DashCount = 0;
-		m_KeyLock = false;
+		//m_KeyLock = false;
 		break;
 	case CPlayer2D::EPlayerStates::Walk:
 	{
@@ -768,12 +782,10 @@ void CPlayer2D::Save(FILE* File)
 }
 
 void CPlayer2D::Load(FILE* File)
-{
-	m_Sprite->SetAnimationFile("TheKnight");
+{	
+	m_Sprite->SetAnimationFile("TheKnight");	
 	CGameObject::Load(File);
-
-	m_GravityAgent;
-	int a = 0;
+	//m_DoubleJumpSprite->UptoZ();
 }
 
 void CPlayer2D::UpKey()
@@ -1087,6 +1099,17 @@ void CPlayer2D::EnterRoomEnd()
 	m_Doorptr->ChangeScene(m_DoorName);
 }
 
+void CPlayer2D::ContactNPC(float posX)
+{
+	m_KeyLock = true;
+	m_CurState = EPlayerStates::LookUp;
+	if (m_Body->GetWorldPos().x < posX)
+		m_Sprite->SetTextureReverse(true);
+	else
+		m_Sprite->SetTextureReverse(false);
+
+}
+
 void CPlayer2D::Q()
 {
 	if (m_Advance)
@@ -1204,7 +1227,9 @@ void CPlayer2D::CollisionBegin(const CollisionResult& Result)
 	else if (dest == "Door")
 	{
 		m_CollisionDoor = true;
-		m_Doorptr = (CDoor*)(Result.Dest->GetOwner());
+		CDoor* Door = (CDoor*)(Result.Dest->GetOwner());
+		Door->SetEnableBox(true);
+		m_Doorptr = Door;
 		m_DoorName = Result.Dest->GetName();
 	}
 }
@@ -1213,8 +1238,12 @@ void CPlayer2D::CollisionEnd(const CollisionResult& Result)
 {
 	std::string dest = Result.Dest->GetCollisionProfile()->Name;
 
-	if(dest == "Door")
+	if (dest == "Door")
+	{
+		CDoor* Door = (CDoor*)(Result.Dest->GetOwner());
+		Door->SetEnableBox(false);
 		m_CollisionDoor = false;
+	}	
 }
 
 
@@ -1251,12 +1280,20 @@ void CPlayer2D::SetNextState()
 	m_Prostrate = false;
 
 	if (m_Jumping)
-		m_CurState = EPlayerStates::Fall;	
+	{
+		m_GravityAgent->SetPhysicsSimulate(true);
+		m_CurState = EPlayerStates::Fall;
+	}
+		
 	else
 		if (m_CurState == EPlayerStates::Dash)
 			m_CurState = EPlayerStates::DashEndGround;
 		else
+		{
 			m_CurState = EPlayerStates::Idle;
+			m_KeyLock = false;
+		}
+			
 }
 
 void CPlayer2D::SetAttackMotion(EPlayerStates State)

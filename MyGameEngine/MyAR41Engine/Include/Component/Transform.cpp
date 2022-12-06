@@ -1229,6 +1229,9 @@ void CTransform::PostUpdate(float DeltaTime)
 		{
 			WorldPos.z = z;
 			m_2DZ = z;
+			if (m_UptoZ)
+				m_2DZ += 100.f;
+
 			m_UpdatePos = true;
 		}
 	}
@@ -1350,4 +1353,9 @@ void CTransform::Load(FILE* File)
 	m_UpdateScale = true;
 	m_UpdateRot = true;
 	m_UpdatePos = true;
+}
+
+void CTransform::UptoZ()
+{
+	m_UptoZ = true;
 }

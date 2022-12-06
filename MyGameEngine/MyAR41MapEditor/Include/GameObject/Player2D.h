@@ -38,6 +38,8 @@ private:
 		ProstrateRise,
 		WallSlide,
 		DashEndGround,
+		LookUp,
+		RoarLock
 	};
 
 	//스킬 쿨다운
@@ -197,12 +199,16 @@ private:
 
 	void EnterRoomStart();
 	void EnterRoomEnd();
-
+	
 	//임시테스트
 	void Q();
 	void InfiniteMod(float Time = 1.f, bool flick = true);
+public:
+	void ContactNPC(float posX);
 
-private:
+
+
+public:
 	//애니메이션 이펙트 관련함수
 	void DashEffectEnd();
 	void DoubleJumpEffectEnd();
@@ -211,7 +217,9 @@ private:
 
 	void CheckDir(); //방향 판단 함수
 	void SetReverse(bool Enable); //멤버들 반전여부
+public:
 	void SetNextState(); //다음 모션 판단 함수
+private:
 	void SetAttackMotion(EPlayerStates State); //공격 이펙트 함수
 
 	void CreateHitCollider(EPlayerStates State);

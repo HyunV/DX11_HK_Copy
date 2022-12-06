@@ -207,6 +207,7 @@
     <ClCompile Include="Setting\EngineShareSetting.cpp" />
     <ClCompile Include="UI\LoadingUI.cpp" />
     <ClCompile Include="UI\MainTitleUI.cpp" />
+    <ClCompile Include="UI\MessageBoxUI.cpp" />
     <ClCompile Include="UI\MyLoadingUI.cpp" />
     <ClCompile Include="UI\PlayerHUD.cpp" />
     <ClCompile Include="UI\StartSceneUI.cpp" />
@@ -261,6 +262,7 @@
     <ClInclude Include="Setting\EngineShareSetting.h" />
     <ClInclude Include="UI\LoadingUI.h" />
     <ClInclude Include="UI\MainTitleUI.h" />
+    <ClInclude Include="UI\MessageBoxUI.h" />
     <ClInclude Include="UI\MyLoadingUI.h" />
     <ClInclude Include="UI\PlayerHUD.h" />
     <ClInclude Include="UI\StartSceneUI.h" />

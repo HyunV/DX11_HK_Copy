@@ -393,3 +393,11 @@ struct PlayerInfo
 	{
 	}
 };
+
+enum class ENPC
+{
+	ElderBug,
+	Honnet,
+	Brum,
+	Sly
+};

@@ -624,9 +624,6 @@
     <ClInclude Include="Resource\Shader\TileMapShader.h">
       <Filter>02. Resource\02. Shader\02. ShaderClass\04. TileMap</Filter>
     </ClInclude>
-    <ClInclude Include="Resource\Shader\TileMapBackShader.h">
-      <Filter>02. Resource\02. Shader\03. ConstantBuffer\06. TileMap</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -656,6 +653,9 @@
     </ClInclude>
     <ClInclude Include="MyGameManager.h">
       <Filter>01. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource\Shader\TileMapBackShader.h">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\04. TileMap</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1004,9 +1004,6 @@
     <ClCompile Include="Resource\Shader\TileMapShader.cpp">
       <Filter>02. Resource\02. Shader\02. ShaderClass\04. TileMap</Filter>
     </ClCompile>
-    <ClCompile Include="Resource\Shader\TileMapBackShader.cpp">
-      <Filter>02. Resource\02. Shader\03. ConstantBuffer\06. TileMap</Filter>
-    </ClCompile>
     <ClCompile Include="Component\NavigationAgent.cpp">
       <Filter>05. Component\02. ObjectComponent\01. NavAgent</Filter>
     </ClCompile>
@@ -1033,6 +1030,9 @@
     </ClCompile>
     <ClCompile Include="MyGameManager.cpp">
       <Filter>01. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource\Shader\TileMapBackShader.cpp">
+      <Filter>02. Resource\02. Shader\02. ShaderClass\04. TileMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

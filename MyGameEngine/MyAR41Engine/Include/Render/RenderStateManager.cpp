@@ -21,6 +21,9 @@ bool CRenderStateManager::Init()
 	CreateDepthStencil("DepthLessEqual", true, D3D11_DEPTH_WRITE_MASK_ALL,
 		D3D11_COMPARISON_LESS_EQUAL);
 
+	CreateDepthStencil("DepthLessPlayer", true, D3D11_DEPTH_WRITE_MASK_ZERO,
+		D3D11_COMPARISON_GREATER);
+
 	return true;
 }
 

@@ -1,5 +1,5 @@
 #include "Door.h"
-
+#include "Component/SpriteComponent.h"
 #include "Component/ColliderBox2D.h"
 #include "Scene/SceneManager.h"
 #include "PathManager.h"
@@ -26,19 +26,50 @@ CDoor::~CDoor()
 
 }
 
+void CDoor::SetEnableBox(bool Enable)
+{
+	m_InBox->SetEnable(Enable);
+}
+
+void CDoor::SetDoorSpriteEnable(bool Enable)
+{
+	m_DoorImage->SetEnable(Enable);
+}
+
 void CDoor::Start()
 {
 	CGameObject::Start();
 	m_Body->SetCollisionCallback(ECollision_Result::Collision, this, &CDoor::CollisionBegin);
+	m_InBox = (CSpriteComponent*)FindComponent("InBox");
+	m_DoorImage = (CSpriteComponent*)FindComponent("DoorImage");
 }
 
 bool CDoor::Init()
 {
 	CGameObject::Init();
 	m_Body = CreateComponent<CColliderBox2D>("Body");
-	m_Body->SetBoxSize(50.f, 100.f);
+	m_InBox = CreateComponent<CSpriteComponent>("InBox");
+	m_DoorImage = CreateComponent<CSpriteComponent>("DoorImage");
+
+	m_Body->SetBoxSize(1.f, 20.f);
+	m_Body->SetWorldPosition(100.f, 50.f);
 	m_Body->SetCollisionProfile("Door");
 	SetRootComponent(m_Body);
+	m_Body->AddChild(m_DoorImage);
+	m_Body->AddChild(m_InBox);
+	
+	m_DoorImage->SetTexture("DoorImage", TEXT("HollowKnight/Map/Door.png"));
+	m_DoorImage->SetWorldScale(130.f, 180.f);
+	m_DoorImage->SetPivot(0.5f, 0.5f);
+	m_DoorImage->AddRelativePositionY(40.f);
+	m_DoorImage->SetEnable(true);
+	m_DoorImage->SetRenderLayerName("Back");
+
+	m_InBox->SetTexture("InBox", TEXT("HollowKnight/NPCS/Dir/In.png"));
+	m_InBox->SetWorldScale(145.f, 147.f);
+	m_InBox->SetPivot(0.5f, 0.5f);
+	m_InBox->AddRelativePositionY(200.f);
+	m_InBox->SetEnable(false);
 
 	return true;
 }
@@ -159,9 +190,9 @@ void CDoor::SetPlayer(EDoorName DoorName)
 		break;
 	case CDoor::EDoorName::TownToBoss:
 		//Player->SetWorldPositionX(1500.f);
+		Player->SetReverse(false);
 		break;
 	case CDoor::EDoorName::ArenaToTown:
-		Player->SetProstrate();
 		break;
 	case CDoor::EDoorName::ShopToTown:
 		break;
@@ -180,11 +211,4 @@ void CDoor::CollisionBegin(const CollisionResult& Result)
 	OutputDebugStringA(Result.Dest->GetName().c_str());
 
 	std::string s = Result.Dest->GetOwner()->GetName();
-
-	if (s == "Player2D")
-	{
-		//CPlayer2D* Player = (CPlayer2D*)(Result.Dest->GetOwner());
-		//std::string SceneName = Result.Src->GetName();
-		//ChangeScene(SceneName);
-	}
 }

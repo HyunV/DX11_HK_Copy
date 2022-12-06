@@ -13,6 +13,9 @@ protected:
 protected:
     CSharedPtr<class CSpriteComponent>	m_Sprite;
     CSharedPtr<class CColliderBox2D>	m_Body;
+    CSharedPtr<class CSpriteComponent>	m_HearBox;
+
+    bool m_CollisionCheck;
 
 public:
     virtual void Start();
@@ -22,7 +25,9 @@ public:
     virtual CElderBugNPC* Clone()    const;
 
 private:
-    void CollisionCallback(const CollisionResult& Result);
-    //void CollisionEnd(const CollisionResult& Result);
+    void NPCUpKey();
+    void CheckDir(float x);
+    void CollisionBegin(const CollisionResult& Result);
+    void CollisionEnd(const CollisionResult& Result);
 };
 

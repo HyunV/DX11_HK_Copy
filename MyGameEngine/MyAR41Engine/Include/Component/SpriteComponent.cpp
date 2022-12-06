@@ -110,6 +110,11 @@ void CSpriteComponent::SetTextureReverse(bool Enable)
 	//	Buffer->SetSpriteReverse(Enable);
 }
 
+void CSpriteComponent::UptoZ()
+{
+	m_Transform->UptoZ();
+}
+
 void CSpriteComponent::Start()
 {
 	CPrimitiveComponent::Start();

@@ -23,6 +23,9 @@ protected:
     
     class CPlayer2D* m_Player;
 
+    float m_Time;
+    bool m_Enable;
+
 public:
     virtual void Start();
     virtual bool Init();
@@ -41,6 +44,8 @@ public:
     void CreateBreakHeart();
 
     void CreateRefillHeart();
+
+    void CreateChargeOnEffect();
 
     void DeleteHeart();
     void UpgradeMaxHeart();

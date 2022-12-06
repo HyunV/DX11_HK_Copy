@@ -30,6 +30,10 @@ void CSly::Start()
 
 	CAnimation2D* Anim = m_Sprite->GetAnimation();
 	Anim->SetCurrentAnimation("SlyIdle");
+
+	float x = 80.f * g_SCALE;
+	float y = 134.f * g_SCALE;
+	m_Sprite->SetWorldScale(x, y);
 }
 
 bool CSly::Init()
@@ -45,9 +49,9 @@ bool CSly::Init()
 
 	float x = 80.f * g_SCALE;
 	float y = 134.f * g_SCALE;
+	m_Sprite->SetWorldScale(x, y);
 
 	m_Sprite->SetWorldPosition(100.f, 100.f);
-	m_Sprite->SetWorldScale(x, y);
 	m_Sprite->SetPivot(0.5f, 0.5f);
 
 
