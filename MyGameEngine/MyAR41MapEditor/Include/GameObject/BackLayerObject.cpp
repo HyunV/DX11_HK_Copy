@@ -33,7 +33,7 @@ bool CBackLayerObject::Init()
     m_Sprite = CreateComponent<CSpriteComponent>("BackSprite");
     SetRootComponent(m_Sprite);
     m_Sprite->SetPivot(0.5f, 0.5f);
-    m_Sprite->SetTexture("BackMap", TEXT("HollowKnight/Map/02.ARENA.webp"));
+    m_Sprite->SetTexture("BackMap", TEXT("HollowKnight/Map/02.ARENA.png"));
     m_Sprite->GetMaterial(0)->SetShader("TileMapBackShader");
     m_Sprite->SetRenderLayerName("Back");
     //m_Sprite->GetMaterial(0)->SetShader("TileMapShader");

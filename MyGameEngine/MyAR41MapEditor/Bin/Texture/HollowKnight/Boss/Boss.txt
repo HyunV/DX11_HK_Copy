@@ -1,0 +1,35 @@
+패턴 1 뒤에서 돌진 후 어퍼컷 (불덩이 떨어짐)
+패턴 2 공중에서 불기둥 패턴 -> 후 텔포
+패턴 3 대각선 위 텔포->대각선 내려찍기 + 대시((불파티클)-> 텔포
+패턴 4 미사일패턴
+패턴 5 가시 패턴
+패턴 6 풍선 패턴
+
+Grimm001 FirePillar 		374 541 t 4
+Grimm002 TeleIn			315 444 f 7 // 나타남
+Grimm003 TeleOut			315 444 f 6 // 사라짐
+Grimm004 AirDashDown		★ 900 525 f 3 
+Grimm005 AirDashStart		900 525 f 5
+Grimm006 AirDashFall		900 525 f 1
+Grimm007 AirDashFallEffect	450 573 f 5
+Grimm008 GroundDashStart	900 525 f 1
+Grimm009 GroundDashing	900 525 t 2
+Grimm010 GroundDashEffect	832 369 f 6
+Grimm011 FireBat			588 501 t 3
+Grimm012 FireBatEnd		588 501 f 2
+Grimm013 SlashStart		342 438 f 4
+Grimm014 Slash			792 438 f 3
+Grimm015 Uppercut		662 786 t 2
+Grimm016 UppercutEnd		662 786 f 1
+Grimm017 BallonAnticOn		521 576 f 2
+Grimm018 BalloonOn		521 576 t 3
+Grimm019 BalloonEndOn		521 576 f 2
+Grimm020 Death			403 433 t 3
+
+//Bullet
+Grimm FireBatEffect		340 246 t 4
+Grimm FireMineEffect		387 865 t 3
+Grimm FirePillarEffect		387 865 t 4
+Grimm FlameBall			151 164 t 8
+Grimm SpikeEffect			148 569 f 3
+Grimm SpikeUp			148 977 t 2

@@ -5,12 +5,16 @@
 #include "../UI/MainTitleUI.h"
 #include "../UI/PlayerHUD.h"
 #include "../UI/MessageBoxUI.h"
+#include "../UI/ShopUI.h"
+#include "../UI/NightMareKingUI.h"
 
 #include "../GameObject/Monster.h"
 #include "../GameObject/Player2D.h"
 #include "../GameObject/GlobalWall.h"
 #include "../GameObject/Zombie.h"
 #include "../GameObject/Zombie2.h"
+#include "../GameObject/BossEventObject.h"
+#include "../GameObject/NightMareKingGrimm.h"
 #include "PathManager.h"
 
 CEditorDefaultScene::CEditorDefaultScene()
@@ -28,6 +32,8 @@ bool CEditorDefaultScene::Init()
     m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
     //m_Owner->GetViewport()->CreateUIWindow<CPlayerHUD>("PlayerHUD");
     //m_Owner->GetViewport()->CreateUIWindow<CMessageBoxUI>("MessageBoxUI");
+    //m_Owner->GetViewport()->CreateUIWindow<CShopUI>("ShopUI");
+    //m_Owner->GetViewport()->CreateUIWindow<CNightMareKingUI>("Night");
 
     //씬 파일로드용===================================
     
@@ -50,5 +56,6 @@ bool CEditorDefaultScene::Init()
     //Player->SetWorldPosition(0.f, 1000.f);
     //CZombie* Zombie = m_Owner->CreateObject<CZombie>("Zombie");
     //CZombie2* Zombie2 = m_Owner->CreateObject<CZombie2>("Zombie2");
+    //CNightMareKingGrimm* Grimm = m_Owner->CreateObject<CNightMareKingGrimm>("NightMareKingGrimm");
     return true;
 }

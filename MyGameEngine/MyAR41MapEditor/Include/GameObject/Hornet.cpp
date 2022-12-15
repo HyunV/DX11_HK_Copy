@@ -70,6 +70,7 @@ bool CHornet::Init()
     m_Body->SetCollisionProfile("NPC");
 
     m_Sprite->SetAnimationFile("NPCS");
+    m_Sprite->SetRenderLayerName("Back");
 
     float x = 381.f * g_SCALE;
     float y = 249.f * g_SCALE;

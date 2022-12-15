@@ -9,6 +9,7 @@
 #include "Engine.h"
 #include "Input.h"
 #include "../GameObject/Player2D.h"
+#include "../GameObject/NightMareKingGrimm.h"
 
 CStartSceneUI::CStartSceneUI()
 {
@@ -148,7 +149,12 @@ void CStartSceneUI::Update(float DeltaTime)
     float FPS = CEngine::GetInst()->GetFPS();
 
     m_Number->SetNumber((unsigned int)FPS);
-    Vector2 v1 = CInput::GetInst()->GetMousePos();
+    Vector3 v = m_Scene->FindObject("NightMareKingGrimm")->GetWorldPos();
+    m_MousePosX->SetNumber((unsigned int)v.x);
+    m_MousePosY->SetNumber((unsigned int)v.y);
+     
+    
+    //Vector2 v1 = CInput::GetInst()->GetMousePos();
     //Vector2 v2 = CInput::GetInst()->ComputeWorldMousePos();
 
     //m_MousePosX->SetNumber((unsigned int)v1.x);

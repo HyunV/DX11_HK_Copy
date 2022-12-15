@@ -39,7 +39,7 @@ public:
 public:
 	bool Init();
 public:
-	void SetPlayerInfo(int MaxHP, int HP, int Gio);
+	void SetPlayerInfo(PlayerInfo Info);
 
 	PlayerInfo GetPlayerInfo()
 	{

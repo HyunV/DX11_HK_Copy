@@ -67,6 +67,7 @@ bool CBrum::Init()
 	
 	m_Body->SetCollisionProfile("NPC");
 	m_Sprite->SetAnimationFile("BrumNPC");
+	m_Sprite->SetRenderLayerName("Back");
 	
 	//д©╫╨ер	
 	float x = 329.f * g_SCALE;

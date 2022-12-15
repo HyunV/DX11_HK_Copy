@@ -42,6 +42,7 @@ void CDoor::Start()
 	m_Body->SetCollisionCallback(ECollision_Result::Collision, this, &CDoor::CollisionBegin);
 	m_InBox = (CSpriteComponent*)FindComponent("InBox");
 	m_DoorImage = (CSpriteComponent*)FindComponent("DoorImage");
+	m_DoorImage->GetMaterial(0)->SetOpacity(0.f);
 }
 
 bool CDoor::Init()
@@ -167,9 +168,7 @@ void CDoor::SetPlayer(EDoorName DoorName)
 
 	PlayerInfo Info = CMyGameManager::GetInst()->GetPlayerInfo();
 	
-	Player->m_MaxHP = Info.MaxHP;
-	Player->m_HP = Info.HP;
-	Player->m_Gio = Info.Gio;
+	Player->m_PlayerInfo = Info;
 
 	//CPlayerHUD* HUD = Scene->GetViewport()->FindUIWindow<CPlayerHUD>("PlayerHUD");
 	//HUD->CreateEmptyHeart();
@@ -193,8 +192,10 @@ void CDoor::SetPlayer(EDoorName DoorName)
 		Player->SetReverse(false);
 		break;
 	case CDoor::EDoorName::ArenaToTown:
+		Player->SetWorldPositionX(985.f);
 		break;
 	case CDoor::EDoorName::ShopToTown:
+		Player->SetWorldPositionX(230.f);
 		break;
 	case CDoor::EDoorName::BossToTown:
 		break;

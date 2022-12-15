@@ -69,6 +69,7 @@ bool CElderBugNPC::Init()
 
     m_Body->SetCollisionProfile("NPC");
     m_Sprite->SetAnimationFile("NPCS");
+    m_Sprite->SetRenderLayerName("Back");
 
     //д©╫╨ер
     float X = 124.f;

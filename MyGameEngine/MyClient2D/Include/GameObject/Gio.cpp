@@ -100,12 +100,10 @@ void CGio::CollisionCoin(const CollisionResult& result)
 			CResourceManager::GetInst()->SoundPlay("GetGio");
 		else
 			CResourceManager::GetInst()->SoundPlay("GetGio2");
-
-		//CUIWindow* Window = m_Scene->GetViewport()->FindUIWindow<CUIWindow>("PlayerHUD");
 		
 		CPlayer2D* Player = (CPlayer2D*)(result.Dest->GetOwner());
-		Player->AddGio(1);
-
+		Player->AddGio((rand()+100)%1000);
+		//Player->AddGio(1);
 		Destroy();
 	}
 }

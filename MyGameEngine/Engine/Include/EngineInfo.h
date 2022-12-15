@@ -385,11 +385,19 @@ struct PlayerInfo
 	int MaxHP;
 	int HP;
 	int Gio;
+	bool AdvHP;
+	bool AdvAttack;
+	bool AdvDash;
+	bool AdvFire;
 
 	PlayerInfo() :
 		MaxHP(5),
 		HP(5),
-		Gio(0)
+		Gio(0),
+		AdvHP(false),
+		AdvAttack(false),
+		AdvDash(false),
+		AdvFire(false)
 	{
 	}
 };

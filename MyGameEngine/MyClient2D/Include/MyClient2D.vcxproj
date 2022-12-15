@@ -171,16 +171,22 @@
     <ClInclude Include="Client.h" />
     <ClInclude Include="ClientManager.h" />
     <ClInclude Include="GameObject\BackLayerObject.h" />
+    <ClInclude Include="GameObject\BossEventObject.h" />
     <ClInclude Include="GameObject\Brum.h" />
+    <ClInclude Include="GameObject\ClowdObject.h" />
     <ClInclude Include="GameObject\Door.h" />
     <ClInclude Include="GameObject\Effect.h" />
     <ClInclude Include="GameObject\ElderBugNPC.h" />
+    <ClInclude Include="GameObject\FireBatBullet.h" />
+    <ClInclude Include="GameObject\FirePillarBullet.h" />
+    <ClInclude Include="GameObject\FlameParticle.h" />
     <ClInclude Include="GameObject\Gio.h" />
     <ClInclude Include="GameObject\GlobalWall.h" />
     <ClInclude Include="GameObject\Hornet.h" />
     <ClInclude Include="GameObject\MonGenerator.h" />
     <ClInclude Include="GameObject\Monster.h" />
     <ClInclude Include="GameObject\MyBullet.h" />
+    <ClInclude Include="GameObject\NightMareKingGrimm.h" />
     <ClInclude Include="GameObject\Player2D.h" />
     <ClInclude Include="GameObject\PlayerAttack.h" />
     <ClInclude Include="GameObject\Sly.h" />
@@ -195,7 +201,9 @@
     <ClInclude Include="UI\MainTitleUI.h" />
     <ClInclude Include="UI\MessageBoxUI.h" />
     <ClInclude Include="UI\MyLoadingUI.h" />
+    <ClInclude Include="UI\NightMareKingUI.h" />
     <ClInclude Include="UI\PlayerHUD.h" />
+    <ClInclude Include="UI\ShopUI.h" />
     <ClInclude Include="UI\StartSceneUI.h" />
   </ItemGroup>
   <ItemGroup>
@@ -209,16 +217,22 @@
   <ItemGroup>
     <ClCompile Include="ClientManager.cpp" />
     <ClCompile Include="GameObject\BackLayerObject.cpp" />
+    <ClCompile Include="GameObject\BossEventObject.cpp" />
     <ClCompile Include="GameObject\Brum.cpp" />
+    <ClCompile Include="GameObject\ClowdObject.cpp" />
     <ClCompile Include="GameObject\Door.cpp" />
     <ClCompile Include="GameObject\Effect.cpp" />
     <ClCompile Include="GameObject\ElderBugNPC.cpp" />
+    <ClCompile Include="GameObject\FireBatBullet.cpp" />
+    <ClCompile Include="GameObject\FirePillarBullet.cpp" />
+    <ClCompile Include="GameObject\FlameParticle.cpp" />
     <ClCompile Include="GameObject\Gio.cpp" />
     <ClCompile Include="GameObject\GlobalWall.cpp" />
     <ClCompile Include="GameObject\Hornet.cpp" />
     <ClCompile Include="GameObject\MonGenerator.cpp" />
     <ClCompile Include="GameObject\Monster.cpp" />
     <ClCompile Include="GameObject\MyBullet.cpp" />
+    <ClCompile Include="GameObject\NightMareKingGrimm.cpp" />
     <ClCompile Include="GameObject\Player2D.cpp" />
     <ClCompile Include="GameObject\PlayerAttack.cpp" />
     <ClCompile Include="GameObject\Sly.cpp" />
@@ -233,7 +247,9 @@
     <ClCompile Include="UI\MainTitleUI.cpp" />
     <ClCompile Include="UI\MessageBoxUI.cpp" />
     <ClCompile Include="UI\MyLoadingUI.cpp" />
+    <ClCompile Include="UI\NightMareKingUI.cpp" />
     <ClCompile Include="UI\PlayerHUD.cpp" />
+    <ClCompile Include="UI\ShopUI.cpp" />
     <ClCompile Include="UI\StartSceneUI.cpp" />
   </ItemGroup>
   <ItemGroup>

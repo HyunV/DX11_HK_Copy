@@ -36,6 +36,7 @@ bool CPlayerAttack::Init()
 	m_Body->SetCollisionCallback(ECollision_Result::Collision, 
 		this, &CPlayerAttack::CollisionBegin);
 	m_LifeTime = 0.2f;
+	m_Damage = 1;
 
 	CResourceManager::GetInst()->LoadSound("Effect", "HitAttack", false, "Enemy/enemy_damage.wav");
 	return true;

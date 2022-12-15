@@ -31,9 +31,16 @@ void CPlayerHUD::Start()
 	m_Name = "PlayerHUD";
 	m_Player = (CPlayer2D*)(CSceneManager::GetInst()->GetScene()->FindObject("Player2D"));
 	
-	//CreateEmptyHeart();
-	//CreateHeart(m_Player->m_HP);
+	CreateEmptyHeart();
+	CreateHeart(m_Player->m_PlayerInfo.HP);
 
+
+	if (m_Player->m_PlayerInfo.AdvHP) 
+	{
+		m_EmptyLife[5]->SetEnable(true);
+		m_EmptyLife[6]->SetEnable(true);
+		m_EmptyLife[7]->SetEnable(true);
+	}
 
 	///////////////////////////////////////
 	CreateFadeUI(EFade::FadeIn, 1.f);
@@ -90,17 +97,14 @@ void CPlayerHUD::Update(float DeltaTime)
 		}			
 	}
 		
-
-	
-
-
-
 	//지오
-	int Gio = m_Player->m_Gio;
+	int Gio = m_Player->m_PlayerInfo.Gio;
 
 	TCHAR c[10] = {};
 	wsprintf(c, TEXT("%d"), Gio);
 	m_GioCount->SetText(c);
+
+	
 
 }
 
@@ -191,7 +195,7 @@ void CPlayerHUD::CreateBreakHeart()
 
 void CPlayerHUD::CreateRefillHeart()
 {
-	if (m_Player->m_MaxHP <= (int)m_LifeStack.size())
+	if (m_Player->m_PlayerInfo.MaxHP <= (int)m_LifeStack.size())
 		return;
 
 	CreateHeart(1);
@@ -242,11 +246,17 @@ void CPlayerHUD::UpgradeMaxHeart()
 	m_EmptyLife[6]->SetEnable(true);
 	m_EmptyLife[7]->SetEnable(true);
 
+	//체력 모두 회복
 	int HP = (int)(5 - m_LifeStack.size());
 	CreateHeart(HP);
 
+	//하트 추가 생성
 	if(m_LifeStack.size()<= 8)
 		CreateHeart(3);
+
+	m_Player->m_PlayerInfo.MaxHP = 8;
+	m_Player->m_PlayerInfo.AdvHP = true;
+	m_Player->m_PlayerInfo.HP = 8;
 }
 
 void CPlayerHUD::CreateFadeUI(EFade Fade, float PlayTime)

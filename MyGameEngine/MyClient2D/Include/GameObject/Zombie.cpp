@@ -5,6 +5,7 @@
 #include "Animation/Animation2D.h"
 #include "Component/GravityAgent.h"
 #include "Gio.h"
+#include "PlayerAttack.h"
 #include <time.h>
 
 CZombie::CZombie()
@@ -14,7 +15,8 @@ CZombie::CZombie()
 	m_ObjectTypeName = "Zombie";
 }
 
-CZombie::CZombie(const CZombie& Obj)
+CZombie::CZombie(const CZombie& Obj)	: 
+	CGameObject(Obj)
 {
 	m_Body = (CColliderBox2D*)FindComponent("ZombieBody"); //루트
 	m_Sight = (CColliderBox2D*)FindComponent("ZombieSight");
@@ -117,6 +119,9 @@ void CZombie::Update(float DeltaTime)
 	CGameObject::Update(DeltaTime);
 
 	CheckDir();
+
+	if (!m_Body->GetEnable() && m_CurState != EMonsterState::Death)
+		Destroy();
 
 	//히트 머테리얼
 	if (MaterialChangeTime >= 1.f)
@@ -297,16 +302,16 @@ void CZombie::CreateGio()
 void CZombie::CollisionBegin(const CollisionResult& Result)
 {
 	std::string dest = Result.Dest->GetName();
-	//std::string dest = Result.Dest->GetCollisionProfile()->Name;
-	//CGameObject* Obj = Result.Dest->GetOwner();
-	//Vector3 v = Obj->GetWorldPos();
 
 	//공격 당하는 충돌일 시
 	if (dest == "PlayerAttack" || dest == "PlayerBullet")
 	{
 		int Damage = 0;
 		if (dest == "PlayerAttack")
-			Damage = 1;
+		{
+			CPlayerAttack* Attack = (CPlayerAttack*)(Result.Dest->GetOwner());
+			Damage = Attack->GetDamage();
+		}		
 		else if (dest == "PlayerBullet")
 			Damage = 3;
 

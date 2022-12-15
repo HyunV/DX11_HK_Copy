@@ -13,6 +13,9 @@
 #include "../GameObject/Effect.h"
 #include "../GameObject/MonGenerator.h"
 #include "../GameObject/BackLayerObject.h"
+#include "../GameObject/ClowdObject.h"
+#include "../GameObject/BossEventObject.h"
+#include "../GameObject/NightMareKingGrimm.h"
 #include "../UI/StartSceneUI.h"
 #include "../UI/MainTitleUI.h"
 #include "../UI/PlayerHUD.h"
@@ -57,11 +60,14 @@ void CDefaultSetting::CreateCDO()
     CScene::CreateObjectCDO<CEffect>("Effect");
     CScene::CreateObjectCDO<CMonGenerator>("MonGenerator");
     CScene::CreateObjectCDO<CBackLayerObject>("BackLayerObject");
-    
-    
+    CScene::CreateObjectCDO<CClowdObject>("ClowdObject");
+    CScene::CreateObjectCDO<CBossEventObject>("BossEventObject");
+    CScene::CreateObjectCDO<CNightMareKingGrimm>("NightMareKingGrimm");
+
     CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
     CScene::CreateUIWindowCDO<CMainTitleUI>("MainTitleUI");
     CScene::CreateUIWindowCDO<CPlayerHUD>("PlayerHUD");
+    
 }
 
 void CDefaultSetting::LoadResource()
@@ -136,7 +142,7 @@ void CDefaultSetting::SetInput()
     
     CInput::GetInst()->AddBindKey("Shift", VK_SHIFT);
 
-
+    CInput::GetInst()->AddBindKey("Esc", VK_ESCAPE);
 }
 
 void CDefaultSetting::SetCollision()

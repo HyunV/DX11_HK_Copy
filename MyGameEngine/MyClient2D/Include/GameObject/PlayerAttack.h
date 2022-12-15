@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject\GameObject.h"
 class CPlayerAttack :
-    public CGameObject
+	public CGameObject
 {
 	friend class CScene;
 
@@ -12,6 +12,16 @@ protected:
 
 private:
 	CSharedPtr<class CColliderSphere2D> m_Body; //∑Á∆Æ
+	int m_Damage;
+public:
+	void SetDamage(int Damage)
+	{
+		m_Damage = Damage;
+	}
+	int GetDamage()
+	{
+		return m_Damage;
+	}
 
 public:
 	virtual void Start();

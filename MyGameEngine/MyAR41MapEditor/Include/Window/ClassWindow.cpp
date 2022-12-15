@@ -26,6 +26,9 @@
 #include "../GameObject/Effect.h"
 #include "../GameObject/MonGenerator.h"
 #include "../GameObject/BackLayerObject.h"
+#include "../GameObject/ClowdObject.h"
+#include "../GameObject/BossEventObject.h"
+#include "../GameObject/NightMareKingGrimm.h"
 
 #include "ObjectWindow.h"
 #include "ComponentWindow.h"
@@ -215,7 +218,13 @@ void CClassWindow::ObjectCreateCallback()
         Obj = Scene->CreateObject<CMonGenerator>(m_SelectObjectItem + strNum);
     else if (m_SelectObjectItem == "BackLayerObject")
         Obj = Scene->CreateObject<CBackLayerObject>(m_SelectObjectItem + strNum);
-
+    else if (m_SelectObjectItem == "ClowdObject")
+        Obj = Scene->CreateObject<CClowdObject>(m_SelectObjectItem + strNum);
+    else if (m_SelectObjectItem == "BossEventObject")
+        Obj = Scene->CreateObject<CBossEventObject>(m_SelectObjectItem + strNum);
+    else if (m_SelectObjectItem == "NightMareKingGrimm")
+        Obj = Scene->CreateObject<CNightMareKingGrimm>(m_SelectObjectItem + strNum);
+    
     if (Window)
     {
         Window->AddItem(Obj, m_SelectObjectItem+strNum);

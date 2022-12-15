@@ -71,9 +71,8 @@ private:
 	class CAnimation2D* m_Anim; //애니메이션
 
 public:
-	int m_HP;
-	int m_MaxHP;
-	int m_Gio;
+	PlayerInfo m_PlayerInfo;
+	bool m_Advance;
 
 public:
 	//이동관련
@@ -113,17 +112,8 @@ public:
 	class CDoor* m_Doorptr;
 	std::string m_DoorName;
 
-	struct AdvanceSkill
-	{
-		bool AdvAttack;
-		bool AdvFire;
-		bool AdvDash;
-		bool AdvHP;
-	};
-
 	bool m_Prostrate;
 
-	bool m_Advance; //스킬강화(임시)
 public:
 	bool GetDownAttackEnable()
 	{
@@ -143,7 +133,7 @@ public:
 	 }
 	 void AddGio(int Count)
 	 {
-		 m_Gio += Count;
+		 m_PlayerInfo.Gio += Count;
 	 }
 	 void SetProstrate();
 	 void CheckProstrate();
@@ -175,7 +165,7 @@ public:
 	virtual void Save(FILE* File);
 	virtual void Load(FILE* File);
 
-private:
+public:
 	//플레이어 관련
 	void UpKey();
 	void DownKey();
@@ -200,12 +190,16 @@ private:
 	void EnterRoomStart();
 	void EnterRoomEnd();
 	
+
 	//임시테스트
 	void Q();
 	void InfiniteMod(float Time = 1.f, bool flick = true);
 public:
 	void ContactNPC(float posX);
-
+	void PurchaseItem(int count);
+	bool m_UsingGio;
+	int m_UsedGio;
+	void UpgradeMaxHeart();
 
 
 public:
@@ -217,6 +211,11 @@ public:
 
 	void CheckDir(); //방향 판단 함수
 	void SetReverse(bool Enable); //멤버들 반전여부
+	bool GetReverse();
+	
+	//보스 관련
+	bool WallCheck(); //플레이어 위치에서 +-500에 벽이 있는지 체크
+	int CheckPos(); //플레이어 좌, 우 어디가 더 가까운지 체크
 public:
 	void SetNextState(); //다음 모션 판단 함수
 private:
@@ -228,6 +227,11 @@ private:
 public:
 	void importToGameManager();
 	void ReturnToTown();
+	void CameraCheck();
+	void ResetCamera();
+
+	void MoveCamera();
+	bool m_CameraMove;
 
 private:
 	void CollisionBegin(const CollisionResult& Result);

@@ -117,6 +117,30 @@
     <ClInclude Include="UI\MessageBoxUI.h">
       <Filter>05. UI</Filter>
     </ClInclude>
+    <ClInclude Include="UI\ShopUI.h">
+      <Filter>05. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\ClowdObject.h">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\NightMareKingUI.h">
+      <Filter>05. UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\BossEventObject.h">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\FlameParticle.h">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\NightMareKingGrimm.h">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\FireBatBullet.h">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\FirePillarBullet.h">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyClient2D.rc">
@@ -218,6 +242,30 @@
     </ClCompile>
     <ClCompile Include="UI\MessageBoxUI.cpp">
       <Filter>05. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\ShopUI.cpp">
+      <Filter>05. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\ClowdObject.cpp">
+      <Filter>03. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\NightMareKingUI.cpp">
+      <Filter>05. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\BossEventObject.cpp">
+      <Filter>03. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\FlameParticle.cpp">
+      <Filter>03. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\NightMareKingGrimm.cpp">
+      <Filter>03. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\FireBatBullet.cpp">
+      <Filter>03. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\FirePillarBullet.cpp">
+      <Filter>03. GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

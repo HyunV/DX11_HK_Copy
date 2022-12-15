@@ -19,11 +19,9 @@ bool CMyGameManager::Init()
     return true;
 }
 
-void CMyGameManager::SetPlayerInfo(int MaxHP, int HP, int Gio)
+void CMyGameManager::SetPlayerInfo(PlayerInfo Info)
 {
-    m_PlayerInfo.MaxHP = MaxHP;
-    m_PlayerInfo.HP = HP;
-    m_PlayerInfo.Gio = Gio;
+    m_PlayerInfo = Info;
 }
 
 void CMyGameManager::CreateFadeUI(EFade Fade)
