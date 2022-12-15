@@ -234,6 +234,9 @@
     <ClCompile Include="GameObject\FirePillarBullet.cpp">
       <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject\GrimmSpike.cpp">
+      <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -420,6 +423,9 @@
       <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
     </ClInclude>
     <ClInclude Include="GameObject\FirePillarBullet.h">
+      <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\GrimmSpike.h">
       <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
     </ClInclude>
   </ItemGroup>

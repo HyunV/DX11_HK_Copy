@@ -114,6 +114,8 @@ void CPlayer2D::SetInputKey()
 		&CPlayer2D::Charge, m_Scene);
 	CInput::GetInst()->AddBindFunction<CPlayer2D>("V", Input_Type::Up, this,
 		&CPlayer2D::SetNextState, m_Scene);
+
+
 }
 
 void CPlayer2D::SetAnimation()
@@ -165,7 +167,7 @@ void CPlayer2D::SetAnimation()
 
 	m_Anim->SetCurrentEndFunction("023Death", this, &CPlayer2D::Death);
 
-	m_Anim->SetCurrentEndFunction("037Death2", this, &CPlayer2D::DeathEnd);
+	//m_Anim->SetCurrentEndFunction("037Death2", this, &CPlayer2D::DeathEnd);
 
 	m_Anim->SetCurrentEndFunction("025ProstrateRise", this, &CPlayer2D::SetNextState);
 
@@ -1050,6 +1052,9 @@ void CPlayer2D::Attack()
 
 void CPlayer2D::Charge()
 {
+	if (m_Death)
+		return;
+
 	CheckProstrate();
 
 	if (m_Jumping == 0 && m_CurState == EPlayerStates::Idle)
@@ -1061,6 +1066,9 @@ void CPlayer2D::Charge()
 
 void CPlayer2D::Charging()
 {
+	if (m_Death)
+		return;
+
 	if (m_CurState == EPlayerStates::Charge)
 	{
 		m_ChargeStart = true;
@@ -1085,11 +1093,6 @@ void CPlayer2D::Death()
 {
 	m_CurState = EPlayerStates::DeathEnd;
 	m_Anim->SetCurrentAnimation("037Death2");
-}
-
-void CPlayer2D::DeathEnd()
-{
-	
 }
 
 void CPlayer2D::EnterRoomStart()
@@ -1227,9 +1230,12 @@ void CPlayer2D::CollisionBegin(const CollisionResult& Result)
 		//»ç¸Á
 		if (m_PlayerInfo.HP <= 0)
 		{
+			CInput::GetInst()->DeleteBindFunction<CPlayer2D>("V", Input_Type::Push, this);
+			CInput::GetInst()->DeleteBindFunction<CPlayer2D>("V", Input_Type::Up, this);
+			m_KeyLock = true;
+			m_Death = true;
 			m_CurState = EPlayerStates::Death;
 			m_GravityAgent->SetPhysicsSimulate(false);
-			m_KeyLock = true;
 			m_Body->SetEnable(false);
 			InfiniteMod(999.f, false);
 		}

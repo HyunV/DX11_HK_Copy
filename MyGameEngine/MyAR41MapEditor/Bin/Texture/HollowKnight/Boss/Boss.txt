@@ -21,7 +21,7 @@ Grimm013 SlashStart		342 438 f 4
 Grimm014 Slash			792 438 f 3
 Grimm015 Uppercut		662 786 t 2
 Grimm016 UppercutEnd		662 786 f 1
-Grimm017 BallonAnticOn		521 576 f 2
+Grimm017 BallonAnticOn	521 576 f 2
 Grimm018 BalloonOn		521 576 t 3
 Grimm019 BalloonEndOn		521 576 f 2
 Grimm020 Death			403 433 t 3

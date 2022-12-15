@@ -8,6 +8,7 @@
 #include "FireBatBullet.h"
 #include "FlameParticle.h"
 #include "FirePillarBullet.h"
+#include "GrimmSpike.h"
 
 #include <time.h>
 #include "Player2D.h"
@@ -54,6 +55,10 @@ void CNightMareKingGrimm::SetSounds()
     CResourceManager::GetInst()->LoadSound("Effect", "BossSlash", false, "Boss/sword_5.wav");
     CResourceManager::GetInst()->LoadSound("Effect", "BossFallDash", false, "Boss/falldash.wav");
     CResourceManager::GetInst()->LoadSound("Effect", "BossGroundDash", false, "Boss/grounddash.wav");
+
+    CResourceManager::GetInst()->LoadSound("Effect", "SpikeStart", false, "Boss/grimm_spikes_pt_1_grounded.wav");
+    CResourceManager::GetInst()->LoadSound("Effect", "Spiking", false, "Boss/grimm_spikes_pt_2_shoot_up.wav");
+    CResourceManager::GetInst()->LoadSound("Effect", "SpikeEnd", false, "Boss/grimm_spikes_pt_3_shrivel_back.wav");
 
 
 }
@@ -319,6 +324,7 @@ void CNightMareKingGrimm::SetCurAnim(EBossState State)
     case CNightMareKingGrimm::EBossState::SpikeStart:
         m_Anim->SetCurrentAnimation("Grimm001 FirePillar");
         m_Sprite->SetEnable(false);
+        CreateSpike();
        // Scale = Vector2(521.f * g_SCALE, 576.f * g_SCALE);
         break;
 
@@ -336,13 +342,15 @@ void CNightMareKingGrimm::SetCurAnim(EBossState State)
 
     m_Sprite->SetWorldScale(Scale);
 
-    //SetHitBox();
     m_PrevState = State;
 }
 
 void CNightMareKingGrimm::Start()
 {
     CGameObject::Start();
+
+    m_Body->SetBoxSize(100.f, 100.f);
+    SetWorldPosition(860.f, 300.f);
 
     SetSounds();
     SetAnimation();
@@ -399,6 +407,13 @@ bool CNightMareKingGrimm::Init()
 void CNightMareKingGrimm::Update(float DeltaTime)
 {
     CGameObject::Update(DeltaTime);
+
+    Vector3 v = GetWorldPos();
+    if (v.x > 10000.f)
+    {
+        int a = (int)v.x;
+        v.x = (float)a;
+    }
 
     if (m_NextSkillDelay)
     {
@@ -566,16 +581,29 @@ void CNightMareKingGrimm::Update(float DeltaTime)
             break;
         case CNightMareKingGrimm::EBossState::SpikeStart:
             m_SkillUseTime += DeltaTime;
-            if (m_SkillUseTime >= 3.f)
+            if (m_SkillUseTime > 0.9f && !m_Spiking)
             {
-                m_SpikeStart = false;
-                m_Sprite->SetEnable(true);
-                m_Body->SetEnable(true);
+                CResourceManager::GetInst()->SoundPlay("Spiking");
+                m_Spiking = true;
+            }
+            if (m_SkillUseTime > 0.9f && !m_SpikeEnd)
+            {
+                CResourceManager::GetInst()->SoundPlay("SpikeEnd");
+                m_SpikeEnd = true;
+            }
+
+            if (m_SkillUseTime >= 2.f)
+            {
                 SetNextPattern();
                 
                 while (m_NextState == EBossState::SpikeStart)              
                     SetNextPattern();
-                
+             
+                m_SpikeStart = false;
+                m_Spiking = false;
+                m_SpikeEnd = false;
+                m_Body->SetEnable(true);
+                m_Sprite->SetEnable(true);
                 m_CurState = EBossState::TeleIn;
               
             }
@@ -647,13 +675,14 @@ void CNightMareKingGrimm::AutoSetTextureReverse()
 void CNightMareKingGrimm::SetNextPattern()
 {
     int num = rand() % 5;
-    //int num = 4;
+    //int num = 2;
 
     CPlayer2D* Player = (CPlayer2D*)(m_Scene->FindObject("Player2D"));
     bool WallCheck = Player->WallCheck();
     int PosCheck = Player->CheckPos(); //pos°¡ 1: °¡¿îµ¥º¸´Ù ¿À¸¥ÂÊ
                                        //else ¿ÞÂÊ
     Vector3 PlayerPos = Player->GetWorldPos();
+    Vector3 Pos = GetWorldPos();
 
     switch (num)
     {
@@ -704,7 +733,7 @@ void CNightMareKingGrimm::SetNextPattern()
             SetDir("Left");
             SetWorldPosition(PlayerPos.x - (400.f * m_Dir), 300.f);
         }
-
+        
         break;
     case 3: //ºÒ±âµÕ
         OutputDebugStringA("ºÒ±âµÕ");
@@ -729,6 +758,7 @@ void CNightMareKingGrimm::SetNextPattern()
         m_Body->SetEnable(false);
         m_SpikeStart = true;
         NextPatternStart();
+        
         break;
     case 5: //Ç³¼±
         break;
@@ -805,9 +835,9 @@ void CNightMareKingGrimm::FallStart()
     AddWorldPositionX(m_Dir* 200.f);
 
     if (m_Dir == 1.f)
-        m_Sprite->SetWorldRotationZ(45.f);
+        m_Sprite->SetWorldRotationZ(40.f);
     else if (m_Dir == -1.f)
-        m_Sprite->SetWorldRotationZ(-45.f);
+        m_Sprite->SetWorldRotationZ(-40.f);
 
     m_CurState = EBossState::AirDashFall;
 }
@@ -841,14 +871,15 @@ void CNightMareKingGrimm::CreateFlame()
         //Flame->SetWorldRotationZ(9.f);
         Flame->SetWorldRotationZ(210.f + (i * 30.f));        
         Flame->SetLifeTime(1.f);
+        Flame->SetSpeed(1.5f);
 
         v.push_back(Flame);
     }
     //v[0]->SetWorldRotationZ(225.f);
     //v[0]->SetSpeed(0.7f);
-    v[1]->SetSpeed(0.6f);
-    v[2]->SetSpeed(0.5f);
-    v[3]->SetSpeed(0.6f);
+    v[1]->SetSpeed(0.9f);
+    v[2]->SetSpeed(0.75f);
+    v[3]->SetSpeed(0.9f);
     //v[4]->SetWorldRotationZ(315.f);
     //v[4]->SetSpeed(0.7f);
 }
@@ -872,6 +903,28 @@ void CNightMareKingGrimm::CreateFirePillar()
 
     FirePillar->SetWorldPositionX(x);
 
+}
+
+void CNightMareKingGrimm::CreateSpike()
+{
+    CResourceManager::GetInst()->SoundPlay("SpikeStart");
+    int num = rand() % 2;
+    int count = 15;
+
+    if (num == 1)
+    {
+        num = 50;
+        count = 14;
+    }
+        
+
+    for (int i = 0; i < count; i++)
+    {
+        std::string name = "Spike";
+        name += std::to_string(i + 1);
+        CGrimmSpike* Spike = m_Scene->CreateObject<CGrimmSpike>(name);
+        Spike->SetWorldPositionX(-250.f + num + (i * 140.f));
+    }
 }
 
 

@@ -37,7 +37,7 @@ void CFireBatBullet::Start()
 bool CFireBatBullet::Init()
 {
     CGameObject::Init();
-    SetLifeTime(1.f);
+    SetLifeTime(2.f);
 
     m_Body = CreateComponent<CColliderBox2D>("FireBat");
     m_Sprite = CreateComponent<CSpriteComponent>("FireBatSprite");

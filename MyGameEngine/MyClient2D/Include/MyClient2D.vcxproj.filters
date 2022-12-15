@@ -141,6 +141,9 @@
     <ClInclude Include="GameObject\FirePillarBullet.h">
       <Filter>03. GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject\GrimmSpike.h">
+      <Filter>03. GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyClient2D.rc">
@@ -265,6 +268,9 @@
       <Filter>03. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\FirePillarBullet.cpp">
+      <Filter>03. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\GrimmSpike.cpp">
       <Filter>03. GameObject</Filter>
     </ClCompile>
   </ItemGroup>

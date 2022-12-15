@@ -196,6 +196,7 @@
     <ClCompile Include="GameObject\FlameParticle.cpp" />
     <ClCompile Include="GameObject\Gio.cpp" />
     <ClCompile Include="GameObject\GlobalWall.cpp" />
+    <ClCompile Include="GameObject\GrimmSpike.cpp" />
     <ClCompile Include="GameObject\Hornet.cpp" />
     <ClCompile Include="GameObject\MonGenerator.cpp" />
     <ClCompile Include="GameObject\Monster.cpp" />
@@ -260,6 +261,7 @@
     <ClInclude Include="GameObject\FlameParticle.h" />
     <ClInclude Include="GameObject\Gio.h" />
     <ClInclude Include="GameObject\GlobalWall.h" />
+    <ClInclude Include="GameObject\GrimmSpike.h" />
     <ClInclude Include="GameObject\Hornet.h" />
     <ClInclude Include="GameObject\MonGenerator.h" />
     <ClInclude Include="GameObject\Monster.h" />

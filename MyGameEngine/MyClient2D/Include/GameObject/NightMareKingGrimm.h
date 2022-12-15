@@ -77,6 +77,8 @@ private:
 
 	//스파이크 관련
 	bool m_SpikeStart;
+	bool m_Spiking;
+	bool m_SpikeEnd;
 private:
 	void SetSounds();
 	void SetAnimation(); //애니메이션 스케일, 펑션
@@ -114,5 +116,6 @@ private:
 	void CreateFlame();
 	void CreateAfterFlame(float x, float y);
 	void CreateFirePillar();
+	void CreateSpike();
 };
 

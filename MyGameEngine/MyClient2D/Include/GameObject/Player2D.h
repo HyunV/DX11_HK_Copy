@@ -114,6 +114,7 @@ public:
 
 	bool m_Prostrate;
 
+	bool m_Death;
 public:
 	bool GetDownAttackEnable()
 	{
@@ -185,7 +186,6 @@ public:
 	void ChargeOff();
 
 	void Death();
-	void DeathEnd();
 
 	void EnterRoomStart();
 	void EnterRoomEnd();
