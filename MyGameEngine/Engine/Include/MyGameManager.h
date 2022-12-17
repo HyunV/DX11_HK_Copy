@@ -46,6 +46,8 @@ public:
 		return m_PlayerInfo;
 	}
 
+	void ClearPlayerInfo();
+
 	void CreateFadeUI(EFade Fade);
 
 	DECLARE_SINGLE(CMyGameManager)

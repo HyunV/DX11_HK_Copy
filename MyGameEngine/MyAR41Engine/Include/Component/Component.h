@@ -31,7 +31,7 @@ public:
             return nullptr;
 
         return iter->second;
-    }
+    }    
 
 protected:
     ComponentType   m_ComponentType;

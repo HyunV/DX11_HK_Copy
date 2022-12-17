@@ -51,6 +51,10 @@ bool CGrimmSpike::Init()
 	m_Anim->SetPlayScale("Grimm SpikeEffect", 3.f);
 	m_Anim->SetPlayScale("Grimm SpikeUp", 3.f);
 	m_Anim->SetLoop("Grimm SpikeUp", false);
+
+	m_Anim->SetPlayScale("Grimm SpikeDown", 5.f);
+	m_Anim->SetCurrentEndFunction<CGrimmSpike>("Grimm SpikeDown", this, &CGrimmSpike::SpikeEndFunc);
+
 	
 	m_Sprite->SetPivot(0.5f, 0.f);
 	m_Sprite->SetWorldScale(148.f *g_SCALE, 569.f*g_SCALE);
@@ -75,7 +79,7 @@ void CGrimmSpike::Update(float DeltaTime)
 			m_Sprite->SetWorldPositionY(-900.f);
 			m_SpikeStart = true;
 			m_Body->SetEnable(true);
-			//CResourceManager::GetInst()->SoundPlay("Spiking");
+			
 		}
 
 		if (m_SpikeDown == false)
@@ -89,12 +93,18 @@ void CGrimmSpike::Update(float DeltaTime)
 		if (m_Time >= 1.5f)
 		{
 			if (!m_SpikeDown)
-				//CResourceManager::GetInst()->SoundPlay("SpikeEnd");
+			{
+				m_Anim->SetCurrentAnimation("Grimm SpikeDown");
+			}
+				
 
 			m_SpikeDown = true;
-			m_Sprite->SetEnable(false);
-			m_Body->SetEnable(false);
-			Destroy();
+			m_Body->SetEnable(false);		
 		}
 	}	
+}
+
+void CGrimmSpike::SpikeEndFunc()
+{
+	Destroy();
 }

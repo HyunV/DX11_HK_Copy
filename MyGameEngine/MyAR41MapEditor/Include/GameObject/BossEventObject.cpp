@@ -9,6 +9,9 @@
 #include "Player2D.h"
 #include "FlameParticle.h"
 
+#include "Scene/SceneManager.h"
+#include "PathManager.h"
+
 CBossEventObject::CBossEventObject()
 {
 	SetTypeID<CBossEventObject>();
@@ -26,6 +29,7 @@ CBossEventObject::CBossEventObject(const CBossEventObject& Obj)	:
 
 CBossEventObject::~CBossEventObject()
 {
+	CResourceManager::GetInst()->SoundStop("Grimm");
 }
 
 void CBossEventObject::Start()
@@ -33,12 +37,17 @@ void CBossEventObject::Start()
 	CGameObject::Start();
 	CResourceManager::GetInst()->LoadSound("BGM", "Grimm", true, "Nightmare King Grimm - S87-168 Nightmare Grimm.wav");
 	CResourceManager::GetInst()->LoadSound("BGM", "GrimmEnding", false, "Nightmare King Grimm ending - S87-168 Nightmare Grimm Optional Ending.wav");
+	CResourceManager::GetInst()->LoadSound("BGM", "GrimmHeart", true, "menu_heartbeat.wav");
+
 
 	CResourceManager::GetInst()->LoadSound("BGM", "Event1", false, "Boss/Nightmare King Grimm/nightmare_bg_eye_break_1.wav");
 	CResourceManager::GetInst()->LoadSound("BGM", "Event2", false, "Boss/Nightmare King Grimm/nightmare_bg_eye_break_2.wav");
 	CResourceManager::GetInst()->LoadSound("BGM", "Event3", false, "Boss/Nightmare King Grimm/nightmare_bg_eye_break_3.wav");
+	
 
 	m_Body->SetCollisionCallback(ECollision_Result::Collision, this, &CBossEventObject::CollisionBegin);
+
+	CResourceManager::GetInst()->SoundPlay("GrimmHeart");
 }
 
 bool CBossEventObject::Init()
@@ -70,11 +79,12 @@ bool CBossEventObject::Init()
 	m_GrimmSprite->SetWorldScale(81.f, 146.f);
 	m_GrimmSprite->SetWorldPosition(640.f, 380.f);
 	m_GrimmSprite->GetMaterial(0)->SetOpacity(0.f);
+	m_GrimmSprite->SetRenderLayerName("Effect");
 
 	m_Body->SetWorldPosition(400.f, 360.f);
 	m_Body->SetBoxSize(1.f, 720.f);
 	m_Body->SetCollisionProfile("NPC");
-	
+
 	m_CurEvent = EEventState::None;
 
 	return true;
@@ -83,6 +93,30 @@ bool CBossEventObject::Init()
 void CBossEventObject::Update(float DeltaTime)
 {
 	CGameObject::Update(DeltaTime);
+
+	if (m_Ending)
+	{
+		m_Time += DeltaTime;
+
+		if (m_Time >= 5.f)
+		{
+			m_Ending = false;
+			m_Time = 0.f;
+			EndingScene();
+		}
+			
+	}
+
+	if (m_CreateGrimm)
+	{
+		if (m_Grim->GetDeath())
+		{
+			CResourceManager::GetInst()->SoundPlay("GrimmEnding");
+			m_CreateGrimm = false;
+			m_Ending = true;
+		}
+	}
+
 
 	if (m_EventStart)
 	{
@@ -126,15 +160,16 @@ void CBossEventObject::Update(float DeltaTime)
 		}
 
 		if (m_Time > 8.f && m_CurEvent == EEventState::Finish)
-		{
-			m_Scene->CreateObject<CNightMareKingGrimm>("NightMareKingGrimm");
-			//CZombie* zomb = m_Scene->CreateObject<CZombie>("Zombie");
-			//zomb->SetWorldPosition(800.f, 700.f);
+		{			
+			m_Grim = m_Scene->CreateObject<CNightMareKingGrimm>("NightMareKingGrimm");
 			m_EventStart = false;
 			CPlayer2D* player = (CPlayer2D*)(m_Scene->FindObject("Player2D"));
 			player->m_KeyLock = false;
 			player->SetNextState();
 			player->ResetCamera();
+
+			m_CreateGrimm = true;
+			m_Time = 0.f;
 		}
 	}
 }
@@ -156,6 +191,7 @@ void CBossEventObject::CollisionBegin(const CollisionResult& Result)
 	{
 		m_Body->SetEnable(false);
 		m_Sprite->SetEnable(true);
+		CResourceManager::GetInst()->SoundStop("GrimmHeart");
 		CResourceManager::GetInst()->SoundPlay("Event1");
 		m_CurEvent = EEventState::Event1;
 		m_EventStart = true;
@@ -171,4 +207,24 @@ void CBossEventObject::CreateFireEffect(float z)
 	int angle = rand() % 360;
 	Particle->AddWorldRotationZ((float)angle);
 	
+}
+
+void CBossEventObject::EndingScene()
+{
+	OutputDebugStringA("엔딩");
+
+	//메인타이틀 이동
+	CSceneManager::GetInst()->CreateNextScene();
+
+	char Name[256] = {};
+	const PathInfo* Path = CPathManager::GetInst()->FindPath(SCENE_PATH);
+	strcat_s(Name, Path->PathMultibyte);
+	strcat_s(Name, "HollowEnding");
+	strcat_s(Name, ".scn");
+
+	CScene* NextScene = CSceneManager::GetInst()->GetNextScene();
+	NextScene->Load(Name);
+
+	CSceneManager::GetInst()->ChangeNextScene();
+
 }

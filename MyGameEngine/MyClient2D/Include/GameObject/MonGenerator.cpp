@@ -28,7 +28,7 @@ CMonGenerator::~CMonGenerator()
 void CMonGenerator::Start()
 {
     CGameObject::Start();
-    m_Delay = 5.f;
+    m_Delay = 4.f;
 
     m_Body->SetWorldPosition(640.f, 800.f);
     m_Body->SetBoxSize(1200.f, 100.f);

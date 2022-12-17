@@ -228,14 +228,17 @@
     <ClCompile Include="GameObject\FireBatBullet.cpp">
       <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject\FlameFall.cpp">
-      <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
-    </ClCompile>
     <ClCompile Include="GameObject\FirePillarBullet.cpp">
       <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
     </ClCompile>
     <ClCompile Include="GameObject\GrimmSpike.cpp">
       <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\FlameBall.cpp">
+      <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\EndingUI.cpp">
+      <Filter>05. UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -419,14 +422,17 @@
     <ClInclude Include="GameObject\FireBatBullet.h">
       <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject\FlameFall.h">
-      <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject\FirePillarBullet.h">
       <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
     </ClInclude>
     <ClInclude Include="GameObject\GrimmSpike.h">
       <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\FlameBall.h">
+      <Filter>04. GameObject\03.Boss\01.Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\EndingUI.h">
+      <Filter>05. UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

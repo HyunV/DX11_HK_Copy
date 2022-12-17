@@ -7,7 +7,7 @@
 
 #include "Scene/SceneManager.h"
 #include "Scene/Scene.h"
-#include "../Scene/LoadingSceneInfo.h"
+//#include "../Scene/LoadingSceneInfo.h"
 #include "PathManager.h"
 //#include "Resource/ResourceManager.h"
 //#include "Animation/AnimationSequence2D.h"
@@ -54,7 +54,10 @@ void CMainTitleUI::Start()
 		this, &CMainTitleUI::ExitButtonClick);
 
 	//CResourceManager::GetInst()->LoadSound("BGM", "MainTitle", true, "Nightmare King Grimm - S87-168 Nightmare Grimm.wav");
+	
 	CResourceManager::GetInst()->LoadSound("BGM", "MainTitle", true, "Main/Main menu theme - Title.wav");
+	CResourceManager::GetInst()->LoadSound("BGM", "Dirtmouth", true, "Dirtmouth 1.wav");
+	CResourceManager::GetInst()->LoadSound("BGM", "Arena", true, "Decisive Battle - S18 Enemy Battle-02 LOOP.wav");
 	CResourceManager::GetInst()->SoundPlay("MainTitle");
 
 	CUImageBlack* black = CreateWidget<CUImageBlack>("black");
@@ -210,7 +213,7 @@ void CMainTitleUI::StartButtonClick()
 {
 
 	CResourceManager::GetInst()->SoundStop("MainTitle");
-
+	CResourceManager::GetInst()->SoundPlay("Dirtmouth");
 	//CSceneManager::GetInst()->CreateNextScene(true);
 	//CSceneManager::GetInst()->CreateSceneInfo<CLoadingSceneInfo>(false);
 

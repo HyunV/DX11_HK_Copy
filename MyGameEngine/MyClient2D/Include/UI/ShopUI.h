@@ -45,5 +45,7 @@ private:
 	void ShadowDashButton();
 	void ShadowBallButton();
 	void EndingButton();
+private:
+	void LoadEnding();
 
 };

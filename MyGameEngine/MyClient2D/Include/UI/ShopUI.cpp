@@ -6,6 +6,10 @@
 #include "Scene/Scene.h"
 #include "MyGameManager.h"
 #include "../GameObject/Player2D.h"
+#include "EndingUI.h"
+#include "Scene/SceneManager.h"
+#include "PathManager.h"
+
 
 
 CShopUI::CShopUI()
@@ -397,11 +401,30 @@ void CShopUI::EndingButton()
 	OutputDebugStringA("엔딩 씬!");
 	if (m_PlayerGio >= 10000)
 	{
-		//엔딩	
+		//엔딩
+		CResourceManager::GetInst()->SoundPlay("PurchaseSuccess");
+		CResourceManager::GetInst()->SoundStop("Dirtmouth");
+		LoadEnding();
 	}
 	else
 	{
 		m_SlyText->SetText(TEXT("후후 이건 아무나 살 수 있는게 아닙니다"));
 		return;
 	}	
+}
+
+void CShopUI::LoadEnding()
+{
+	CSceneManager::GetInst()->CreateNextScene();
+
+	char Name[256] = {};
+	const PathInfo* Path = CPathManager::GetInst()->FindPath(SCENE_PATH);
+	strcat_s(Name, Path->PathMultibyte);
+	strcat_s(Name, "HollowEnding");
+	strcat_s(Name, ".scn");
+
+	CScene* NextScene = CSceneManager::GetInst()->GetNextScene();
+	NextScene->Load(Name);
+
+	CSceneManager::GetInst()->ChangeNextScene();
 }

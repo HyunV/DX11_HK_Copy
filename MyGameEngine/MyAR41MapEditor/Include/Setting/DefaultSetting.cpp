@@ -19,6 +19,7 @@
 #include "../UI/StartSceneUI.h"
 #include "../UI/MainTitleUI.h"
 #include "../UI/PlayerHUD.h"
+#include "../UI/EndingUI.h"
 #include "Scene/Scene.h"
 #include "Input.h"
 #include "CollisionManager.h"
@@ -67,6 +68,7 @@ void CDefaultSetting::CreateCDO()
     CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
     CScene::CreateUIWindowCDO<CMainTitleUI>("MainTitleUI");
     CScene::CreateUIWindowCDO<CPlayerHUD>("PlayerHUD");
+    CScene::CreateUIWindowCDO<CEndingUI>("EndingUI");
     
 }
 
@@ -74,7 +76,6 @@ void CDefaultSetting::LoadResource()
 {
     LoadSequence();
     LoadAnimation();
-    CResourceManager::GetInst()->LoadTexture("BarShade", TEXT("HollowKnight/HUD/HUD Cln_264.png"));
     //CResourceManager::GetInst()->LoadSound("UI", "hasaki", false, "63.mp3");
 
     //128 128
@@ -176,6 +177,8 @@ void CDefaultSetting::SetCollision()
     CCollisionManager::GetInst()->SetCollisionInteraction("Player", "NPC", ECollision_Interaction::Collision);
     CCollisionManager::GetInst()->SetCollisionInteraction("NPC", "Player", ECollision_Interaction::Collision);
     CCollisionManager::GetInst()->SetCollisionInteraction("PlayerAttack", "NPC", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("Mouse", "NPC", ECollision_Interaction::Ignore);
+    CCollisionManager::GetInst()->SetCollisionInteraction("NPC", "Mouse", ECollision_Interaction::Ignore);
 
     //Wall
     CCollisionManager::GetInst()->SetCollisionInteraction("Wall", "Player", ECollision_Interaction::Ignore);

@@ -15,6 +15,8 @@ private:
 	CSharedPtr<class CSpriteComponent>	m_GrimmSprite;
 	CSharedPtr<class CColliderBox2D> m_Body;
 
+	class CNightMareKingGrimm* m_Grim;
+
 	bool m_EventStart;
 	enum class EEventState
 	{
@@ -28,6 +30,9 @@ private:
 	EEventState m_CurEvent;
 	float m_Time;
 
+	bool m_CreateGrimm;
+	bool m_Ending;
+
 public:
 	virtual void Start();
 	virtual bool Init();
@@ -37,5 +42,6 @@ public:
 private:
 	void CollisionBegin(const CollisionResult& Result);
 	void CreateFireEffect(float z);
+	void EndingScene();
 };
 

@@ -409,3 +409,11 @@ enum class ENPC
 	Brum,
 	Sly
 };
+
+enum class EFireBallDirection
+{
+	None,
+	Up,
+	Down,
+	OnlyDown
+};

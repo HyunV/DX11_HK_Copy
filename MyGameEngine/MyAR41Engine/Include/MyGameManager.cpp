@@ -24,6 +24,12 @@ void CMyGameManager::SetPlayerInfo(PlayerInfo Info)
     m_PlayerInfo = Info;
 }
 
+void CMyGameManager::ClearPlayerInfo()
+{
+    PlayerInfo ClearInfo;
+    m_PlayerInfo = ClearInfo;
+}
+
 void CMyGameManager::CreateFadeUI(EFade Fade)
 {
 }

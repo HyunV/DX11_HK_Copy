@@ -134,7 +134,6 @@ void CZombie::Update(float DeltaTime)
 			m_Sprite->GetMaterial(0)->SetOpacity(1.f);
 			MaterialChangeTime = 0.f;
 		}
-
 	}
 
 	//쿨타임 돌리기

@@ -24,14 +24,14 @@ bool CMainSceneInfo::Init()
 	CSceneInfo::Init();
 
    // m_Owner->GetViewport()->CreateUIWindow<CStartSceneUI>("StartSceneUI");
-    //m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
+    m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
     //m_Owner->GetViewport()->CreateUIWindow<CPlayerHUD>("PlayerHUD");
 
-    CGlobalWall* GlobalWall = m_Owner->CreateObject<CGlobalWall>("GlobalWall");
-    CPlayer2D* Player = m_Owner->CreateObject<CPlayer2D>("Player2D");
+    //CGlobalWall* GlobalWall = m_Owner->CreateObject<CGlobalWall>("GlobalWall");
+    //CPlayer2D* Player = m_Owner->CreateObject<CPlayer2D>("Player2D");
     //CZombie* Zombie = m_Owner->CreateObject<CZombie>("Zombie");
     //CZombie2* Zombie2 = m_Owner->CreateObject<CZombie2>("Zombie2");
-    CNightMareKingGrimm* Grimm = m_Owner->CreateObject<CNightMareKingGrimm>("Grimm");
+    //CNightMareKingGrimm* Grimm = m_Owner->CreateObject<CNightMareKingGrimm>("Grimm");
     //m_Owner->SetPlayer((CGameObject*)Player);
     //SetPlayerObject(Player);
 

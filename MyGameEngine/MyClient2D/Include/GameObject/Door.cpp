@@ -182,22 +182,26 @@ void CDoor::SetPlayer(EDoorName DoorName)
 	{
 		CMonGenerator* Gen = (CMonGenerator*)(Scene->FindObject("MonGenerator"));
 		Gen->StartGenerate(true);
-	}
-		
+		CResourceManager::GetInst()->SoundStop("Dirtmouth");
+		CResourceManager::GetInst()->SoundPlay("Arena");
+	}		
 		break;
 	case CDoor::EDoorName::TownToShop:
 		break;
-	case CDoor::EDoorName::TownToBoss:
-		//Player->SetWorldPositionX(1500.f);
+	case CDoor::EDoorName::TownToBoss:	
 		Player->SetReverse(false);
+		CResourceManager::GetInst()->SoundStop("Dirtmouth");
 		break;
 	case CDoor::EDoorName::ArenaToTown:
+		CResourceManager::GetInst()->SoundPlay("Dirtmouth");
+		CResourceManager::GetInst()->SoundStop("Arena");
 		Player->SetWorldPositionX(985.f);
 		break;
 	case CDoor::EDoorName::ShopToTown:
 		Player->SetWorldPositionX(230.f);
 		break;
 	case CDoor::EDoorName::BossToTown:
+		CResourceManager::GetInst()->SoundPlay("Dirtmouth");
 		break;
 	default:
 		break;

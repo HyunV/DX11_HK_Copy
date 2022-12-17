@@ -63,5 +63,5 @@ bool CFireBatBullet::Init()
 void CFireBatBullet::Update(float DeltaTime)
 {
     CGameObject::Update(DeltaTime);
-    AddWorldPositionX(m_Dir * 1000.f * DeltaTime);
+    AddWorldPositionX(m_Dir * 1800.f * DeltaTime);
 }

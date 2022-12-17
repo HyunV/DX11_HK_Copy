@@ -63,7 +63,7 @@ bool CColliderBox2D::Init()
 	if (CEngine::GetEditorMode())
 	{
 		m_Mesh = CResourceManager::GetInst()->FindMesh("Box2DLineMesh");
-		
+		//m_Mesh = CResourceManager::GetInst()->FindMesh("CenterUVRect");
 	}
 
 	return true;

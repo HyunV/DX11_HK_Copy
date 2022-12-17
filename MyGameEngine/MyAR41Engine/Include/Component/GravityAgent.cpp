@@ -109,7 +109,13 @@ void CGravityAgent::Start()
 	}
 		
 	//ÁÖÃ¼
-	m_Body = (CCollider2D*)m_Owner->FindComponent(OwnerName);
+	if (m_Owner->GetName() == "NightMareKingGrimm")
+	{
+		m_Body = (CCollider2D*)m_Owner->FindComponent("GrimmBody");
+	}
+	else
+		m_Body = (CCollider2D*)m_Owner->FindComponent(OwnerName);
+	
 
 	if (m_Body)
 	{
@@ -168,7 +174,23 @@ void CGravityAgent::Update(float DeltaTime)
 
 void CGravityAgent::PostUpdate(float DeltaTime)
 {
-	CObjectComponent::PostUpdate(DeltaTime);
+	CObjectComponent::PostUpdate(DeltaTime);	
+	if (m_Owner->GetName() == "NightMareKingGrimm")
+	{
+		m_Body = dynamic_cast<CCollider2D*>(m_Owner->FindComponent("GrimmBody"));
+		//m_Body = (CCollider2D*)m_Owner->FindComponent("GrimmBody");
+		m_BodySize = ((CColliderBox2D*)m_Body.Get())->GetBoxSize();
+		m_BodyInfo = ((CColliderBox2D*)m_Body.Get())->GetInfo();
+
+		if (m_BodyInfo.Left > 3000.f)
+		{
+			int a = 0;
+		}
+
+		//m_Pos = m_Body->GetWorldPos();
+		//m_Pos.y = m_Pos.y - (m_BodySize.y * 0.5f); //Center ±âÁØ¿¡¼­ ÇÏ´Ü ÇÇº¿À¸·Î ¹Ù²ãÁÜ
+		//m_PrevPos = m_Pos;
+	}
 
 	//TODO
 	m_Pos = m_Body->GetWorldPos();

@@ -57,6 +57,9 @@ CPlayer2D::CPlayer2D(const CPlayer2D& Obj) :
 CPlayer2D::~CPlayer2D()
 {
 	m_Anim->ClearAllNotify();
+
+	CResourceManager::GetInst()->SoundStop("HeroWalk");
+	CResourceManager::GetInst()->SoundStop("HeroCharge");
 }
 
 void CPlayer2D::SetProstrate()
@@ -1264,7 +1267,10 @@ void CPlayer2D::CollisionBegin(const CollisionResult& Result)
 	}
 	else if (Result.Dest->GetName() == "EventBody")
 	{
-		DashEnd();
+		if(!m_PlayerInfo.AdvDash)
+			DashEnd();
+
+		m_Body->SetEnable(true);		
 		m_KeyLock = true;
 		m_CurState = EPlayerStates::RoarLock;
 		MoveCamera();
@@ -1489,6 +1495,8 @@ void CPlayer2D::ReturnToTown()
 {
 	CSceneManager::GetInst()->CreateNextScene();
 	CResourceManager::GetInst()->SoundStop("Grimm");
+	CResourceManager::GetInst()->SoundStop("Arena");
+	CResourceManager::GetInst()->SoundPlay("Dirtmouth");
 
 	char Name[256] = {};
 	const PathInfo* Path = CPathManager::GetInst()->FindPath(SCENE_PATH);

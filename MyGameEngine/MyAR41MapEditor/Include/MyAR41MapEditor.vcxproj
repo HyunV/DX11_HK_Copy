@@ -192,7 +192,7 @@
     <ClCompile Include="GameObject\ElderBugNPC.cpp" />
     <ClCompile Include="GameObject\FireBatBullet.cpp" />
     <ClCompile Include="GameObject\FirePillarBullet.cpp" />
-    <ClCompile Include="GameObject\FlameFall.cpp" />
+    <ClCompile Include="GameObject\FlameBall.cpp" />
     <ClCompile Include="GameObject\FlameParticle.cpp" />
     <ClCompile Include="GameObject\Gio.cpp" />
     <ClCompile Include="GameObject\GlobalWall.cpp" />
@@ -213,6 +213,7 @@
     <ClCompile Include="Scene\LoadingSceneInfo.cpp" />
     <ClCompile Include="Setting\DefaultSetting.cpp" />
     <ClCompile Include="Setting\EngineShareSetting.cpp" />
+    <ClCompile Include="UI\EndingUI.cpp" />
     <ClCompile Include="UI\LoadingUI.cpp" />
     <ClCompile Include="UI\MainTitleUI.cpp" />
     <ClCompile Include="UI\MessageBoxUI.cpp" />
@@ -257,7 +258,7 @@
     <ClInclude Include="GameObject\ElderBugNPC.h" />
     <ClInclude Include="GameObject\FireBatBullet.h" />
     <ClInclude Include="GameObject\FirePillarBullet.h" />
-    <ClInclude Include="GameObject\FlameFall.h" />
+    <ClInclude Include="GameObject\FlameBall.h" />
     <ClInclude Include="GameObject\FlameParticle.h" />
     <ClInclude Include="GameObject\Gio.h" />
     <ClInclude Include="GameObject\GlobalWall.h" />
@@ -278,6 +279,7 @@
     <ClInclude Include="Scene\LoadingSceneInfo.h" />
     <ClInclude Include="Setting\DefaultSetting.h" />
     <ClInclude Include="Setting\EngineShareSetting.h" />
+    <ClInclude Include="UI\EndingUI.h" />
     <ClInclude Include="UI\LoadingUI.h" />
     <ClInclude Include="UI\MainTitleUI.h" />
     <ClInclude Include="UI\MessageBoxUI.h" />

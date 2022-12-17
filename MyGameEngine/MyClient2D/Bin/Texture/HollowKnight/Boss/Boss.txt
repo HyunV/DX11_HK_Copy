@@ -33,3 +33,4 @@ Grimm FirePillarEffect		387 865 t 4
 Grimm FlameBall			151 164 t 8
 Grimm SpikeEffect			148 569 f 3
 Grimm SpikeUp			148 977 t 2
+Grimm SpikeDown			148 569 f 4
