@@ -98,7 +98,7 @@ void CMonGenerator::MonsterGenerate()
             k *= -1.f;
         }
 
-        if (m_CollisionCount % 3 == 0)
+        if (m_CollisionCount % 5 == 0)
         {
             float x = m_Scene->FindObject("Player2D")->GetWorldPos().x;
             Zom->SetWorldPosition(x, m_FallY);
@@ -121,7 +121,7 @@ void CMonGenerator::MonsterGenerate()
             k *= -1.f;
         }
         
-        if (m_CollisionCount % 3 == 0)
+        if (m_CollisionCount % 5 == 0)
         {
             float x = m_Scene->FindObject("Player2D")->GetWorldPos().x;
             Zom2->SetWorldPosition(x, m_FallY);
@@ -139,7 +139,7 @@ void CMonGenerator::MonsterGenerate()
         if (j == 1)
             k *= -1.f;
 
-        if (m_CollisionCount % 3 == 0)
+        if (m_CollisionCount % 5 == 0)
         {
             float x = m_Scene->FindObject("Player2D")->GetWorldPos().x;
             Crawler->SetWorldPosition(x, m_FallY);

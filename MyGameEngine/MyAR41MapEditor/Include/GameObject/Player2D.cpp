@@ -80,8 +80,8 @@ void CPlayer2D::CheckProstrate()
 
 void CPlayer2D::SetInputKey()
 {
-	//CInput::GetInst()->AddBindFunction<CPlayer2D>("Q", Input_Type::Down,
-	//	this, &CPlayer2D::Q, m_Scene);
+	CInput::GetInst()->AddBindFunction<CPlayer2D>("Q", Input_Type::Down,
+		this, &CPlayer2D::Q, m_Scene);
 
 
 	CInput::GetInst()->AddBindFunction<CPlayer2D>("Up", Input_Type::Push, this,

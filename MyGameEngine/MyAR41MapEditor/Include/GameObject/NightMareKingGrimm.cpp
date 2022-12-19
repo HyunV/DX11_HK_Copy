@@ -17,7 +17,7 @@
 #include "Player2D.h"
 #include "PlayerAttack.h"
 //#include "Resource/Material/Material.h"
-#define MAX_HP 120;
+#define MAX_HP 50;
 
 CNightMareKingGrimm::CNightMareKingGrimm()  :
     m_CurState(EBossState::Idle),
