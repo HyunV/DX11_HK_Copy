@@ -2,6 +2,7 @@
 #include "Component/ColliderBox2D.h"
 #include "Zombie.h"
 #include "Zombie2.h"
+#include "Crawler.h"
 #include "Player2D.h"
 #include "Scene/Scene.h"
 #include <time.h>
@@ -83,7 +84,7 @@ void CMonGenerator::StartGenerate(bool Enable)
 
 void CMonGenerator::MonsterGenerate()
 {
-    int i = rand() % 2;
+    int i = rand() % 3;
     if (i == 0)
     {
         CZombie* Zom = m_Scene->CreateObject<CZombie>("Zombie");
@@ -107,7 +108,7 @@ void CMonGenerator::MonsterGenerate()
         
 
     }
-    else
+    else if (i == 1)
     {
         CZombie2* Zom2 = m_Scene->CreateObject<CZombie2>("Zombie2");
 
@@ -127,6 +128,25 @@ void CMonGenerator::MonsterGenerate()
         }
         else
             Zom2->SetWorldPosition(m_FallX + k, m_FallY);
+    }
+
+    else
+    {
+        CCrawler* Crawler = m_Scene->CreateObject<CCrawler>("Crawler");
+
+        float k = (float)(rand() % 500);
+        int j = rand() % 2;
+        if (j == 1)
+            k *= -1.f;
+
+        if (m_CollisionCount % 3 == 0)
+        {
+            float x = m_Scene->FindObject("Player2D")->GetWorldPos().x;
+            Crawler->SetWorldPosition(x, m_FallY);
+        }
+        else
+            Crawler->SetWorldPosition(m_FallX + k, m_FallY);
+
     }
 
     if (m_CollisionCount % 3 == 0)

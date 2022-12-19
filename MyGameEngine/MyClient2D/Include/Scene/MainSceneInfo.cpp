@@ -1,15 +1,16 @@
 
 #include "MainSceneInfo.h"
 #include "Scene/Scene.h"
-#include "../GameObject/Player2D.h"
+//#include "../GameObject/Player2D.h"
 //#include "../GameObject/Monster.h"
-#include "../GameObject/GlobalWall.h"
+//#include "../GameObject/GlobalWall.h"
 //#include "../GameObject/Zombie.h"
 //#include "../GameObject/Zombie2.h"
 //#include "../UI/PlayerHUD.h"
 //#include "../UI/StartSceneUI.h"
-#include "../UI/MainTitleUI.h"
-#include "../GameObject/NightMareKingGrimm.h"
+//#include "../UI/MainTitleUI.h"
+//#include "../GameObject/NightMareKingGrimm.h"
+#include "../UI/MainBackUI.h"
 
 CMainSceneInfo::CMainSceneInfo()
 {
@@ -23,8 +24,10 @@ bool CMainSceneInfo::Init()
 {
 	CSceneInfo::Init();
 
+    m_Owner->GetViewport()->CreateUIWindow<CMainBackUI>("MainBackUI");
+
    // m_Owner->GetViewport()->CreateUIWindow<CStartSceneUI>("StartSceneUI");
-    m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
+    //m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
     //m_Owner->GetViewport()->CreateUIWindow<CPlayerHUD>("PlayerHUD");
 
     //CGlobalWall* GlobalWall = m_Owner->CreateObject<CGlobalWall>("GlobalWall");

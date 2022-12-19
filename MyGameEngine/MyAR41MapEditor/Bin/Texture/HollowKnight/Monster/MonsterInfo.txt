@@ -19,3 +19,11 @@ Zombie2_003_TurnOn	239 219 f 2
 Zombie2_004_Jump	239 219 f 11
 Zombie2_005_Attack	239 219 f 2
 Zombie2_006_Death	239 219 f 1
+
+
+#Crawler
+
+Crawler001Walk		301 149 t 4
+Crawler002TurnOn		301 149 f 2
+Crawler003Fall		303 177 t 3	
+Crawler004Death		303 177 f 2

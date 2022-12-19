@@ -29,6 +29,7 @@
 #include "../GameObject/ClowdObject.h"
 #include "../GameObject/BossEventObject.h"
 #include "../GameObject/NightMareKingGrimm.h"
+#include "../GameObject/Crawler.h"
 
 #include "ObjectWindow.h"
 #include "ComponentWindow.h"
@@ -224,6 +225,8 @@ void CClassWindow::ObjectCreateCallback()
         Obj = Scene->CreateObject<CBossEventObject>(m_SelectObjectItem + strNum);
     else if (m_SelectObjectItem == "NightMareKingGrimm")
         Obj = Scene->CreateObject<CNightMareKingGrimm>(m_SelectObjectItem + strNum);
+    else if (m_SelectObjectItem == "Crawler")
+        Obj = Scene->CreateObject<CCrawler>(m_SelectObjectItem + strNum);
     
     if (Window)
     {

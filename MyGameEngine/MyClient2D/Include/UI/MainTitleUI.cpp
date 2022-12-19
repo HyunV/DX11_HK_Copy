@@ -4,6 +4,7 @@
 #include "UI/UIImage.h"
 #include "UI/UINumber.h"
 #include "UI/UIImageBlack.h"
+#include "UI/MainSmoke.h"
 
 #include "Scene/SceneManager.h"
 #include "Scene/Scene.h"
@@ -22,7 +23,7 @@ CMainTitleUI::CMainTitleUI(const CMainTitleUI& Window)	:
 	CUIWindow(Window)
 {
 	
-	m_Back = FindWidget<CUIImage>("Back");
+	//m_Back = FindWidget<CUIImage>("Back");
 	m_Logo = FindWidget<CUIImage>("Logo");
 	m_Dev = FindWidget<CUIImage>("Dev");
 
@@ -68,10 +69,10 @@ bool CMainTitleUI::Init()
 {
 	CUIWindow::Init();
 
-	m_Back = CreateWidget<CUIImage>("Back");
-	m_Back->SetSize(1280.f, 720.f);
-	m_Back->SetTexture("MainTitleBack", TEXT("HollowKnight/MainTitle/Voidheart_menu_BG.png"));
-
+	//m_Back = CreateWidget<CUIImage>("Back");
+	//m_Back->SetSize(1280.f, 720.f);
+	//m_Back->SetTexture("MainTitleBack", TEXT("HollowKnight/MainTitle/Voidheart_menu_BG.png"));
+	
 	m_Logo = CreateWidget <CUIImage>("Logo");
 	m_Logo->SetSize(841.f, 324.f);
 	m_Logo->SetPivot(0.5f, 0.5f);
@@ -163,6 +164,7 @@ bool CMainTitleUI::Init()
 void CMainTitleUI::Update(float DeltaTime)
 {
 	CUIWindow::Update(DeltaTime);
+
 	if (m_StartButton->GetMouseHovered())
 	{
 		m_Cursor[0]->SetEnable(true);

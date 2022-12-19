@@ -28,6 +28,7 @@ CZombie::CZombie(const CZombie& Obj)	:
 
 CZombie::~CZombie()
 {
+	CResourceManager::GetInst()->SoundStop("MonWalk");
 }
 
 void CZombie::SetSounds()
@@ -333,8 +334,6 @@ void CZombie::CollisionBegin(const CollisionResult& Result)
 			m_Body->SetEnable(false);
 			m_Sight->SetEnable(false);
 			m_Time = 200.f;
-
-
 		}
 	}
 }

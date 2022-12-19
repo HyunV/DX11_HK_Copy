@@ -80,8 +80,8 @@ void CPlayer2D::CheckProstrate()
 
 void CPlayer2D::SetInputKey()
 {
-	CInput::GetInst()->AddBindFunction<CPlayer2D>("Q", Input_Type::Down,
-		this, &CPlayer2D::Q, m_Scene);
+	//CInput::GetInst()->AddBindFunction<CPlayer2D>("Q", Input_Type::Down,
+	//	this, &CPlayer2D::Q, m_Scene);
 
 
 	CInput::GetInst()->AddBindFunction<CPlayer2D>("Up", Input_Type::Push, this,
@@ -1150,17 +1150,15 @@ void CPlayer2D::Q()
 	}	
 	else
 	{
+		m_Advance = true;
 		//OutputDebugStringA("강화모드 활성화");
-		InfiniteMod(999999.f);
-		m_PlayerInfo.Gio = 99999;
-		m_PlayerInfo.AdvAttack = true;
-		m_PlayerInfo.AdvDash = true;
-		m_PlayerInfo.AdvFire = true;
+		
+		m_PlayerInfo.Gio = 15000;
+		//InfiniteMod(999999.f);
+		//m_PlayerInfo.AdvAttack = true;
+		//m_PlayerInfo.AdvDash = true;
+		//m_PlayerInfo.AdvFire = true;
 
-		//m_GravityAgent->SetPhysicsSimulate(true);
-		
-		//HUD->CreateBreakHeart();
-		
 	}		
 }
 

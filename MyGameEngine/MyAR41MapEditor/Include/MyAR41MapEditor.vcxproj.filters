@@ -49,6 +49,9 @@
     <Filter Include="04. GameObject\03.Boss\01.Bullets">
       <UniqueIdentifier>{82689859-bae8-4a33-826a-d1e16872b69e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. UI\01. MainTitle">
+      <UniqueIdentifier>{640bb9fc-f234-4d33-a6f3-7117ef1f1130}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -156,9 +159,6 @@
     <ClCompile Include="Window\DetailWindow\TileMapWidgetList.cpp">
       <Filter>03. Window\01. DetailWindow</Filter>
     </ClCompile>
-    <ClCompile Include="UI\MainTitleUI.cpp">
-      <Filter>05. UI</Filter>
-    </ClCompile>
     <ClCompile Include="UI\MyLoadingUI.cpp">
       <Filter>05. UI</Filter>
     </ClCompile>
@@ -239,6 +239,21 @@
     </ClCompile>
     <ClCompile Include="UI\EndingUI.cpp">
       <Filter>05. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\GrimmSmoke.cpp">
+      <Filter>04. GameObject\03.Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Crawler.cpp">
+      <Filter>04. GameObject\01. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\MainBackUI.cpp">
+      <Filter>05. UI\01. MainTitle</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\MainParticleUI.cpp">
+      <Filter>05. UI\01. MainTitle</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\MainTitleUI.cpp">
+      <Filter>05. UI\01. MainTitle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -347,9 +362,6 @@
     <ClInclude Include="Window\DetailWindow\TileMapWidgetList.h">
       <Filter>03. Window\01. DetailWindow</Filter>
     </ClInclude>
-    <ClInclude Include="UI\MainTitleUI.h">
-      <Filter>05. UI</Filter>
-    </ClInclude>
     <ClInclude Include="UI\MyLoadingUI.h">
       <Filter>05. UI</Filter>
     </ClInclude>
@@ -434,6 +446,21 @@
     <ClInclude Include="UI\EndingUI.h">
       <Filter>05. UI</Filter>
     </ClInclude>
+    <ClInclude Include="GameObject\GrimmSmoke.h">
+      <Filter>04. GameObject\03.Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Crawler.h">
+      <Filter>04. GameObject\01. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\MainBackUI.h">
+      <Filter>05. UI\01. MainTitle</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\MainParticleUI.h">
+      <Filter>05. UI\01. MainTitle</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\MainTitleUI.h">
+      <Filter>05. UI\01. MainTitle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MyAR41MapEditor.rc">
@@ -441,13 +468,16 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Bin\Texture\HollowKnight\MainTitle\Cursor.png">
+      <Filter>리소스 파일</Filter>
+    </Image>
     <Image Include="..\Bin\Texture\HollowKnight\MainTitle\hollow_knight_0_6.ico">
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="..\Bin\Texture\HollowKnight\MainTitle\hollow_knight_0_8.ico">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="..\Bin\Texture\HollowKnight\MainTitle\Cursor.png">
+    <Image Include="..\bin\texture\hollowknight\maintitle\icon3.ico">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

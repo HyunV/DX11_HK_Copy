@@ -15,8 +15,8 @@ CClientManager::~CClientManager()
 
 bool CClientManager::Init(HINSTANCE hInst)
 {
-    if (!CEngine::GetInst()->Init(hInst, TEXT("Hollow Knight"), TEXT("Hollow Knight"), IDI_ICON1,
-        IDI_ICON2, 1280, 720, 1280, 720, true))
+    if (!CEngine::GetInst()->Init(hInst, TEXT("Hollow Knight"), TEXT("Hollow Knight"), IDI_ICON2,
+        IDI_ICON2, 1280, 720, 1280, 720, true, IDI_ICON2))
     {
         return false;
     }

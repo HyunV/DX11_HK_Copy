@@ -28,6 +28,7 @@ CZombie2::CZombie2(const CZombie2& Obj) :
 
 CZombie2::~CZombie2()
 {
+    CResourceManager::GetInst()->SoundStop("MonWalk");
 }
 
 void CZombie2::SetSounds()

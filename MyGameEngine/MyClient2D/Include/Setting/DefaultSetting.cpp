@@ -16,10 +16,12 @@
 #include "../GameObject/ClowdObject.h"
 #include "../GameObject/BossEventObject.h"
 #include "../GameObject/NightMareKingGrimm.h"
+#include "../GameObject/Crawler.h"
 #include "../UI/StartSceneUI.h"
 #include "../UI/MainTitleUI.h"
 #include "../UI/PlayerHUD.h"
 #include "../UI/EndingUI.h"
+#include "../UI/MainBackUI.h"
 #include "Scene/Scene.h"
 #include "Input.h"
 #include "CollisionManager.h"
@@ -64,11 +66,13 @@ void CDefaultSetting::CreateCDO()
     CScene::CreateObjectCDO<CClowdObject>("ClowdObject");
     CScene::CreateObjectCDO<CBossEventObject>("BossEventObject");
     CScene::CreateObjectCDO<CNightMareKingGrimm>("NightMareKingGrimm");
+    CScene::CreateObjectCDO<CCrawler>("Crawler");
 
     CScene::CreateUIWindowCDO<CStartSceneUI>("StartSceneUI");
     CScene::CreateUIWindowCDO<CMainTitleUI>("MainTitleUI");
     CScene::CreateUIWindowCDO<CPlayerHUD>("PlayerHUD");
     CScene::CreateUIWindowCDO<CEndingUI>("EndingUI");
+    CScene::CreateUIWindowCDO<CMainBackUI>("MainBackUI");
     
 }
 

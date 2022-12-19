@@ -47,24 +47,22 @@ END
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Cursor
+//
+
+IDC_CURSOR1             CURSOR                  "C:\\Users\\Hyun\\Desktop\\DX11\\MyGameEngine\\MyClient2D\\Bin\\Texture\\cursor.cur"
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // Icon
 //
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "icon1.ico"
+IDI_ICON1               ICON                    "C:\\Users\\Hyun\\Desktop\\DX11\\MyGameEngine\\MyClient2D\\Bin\\Texture\\HollowKnight\\MainTitle\\hollow_knight_0_6.ico"
 
-IDI_ICON2               ICON                    "C:\\Users\\Hyun\\Desktop\\DX11\\MyGameEngine\\MyClient2D\\Bin\\Texture\\HollowKnight\\MainTitle\\hollow_knight_0_6.ico"
-
-IDI_ICON3               ICON                    "C:\\Users\\Hyun\\Desktop\\DX11\\MyGameEngine\\MyClient2D\\Bin\\Texture\\HollowKnight\\MainTitle\\hollow_knight_0_8.ico"
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Cursor
-//
-
-IDC_CURSOR1             CURSOR                  "C:\\Users\\Hyun\\Desktop\\DX11\\MyGameEngine\\MyClient2D\\Bin\\Texture\\cursor.cur"
+IDI_ICON2               ICON                    "C:\\Users\\Hyun\\Desktop\\DX11\\MyGameEngine\\MyClient2D\\Bin\\Texture\\HollowKnight\\MainTitle\\hollow_knight_0_8.ico"
 
 #endif    // 한국어(대한민국) resources
 /////////////////////////////////////////////////////////////////////////////

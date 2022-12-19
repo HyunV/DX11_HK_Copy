@@ -113,6 +113,12 @@ private:
 	void CreateSpike();
 	void CreateFlameBall();
 
+	void CreateSmokeEffect();
+	void CreateTeleportEffect();
+	void CreateExplodeEffect(float sizex = 534.f, float sizey = 492.f, float time = 3.f);
+	void CreateDeathEffect();
+	
+
 public:
 	bool GetDeath()
 	{

@@ -2,10 +2,9 @@
 // Microsoft Visual C++에서 생성한 포함 파일입니다.
 // MyClient2D.rc에서 사용되고 있습니다.
 //
-#define IDI_ICON1                       101
 #define IDC_CURSOR1                     102
-#define IDI_ICON2                       103
-#define IDI_ICON3                       104
+#define IDI_ICON1                       103
+#define IDI_ICON2                       104
 
 // Next default values for new objects
 // 

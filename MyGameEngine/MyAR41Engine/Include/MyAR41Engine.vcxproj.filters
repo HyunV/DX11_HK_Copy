@@ -223,6 +223,9 @@
     <Filter Include="05. Component\02. ObjectComponent\02. GravityAgent">
       <UniqueIdentifier>{9324b003-305d-4780-b11f-e07ce89206da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="09. UI\02. Widget\01. Effect">
+      <UniqueIdentifier>{8e95fa11-8476-4101-951f-59d5eb73b8e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="EngineInfo.h">
@@ -642,9 +645,6 @@
     <ClInclude Include="Scene\NavigationManager.h">
       <Filter>03. Scene\06. Navigation</Filter>
     </ClInclude>
-    <ClInclude Include="UI\UIImageBlack.h">
-      <Filter>09. UI\02. Widget</Filter>
-    </ClInclude>
     <ClInclude Include="Component\GravityAgent.h">
       <Filter>05. Component\02. ObjectComponent\02. GravityAgent</Filter>
     </ClInclude>
@@ -656,6 +656,15 @@
     </ClInclude>
     <ClInclude Include="Resource\Shader\TileMapBackShader.h">
       <Filter>02. Resource\02. Shader\02. ShaderClass\04. TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\MainDot.h">
+      <Filter>09. UI\02. Widget\01. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\MainSmoke.h">
+      <Filter>09. UI\02. Widget\01. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\UIImageBlack.h">
+      <Filter>09. UI\02. Widget\01. Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1019,9 +1028,6 @@
     <ClCompile Include="Scene\NavigationManager.cpp">
       <Filter>03. Scene\06. Navigation</Filter>
     </ClCompile>
-    <ClCompile Include="UI\UIImageBlack.cpp">
-      <Filter>09. UI\02. Widget</Filter>
-    </ClCompile>
     <ClCompile Include="Component\GravityAgent.cpp">
       <Filter>05. Component\02. ObjectComponent\02. GravityAgent</Filter>
     </ClCompile>
@@ -1033,6 +1039,15 @@
     </ClCompile>
     <ClCompile Include="Resource\Shader\TileMapBackShader.cpp">
       <Filter>02. Resource\02. Shader\02. ShaderClass\04. TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\MainDot.cpp">
+      <Filter>09. UI\02. Widget\01. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\MainSmoke.cpp">
+      <Filter>09. UI\02. Widget\01. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIImageBlack.cpp">
+      <Filter>09. UI\02. Widget\01. Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

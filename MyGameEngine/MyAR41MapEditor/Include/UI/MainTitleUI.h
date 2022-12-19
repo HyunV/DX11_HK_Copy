@@ -12,7 +12,7 @@ protected:
     virtual ~CMainTitleUI();
 
 protected:
-    CSharedPtr<class CUIImage>  m_Back; //뒷배경
+    //CSharedPtr<class CUIImage>  m_Back; //뒷배경
     CSharedPtr<class CUIImage>  m_Logo; //로고
     CSharedPtr<class CUIImage>  m_Dev;  //개발사 로고
 

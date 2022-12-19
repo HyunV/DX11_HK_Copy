@@ -187,6 +187,7 @@
     <ClCompile Include="GameObject\BossEventObject.cpp" />
     <ClCompile Include="GameObject\Brum.cpp" />
     <ClCompile Include="GameObject\ClowdObject.cpp" />
+    <ClCompile Include="GameObject\Crawler.cpp" />
     <ClCompile Include="GameObject\Door.cpp" />
     <ClCompile Include="GameObject\Effect.cpp" />
     <ClCompile Include="GameObject\ElderBugNPC.cpp" />
@@ -196,6 +197,7 @@
     <ClCompile Include="GameObject\FlameParticle.cpp" />
     <ClCompile Include="GameObject\Gio.cpp" />
     <ClCompile Include="GameObject\GlobalWall.cpp" />
+    <ClCompile Include="GameObject\GrimmSmoke.cpp" />
     <ClCompile Include="GameObject\GrimmSpike.cpp" />
     <ClCompile Include="GameObject\Hornet.cpp" />
     <ClCompile Include="GameObject\MonGenerator.cpp" />
@@ -215,6 +217,8 @@
     <ClCompile Include="Setting\EngineShareSetting.cpp" />
     <ClCompile Include="UI\EndingUI.cpp" />
     <ClCompile Include="UI\LoadingUI.cpp" />
+    <ClCompile Include="UI\MainBackUI.cpp" />
+    <ClCompile Include="UI\MainParticleUI.cpp" />
     <ClCompile Include="UI\MainTitleUI.cpp" />
     <ClCompile Include="UI\MessageBoxUI.cpp" />
     <ClCompile Include="UI\MyLoadingUI.cpp" />
@@ -253,6 +257,7 @@
     <ClInclude Include="GameObject\BossEventObject.h" />
     <ClInclude Include="GameObject\Brum.h" />
     <ClInclude Include="GameObject\ClowdObject.h" />
+    <ClInclude Include="GameObject\Crawler.h" />
     <ClInclude Include="GameObject\Door.h" />
     <ClInclude Include="GameObject\Effect.h" />
     <ClInclude Include="GameObject\ElderBugNPC.h" />
@@ -262,6 +267,7 @@
     <ClInclude Include="GameObject\FlameParticle.h" />
     <ClInclude Include="GameObject\Gio.h" />
     <ClInclude Include="GameObject\GlobalWall.h" />
+    <ClInclude Include="GameObject\GrimmSmoke.h" />
     <ClInclude Include="GameObject\GrimmSpike.h" />
     <ClInclude Include="GameObject\Hornet.h" />
     <ClInclude Include="GameObject\MonGenerator.h" />
@@ -281,6 +287,8 @@
     <ClInclude Include="Setting\EngineShareSetting.h" />
     <ClInclude Include="UI\EndingUI.h" />
     <ClInclude Include="UI\LoadingUI.h" />
+    <ClInclude Include="UI\MainBackUI.h" />
+    <ClInclude Include="UI\MainParticleUI.h" />
     <ClInclude Include="UI\MainTitleUI.h" />
     <ClInclude Include="UI\MessageBoxUI.h" />
     <ClInclude Include="UI\MyLoadingUI.h" />
@@ -319,6 +327,7 @@
     <Image Include="..\Bin\Texture\HollowKnight\MainTitle\Cursor.png" />
     <Image Include="..\Bin\Texture\HollowKnight\MainTitle\hollow_knight_0_6.ico" />
     <Image Include="..\Bin\Texture\HollowKnight\MainTitle\hollow_knight_0_8.ico" />
+    <Image Include="..\bin\texture\hollowknight\maintitle\icon3.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Bin\Texture\cursor.cur" />

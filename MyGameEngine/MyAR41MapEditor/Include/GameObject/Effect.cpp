@@ -1,6 +1,7 @@
 #include "Effect.h"
 #include "Component/SpriteComponent.h"
 #include "Animation/Animation2D.h"
+#include "Resource\Material\Material.h"
 
 CEffect::CEffect()
 {
@@ -53,4 +54,9 @@ void CEffect::SetCurAnimation(std::string& AnimationName, float PlayScale)
 {
 	m_Sprite->GetAnimation()->SetCurrentAnimation(AnimationName);
 	m_Sprite->GetAnimation()->SetPlayScale(AnimationName, PlayScale);
+}
+
+CMaterial* CEffect::GetMaterials()
+{
+	return m_Sprite->GetMaterial(0);
 }

@@ -10,11 +10,14 @@
 #include "FirePillarBullet.h"
 #include "GrimmSpike.h"
 #include "FlameBall.h"
+#include "Effect.h"
+#include "GrimmSmoke.h"
 
 #include <time.h>
 #include "Player2D.h"
 #include "PlayerAttack.h"
 //#include "Resource/Material/Material.h"
+#define MAX_HP 120;
 
 CNightMareKingGrimm::CNightMareKingGrimm()  :
     m_CurState(EBossState::Idle),
@@ -167,6 +170,9 @@ void CNightMareKingGrimm::SetCurAnim(EBossState State)
         m_Anim->SetCurrentAnimation("Grimm002 TeleIn");
         CResourceManager::GetInst()->SoundPlay("BossTeleIn");
         CResourceManager::GetInst()->SoundPlay("BossCapeOpen");
+        CreateSmokeEffect();
+        CreateTeleportEffect();
+        
         
         Scale = Vector2(221.f, 311.f);      
         m_Body->SetBoxSize(161.f, 311.f);
@@ -180,6 +186,8 @@ void CNightMareKingGrimm::SetCurAnim(EBossState State)
         CResourceManager::GetInst()->SoundPlay("BossCapeOpen");
         CResourceManager::GetInst()->SoundPlay("BossTeleOut");
         m_Anim->SetCurrentAnimation("Grimm003 TeleOut");
+        CreateSmokeEffect();
+        CreateTeleportEffect();
        
         Scale = Vector2(221.f,311.f);
         m_Body->SetBoxSize(161.f, 311.f);
@@ -353,7 +361,9 @@ void CNightMareKingGrimm::SetCurAnim(EBossState State)
             else if (PlayerX < thisX)
                 SetDir("Left");
         }
-         
+        CreateExplodeEffect();
+        
+        
         Scale =Vector2(283.f, 304.f);
         
         m_Body->SetBoxSize(10.f, 10.f);
@@ -416,7 +426,7 @@ bool CNightMareKingGrimm::Init()
     
     m_Sprite->SetPivot(0.5f, 0.f);
 
-    m_HP = 5;
+    m_HP = MAX_HP;
 
     SetWorldPosition(860.f, 300.f);
     return true;
@@ -657,8 +667,12 @@ void CNightMareKingGrimm::Update(float DeltaTime)
             {
                 m_Sprite->SetEnable(false);
                 
-                if(!m_Death)
-                    CResourceManager::GetInst()->SoundPlay("BossDeath");                                             
+                if (!m_Death)
+                {
+                    CResourceManager::GetInst()->SoundPlay("BossDeath");
+                    CreateDeathEffect();
+                }
+                    
                 
                 m_Death = true;             
             }
@@ -737,7 +751,7 @@ void CNightMareKingGrimm::SetDir(std::string LeftRight)
 void CNightMareKingGrimm::SetNextPattern()
 {
     int num = rand() % 6;
-    //int num = 1;
+    //int num = 5;
 
     CPlayer2D* Player = (CPlayer2D*)(m_Scene->FindObject("Player2D"));
     int PosCheck = Player->CheckPos(); // pos가 1: 가운데보다 오른쪽
@@ -745,9 +759,9 @@ void CNightMareKingGrimm::SetNextPattern()
     Vector3 PlayerPos = Player->GetWorldPos();
 
     if (num == 5)
-        if (m_BalloonCool <= 20.f)
+        if (m_BalloonCool <= 30.f)
             while (num == 5)            
-                num = rand() % 6;                     
+                num = rand() % 6;               
             
     switch (num)
     {
@@ -927,6 +941,7 @@ void CNightMareKingGrimm::BalloonAnticEnd()
 {
     m_SkillUseTime = 0.f;
     m_CurState = EBossState::BallonOn;
+    CreateExplodeEffect(534.f, 492.f, 9.f);
 }
 
 void CNightMareKingGrimm::CreateFireBat(int count, float Dir)
@@ -1074,6 +1089,58 @@ void CNightMareKingGrimm::CreateFlameBall()
         int random = rand() % 2;
         vec[i]->SetHeight(vec[i]->GetHeight() + (random * 90));
     }    
+}
+
+void CNightMareKingGrimm::CreateSmokeEffect()
+{
+    CGrimmSmoke* smoke = m_Scene->CreateObject<CGrimmSmoke>("Smoke");
+    smoke->SetWorldPosition(m_Sprite->GetWorldPos());
+    smoke->AddWorldPositionY(170.f);
+}
+
+void CNightMareKingGrimm::CreateTeleportEffect()
+{
+    std::string s = "BossTeleportEffect";
+    
+    CEffect* Effect = m_Scene->CreateObject<CEffect>("TeleportEffect");
+    Effect->SetLifeTime(0.3f);
+    Effect->SetWorldPosition(m_Body->GetWorldPos());
+    Effect->AddWorldPositionY(200.f);
+    Effect->SetWorldScale(283.f, 866.f);
+
+    Effect->SetCurAnimation(s, 5.f);
+}
+
+void CNightMareKingGrimm::CreateExplodeEffect(float sizex, float sizey, float time)
+{
+    std::string s = "BossExplodeEffect";
+
+    CEffect* Effect = m_Scene->CreateObject<CEffect>("ExplodeEffect");
+    Effect->SetLifeTime(time);
+    Effect->SetWorldPosition(m_Body->GetWorldPos());
+    Effect->AddWorldPositionY(180.f);
+    Effect->SetWorldScale(sizex, sizey);
+
+    Effect->SetCurAnimation(s, 5.f);
+
+    CMaterial* Mat = Effect->GetMaterials();
+    Mat->SetBaseColorUnsignedChar(255, 100, 100, 255);
+}
+
+void CNightMareKingGrimm::CreateDeathEffect()
+{
+    std::string s = "BossDeathEffect";
+
+    CEffect* Effect = m_Scene->CreateObject<CEffect>("DeathEffect");
+    Effect->SetLifeTime(0.5f);
+    Effect->SetWorldPosition(m_Body->GetWorldPos());
+    Effect->AddWorldPositionY(180.f);
+    Effect->SetWorldScale(786.f, 718.f);
+
+    Effect->SetCurAnimation(s, 5.f);
+
+    CMaterial* Mat = Effect->GetMaterials();
+    Mat->SetBaseColorUnsignedChar(255, 100, 100, 255);
 }
 
 void CNightMareKingGrimm::CollisionBegin(const CollisionResult& Result)

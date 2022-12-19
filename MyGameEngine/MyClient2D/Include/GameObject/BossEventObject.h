@@ -29,6 +29,7 @@ private:
 
 	EEventState m_CurEvent;
 	float m_Time;
+	float m_FireTime;
 
 	bool m_CreateGrimm;
 	bool m_Ending;

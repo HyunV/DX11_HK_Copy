@@ -102,7 +102,7 @@ void CGio::CollisionCoin(const CollisionResult& result)
 			CResourceManager::GetInst()->SoundPlay("GetGio2");
 		
 		CPlayer2D* Player = (CPlayer2D*)(result.Dest->GetOwner());
-		Player->AddGio((rand()+100)%1000);
+		Player->AddGio((rand()%10)+1);
 		//Player->AddGio(1);
 		Destroy();
 	}

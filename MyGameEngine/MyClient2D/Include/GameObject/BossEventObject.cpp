@@ -122,6 +122,7 @@ void CBossEventObject::Update(float DeltaTime)
 	{
 		m_Time += DeltaTime;
 
+		//°¥¶óÁü
 		if (m_Time >= 1.f && m_CurEvent == EEventState::Event1)
 		{
 			m_Sprite->SetTexture("GrimmHeart2", TEXT("HollowKnight/Boss/Event/core2.png"));
@@ -131,7 +132,7 @@ void CBossEventObject::Update(float DeltaTime)
 			m_CurEvent = EEventState::Event2;
 		}
 
-
+		//´õ °¥¶óÁü
 		if (m_Time >= 2.f && m_CurEvent == EEventState::Event2)
 		{
 			m_Sprite->SetEnable(false);
@@ -145,7 +146,13 @@ void CBossEventObject::Update(float DeltaTime)
 
 		if (m_Time >= 2.f && m_Time < 4.f && m_CurEvent == EEventState::Event3)
 		{
-			CreateFireEffect(0.f);
+			m_FireTime += DeltaTime;
+			if (m_FireTime >= 0.01f)
+			{
+				CreateFireEffect(0.f);
+				m_FireTime = 0.f;
+			}
+				
 
 			if (m_Time >= 3.f && m_Time < 4.f)
 				m_GrimmSprite->GetMaterial(0)->AddOpacity(DeltaTime);

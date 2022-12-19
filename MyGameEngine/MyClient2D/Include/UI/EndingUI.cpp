@@ -136,7 +136,7 @@ void CEndingUI::MainButtonClick()
     char Name[256] = {};
     const PathInfo* Path = CPathManager::GetInst()->FindPath(SCENE_PATH);
     strcat_s(Name, Path->PathMultibyte);
-    strcat_s(Name, "HollowScene6");
+    strcat_s(Name, "HollowMain");
     strcat_s(Name, ".scn");
 
     CScene* NextScene = CSceneManager::GetInst()->GetNextScene();

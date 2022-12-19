@@ -152,6 +152,8 @@
     <ClInclude Include="Thread\ThreadManager.h" />
     <ClInclude Include="Thread\ThreadQueue.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="UI\MainDot.h" />
+    <ClInclude Include="UI\MainSmoke.h" />
     <ClInclude Include="UI\UIButton.h" />
     <ClInclude Include="UI\UIImage.h" />
     <ClInclude Include="UI\UIImageBlack.h" />
@@ -279,6 +281,8 @@
     <ClCompile Include="Thread\ThreadManager.cpp" />
     <ClCompile Include="Thread\ThreadQueue.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="UI\MainDot.cpp" />
+    <ClCompile Include="UI\MainSmoke.cpp" />
     <ClCompile Include="UI\UIButton.cpp" />
     <ClCompile Include="UI\UIImage.cpp" />
     <ClCompile Include="UI\UIImageBlack.cpp" />

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject\GameObject.h"
+#include "Resource\Material\Material.h"
 class CEffect :
     //이펙트 출력용 오브젝트
     public CGameObject
@@ -21,5 +22,7 @@ public:
 
 public:
     void SetCurAnimation(std::string& AnimationName, float PlayScale = 1.f);
+    
+    CMaterial* GetMaterials();
 };
 

@@ -100,6 +100,8 @@ IDI_ICON1               ICON                    "C:\\Users\\Hyun\\Desktop\\DX11\
 
 IDI_ICON2               ICON                    "C:\\Users\\Hyun\\Desktop\\DX11\\MyGameEngine\\MyAR41MapEditor\\Bin\\Texture\\HollowKnight\\MainTitle\\hollow_knight_0_8.ico"
 
+IDI_ICON3               ICON                    "c:\\users\\hyun\\desktop\\dx11\\mygameengine\\myar41mapeditor\\bin\\texture\\hollowknight\\maintitle\\icon3.ico"
+
 #endif    // 한국어(대한민국) resources
 /////////////////////////////////////////////////////////////////////////////
 

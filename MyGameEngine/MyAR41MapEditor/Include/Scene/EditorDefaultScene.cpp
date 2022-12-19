@@ -8,6 +8,8 @@
 #include "../UI/ShopUI.h"
 #include "../UI/NightMareKingUI.h"
 #include "../UI/EndingUI.h"
+#include "../UI/MainParticleUI.h"
+#include "../UI/MainBackUI.h"
 
 #include "../GameObject/Monster.h"
 #include "../GameObject/Player2D.h"
@@ -30,12 +32,15 @@ CEditorDefaultScene::~CEditorDefaultScene()
 bool CEditorDefaultScene::Init()
 {
     //m_Owner->GetViewport()->CreateUIWindow<CStartSceneUI>("StartSceneUI");
-    m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
     //m_Owner->GetViewport()->CreateUIWindow<CPlayerHUD>("PlayerHUD");
+    //m_Owner->GetViewport()->CreateUIWindow<CMainTitleUI>("MainTitleUI");
+    //m_Owner->GetViewport()->CreateUIWindow<CMainParticleUI>("MainParticleUI");
+        
     //m_Owner->GetViewport()->CreateUIWindow<CMessageBoxUI>("MessageBoxUI");
     //m_Owner->GetViewport()->CreateUIWindow<CShopUI>("ShopUI");
     //m_Owner->GetViewport()->CreateUIWindow<CNightMareKingUI>("Night");
     //m_Owner->GetViewport()->CreateUIWindow<CEndingUI>("EndingUI");
+    m_Owner->GetViewport()->CreateUIWindow<CMainBackUI>("MainBackUI");
 
     //씬 파일로드용===================================
     

@@ -149,9 +149,9 @@ void CStartSceneUI::Update(float DeltaTime)
     float FPS = CEngine::GetInst()->GetFPS();
 
     m_Number->SetNumber((unsigned int)FPS);
-    Vector3 v = m_Scene->FindObject("NightMareKingGrimm")->GetWorldPos();
-    m_MousePosX->SetNumber((unsigned int)v.x);
-    m_MousePosY->SetNumber((unsigned int)v.y);
+    //Vector3 v = m_Scene->FindObject("NightMareKingGrimm")->GetWorldPos();
+    //m_MousePosX->SetNumber((unsigned int)v.x);
+    //m_MousePosY->SetNumber((unsigned int)v.y);
      
     
     //Vector2 v1 = CInput::GetInst()->GetMousePos();
