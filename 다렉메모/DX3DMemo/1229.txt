@@ -1,0 +1,22 @@
+조명 인스턴싱 처리
+
+라이트 매니저는 인스턴싱 버퍼를 들고 있어야한다.
+
+
+라이트 누적 쉐이더 제작
+■ lightaccshader
+*Null buffer를 쓸때는 입력 레이아웃을 사용하지 않는다.
+*Null buffer는 위상구조가 triangle strip형태로 쓴다.
+(init에 없는거 확인)
+
+월드행렬 Inv(역행렬) = 월드행렬 -> 로컬 
+뷰행렬 Inv = 뷰행렬 -> 월드행렬
+
+distance() 두 벡터 사이의 거리를 구해주는 내장함수
+
+light.fx에 조명 강도 추가
+lightIntensity
+
+
+
+distance 1000 -> 10m

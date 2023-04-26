@@ -1,0 +1,50 @@
+vectex vec
+
+무조건 들어가는 값
+Pos
+Normal
+UV
+Bump(선택, 사실상 필수)
+
+
+EmmisiveColor.w (알파값에)
+specular Enable 여
+부 판단
+차피 저건 안쓰나봄
+
+2교시
+convertFBX
+LoadMeshFile
+
+Client3D 생성
+
+##########################################
+client -> 우클릭 -> 추가 -> 새 프로젝트
+Windows 데스크톱 마법사 -> Client3D 이름
+데스크톱 애플리케이션 빈 프로젝트
+
+Bin
+BinObj
+Include
+직접 폴더 생성
+
+- 우클릭 추가 기존폴더 ~~ include 에 있는
+	proj 파일 읽어오게
+
+- 아이콘 하나 추가 -> 리소스, 생성, 아이콘
+
+- VC++ 디렉터리 포함 디렉터리에 경로 추가
+라이브러리 디렉터리에 경로 추가
+
+- COPY.bat 세팅
+
+-빌드 -> 프로젝트 종속성  세팅
+엔진->에디터-> 클라순 체크
+
+-명령줄 -> /bigobj 추가
+Unity빌드 항목 비교 확인
+
+
+//내일
+스프라이트를 대체할 메시 컴포넌트를 제작
+
